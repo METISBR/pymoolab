@@ -1,0 +1,202 @@
+[
+  {
+    "algorithm": "MSOPSII",
+    "status": "ok",
+    "F_shape": [
+      81,
+      5
+    ],
+    "DeltaP": 0.26443408928203194,
+    "HV": 0.5389661212323675
+  },
+  {
+    "algorithm": "MTCMO",
+    "status": "ok",
+    "F_shape": [
+      81,
+      5
+    ],
+    "DeltaP": 0.26443408928203194,
+    "HV": 0.5389661212323675
+  },
+  {
+    "algorithm": "MTDEMKTA",
+    "status": "ok",
+    "F_shape": [
+      100,
+      5
+    ],
+    "DeltaP": 0.6783607248056337,
+    "HV": 0.15023237057314245
+  },
+  {
+    "algorithm": "MTEADDN",
+    "status": "ok",
+    "F_shape": [
+      81,
+      5
+    ],
+    "DeltaP": 0.26443408928203194,
+    "HV": 0.5389661212323675
+  },
+  {
+    "algorithm": "MTS",
+    "status": "ok",
+    "F_shape": [
+      100,
+      5
+    ],
+    "DeltaP": 0.6783607248056337,
+    "HV": 0.15023237057314245
+  },
+  {
+    "algorithm": "MultiObjectiveEGO",
+    "status": "ok",
+    "F_shape": [
+      81,
+      5
+    ],
+    "DeltaP": 0.26443408928203194,
+    "HV": 0.5389661212323675
+  },
+  {
+    "algorithm": "MyODEMR",
+    "status": "ok",
+    "F_shape": [
+      73,
+      5
+    ],
+    "DeltaP": 0.48634559183501314,
+    "HV": 0.306077
+  },
+  {
+    "algorithm": "NBLEA",
+    "status": "ok",
+    "F_shape": [
+      100,
+      5
+    ],
+    "DeltaP": 0.6783607248056337,
+    "HV": 0.15023237057314245
+  },
+  {
+    "algorithm": "NMPSO",
+    "status": "ok",
+    "F_shape": [
+      100,
+      5
+    ],
+    "DeltaP": 0.6783607248056337,
+    "HV": 0.15023237057314245
+  },
+  {
+    "algorithm": "NNDREAMO",
+    "status": "ok",
+    "F_shape": [
+      81,
+      5
+    ],
+    "DeltaP": 0.26443408928203194,
+    "HV": 0.5389661212323675
+  },
+  {
+    "algorithm": "NNIA",
+    "status": "ok",
+    "F_shape": [
+      100,
+      5
+    ],
+    "DeltaP": 0.6783607248056337,
+    "HV": 0.15023237057314245
+  },
+  {
+    "algorithm": "NRVMOEA",
+    "status": "ok",
+    "F_shape": [
+      100,
+      5
+    ],
+    "DeltaP": 0.6783607248056337,
+    "HV": 0.15023237057314245
+  },
+  {
+    "algorithm": "NSBiDiCo",
+    "status": "ok",
+    "F_shape": [
+      100,
+      5
+    ],
+    "DeltaP": 1.1935488003500871,
+    "HV": 0.06544951427111671
+  },
+  {
+    "algorithm": "NSGAIIARSBX",
+    "status": "ok",
+    "F_shape": [
+      100,
+      5
+    ],
+    "DeltaP": 0.6783607248056337,
+    "HV": 0.15023237057314245
+  },
+  {
+    "algorithm": "NSGAIIconflict",
+    "status": "ok",
+    "F_shape": [
+      100,
+      5
+    ],
+    "DeltaP": 0.6783607248056337,
+    "HV": 0.15023237057314245
+  },
+  {
+    "algorithm": "NSGAIIDTI",
+    "status": "ok",
+    "F_shape": [
+      100,
+      5
+    ],
+    "DeltaP": 0.6783607248056337,
+    "HV": 0.15023237057314245
+  },
+  {
+    "algorithm": "NSGAIISDR",
+    "status": "ok",
+    "F_shape": [
+      100,
+      5
+    ],
+    "DeltaP": 0.6783607248056337,
+    "HV": 0.15023237057314245
+  },
+  {
+    "algorithm": "NSGAIIIEHVI",
+    "status": "ok",
+    "F_shape": [
+      73,
+      5
+    ],
+    "DeltaP": 0.48634559183501314,
+    "HV": 0.306077
+  },
+  {
+    "algorithm": "NSLS",
+    "status": "ok",
+    "F_shape": [
+      100,
+      5
+    ],
+    "DeltaP": 0.6783607248056337,
+    "HV": 0.15023237057314245
+  },
+  {
+    "algorithm": "NUCEA",
+    "status": "ok",
+    "F_shape": [
+      100,
+      5
+    ],
+    "DeltaP": 0.6783607248056337,
+    "HV": 0.15023237057314245
+  }
+]

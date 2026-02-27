@@ -1,0 +1,92 @@
+{
+  "problem_id": "local::problems.multi.zdt.ZDT1",
+  "problem_ids": [
+    "local::problems.multi.zdt.ZDT1",
+    "local::problems.multi.zdt.ZDT2",
+    "local::problems.multi.zdt.ZDT3"
+  ],
+  "problem_entries": [
+    {
+      "instance_id": "local::problems.multi.zdt.ZDT1",
+      "problem_id": "local::problems.multi.zdt.ZDT1",
+      "label": "ZDT1 [local]",
+      "pop_size": 100,
+      "n_obj": 2,
+      "n_var": 30
+    },
+    {
+      "instance_id": "local::problems.multi.zdt.ZDT2",
+      "problem_id": "local::problems.multi.zdt.ZDT2",
+      "label": "ZDT2 [local]",
+      "pop_size": 100,
+      "n_obj": 2,
+      "n_var": 30
+    },
+    {
+      "instance_id": "local::problems.multi.zdt.ZDT3",
+      "problem_id": "local::problems.multi.zdt.ZDT3",
+      "label": "ZDT3 [local]",
+      "pop_size": 100,
+      "n_obj": 2,
+      "n_var": 30
+    }
+  ],
+  "n_var": 30,
+  "n_obj": 2,
+  "pop_size": 100,
+  "max_fe": 15000,
+  "maxFE": 15000,
+  "n_runs": 10,
+  "seed_mode": "random",
+  "seed_base": 1,
+  "seed_step": 1,
+  "algorithm_ids": [
+    "pymoo::pymoo.algorithms.moo.nsga2.NSGA2",
+    "pymoo::pymoo.algorithms.moo.nsga3.NSGA3"
+  ],
+  "metric_ids": [
+    "local::metrics.community_metrics.DeltaP"
+  ],
+  "ref_point": null,
+  "use_pf": true,
+  "compute_backend": "cpu",
+  "gpu_dtype": "float32",
+  "joblib_backend": "loky",
+  "joblib_n_jobs": -1,
+  "profile_compare": false,
+  "stat_test_method": "none",
+  "stat_test_reference": "SSW_RDPA [local]",
+  "stat_test_alpha": 0.05,
+  "crossover": "default",
+  "mutation": "default",
+  "selection": "default",
+  "sampling": "default",
+  "crossover_eta": 15.0,
+  "crossover_prob": 0.9,
+  "mutation_eta": 20.0,
+  "mutation_prob": null,
+  "selection_pressure": 2,
+  "parallel_workers": 2,
+  "__exp_raw_first_metrics__": true,
+  "__emit_partial_results__": false,
+  "experiment_results_path": "D:\\PyPro\\PymooLab\\experiment_module_results\\latest_results.json",
+  "problem_overrides": {
+    "local::problems.multi.zdt.ZDT1": {
+      "pop_size": 100,
+      "n_obj": 2,
+      "n_var": 30
+    },
+    "local::problems.multi.zdt.ZDT2": {
+      "pop_size": 100,
+      "n_obj": 2,
+      "n_var": 30
+    },
+    "local::problems.multi.zdt.ZDT3": {
+      "pop_size": 100,
+      "n_obj": 2,
+      "n_var": 30
+    }
+  },
+  "problem_variants": {},
+  "algorithm_operator_overrides": {}
+}

@@ -1,0 +1,202 @@
+[
+  {
+    "algorithm": "ACMMEA",
+    "status": "ok",
+    "F_shape": [
+      100,
+      5
+    ],
+    "DeltaP": 0.6783607248056337,
+    "HV": 0.15023237057314245
+  },
+  {
+    "algorithm": "ADSAPSO",
+    "status": "ok",
+    "F_shape": [
+      100,
+      5
+    ],
+    "DeltaP": 0.6783607248056337,
+    "HV": 0.15023237057314245
+  },
+  {
+    "algorithm": "AGSEA",
+    "status": "ok",
+    "F_shape": [
+      100,
+      5
+    ],
+    "DeltaP": 0.6783607248056337,
+    "HV": 0.15023237057314245
+  },
+  {
+    "algorithm": "AMGPSL",
+    "status": "ok",
+    "F_shape": [
+      100,
+      5
+    ],
+    "DeltaP": 0.6783607248056337,
+    "HV": 0.15023237057314245
+  },
+  {
+    "algorithm": "AVGSAEA",
+    "status": "ok",
+    "F_shape": [
+      100,
+      5
+    ],
+    "DeltaP": 0.6783607248056337,
+    "HV": 0.15023237057314245
+  },
+  {
+    "algorithm": "CTSEA",
+    "status": "ok",
+    "F_shape": [
+      100,
+      5
+    ],
+    "DeltaP": 0.6783607248056337,
+    "HV": 0.15023237057314245
+  },
+  {
+    "algorithm": "CCMO",
+    "status": "ok",
+    "F_shape": [
+      81,
+      5
+    ],
+    "DeltaP": 0.26443408928203194,
+    "HV": 0.5389661212323675
+  },
+  {
+    "algorithm": "CGLP",
+    "status": "ok",
+    "F_shape": [
+      100,
+      5
+    ],
+    "DeltaP": 0.6783607248056337,
+    "HV": 0.15023237057314245
+  },
+  {
+    "algorithm": "CLIA",
+    "status": "ok",
+    "F_shape": [
+      73,
+      5
+    ],
+    "DeltaP": 0.48634559183501314,
+    "HV": 0.306077
+  },
+  {
+    "algorithm": "CMaDPPs",
+    "status": "ok",
+    "F_shape": [
+      100,
+      5
+    ],
+    "DeltaP": 0.6783607248056337,
+    "HV": 0.15023237057314245
+  },
+  {
+    "algorithm": "CMDEIPCM",
+    "status": "ok",
+    "F_shape": [
+      100,
+      5
+    ],
+    "DeltaP": 1.1935488003500871,
+    "HV": 0.06544951427111671
+  },
+  {
+    "algorithm": "CMEGL",
+    "status": "ok",
+    "F_shape": [
+      100,
+      5
+    ],
+    "DeltaP": 0.6783607248056337,
+    "HV": 0.15023237057314245
+  },
+  {
+    "algorithm": "CMME",
+    "status": "ok",
+    "F_shape": [
+      100,
+      5
+    ],
+    "DeltaP": 0.6783607248056337,
+    "HV": 0.15023237057314245
+  },
+  {
+    "algorithm": "CMMO",
+    "status": "ok",
+    "F_shape": [
+      81,
+      5
+    ],
+    "DeltaP": 0.26443408928203194,
+    "HV": 0.5389661212323675
+  },
+  {
+    "algorithm": "CMOBR",
+    "status": "ok",
+    "F_shape": [
+      73,
+      5
+    ],
+    "DeltaP": 0.48634559183501314,
+    "HV": 0.306077
+  },
+  {
+    "algorithm": "CMOCSO",
+    "status": "ok",
+    "F_shape": [
+      100,
+      5
+    ],
+    "DeltaP": 0.6783607248056337,
+    "HV": 0.15023237057314245
+  },
+  {
+    "algorithm": "CMODRL",
+    "status": "ok",
+    "F_shape": [
+      81,
+      5
+    ],
+    "DeltaP": 0.26443408928203194,
+    "HV": 0.5389661212323675
+  },
+  {
+    "algorithm": "CMOEAMS",
+    "status": "ok",
+    "F_shape": [
+      81,
+      5
+    ],
+    "DeltaP": 0.26443408928203194,
+    "HV": 0.5389661212323675
+  },
+  {
+    "algorithm": "CMOEAMSG",
+    "status": "ok",
+    "F_shape": [
+      81,
+      5
+    ],
+    "DeltaP": 0.26443408928203194,
+    "HV": 0.5389661212323675
+  },
+  {
+    "algorithm": "CMOEBOD",
+    "status": "ok",
+    "F_shape": [
+      73,
+      5
+    ],
+    "DeltaP": 0.48634559183501314,
+    "HV": 0.306077
+  }
+]

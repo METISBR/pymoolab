@@ -1,0 +1,3010 @@
+[
+  {
+    "label": "C1_DTLZ1 [local]",
+    "module": "problems.many.dtlz",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0062,
+    "pf_none": false
+  },
+  {
+    "label": "C1_DTLZ1_JAX [local]",
+    "module": "problems.many.dtlz",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.006,
+    "pf_none": false
+  },
+  {
+    "label": "C1_DTLZ3 [local]",
+    "module": "problems.many.dtlz",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.006,
+    "pf_none": false
+  },
+  {
+    "label": "C1_DTLZ3_JAX [local]",
+    "module": "problems.many.dtlz",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0054,
+    "pf_none": false
+  },
+  {
+    "label": "C2_DTLZ2 [local]",
+    "module": "problems.many.dtlz",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0056,
+    "pf_none": false
+  },
+  {
+    "label": "C2_DTLZ2_JAX [local]",
+    "module": "problems.many.dtlz",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.006,
+    "pf_none": false
+  },
+  {
+    "label": "C3_DTLZ4 [local]",
+    "module": "problems.many.dtlz",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.006,
+    "pf_none": false
+  },
+  {
+    "label": "C3_DTLZ4_JAX [local]",
+    "module": "problems.many.dtlz",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0058,
+    "pf_none": false
+  },
+  {
+    "label": "CDTLZ2 [local]",
+    "module": "problems.many.dtlz",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0066,
+    "pf_none": false
+  },
+  {
+    "label": "CDTLZ2_JAX [local]",
+    "module": "problems.many.dtlz",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0066,
+    "pf_none": false
+  },
+  {
+    "label": "DC1_DTLZ1 [local]",
+    "module": "problems.many.dtlz",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.006,
+    "pf_none": false
+  },
+  {
+    "label": "DC1_DTLZ1_JAX [local]",
+    "module": "problems.many.dtlz",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0057,
+    "pf_none": false
+  },
+  {
+    "label": "DC1_DTLZ3 [local]",
+    "module": "problems.many.dtlz",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0058,
+    "pf_none": false
+  },
+  {
+    "label": "DC1_DTLZ3_JAX [local]",
+    "module": "problems.many.dtlz",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.006,
+    "pf_none": false
+  },
+  {
+    "label": "DC2_DTLZ1 [local]",
+    "module": "problems.many.dtlz",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0056,
+    "pf_none": false
+  },
+  {
+    "label": "DC2_DTLZ1_JAX [local]",
+    "module": "problems.many.dtlz",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.006,
+    "pf_none": false
+  },
+  {
+    "label": "DC2_DTLZ3 [local]",
+    "module": "problems.many.dtlz",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.006,
+    "pf_none": false
+  },
+  {
+    "label": "DC2_DTLZ3_JAX [local]",
+    "module": "problems.many.dtlz",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0062,
+    "pf_none": false
+  },
+  {
+    "label": "DC3_DTLZ1 [local]",
+    "module": "problems.many.dtlz",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0051,
+    "pf_none": false
+  },
+  {
+    "label": "DC3_DTLZ1_JAX [local]",
+    "module": "problems.many.dtlz",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0055,
+    "pf_none": false
+  },
+  {
+    "label": "DC3_DTLZ3 [local]",
+    "module": "problems.many.dtlz",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0057,
+    "pf_none": false
+  },
+  {
+    "label": "DC3_DTLZ3_JAX [local]",
+    "module": "problems.many.dtlz",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0062,
+    "pf_none": false
+  },
+  {
+    "label": "DTLZ1 [local]",
+    "module": "problems.many.dtlz",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0011,
+    "pf_none": false
+  },
+  {
+    "label": "DTLZ1_JAX [local]",
+    "module": "problems.many.dtlz",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "DTLZ2 [local]",
+    "module": "problems.many.dtlz",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "DTLZ2_JAX [local]",
+    "module": "problems.many.dtlz",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "DTLZ3 [local]",
+    "module": "problems.many.dtlz",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0006,
+    "pf_none": false
+  },
+  {
+    "label": "DTLZ3_JAX [local]",
+    "module": "problems.many.dtlz",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "DTLZ4 [local]",
+    "module": "problems.many.dtlz",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "DTLZ4_JAX [local]",
+    "module": "problems.many.dtlz",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "DTLZ5 [local]",
+    "module": "problems.many.dtlz",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "DTLZ5_JAX [local]",
+    "module": "problems.many.dtlz",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "DTLZ6 [local]",
+    "module": "problems.many.dtlz",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "DTLZ6_JAX [local]",
+    "module": "problems.many.dtlz",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "DTLZ7 [local]",
+    "module": "problems.many.dtlz",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "DTLZ7_JAX [local]",
+    "module": "problems.many.dtlz",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "DTLZ8 [local]",
+    "module": "problems.many.dtlz",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": true
+  },
+  {
+    "label": "DTLZ8_JAX [local]",
+    "module": "problems.many.dtlz",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": true
+  },
+  {
+    "label": "DTLZ9 [local]",
+    "module": "problems.many.dtlz",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": true
+  },
+  {
+    "label": "DTLZ9_JAX [local]",
+    "module": "problems.many.dtlz",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": true
+  },
+  {
+    "label": "IDTLZ1 [local]",
+    "module": "problems.many.dtlz",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0063,
+    "pf_none": false
+  },
+  {
+    "label": "IDTLZ1_JAX [local]",
+    "module": "problems.many.dtlz",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0063,
+    "pf_none": false
+  },
+  {
+    "label": "IDTLZ2 [local]",
+    "module": "problems.many.dtlz",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0065,
+    "pf_none": false
+  },
+  {
+    "label": "IDTLZ2_JAX [local]",
+    "module": "problems.many.dtlz",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0064,
+    "pf_none": false
+  },
+  {
+    "label": "SDTLZ1 [local]",
+    "module": "problems.many.dtlz",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0065,
+    "pf_none": false
+  },
+  {
+    "label": "SDTLZ1_JAX [local]",
+    "module": "problems.many.dtlz",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0058,
+    "pf_none": false
+  },
+  {
+    "label": "SDTLZ2 [local]",
+    "module": "problems.many.dtlz",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0056,
+    "pf_none": false
+  },
+  {
+    "label": "SDTLZ2_JAX [local]",
+    "module": "problems.many.dtlz",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0065,
+    "pf_none": false
+  },
+  {
+    "label": "GLSMOP1 [local]",
+    "module": "problems.many.glsmop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "GLSMOP1_JAX [local]",
+    "module": "problems.many.glsmop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "GLSMOP2 [local]",
+    "module": "problems.many.glsmop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "GLSMOP2_JAX [local]",
+    "module": "problems.many.glsmop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "GLSMOP3 [local]",
+    "module": "problems.many.glsmop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "GLSMOP3_JAX [local]",
+    "module": "problems.many.glsmop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "GLSMOP4 [local]",
+    "module": "problems.many.glsmop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "GLSMOP4_JAX [local]",
+    "module": "problems.many.glsmop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "GLSMOP5 [local]",
+    "module": "problems.many.glsmop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "GLSMOP5_JAX [local]",
+    "module": "problems.many.glsmop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "GLSMOP6 [local]",
+    "module": "problems.many.glsmop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "GLSMOP6_JAX [local]",
+    "module": "problems.many.glsmop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "GLSMOP7 [local]",
+    "module": "problems.many.glsmop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "GLSMOP7_JAX [local]",
+    "module": "problems.many.glsmop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "GLSMOP8 [local]",
+    "module": "problems.many.glsmop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "GLSMOP8_JAX [local]",
+    "module": "problems.many.glsmop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "GLSMOP9 [local]",
+    "module": "problems.many.glsmop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0035,
+    "pf_none": false
+  },
+  {
+    "label": "GLSMOP9_JAX [local]",
+    "module": "problems.many.glsmop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0033,
+    "pf_none": false
+  },
+  {
+    "label": "LSMOP1 [local]",
+    "module": "problems.many.lsmop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "LSMOP1_JAX [local]",
+    "module": "problems.many.lsmop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "LSMOP2 [local]",
+    "module": "problems.many.lsmop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "LSMOP2_JAX [local]",
+    "module": "problems.many.lsmop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "LSMOP3 [local]",
+    "module": "problems.many.lsmop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "LSMOP3_JAX [local]",
+    "module": "problems.many.lsmop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "LSMOP4 [local]",
+    "module": "problems.many.lsmop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "LSMOP4_JAX [local]",
+    "module": "problems.many.lsmop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "LSMOP5 [local]",
+    "module": "problems.many.lsmop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "LSMOP5_JAX [local]",
+    "module": "problems.many.lsmop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0006,
+    "pf_none": false
+  },
+  {
+    "label": "LSMOP6 [local]",
+    "module": "problems.many.lsmop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "LSMOP6_JAX [local]",
+    "module": "problems.many.lsmop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0011,
+    "pf_none": false
+  },
+  {
+    "label": "LSMOP7 [local]",
+    "module": "problems.many.lsmop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "LSMOP7_JAX [local]",
+    "module": "problems.many.lsmop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "LSMOP8 [local]",
+    "module": "problems.many.lsmop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "LSMOP8_JAX [local]",
+    "module": "problems.many.lsmop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "LSMOP9 [local]",
+    "module": "problems.many.lsmop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0036,
+    "pf_none": false
+  },
+  {
+    "label": "LSMOP9_JAX [local]",
+    "module": "problems.many.lsmop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0037,
+    "pf_none": false
+  },
+  {
+    "label": "MaF1 [local]",
+    "module": "problems.many.maf",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "MaF10 [local]",
+    "module": "problems.many.maf",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": true
+  },
+  {
+    "label": "MaF10_JAX [local]",
+    "module": "problems.many.maf",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": true
+  },
+  {
+    "label": "MaF11 [local]",
+    "module": "problems.many.maf",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": true
+  },
+  {
+    "label": "MaF11_JAX [local]",
+    "module": "problems.many.maf",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": true
+  },
+  {
+    "label": "MaF12 [local]",
+    "module": "problems.many.maf",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": true
+  },
+  {
+    "label": "MaF12_JAX [local]",
+    "module": "problems.many.maf",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": true
+  },
+  {
+    "label": "MaF13 [local]",
+    "module": "problems.many.maf",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "MaF13_JAX [local]",
+    "module": "problems.many.maf",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "MaF14 [local]",
+    "module": "problems.many.maf",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "MaF14_JAX [local]",
+    "module": "problems.many.maf",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "MaF15 [local]",
+    "module": "problems.many.maf",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "MaF15_JAX [local]",
+    "module": "problems.many.maf",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "MaF1_JAX [local]",
+    "module": "problems.many.maf",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "MaF2 [local]",
+    "module": "problems.many.maf",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0048,
+    "pf_none": false
+  },
+  {
+    "label": "MaF2_JAX [local]",
+    "module": "problems.many.maf",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0059,
+    "pf_none": false
+  },
+  {
+    "label": "MaF3 [local]",
+    "module": "problems.many.maf",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "MaF3_JAX [local]",
+    "module": "problems.many.maf",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "MaF4 [local]",
+    "module": "problems.many.maf",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "MaF4_JAX [local]",
+    "module": "problems.many.maf",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "MaF5 [local]",
+    "module": "problems.many.maf",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "MaF5_JAX [local]",
+    "module": "problems.many.maf",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "MaF6 [local]",
+    "module": "problems.many.maf",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": true
+  },
+  {
+    "label": "MaF6_JAX [local]",
+    "module": "problems.many.maf",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0006,
+    "pf_none": true
+  },
+  {
+    "label": "MaF7 [local]",
+    "module": "problems.many.maf",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "MaF7_JAX [local]",
+    "module": "problems.many.maf",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0006,
+    "pf_none": false
+  },
+  {
+    "label": "MaF8 [local]",
+    "module": "problems.many.maf",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "MaF8_JAX [local]",
+    "module": "problems.many.maf",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "MaF9 [local]",
+    "module": "problems.many.maf",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "MaF9_JAX [local]",
+    "module": "problems.many.maf",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "MaOPP_binary [local]",
+    "module": "problems.many.maopp",
+    "status": "ok",
+    "m": 5,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "MaOPP_binary_JAX [local]",
+    "module": "problems.many.maopp",
+    "status": "ok",
+    "m": 5,
+    "pf_s": 0.0006,
+    "pf_none": false
+  },
+  {
+    "label": "MaOPP_real [local]",
+    "module": "problems.many.maopp",
+    "status": "ok",
+    "m": 5,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "MaOPP_real_JAX [local]",
+    "module": "problems.many.maopp",
+    "status": "ok",
+    "m": 5,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "WFG1 [local]",
+    "module": "problems.many.wfg",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0884,
+    "pf_none": false
+  },
+  {
+    "label": "WFG1_JAX [local]",
+    "module": "problems.many.wfg",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0836,
+    "pf_none": false
+  },
+  {
+    "label": "WFG2 [local]",
+    "module": "problems.many.wfg",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0834,
+    "pf_none": false
+  },
+  {
+    "label": "WFG2_JAX [local]",
+    "module": "problems.many.wfg",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0834,
+    "pf_none": false
+  },
+  {
+    "label": "WFG3 [local]",
+    "module": "problems.many.wfg",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0801,
+    "pf_none": false
+  },
+  {
+    "label": "WFG3_JAX [local]",
+    "module": "problems.many.wfg",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0801,
+    "pf_none": false
+  },
+  {
+    "label": "WFG4 [local]",
+    "module": "problems.many.wfg",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0767,
+    "pf_none": false
+  },
+  {
+    "label": "WFG4_JAX [local]",
+    "module": "problems.many.wfg",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.074,
+    "pf_none": false
+  },
+  {
+    "label": "WFG5 [local]",
+    "module": "problems.many.wfg",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0897,
+    "pf_none": false
+  },
+  {
+    "label": "WFG5_JAX [local]",
+    "module": "problems.many.wfg",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0901,
+    "pf_none": false
+  },
+  {
+    "label": "WFG6 [local]",
+    "module": "problems.many.wfg",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0795,
+    "pf_none": false
+  },
+  {
+    "label": "WFG6_JAX [local]",
+    "module": "problems.many.wfg",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0788,
+    "pf_none": false
+  },
+  {
+    "label": "WFG7 [local]",
+    "module": "problems.many.wfg",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0811,
+    "pf_none": false
+  },
+  {
+    "label": "WFG7_JAX [local]",
+    "module": "problems.many.wfg",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.08,
+    "pf_none": false
+  },
+  {
+    "label": "WFG8 [local]",
+    "module": "problems.many.wfg",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.091,
+    "pf_none": false
+  },
+  {
+    "label": "WFG8_JAX [local]",
+    "module": "problems.many.wfg",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0916,
+    "pf_none": false
+  },
+  {
+    "label": "WFG9 [local]",
+    "module": "problems.many.wfg",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "WFG9_JAX [local]",
+    "module": "problems.many.wfg",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "ZCAT1 [local]",
+    "module": "problems.many.zcat",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0034,
+    "pf_none": false
+  },
+  {
+    "label": "ZCAT10 [local]",
+    "module": "problems.many.zcat",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0031,
+    "pf_none": false
+  },
+  {
+    "label": "ZCAT10_JAX [local]",
+    "module": "problems.many.zcat",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0033,
+    "pf_none": false
+  },
+  {
+    "label": "ZCAT11 [local]",
+    "module": "problems.many.zcat",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0024,
+    "pf_none": false
+  },
+  {
+    "label": "ZCAT11_JAX [local]",
+    "module": "problems.many.zcat",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0038,
+    "pf_none": false
+  },
+  {
+    "label": "ZCAT12 [local]",
+    "module": "problems.many.zcat",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0035,
+    "pf_none": false
+  },
+  {
+    "label": "ZCAT12_JAX [local]",
+    "module": "problems.many.zcat",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0035,
+    "pf_none": false
+  },
+  {
+    "label": "ZCAT13 [local]",
+    "module": "problems.many.zcat",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0033,
+    "pf_none": false
+  },
+  {
+    "label": "ZCAT13_JAX [local]",
+    "module": "problems.many.zcat",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0035,
+    "pf_none": false
+  },
+  {
+    "label": "ZCAT14 [local]",
+    "module": "problems.many.zcat",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0031,
+    "pf_none": false
+  },
+  {
+    "label": "ZCAT14_JAX [local]",
+    "module": "problems.many.zcat",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0044,
+    "pf_none": false
+  },
+  {
+    "label": "ZCAT15 [local]",
+    "module": "problems.many.zcat",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0023,
+    "pf_none": false
+  },
+  {
+    "label": "ZCAT15_JAX [local]",
+    "module": "problems.many.zcat",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0038,
+    "pf_none": false
+  },
+  {
+    "label": "ZCAT16 [local]",
+    "module": "problems.many.zcat",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0035,
+    "pf_none": false
+  },
+  {
+    "label": "ZCAT16_JAX [local]",
+    "module": "problems.many.zcat",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0033,
+    "pf_none": false
+  },
+  {
+    "label": "ZCAT17 [local]",
+    "module": "problems.many.zcat",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0033,
+    "pf_none": false
+  },
+  {
+    "label": "ZCAT17_JAX [local]",
+    "module": "problems.many.zcat",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0035,
+    "pf_none": false
+  },
+  {
+    "label": "ZCAT18 [local]",
+    "module": "problems.many.zcat",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0042,
+    "pf_none": false
+  },
+  {
+    "label": "ZCAT18_JAX [local]",
+    "module": "problems.many.zcat",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0035,
+    "pf_none": false
+  },
+  {
+    "label": "ZCAT19 [local]",
+    "module": "problems.many.zcat",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0035,
+    "pf_none": false
+  },
+  {
+    "label": "ZCAT19_JAX [local]",
+    "module": "problems.many.zcat",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.003,
+    "pf_none": false
+  },
+  {
+    "label": "ZCAT1_JAX [local]",
+    "module": "problems.many.zcat",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0049,
+    "pf_none": false
+  },
+  {
+    "label": "ZCAT2 [local]",
+    "module": "problems.many.zcat",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0036,
+    "pf_none": false
+  },
+  {
+    "label": "ZCAT20 [local]",
+    "module": "problems.many.zcat",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0021,
+    "pf_none": false
+  },
+  {
+    "label": "ZCAT20_JAX [local]",
+    "module": "problems.many.zcat",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0035,
+    "pf_none": false
+  },
+  {
+    "label": "ZCAT2_JAX [local]",
+    "module": "problems.many.zcat",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0042,
+    "pf_none": false
+  },
+  {
+    "label": "ZCAT3 [local]",
+    "module": "problems.many.zcat",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0026,
+    "pf_none": false
+  },
+  {
+    "label": "ZCAT3_JAX [local]",
+    "module": "problems.many.zcat",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0028,
+    "pf_none": false
+  },
+  {
+    "label": "ZCAT4 [local]",
+    "module": "problems.many.zcat",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0036,
+    "pf_none": false
+  },
+  {
+    "label": "ZCAT4_JAX [local]",
+    "module": "problems.many.zcat",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0038,
+    "pf_none": false
+  },
+  {
+    "label": "ZCAT5 [local]",
+    "module": "problems.many.zcat",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0032,
+    "pf_none": false
+  },
+  {
+    "label": "ZCAT5_JAX [local]",
+    "module": "problems.many.zcat",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0033,
+    "pf_none": false
+  },
+  {
+    "label": "ZCAT6 [local]",
+    "module": "problems.many.zcat",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0022,
+    "pf_none": false
+  },
+  {
+    "label": "ZCAT6_JAX [local]",
+    "module": "problems.many.zcat",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0029,
+    "pf_none": false
+  },
+  {
+    "label": "ZCAT7 [local]",
+    "module": "problems.many.zcat",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0031,
+    "pf_none": false
+  },
+  {
+    "label": "ZCAT7_JAX [local]",
+    "module": "problems.many.zcat",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0046,
+    "pf_none": false
+  },
+  {
+    "label": "ZCAT8 [local]",
+    "module": "problems.many.zcat",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.004,
+    "pf_none": false
+  },
+  {
+    "label": "ZCAT8_JAX [local]",
+    "module": "problems.many.zcat",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0026,
+    "pf_none": false
+  },
+  {
+    "label": "ZCAT9 [local]",
+    "module": "problems.many.zcat",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0037,
+    "pf_none": false
+  },
+  {
+    "label": "ZCAT9_JAX [local]",
+    "module": "problems.many.zcat",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0041,
+    "pf_none": false
+  },
+  {
+    "label": "DSMOP10 [local]",
+    "module": "problems.multi.dsmop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "DSMOP10_JAX [local]",
+    "module": "problems.multi.dsmop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "DSMOP11 [local]",
+    "module": "problems.multi.dsmop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0064,
+    "pf_none": false
+  },
+  {
+    "label": "DSMOP11_JAX [local]",
+    "module": "problems.multi.dsmop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0054,
+    "pf_none": false
+  },
+  {
+    "label": "DSMOP12 [local]",
+    "module": "problems.multi.dsmop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0006,
+    "pf_none": false
+  },
+  {
+    "label": "DSMOP12_JAX [local]",
+    "module": "problems.multi.dsmop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "DSMOP2 [local]",
+    "module": "problems.multi.dsmop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "DSMOP2_JAX [local]",
+    "module": "problems.multi.dsmop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "DSMOP3 [local]",
+    "module": "problems.multi.dsmop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "DSMOP3_JAX [local]",
+    "module": "problems.multi.dsmop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "DSMOP4 [local]",
+    "module": "problems.multi.dsmop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "DSMOP4_JAX [local]",
+    "module": "problems.multi.dsmop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "DSMOP5 [local]",
+    "module": "problems.multi.dsmop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0067,
+    "pf_none": false
+  },
+  {
+    "label": "DSMOP5_JAX [local]",
+    "module": "problems.multi.dsmop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0055,
+    "pf_none": false
+  },
+  {
+    "label": "DSMOP6 [local]",
+    "module": "problems.multi.dsmop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.001,
+    "pf_none": false
+  },
+  {
+    "label": "DSMOP6_JAX [local]",
+    "module": "problems.multi.dsmop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "DSMOP7 [local]",
+    "module": "problems.multi.dsmop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "DSMOP7_JAX [local]",
+    "module": "problems.multi.dsmop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "DSMOP8 [local]",
+    "module": "problems.multi.dsmop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "DSMOP8_JAX [local]",
+    "module": "problems.multi.dsmop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "DSMOP9 [local]",
+    "module": "problems.multi.dsmop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0056,
+    "pf_none": false
+  },
+  {
+    "label": "DSMOP9_JAX [local]",
+    "module": "problems.multi.dsmop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0058,
+    "pf_none": false
+  },
+  {
+    "label": "FDA4 [local]",
+    "module": "problems.multi.fda",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "FDA4_JAX [local]",
+    "module": "problems.multi.fda",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "FDA5 [local]",
+    "module": "problems.multi.fda",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "FDA5_JAX [local]",
+    "module": "problems.multi.fda",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "IMMOEA_F1 [local]",
+    "module": "problems.multi.immoea",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "IMMOEA_F10 [local]",
+    "module": "problems.multi.immoea",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "IMMOEA_F10_JAX [local]",
+    "module": "problems.multi.immoea",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "IMMOEA_F1_JAX [local]",
+    "module": "problems.multi.immoea",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "IMMOEA_F2 [local]",
+    "module": "problems.multi.immoea",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "IMMOEA_F2_JAX [local]",
+    "module": "problems.multi.immoea",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "IMMOEA_F3 [local]",
+    "module": "problems.multi.immoea",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "IMMOEA_F3_JAX [local]",
+    "module": "problems.multi.immoea",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "IMMOEA_F4 [local]",
+    "module": "problems.multi.immoea",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "IMMOEA_F4_JAX [local]",
+    "module": "problems.multi.immoea",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "IMMOEA_F5 [local]",
+    "module": "problems.multi.immoea",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "IMMOEA_F5_JAX [local]",
+    "module": "problems.multi.immoea",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "IMMOEA_F6 [local]",
+    "module": "problems.multi.immoea",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "IMMOEA_F6_JAX [local]",
+    "module": "problems.multi.immoea",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "IMMOEA_F7 [local]",
+    "module": "problems.multi.immoea",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "IMMOEA_F7_JAX [local]",
+    "module": "problems.multi.immoea",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "IMMOEA_F8 [local]",
+    "module": "problems.multi.immoea",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "IMMOEA_F8_JAX [local]",
+    "module": "problems.multi.immoea",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "IMMOEA_F9 [local]",
+    "module": "problems.multi.immoea",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "IMMOEA_F9_JAX [local]",
+    "module": "problems.multi.immoea",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "LRMOP1 [local]",
+    "module": "problems.multi.lrmop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "LRMOP1_JAX [local]",
+    "module": "problems.multi.lrmop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "LRMOP2 [local]",
+    "module": "problems.multi.lrmop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0053,
+    "pf_none": false
+  },
+  {
+    "label": "LRMOP2_JAX [local]",
+    "module": "problems.multi.lrmop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0058,
+    "pf_none": false
+  },
+  {
+    "label": "LRMOP3 [local]",
+    "module": "problems.multi.lrmop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.006,
+    "pf_none": false
+  },
+  {
+    "label": "LRMOP3_JAX [local]",
+    "module": "problems.multi.lrmop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.006,
+    "pf_none": false
+  },
+  {
+    "label": "LRMOP4 [local]",
+    "module": "problems.multi.lrmop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0057,
+    "pf_none": false
+  },
+  {
+    "label": "LRMOP4_JAX [local]",
+    "module": "problems.multi.lrmop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0061,
+    "pf_none": false
+  },
+  {
+    "label": "LRMOP5 [local]",
+    "module": "problems.multi.lrmop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "LRMOP5_JAX [local]",
+    "module": "problems.multi.lrmop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "LRMOP6 [local]",
+    "module": "problems.multi.lrmop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "LRMOP6_JAX [local]",
+    "module": "problems.multi.lrmop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "MMMOP1 [local]",
+    "module": "problems.multi.mmmop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "MMMOP1_JAX [local]",
+    "module": "problems.multi.mmmop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "MMMOP2 [local]",
+    "module": "problems.multi.mmmop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "MMMOP2_JAX [local]",
+    "module": "problems.multi.mmmop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "MMMOP3 [local]",
+    "module": "problems.multi.mmmop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "MMMOP3_JAX [local]",
+    "module": "problems.multi.mmmop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "MMMOP4 [local]",
+    "module": "problems.multi.mmmop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "MMMOP4_JAX [local]",
+    "module": "problems.multi.mmmop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "MMMOP5 [local]",
+    "module": "problems.multi.mmmop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "MMMOP5_JAX [local]",
+    "module": "problems.multi.mmmop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "MMMOP6 [local]",
+    "module": "problems.multi.mmmop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "MMMOP6_JAX [local]",
+    "module": "problems.multi.mmmop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "MOEADDE_F1 [local]",
+    "module": "problems.multi.moeadde",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "MOEADDE_F1_JAX [local]",
+    "module": "problems.multi.moeadde",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "MOEADDE_F2 [local]",
+    "module": "problems.multi.moeadde",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "MOEADDE_F2_JAX [local]",
+    "module": "problems.multi.moeadde",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "MOEADDE_F3 [local]",
+    "module": "problems.multi.moeadde",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "MOEADDE_F3_JAX [local]",
+    "module": "problems.multi.moeadde",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "MOEADDE_F4 [local]",
+    "module": "problems.multi.moeadde",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "MOEADDE_F4_JAX [local]",
+    "module": "problems.multi.moeadde",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "MOEADDE_F5 [local]",
+    "module": "problems.multi.moeadde",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "MOEADDE_F5_JAX [local]",
+    "module": "problems.multi.moeadde",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "MOEADDE_F6 [local]",
+    "module": "problems.multi.moeadde",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "MOEADDE_F6_JAX [local]",
+    "module": "problems.multi.moeadde",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "MOEADDE_F7 [local]",
+    "module": "problems.multi.moeadde",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "MOEADDE_F7_JAX [local]",
+    "module": "problems.multi.moeadde",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "MOEADDE_F8 [local]",
+    "module": "problems.multi.moeadde",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "MOEADDE_F8_JAX [local]",
+    "module": "problems.multi.moeadde",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "MOEADDE_F9 [local]",
+    "module": "problems.multi.moeadde",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "MOEADDE_F9_JAX [local]",
+    "module": "problems.multi.moeadde",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "MOEADM2M_F1 [local]",
+    "module": "problems.multi.moeadm2m",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "MOEADM2M_F1_JAX [local]",
+    "module": "problems.multi.moeadm2m",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "MOEADM2M_F2 [local]",
+    "module": "problems.multi.moeadm2m",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "MOEADM2M_F2_JAX [local]",
+    "module": "problems.multi.moeadm2m",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "MOEADM2M_F3 [local]",
+    "module": "problems.multi.moeadm2m",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "MOEADM2M_F3_JAX [local]",
+    "module": "problems.multi.moeadm2m",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "MOEADM2M_F4 [local]",
+    "module": "problems.multi.moeadm2m",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0012,
+    "pf_none": false
+  },
+  {
+    "label": "MOEADM2M_F4_JAX [local]",
+    "module": "problems.multi.moeadm2m",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0023,
+    "pf_none": false
+  },
+  {
+    "label": "MOEADM2M_F5 [local]",
+    "module": "problems.multi.moeadm2m",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "MOEADM2M_F5_JAX [local]",
+    "module": "problems.multi.moeadm2m",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "MOEADM2M_F6 [local]",
+    "module": "problems.multi.moeadm2m",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "MOEADM2M_F6_JAX [local]",
+    "module": "problems.multi.moeadm2m",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "MOEADM2M_F7 [local]",
+    "module": "problems.multi.moeadm2m",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "MOEADM2M_F7_JAX [local]",
+    "module": "problems.multi.moeadm2m",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "MW14 [local]",
+    "module": "problems.multi.mw",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": true
+  },
+  {
+    "label": "MW14_JAX [local]",
+    "module": "problems.multi.mw",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": true
+  },
+  {
+    "label": "MW4 [local]",
+    "module": "problems.multi.mw",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": true
+  },
+  {
+    "label": "MW4_JAX [local]",
+    "module": "problems.multi.mw",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": true
+  },
+  {
+    "label": "MW8 [local]",
+    "module": "problems.multi.mw",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": true
+  },
+  {
+    "label": "MW8_JAX [local]",
+    "module": "problems.multi.mw",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": true
+  },
+  {
+    "label": "MLDMP [local]",
+    "module": "problems.multi.realworld_mops",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "MLDMP_JAX [local]",
+    "module": "problems.multi.realworld_mops",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.001,
+    "pf_none": false
+  },
+  {
+    "label": "MPDMP [local]",
+    "module": "problems.multi.realworld_mops",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.001,
+    "pf_none": false
+  },
+  {
+    "label": "MPDMP_JAX [local]",
+    "module": "problems.multi.realworld_mops",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "RMMEDA_F1 [local]",
+    "module": "problems.multi.rmmeda",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0006,
+    "pf_none": false
+  },
+  {
+    "label": "RMMEDA_F10 [local]",
+    "module": "problems.multi.rmmeda",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "RMMEDA_F10_JAX [local]",
+    "module": "problems.multi.rmmeda",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "RMMEDA_F1_JAX [local]",
+    "module": "problems.multi.rmmeda",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "RMMEDA_F2 [local]",
+    "module": "problems.multi.rmmeda",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "RMMEDA_F2_JAX [local]",
+    "module": "problems.multi.rmmeda",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "RMMEDA_F3 [local]",
+    "module": "problems.multi.rmmeda",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "RMMEDA_F3_JAX [local]",
+    "module": "problems.multi.rmmeda",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "RMMEDA_F4 [local]",
+    "module": "problems.multi.rmmeda",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "RMMEDA_F4_JAX [local]",
+    "module": "problems.multi.rmmeda",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "RMMEDA_F5 [local]",
+    "module": "problems.multi.rmmeda",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "RMMEDA_F5_JAX [local]",
+    "module": "problems.multi.rmmeda",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "RMMEDA_F6 [local]",
+    "module": "problems.multi.rmmeda",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "RMMEDA_F6_JAX [local]",
+    "module": "problems.multi.rmmeda",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "RMMEDA_F7 [local]",
+    "module": "problems.multi.rmmeda",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "RMMEDA_F7_JAX [local]",
+    "module": "problems.multi.rmmeda",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "RMMEDA_F8 [local]",
+    "module": "problems.multi.rmmeda",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "RMMEDA_F8_JAX [local]",
+    "module": "problems.multi.rmmeda",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.001,
+    "pf_none": false
+  },
+  {
+    "label": "RMMEDA_F9 [local]",
+    "module": "problems.multi.rmmeda",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "RMMEDA_F9_JAX [local]",
+    "module": "problems.multi.rmmeda",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "RWMOP11 [local]",
+    "module": "problems.multi.rwmop",
+    "status": "ok",
+    "m": 5,
+    "pf_s": 0.0,
+    "pf_none": true
+  },
+  {
+    "label": "RWMOP11_JAX [local]",
+    "module": "problems.multi.rwmop",
+    "status": "ok",
+    "m": 5,
+    "pf_s": 0.0,
+    "pf_none": true
+  },
+  {
+    "label": "RWMOP46 [local]",
+    "module": "problems.multi.rwmop",
+    "status": "ok",
+    "m": 4,
+    "pf_s": 0.0,
+    "pf_none": true
+  },
+  {
+    "label": "RWMOP46_JAX [local]",
+    "module": "problems.multi.rwmop",
+    "status": "ok",
+    "m": 4,
+    "pf_s": 0.0,
+    "pf_none": true
+  },
+  {
+    "label": "SMMOP1 [local]",
+    "module": "problems.multi.smmop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "SMMOP1_JAX [local]",
+    "module": "problems.multi.smmop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0017,
+    "pf_none": false
+  },
+  {
+    "label": "SMMOP2 [local]",
+    "module": "problems.multi.smmop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "SMMOP2_JAX [local]",
+    "module": "problems.multi.smmop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0005,
+    "pf_none": false
+  },
+  {
+    "label": "SMMOP3 [local]",
+    "module": "problems.multi.smmop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "SMMOP3_JAX [local]",
+    "module": "problems.multi.smmop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "SMMOP4 [local]",
+    "module": "problems.multi.smmop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0057,
+    "pf_none": false
+  },
+  {
+    "label": "SMMOP4_JAX [local]",
+    "module": "problems.multi.smmop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.006,
+    "pf_none": false
+  },
+  {
+    "label": "SMMOP5 [local]",
+    "module": "problems.multi.smmop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0056,
+    "pf_none": false
+  },
+  {
+    "label": "SMMOP5_JAX [local]",
+    "module": "problems.multi.smmop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0061,
+    "pf_none": false
+  },
+  {
+    "label": "SMMOP6 [local]",
+    "module": "problems.multi.smmop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0053,
+    "pf_none": false
+  },
+  {
+    "label": "SMMOP6_JAX [local]",
+    "module": "problems.multi.smmop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0059,
+    "pf_none": false
+  },
+  {
+    "label": "SMMOP7 [local]",
+    "module": "problems.multi.smmop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "SMMOP7_JAX [local]",
+    "module": "problems.multi.smmop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "SMMOP8 [local]",
+    "module": "problems.multi.smmop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "SMMOP8_JAX [local]",
+    "module": "problems.multi.smmop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "SMOP1 [local]",
+    "module": "problems.multi.smop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "SMOP1_JAX [local]",
+    "module": "problems.multi.smop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "SMOP2 [local]",
+    "module": "problems.multi.smop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "SMOP2_JAX [local]",
+    "module": "problems.multi.smop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "SMOP3 [local]",
+    "module": "problems.multi.smop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.001,
+    "pf_none": false
+  },
+  {
+    "label": "SMOP3_JAX [local]",
+    "module": "problems.multi.smop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "SMOP4 [local]",
+    "module": "problems.multi.smop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0081,
+    "pf_none": false
+  },
+  {
+    "label": "SMOP4_JAX [local]",
+    "module": "problems.multi.smop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0058,
+    "pf_none": false
+  },
+  {
+    "label": "SMOP5 [local]",
+    "module": "problems.multi.smop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0057,
+    "pf_none": false
+  },
+  {
+    "label": "SMOP5_JAX [local]",
+    "module": "problems.multi.smop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0052,
+    "pf_none": false
+  },
+  {
+    "label": "SMOP6 [local]",
+    "module": "problems.multi.smop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0043,
+    "pf_none": false
+  },
+  {
+    "label": "SMOP6_JAX [local]",
+    "module": "problems.multi.smop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.006,
+    "pf_none": false
+  },
+  {
+    "label": "SMOP7 [local]",
+    "module": "problems.multi.smop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "SMOP7_JAX [local]",
+    "module": "problems.multi.smop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "SMOP8 [local]",
+    "module": "problems.multi.smop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "SMOP8_JAX [local]",
+    "module": "problems.multi.smop",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0,
+    "pf_none": false
+  },
+  {
+    "label": "ZXH_CF1 [local]",
+    "module": "problems.multi.zxh_cf",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0852,
+    "pf_none": false
+  },
+  {
+    "label": "ZXH_CF10 [local]",
+    "module": "problems.multi.zxh_cf",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0028,
+    "pf_none": false
+  },
+  {
+    "label": "ZXH_CF10_JAX [local]",
+    "module": "problems.multi.zxh_cf",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0025,
+    "pf_none": false
+  },
+  {
+    "label": "ZXH_CF11 [local]",
+    "module": "problems.multi.zxh_cf",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0025,
+    "pf_none": false
+  },
+  {
+    "label": "ZXH_CF11_JAX [local]",
+    "module": "problems.multi.zxh_cf",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0017,
+    "pf_none": false
+  },
+  {
+    "label": "ZXH_CF12 [local]",
+    "module": "problems.multi.zxh_cf",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0016,
+    "pf_none": false
+  },
+  {
+    "label": "ZXH_CF12_JAX [local]",
+    "module": "problems.multi.zxh_cf",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0015,
+    "pf_none": false
+  },
+  {
+    "label": "ZXH_CF13 [local]",
+    "module": "problems.multi.zxh_cf",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0347,
+    "pf_none": false
+  },
+  {
+    "label": "ZXH_CF13_JAX [local]",
+    "module": "problems.multi.zxh_cf",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0359,
+    "pf_none": false
+  },
+  {
+    "label": "ZXH_CF14 [local]",
+    "module": "problems.multi.zxh_cf",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0347,
+    "pf_none": false
+  },
+  {
+    "label": "ZXH_CF14_JAX [local]",
+    "module": "problems.multi.zxh_cf",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0349,
+    "pf_none": false
+  },
+  {
+    "label": "ZXH_CF15 [local]",
+    "module": "problems.multi.zxh_cf",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0358,
+    "pf_none": false
+  },
+  {
+    "label": "ZXH_CF15_JAX [local]",
+    "module": "problems.multi.zxh_cf",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0359,
+    "pf_none": false
+  },
+  {
+    "label": "ZXH_CF16 [local]",
+    "module": "problems.multi.zxh_cf",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0365,
+    "pf_none": false
+  },
+  {
+    "label": "ZXH_CF16_JAX [local]",
+    "module": "problems.multi.zxh_cf",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0347,
+    "pf_none": false
+  },
+  {
+    "label": "ZXH_CF1_JAX [local]",
+    "module": "problems.multi.zxh_cf",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0853,
+    "pf_none": false
+  },
+  {
+    "label": "ZXH_CF2 [local]",
+    "module": "problems.multi.zxh_cf",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0876,
+    "pf_none": false
+  },
+  {
+    "label": "ZXH_CF2_JAX [local]",
+    "module": "problems.multi.zxh_cf",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0882,
+    "pf_none": false
+  },
+  {
+    "label": "ZXH_CF3 [local]",
+    "module": "problems.multi.zxh_cf",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.086,
+    "pf_none": false
+  },
+  {
+    "label": "ZXH_CF3_JAX [local]",
+    "module": "problems.multi.zxh_cf",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0849,
+    "pf_none": false
+  },
+  {
+    "label": "ZXH_CF4 [local]",
+    "module": "problems.multi.zxh_cf",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0869,
+    "pf_none": false
+  },
+  {
+    "label": "ZXH_CF4_JAX [local]",
+    "module": "problems.multi.zxh_cf",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0856,
+    "pf_none": false
+  },
+  {
+    "label": "ZXH_CF5 [local]",
+    "module": "problems.multi.zxh_cf",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0027,
+    "pf_none": false
+  },
+  {
+    "label": "ZXH_CF5_JAX [local]",
+    "module": "problems.multi.zxh_cf",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0011,
+    "pf_none": false
+  },
+  {
+    "label": "ZXH_CF6 [local]",
+    "module": "problems.multi.zxh_cf",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0024,
+    "pf_none": false
+  },
+  {
+    "label": "ZXH_CF6_JAX [local]",
+    "module": "problems.multi.zxh_cf",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0021,
+    "pf_none": false
+  },
+  {
+    "label": "ZXH_CF7 [local]",
+    "module": "problems.multi.zxh_cf",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0017,
+    "pf_none": false
+  },
+  {
+    "label": "ZXH_CF7_JAX [local]",
+    "module": "problems.multi.zxh_cf",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0018,
+    "pf_none": false
+  },
+  {
+    "label": "ZXH_CF8 [local]",
+    "module": "problems.multi.zxh_cf",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.003,
+    "pf_none": false
+  },
+  {
+    "label": "ZXH_CF8_JAX [local]",
+    "module": "problems.multi.zxh_cf",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0017,
+    "pf_none": false
+  },
+  {
+    "label": "ZXH_CF9 [local]",
+    "module": "problems.multi.zxh_cf",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0026,
+    "pf_none": false
+  },
+  {
+    "label": "ZXH_CF9_JAX [local]",
+    "module": "problems.multi.zxh_cf",
+    "status": "ok",
+    "m": 10,
+    "pf_s": 0.0017,
+    "pf_none": false
+  }
+]

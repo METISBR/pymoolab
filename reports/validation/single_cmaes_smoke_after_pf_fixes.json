@@ -1,0 +1,2045 @@
+{
+  "summary": {
+    "ok": 104,
+    "exception": 72
+  },
+  "results": [
+    {
+      "label": "BBOB_F1 [local]",
+      "id": "local::problems.single.bbob.BBOB_F1",
+      "module": "problems.single.bbob",
+      "status": "ok",
+      "n_var": 30,
+      "n_obj": 1,
+      "run_s": 0.0098,
+      "F_shape": [
+        1
+      ],
+      "F_finite": true,
+      "total_s": 0.0111
+    },
+    {
+      "label": "BBOB_F10 [local]",
+      "id": "local::problems.single.bbob.BBOB_F10",
+      "module": "problems.single.bbob",
+      "status": "ok",
+      "n_var": 30,
+      "n_obj": 1,
+      "run_s": 0.0087,
+      "F_shape": [
+        1
+      ],
+      "F_finite": true,
+      "total_s": 0.0087
+    },
+    {
+      "label": "BBOB_F10_JAX [local]",
+      "id": "local::problems.single.bbob.BBOB_F10_JAX",
+      "module": "problems.single.bbob",
+      "status": "ok",
+      "n_var": 30,
+      "n_obj": 1,
+      "run_s": 1.0976,
+      "F_shape": [
+        1
+      ],
+      "F_finite": true,
+      "total_s": 1.0976
+    },
+    {
+      "label": "BBOB_F11 [local]",
+      "id": "local::problems.single.bbob.BBOB_F11",
+      "module": "problems.single.bbob",
+      "status": "ok",
+      "n_var": 30,
+      "n_obj": 1,
+      "run_s": 0.008,
+      "F_shape": [
+        1
+      ],
+      "F_finite": true,
+      "total_s": 0.0092
+    },
+    {
+      "label": "BBOB_F11_JAX [local]",
+      "id": "local::problems.single.bbob.BBOB_F11_JAX",
+      "module": "problems.single.bbob",
+      "status": "ok",
+      "n_var": 30,
+      "n_obj": 1,
+      "run_s": 0.225,
+      "F_shape": [
+        1
+      ],
+      "F_finite": true,
+      "total_s": 0.225
+    },
+    {
+      "label": "BBOB_F12 [local]",
+      "id": "local::problems.single.bbob.BBOB_F12",
+      "module": "problems.single.bbob",
+      "status": "ok",
+      "n_var": 30,
+      "n_obj": 1,
+      "run_s": 0.0153,
+      "F_shape": [
+        1
+      ],
+      "F_finite": true,
+      "total_s": 0.0177
+    },
+    {
+      "label": "BBOB_F12_JAX [local]",
+      "id": "local::problems.single.bbob.BBOB_F12_JAX",
+      "module": "problems.single.bbob",
+      "status": "ok",
+      "n_var": 30,
+      "n_obj": 1,
+      "run_s": 0.2025,
+      "F_shape": [
+        1
+      ],
+      "F_finite": true,
+      "total_s": 0.2054
+    },
+    {
+      "label": "BBOB_F13 [local]",
+      "id": "local::problems.single.bbob.BBOB_F13",
+      "module": "problems.single.bbob",
+      "status": "ok",
+      "n_var": 30,
+      "n_obj": 1,
+      "run_s": 0.008,
+      "F_shape": [
+        1
+      ],
+      "F_finite": true,
+      "total_s": 0.0085
+    },
+    {
+      "label": "BBOB_F13_JAX [local]",
+      "id": "local::problems.single.bbob.BBOB_F13_JAX",
+      "module": "problems.single.bbob",
+      "status": "ok",
+      "n_var": 30,
+      "n_obj": 1,
+      "run_s": 0.0432,
+      "F_shape": [
+        1
+      ],
+      "F_finite": true,
+      "total_s": 0.0437
+    },
+    {
+      "label": "BBOB_F14 [local]",
+      "id": "local::problems.single.bbob.BBOB_F14",
+      "module": "problems.single.bbob",
+      "status": "ok",
+      "n_var": 30,
+      "n_obj": 1,
+      "run_s": 0.0073,
+      "F_shape": [
+        1
+      ],
+      "F_finite": true,
+      "total_s": 0.0076
+    },
+    {
+      "label": "BBOB_F14_JAX [local]",
+      "id": "local::problems.single.bbob.BBOB_F14_JAX",
+      "module": "problems.single.bbob",
+      "status": "ok",
+      "n_var": 30,
+      "n_obj": 1,
+      "run_s": 0.064,
+      "F_shape": [
+        1
+      ],
+      "F_finite": true,
+      "total_s": 0.064
+    },
+    {
+      "label": "BBOB_F15 [local]",
+      "id": "local::problems.single.bbob.BBOB_F15",
+      "module": "problems.single.bbob",
+      "status": "ok",
+      "n_var": 30,
+      "n_obj": 1,
+      "run_s": 0.0071,
+      "F_shape": [
+        1
+      ],
+      "F_finite": true,
+      "total_s": 0.0083
+    },
+    {
+      "label": "BBOB_F15_JAX [local]",
+      "id": "local::problems.single.bbob.BBOB_F15_JAX",
+      "module": "problems.single.bbob",
+      "status": "ok",
+      "n_var": 30,
+      "n_obj": 1,
+      "run_s": 0.0765,
+      "F_shape": [
+        1
+      ],
+      "F_finite": true,
+      "total_s": 0.0765
+    },
+    {
+      "label": "BBOB_F16 [local]",
+      "id": "local::problems.single.bbob.BBOB_F16",
+      "module": "problems.single.bbob",
+      "status": "ok",
+      "n_var": 30,
+      "n_obj": 1,
+      "run_s": 0.008,
+      "F_shape": [
+        1
+      ],
+      "F_finite": true,
+      "total_s": 0.0091
+    },
+    {
+      "label": "BBOB_F16_JAX [local]",
+      "id": "local::problems.single.bbob.BBOB_F16_JAX",
+      "module": "problems.single.bbob",
+      "status": "ok",
+      "n_var": 30,
+      "n_obj": 1,
+      "run_s": 0.3436,
+      "F_shape": [
+        1
+      ],
+      "F_finite": true,
+      "total_s": 0.3447
+    },
+    {
+      "label": "BBOB_F17 [local]",
+      "id": "local::problems.single.bbob.BBOB_F17",
+      "module": "problems.single.bbob",
+      "status": "ok",
+      "n_var": 30,
+      "n_obj": 1,
+      "run_s": 0.0083,
+      "F_shape": [
+        1
+      ],
+      "F_finite": true,
+      "total_s": 0.0089
+    },
+    {
+      "label": "BBOB_F17_JAX [local]",
+      "id": "local::problems.single.bbob.BBOB_F17_JAX",
+      "module": "problems.single.bbob",
+      "status": "ok",
+      "n_var": 30,
+      "n_obj": 1,
+      "run_s": 0.1867,
+      "F_shape": [
+        1
+      ],
+      "F_finite": true,
+      "total_s": 0.1878
+    },
+    {
+      "label": "BBOB_F18 [local]",
+      "id": "local::problems.single.bbob.BBOB_F18",
+      "module": "problems.single.bbob",
+      "status": "ok",
+      "n_var": 30,
+      "n_obj": 1,
+      "run_s": 0.0092,
+      "F_shape": [
+        1
+      ],
+      "F_finite": true,
+      "total_s": 0.0092
+    },
+    {
+      "label": "BBOB_F18_JAX [local]",
+      "id": "local::problems.single.bbob.BBOB_F18_JAX",
+      "module": "problems.single.bbob",
+      "status": "ok",
+      "n_var": 30,
+      "n_obj": 1,
+      "run_s": 0.0118,
+      "F_shape": [
+        1
+      ],
+      "F_finite": true,
+      "total_s": 0.0131
+    },
+    {
+      "label": "BBOB_F19 [local]",
+      "id": "local::problems.single.bbob.BBOB_F19",
+      "module": "problems.single.bbob",
+      "status": "ok",
+      "n_var": 30,
+      "n_obj": 1,
+      "run_s": 0.007,
+      "F_shape": [
+        1
+      ],
+      "F_finite": true,
+      "total_s": 0.008
+    },
+    {
+      "label": "BBOB_F19_JAX [local]",
+      "id": "local::problems.single.bbob.BBOB_F19_JAX",
+      "module": "problems.single.bbob",
+      "status": "ok",
+      "n_var": 30,
+      "n_obj": 1,
+      "run_s": 0.1578,
+      "F_shape": [
+        1
+      ],
+      "F_finite": true,
+      "total_s": 0.1584
+    },
+    {
+      "label": "BBOB_F1_JAX [local]",
+      "id": "local::problems.single.bbob.BBOB_F1_JAX",
+      "module": "problems.single.bbob",
+      "status": "ok",
+      "n_var": 30,
+      "n_obj": 1,
+      "run_s": 0.0088,
+      "F_shape": [
+        1
+      ],
+      "F_finite": true,
+      "total_s": 0.0115
+    },
+    {
+      "label": "BBOB_F2 [local]",
+      "id": "local::problems.single.bbob.BBOB_F2",
+      "module": "problems.single.bbob",
+      "status": "ok",
+      "n_var": 30,
+      "n_obj": 1,
+      "run_s": 0.0085,
+      "F_shape": [
+        1
+      ],
+      "F_finite": true,
+      "total_s": 0.0085
+    },
+    {
+      "label": "BBOB_F20 [local]",
+      "id": "local::problems.single.bbob.BBOB_F20",
+      "module": "problems.single.bbob",
+      "status": "ok",
+      "n_var": 30,
+      "n_obj": 1,
+      "run_s": 0.0073,
+      "F_shape": [
+        1
+      ],
+      "F_finite": true,
+      "total_s": 0.0073
+    },
+    {
+      "label": "BBOB_F20_JAX [local]",
+      "id": "local::problems.single.bbob.BBOB_F20_JAX",
+      "module": "problems.single.bbob",
+      "status": "ok",
+      "n_var": 30,
+      "n_obj": 1,
+      "run_s": 0.0371,
+      "F_shape": [
+        1
+      ],
+      "F_finite": true,
+      "total_s": 0.0371
+    },
+    {
+      "label": "BBOB_F21 [local]",
+      "id": "local::problems.single.bbob.BBOB_F21",
+      "module": "problems.single.bbob",
+      "status": "ok",
+      "n_var": 30,
+      "n_obj": 1,
+      "run_s": 0.011,
+      "F_shape": [
+        1
+      ],
+      "F_finite": true,
+      "total_s": 0.0134
+    },
+    {
+      "label": "BBOB_F21_JAX [local]",
+      "id": "local::problems.single.bbob.BBOB_F21_JAX",
+      "module": "problems.single.bbob",
+      "status": "ok",
+      "n_var": 30,
+      "n_obj": 1,
+      "run_s": 0.0089,
+      "F_shape": [
+        1
+      ],
+      "F_finite": true,
+      "total_s": 0.0114
+    },
+    {
+      "label": "BBOB_F22 [local]",
+      "id": "local::problems.single.bbob.BBOB_F22",
+      "module": "problems.single.bbob",
+      "status": "ok",
+      "n_var": 30,
+      "n_obj": 1,
+      "run_s": 0.0082,
+      "F_shape": [
+        1
+      ],
+      "F_finite": true,
+      "total_s": 0.0108
+    },
+    {
+      "label": "BBOB_F22_JAX [local]",
+      "id": "local::problems.single.bbob.BBOB_F22_JAX",
+      "module": "problems.single.bbob",
+      "status": "ok",
+      "n_var": 30,
+      "n_obj": 1,
+      "run_s": 0.0092,
+      "F_shape": [
+        1
+      ],
+      "F_finite": true,
+      "total_s": 0.0092
+    },
+    {
+      "label": "BBOB_F23 [local]",
+      "id": "local::problems.single.bbob.BBOB_F23",
+      "module": "problems.single.bbob",
+      "status": "ok",
+      "n_var": 30,
+      "n_obj": 1,
+      "run_s": 0.0081,
+      "F_shape": [
+        1
+      ],
+      "F_finite": true,
+      "total_s": 0.0087
+    },
+    {
+      "label": "BBOB_F23_JAX [local]",
+      "id": "local::problems.single.bbob.BBOB_F23_JAX",
+      "module": "problems.single.bbob",
+      "status": "ok",
+      "n_var": 30,
+      "n_obj": 1,
+      "run_s": 0.0073,
+      "F_shape": [
+        1
+      ],
+      "F_finite": true,
+      "total_s": 0.0086
+    },
+    {
+      "label": "BBOB_F24 [local]",
+      "id": "local::problems.single.bbob.BBOB_F24",
+      "module": "problems.single.bbob",
+      "status": "ok",
+      "n_var": 30,
+      "n_obj": 1,
+      "run_s": 0.0068,
+      "F_shape": [
+        1
+      ],
+      "F_finite": true,
+      "total_s": 0.0081
+    },
+    {
+      "label": "BBOB_F24_JAX [local]",
+      "id": "local::problems.single.bbob.BBOB_F24_JAX",
+      "module": "problems.single.bbob",
+      "status": "ok",
+      "n_var": 30,
+      "n_obj": 1,
+      "run_s": 0.0484,
+      "F_shape": [
+        1
+      ],
+      "F_finite": true,
+      "total_s": 0.0484
+    },
+    {
+      "label": "BBOB_F2_JAX [local]",
+      "id": "local::problems.single.bbob.BBOB_F2_JAX",
+      "module": "problems.single.bbob",
+      "status": "ok",
+      "n_var": 30,
+      "n_obj": 1,
+      "run_s": 0.016,
+      "F_shape": [
+        1
+      ],
+      "F_finite": true,
+      "total_s": 0.0176
+    },
+    {
+      "label": "BBOB_F3 [local]",
+      "id": "local::problems.single.bbob.BBOB_F3",
+      "module": "problems.single.bbob",
+      "status": "ok",
+      "n_var": 30,
+      "n_obj": 1,
+      "run_s": 0.0124,
+      "F_shape": [
+        1
+      ],
+      "F_finite": true,
+      "total_s": 0.0145
+    },
+    {
+      "label": "BBOB_F3_JAX [local]",
+      "id": "local::problems.single.bbob.BBOB_F3_JAX",
+      "module": "problems.single.bbob",
+      "status": "ok",
+      "n_var": 30,
+      "n_obj": 1,
+      "run_s": 0.0112,
+      "F_shape": [
+        1
+      ],
+      "F_finite": true,
+      "total_s": 0.0112
+    },
+    {
+      "label": "BBOB_F4 [local]",
+      "id": "local::problems.single.bbob.BBOB_F4",
+      "module": "problems.single.bbob",
+      "status": "ok",
+      "n_var": 30,
+      "n_obj": 1,
+      "run_s": 0.0068,
+      "F_shape": [
+        1
+      ],
+      "F_finite": true,
+      "total_s": 0.0072
+    },
+    {
+      "label": "BBOB_F4_JAX [local]",
+      "id": "local::problems.single.bbob.BBOB_F4_JAX",
+      "module": "problems.single.bbob",
+      "status": "ok",
+      "n_var": 30,
+      "n_obj": 1,
+      "run_s": 0.0768,
+      "F_shape": [
+        1
+      ],
+      "F_finite": true,
+      "total_s": 0.078
+    },
+    {
+      "label": "BBOB_F5 [local]",
+      "id": "local::problems.single.bbob.BBOB_F5",
+      "module": "problems.single.bbob",
+      "status": "ok",
+      "n_var": 30,
+      "n_obj": 1,
+      "run_s": 0.0085,
+      "F_shape": [
+        1
+      ],
+      "F_finite": true,
+      "total_s": 0.0092
+    },
+    {
+      "label": "BBOB_F5_JAX [local]",
+      "id": "local::problems.single.bbob.BBOB_F5_JAX",
+      "module": "problems.single.bbob",
+      "status": "ok",
+      "n_var": 30,
+      "n_obj": 1,
+      "run_s": 0.1288,
+      "F_shape": [
+        1
+      ],
+      "F_finite": true,
+      "total_s": 0.1295
+    },
+    {
+      "label": "BBOB_F6 [local]",
+      "id": "local::problems.single.bbob.BBOB_F6",
+      "module": "problems.single.bbob",
+      "status": "ok",
+      "n_var": 30,
+      "n_obj": 1,
+      "run_s": 0.0093,
+      "F_shape": [
+        1
+      ],
+      "F_finite": true,
+      "total_s": 0.0093
+    },
+    {
+      "label": "BBOB_F6_JAX [local]",
+      "id": "local::problems.single.bbob.BBOB_F6_JAX",
+      "module": "problems.single.bbob",
+      "status": "ok",
+      "n_var": 30,
+      "n_obj": 1,
+      "run_s": 0.3295,
+      "F_shape": [
+        1
+      ],
+      "F_finite": true,
+      "total_s": 0.3302
+    },
+    {
+      "label": "BBOB_F7 [local]",
+      "id": "local::problems.single.bbob.BBOB_F7",
+      "module": "problems.single.bbob",
+      "status": "ok",
+      "n_var": 30,
+      "n_obj": 1,
+      "run_s": 0.0076,
+      "F_shape": [
+        1
+      ],
+      "F_finite": true,
+      "total_s": 0.0076
+    },
+    {
+      "label": "BBOB_F7_JAX [local]",
+      "id": "local::problems.single.bbob.BBOB_F7_JAX",
+      "module": "problems.single.bbob",
+      "status": "ok",
+      "n_var": 30,
+      "n_obj": 1,
+      "run_s": 0.1305,
+      "F_shape": [
+        1
+      ],
+      "F_finite": true,
+      "total_s": 0.1332
+    },
+    {
+      "label": "BBOB_F8 [local]",
+      "id": "local::problems.single.bbob.BBOB_F8",
+      "module": "problems.single.bbob",
+      "status": "ok",
+      "n_var": 30,
+      "n_obj": 1,
+      "run_s": 0.0081,
+      "F_shape": [
+        1
+      ],
+      "F_finite": true,
+      "total_s": 0.0081
+    },
+    {
+      "label": "BBOB_F8_JAX [local]",
+      "id": "local::problems.single.bbob.BBOB_F8_JAX",
+      "module": "problems.single.bbob",
+      "status": "ok",
+      "n_var": 30,
+      "n_obj": 1,
+      "run_s": 0.0107,
+      "F_shape": [
+        1
+      ],
+      "F_finite": true,
+      "total_s": 0.0107
+    },
+    {
+      "label": "BBOB_F9 [local]",
+      "id": "local::problems.single.bbob.BBOB_F9",
+      "module": "problems.single.bbob",
+      "status": "ok",
+      "n_var": 30,
+      "n_obj": 1,
+      "run_s": 0.0079,
+      "F_shape": [
+        1
+      ],
+      "F_finite": true,
+      "total_s": 0.0079
+    },
+    {
+      "label": "BBOB_F9_JAX [local]",
+      "id": "local::problems.single.bbob.BBOB_F9_JAX",
+      "module": "problems.single.bbob",
+      "status": "ok",
+      "n_var": 30,
+      "n_obj": 1,
+      "run_s": 0.0123,
+      "F_shape": [
+        1
+      ],
+      "F_finite": true,
+      "total_s": 0.0123
+    },
+    {
+      "label": "CEC2008_F1 [local]",
+      "id": "local::problems.single.cec2008.CEC2008_F1",
+      "module": "problems.single.cec2008",
+      "status": "exception",
+      "error": "RuntimeError: Could not locate MATLAB community problems folder.",
+      "total_s": 0.0006
+    },
+    {
+      "label": "CEC2008_F1_JAX [local]",
+      "id": "local::problems.single.cec2008.CEC2008_F1_JAX",
+      "module": "problems.single.cec2008",
+      "status": "exception",
+      "error": "RuntimeError: Could not locate MATLAB community problems folder.",
+      "total_s": 0.0
+    },
+    {
+      "label": "CEC2008_F2 [local]",
+      "id": "local::problems.single.cec2008.CEC2008_F2",
+      "module": "problems.single.cec2008",
+      "status": "exception",
+      "error": "RuntimeError: Could not locate MATLAB community problems folder.",
+      "total_s": 0.0
+    },
+    {
+      "label": "CEC2008_F2_JAX [local]",
+      "id": "local::problems.single.cec2008.CEC2008_F2_JAX",
+      "module": "problems.single.cec2008",
+      "status": "exception",
+      "error": "RuntimeError: Could not locate MATLAB community problems folder.",
+      "total_s": 0.0007
+    },
+    {
+      "label": "CEC2008_F3 [local]",
+      "id": "local::problems.single.cec2008.CEC2008_F3",
+      "module": "problems.single.cec2008",
+      "status": "exception",
+      "error": "RuntimeError: Could not locate MATLAB community problems folder.",
+      "total_s": 0.0
+    },
+    {
+      "label": "CEC2008_F3_JAX [local]",
+      "id": "local::problems.single.cec2008.CEC2008_F3_JAX",
+      "module": "problems.single.cec2008",
+      "status": "exception",
+      "error": "RuntimeError: Could not locate MATLAB community problems folder.",
+      "total_s": 0.0006
+    },
+    {
+      "label": "CEC2008_F4 [local]",
+      "id": "local::problems.single.cec2008.CEC2008_F4",
+      "module": "problems.single.cec2008",
+      "status": "exception",
+      "error": "RuntimeError: Could not locate MATLAB community problems folder.",
+      "total_s": 0.0
+    },
+    {
+      "label": "CEC2008_F4_JAX [local]",
+      "id": "local::problems.single.cec2008.CEC2008_F4_JAX",
+      "module": "problems.single.cec2008",
+      "status": "exception",
+      "error": "RuntimeError: Could not locate MATLAB community problems folder.",
+      "total_s": 0.0
+    },
+    {
+      "label": "CEC2008_F5 [local]",
+      "id": "local::problems.single.cec2008.CEC2008_F5",
+      "module": "problems.single.cec2008",
+      "status": "exception",
+      "error": "RuntimeError: Could not locate MATLAB community problems folder.",
+      "total_s": 0.0
+    },
+    {
+      "label": "CEC2008_F5_JAX [local]",
+      "id": "local::problems.single.cec2008.CEC2008_F5_JAX",
+      "module": "problems.single.cec2008",
+      "status": "exception",
+      "error": "RuntimeError: Could not locate MATLAB community problems folder.",
+      "total_s": 0.0
+    },
+    {
+      "label": "CEC2008_F6 [local]",
+      "id": "local::problems.single.cec2008.CEC2008_F6",
+      "module": "problems.single.cec2008",
+      "status": "exception",
+      "error": "RuntimeError: Could not locate MATLAB community problems folder.",
+      "total_s": 0.0
+    },
+    {
+      "label": "CEC2008_F6_JAX [local]",
+      "id": "local::problems.single.cec2008.CEC2008_F6_JAX",
+      "module": "problems.single.cec2008",
+      "status": "exception",
+      "error": "RuntimeError: Could not locate MATLAB community problems folder.",
+      "total_s": 0.0
+    },
+    {
+      "label": "CEC2008_F7 [local]",
+      "id": "local::problems.single.cec2008.CEC2008_F7",
+      "module": "problems.single.cec2008",
+      "status": "exception",
+      "error": "RuntimeError: Could not locate MATLAB community problems folder.",
+      "total_s": 0.0
+    },
+    {
+      "label": "CEC2008_F7_JAX [local]",
+      "id": "local::problems.single.cec2008.CEC2008_F7_JAX",
+      "module": "problems.single.cec2008",
+      "status": "exception",
+      "error": "RuntimeError: Could not locate MATLAB community problems folder.",
+      "total_s": 0.0016
+    },
+    {
+      "label": "CEC2013_F1 [local]",
+      "id": "local::problems.single.cec2013.CEC2013_F1",
+      "module": "problems.single.cec2013",
+      "status": "exception",
+      "error": "RuntimeError: Could not locate MATLAB community problems folder.",
+      "total_s": 0.0
+    },
+    {
+      "label": "CEC2013_F10 [local]",
+      "id": "local::problems.single.cec2013.CEC2013_F10",
+      "module": "problems.single.cec2013",
+      "status": "exception",
+      "error": "RuntimeError: Could not locate MATLAB community problems folder.",
+      "total_s": 0.0
+    },
+    {
+      "label": "CEC2013_F10_JAX [local]",
+      "id": "local::problems.single.cec2013.CEC2013_F10_JAX",
+      "module": "problems.single.cec2013",
+      "status": "exception",
+      "error": "RuntimeError: Could not locate MATLAB community problems folder.",
+      "total_s": 0.0006
+    },
+    {
+      "label": "CEC2013_F11 [local]",
+      "id": "local::problems.single.cec2013.CEC2013_F11",
+      "module": "problems.single.cec2013",
+      "status": "exception",
+      "error": "RuntimeError: Could not locate MATLAB community problems folder.",
+      "total_s": 0.0
+    },
+    {
+      "label": "CEC2013_F11_JAX [local]",
+      "id": "local::problems.single.cec2013.CEC2013_F11_JAX",
+      "module": "problems.single.cec2013",
+      "status": "exception",
+      "error": "RuntimeError: Could not locate MATLAB community problems folder.",
+      "total_s": 0.0
+    },
+    {
+      "label": "CEC2013_F12 [local]",
+      "id": "local::problems.single.cec2013.CEC2013_F12",
+      "module": "problems.single.cec2013",
+      "status": "exception",
+      "error": "RuntimeError: Could not locate MATLAB community problems folder.",
+      "total_s": 0.0
+    },
+    {
+      "label": "CEC2013_F12_JAX [local]",
+      "id": "local::problems.single.cec2013.CEC2013_F12_JAX",
+      "module": "problems.single.cec2013",
+      "status": "exception",
+      "error": "RuntimeError: Could not locate MATLAB community problems folder.",
+      "total_s": 0.0
+    },
+    {
+      "label": "CEC2013_F13 [local]",
+      "id": "local::problems.single.cec2013.CEC2013_F13",
+      "module": "problems.single.cec2013",
+      "status": "exception",
+      "error": "RuntimeError: Could not locate MATLAB community problems folder.",
+      "total_s": 0.0011
+    },
+    {
+      "label": "CEC2013_F13_JAX [local]",
+      "id": "local::problems.single.cec2013.CEC2013_F13_JAX",
+      "module": "problems.single.cec2013",
+      "status": "exception",
+      "error": "RuntimeError: Could not locate MATLAB community problems folder.",
+      "total_s": 0.0
+    },
+    {
+      "label": "CEC2013_F14 [local]",
+      "id": "local::problems.single.cec2013.CEC2013_F14",
+      "module": "problems.single.cec2013",
+      "status": "exception",
+      "error": "RuntimeError: Could not locate MATLAB community problems folder.",
+      "total_s": 0.0
+    },
+    {
+      "label": "CEC2013_F14_JAX [local]",
+      "id": "local::problems.single.cec2013.CEC2013_F14_JAX",
+      "module": "problems.single.cec2013",
+      "status": "exception",
+      "error": "RuntimeError: Could not locate MATLAB community problems folder.",
+      "total_s": 0.0006
+    },
+    {
+      "label": "CEC2013_F15 [local]",
+      "id": "local::problems.single.cec2013.CEC2013_F15",
+      "module": "problems.single.cec2013",
+      "status": "exception",
+      "error": "RuntimeError: Could not locate MATLAB community problems folder.",
+      "total_s": 0.0
+    },
+    {
+      "label": "CEC2013_F15_JAX [local]",
+      "id": "local::problems.single.cec2013.CEC2013_F15_JAX",
+      "module": "problems.single.cec2013",
+      "status": "exception",
+      "error": "RuntimeError: Could not locate MATLAB community problems folder.",
+      "total_s": 0.0
+    },
+    {
+      "label": "CEC2013_F1_JAX [local]",
+      "id": "local::problems.single.cec2013.CEC2013_F1_JAX",
+      "module": "problems.single.cec2013",
+      "status": "exception",
+      "error": "RuntimeError: Could not locate MATLAB community problems folder.",
+      "total_s": 0.0
+    },
+    {
+      "label": "CEC2013_F2 [local]",
+      "id": "local::problems.single.cec2013.CEC2013_F2",
+      "module": "problems.single.cec2013",
+      "status": "exception",
+      "error": "RuntimeError: Could not locate MATLAB community problems folder.",
+      "total_s": 0.0
+    },
+    {
+      "label": "CEC2013_F2_JAX [local]",
+      "id": "local::problems.single.cec2013.CEC2013_F2_JAX",
+      "module": "problems.single.cec2013",
+      "status": "exception",
+      "error": "RuntimeError: Could not locate MATLAB community problems folder.",
+      "total_s": 0.0
+    },
+    {
+      "label": "CEC2013_F3 [local]",
+      "id": "local::problems.single.cec2013.CEC2013_F3",
+      "module": "problems.single.cec2013",
+      "status": "exception",
+      "error": "RuntimeError: Could not locate MATLAB community problems folder.",
+      "total_s": 0.0012
+    },
+    {
+      "label": "CEC2013_F3_JAX [local]",
+      "id": "local::problems.single.cec2013.CEC2013_F3_JAX",
+      "module": "problems.single.cec2013",
+      "status": "exception",
+      "error": "RuntimeError: Could not locate MATLAB community problems folder.",
+      "total_s": 0.0
+    },
+    {
+      "label": "CEC2013_F4 [local]",
+      "id": "local::problems.single.cec2013.CEC2013_F4",
+      "module": "problems.single.cec2013",
+      "status": "exception",
+      "error": "RuntimeError: Could not locate MATLAB community problems folder.",
+      "total_s": 0.0
+    },
+    {
+      "label": "CEC2013_F4_JAX [local]",
+      "id": "local::problems.single.cec2013.CEC2013_F4_JAX",
+      "module": "problems.single.cec2013",
+      "status": "exception",
+      "error": "RuntimeError: Could not locate MATLAB community problems folder.",
+      "total_s": 0.0
+    },
+    {
+      "label": "CEC2013_F5 [local]",
+      "id": "local::problems.single.cec2013.CEC2013_F5",
+      "module": "problems.single.cec2013",
+      "status": "exception",
+      "error": "RuntimeError: Could not locate MATLAB community problems folder.",
+      "total_s": 0.0
+    },
+    {
+      "label": "CEC2013_F5_JAX [local]",
+      "id": "local::problems.single.cec2013.CEC2013_F5_JAX",
+      "module": "problems.single.cec2013",
+      "status": "exception",
+      "error": "RuntimeError: Could not locate MATLAB community problems folder.",
+      "total_s": 0.0
+    },
+    {
+      "label": "CEC2013_F6 [local]",
+      "id": "local::problems.single.cec2013.CEC2013_F6",
+      "module": "problems.single.cec2013",
+      "status": "exception",
+      "error": "RuntimeError: Could not locate MATLAB community problems folder.",
+      "total_s": 0.0
+    },
+    {
+      "label": "CEC2013_F6_JAX [local]",
+      "id": "local::problems.single.cec2013.CEC2013_F6_JAX",
+      "module": "problems.single.cec2013",
+      "status": "exception",
+      "error": "RuntimeError: Could not locate MATLAB community problems folder.",
+      "total_s": 0.0011
+    },
+    {
+      "label": "CEC2013_F7 [local]",
+      "id": "local::problems.single.cec2013.CEC2013_F7",
+      "module": "problems.single.cec2013",
+      "status": "exception",
+      "error": "RuntimeError: Could not locate MATLAB community problems folder.",
+      "total_s": 0.0
+    },
+    {
+      "label": "CEC2013_F7_JAX [local]",
+      "id": "local::problems.single.cec2013.CEC2013_F7_JAX",
+      "module": "problems.single.cec2013",
+      "status": "exception",
+      "error": "RuntimeError: Could not locate MATLAB community problems folder.",
+      "total_s": 0.0
+    },
+    {
+      "label": "CEC2013_F8 [local]",
+      "id": "local::problems.single.cec2013.CEC2013_F8",
+      "module": "problems.single.cec2013",
+      "status": "exception",
+      "error": "RuntimeError: Could not locate MATLAB community problems folder.",
+      "total_s": 0.0
+    },
+    {
+      "label": "CEC2013_F8_JAX [local]",
+      "id": "local::problems.single.cec2013.CEC2013_F8_JAX",
+      "module": "problems.single.cec2013",
+      "status": "exception",
+      "error": "RuntimeError: Could not locate MATLAB community problems folder.",
+      "total_s": 0.0008
+    },
+    {
+      "label": "CEC2013_F9 [local]",
+      "id": "local::problems.single.cec2013.CEC2013_F9",
+      "module": "problems.single.cec2013",
+      "status": "exception",
+      "error": "RuntimeError: Could not locate MATLAB community problems folder.",
+      "total_s": 0.0
+    },
+    {
+      "label": "CEC2013_F9_JAX [local]",
+      "id": "local::problems.single.cec2013.CEC2013_F9_JAX",
+      "module": "problems.single.cec2013",
+      "status": "exception",
+      "error": "RuntimeError: Could not locate MATLAB community problems folder.",
+      "total_s": 0.0
+    },
+    {
+      "label": "CEC2020_F1 [local]",
+      "id": "local::problems.single.cec2020.CEC2020_F1",
+      "module": "problems.single.cec2020",
+      "status": "exception",
+      "error": "RuntimeError: Could not locate MATLAB community problems folder.",
+      "total_s": 0.0006
+    },
+    {
+      "label": "CEC2020_F10 [local]",
+      "id": "local::problems.single.cec2020.CEC2020_F10",
+      "module": "problems.single.cec2020",
+      "status": "exception",
+      "error": "RuntimeError: Could not locate MATLAB community problems folder.",
+      "total_s": 0.0
+    },
+    {
+      "label": "CEC2020_F10_JAX [local]",
+      "id": "local::problems.single.cec2020.CEC2020_F10_JAX",
+      "module": "problems.single.cec2020",
+      "status": "exception",
+      "error": "RuntimeError: Could not locate MATLAB community problems folder.",
+      "total_s": 0.0
+    },
+    {
+      "label": "CEC2020_F1_JAX [local]",
+      "id": "local::problems.single.cec2020.CEC2020_F1_JAX",
+      "module": "problems.single.cec2020",
+      "status": "exception",
+      "error": "RuntimeError: Could not locate MATLAB community problems folder.",
+      "total_s": 0.0006
+    },
+    {
+      "label": "CEC2020_F2 [local]",
+      "id": "local::problems.single.cec2020.CEC2020_F2",
+      "module": "problems.single.cec2020",
+      "status": "exception",
+      "error": "RuntimeError: Could not locate MATLAB community problems folder.",
+      "total_s": 0.0
+    },
+    {
+      "label": "CEC2020_F2_JAX [local]",
+      "id": "local::problems.single.cec2020.CEC2020_F2_JAX",
+      "module": "problems.single.cec2020",
+      "status": "exception",
+      "error": "RuntimeError: Could not locate MATLAB community problems folder.",
+      "total_s": 0.0
+    },
+    {
+      "label": "CEC2020_F3 [local]",
+      "id": "local::problems.single.cec2020.CEC2020_F3",
+      "module": "problems.single.cec2020",
+      "status": "exception",
+      "error": "RuntimeError: Could not locate MATLAB community problems folder.",
+      "total_s": 0.0
+    },
+    {
+      "label": "CEC2020_F3_JAX [local]",
+      "id": "local::problems.single.cec2020.CEC2020_F3_JAX",
+      "module": "problems.single.cec2020",
+      "status": "exception",
+      "error": "RuntimeError: Could not locate MATLAB community problems folder.",
+      "total_s": 0.0
+    },
+    {
+      "label": "CEC2020_F4 [local]",
+      "id": "local::problems.single.cec2020.CEC2020_F4",
+      "module": "problems.single.cec2020",
+      "status": "exception",
+      "error": "RuntimeError: Could not locate MATLAB community problems folder.",
+      "total_s": 0.0
+    },
+    {
+      "label": "CEC2020_F4_JAX [local]",
+      "id": "local::problems.single.cec2020.CEC2020_F4_JAX",
+      "module": "problems.single.cec2020",
+      "status": "exception",
+      "error": "RuntimeError: Could not locate MATLAB community problems folder.",
+      "total_s": 0.0
+    },
+    {
+      "label": "CEC2020_F5 [local]",
+      "id": "local::problems.single.cec2020.CEC2020_F5",
+      "module": "problems.single.cec2020",
+      "status": "exception",
+      "error": "RuntimeError: Could not locate MATLAB community problems folder.",
+      "total_s": 0.0
+    },
+    {
+      "label": "CEC2020_F5_JAX [local]",
+      "id": "local::problems.single.cec2020.CEC2020_F5_JAX",
+      "module": "problems.single.cec2020",
+      "status": "exception",
+      "error": "RuntimeError: Could not locate MATLAB community problems folder.",
+      "total_s": 0.0
+    },
+    {
+      "label": "CEC2020_F6 [local]",
+      "id": "local::problems.single.cec2020.CEC2020_F6",
+      "module": "problems.single.cec2020",
+      "status": "exception",
+      "error": "RuntimeError: Could not locate MATLAB community problems folder.",
+      "total_s": 0.0016
+    },
+    {
+      "label": "CEC2020_F6_JAX [local]",
+      "id": "local::problems.single.cec2020.CEC2020_F6_JAX",
+      "module": "problems.single.cec2020",
+      "status": "exception",
+      "error": "RuntimeError: Could not locate MATLAB community problems folder.",
+      "total_s": 0.0006
+    },
+    {
+      "label": "CEC2020_F7 [local]",
+      "id": "local::problems.single.cec2020.CEC2020_F7",
+      "module": "problems.single.cec2020",
+      "status": "exception",
+      "error": "RuntimeError: Could not locate MATLAB community problems folder.",
+      "total_s": 0.0
+    },
+    {
+      "label": "CEC2020_F7_JAX [local]",
+      "id": "local::problems.single.cec2020.CEC2020_F7_JAX",
+      "module": "problems.single.cec2020",
+      "status": "exception",
+      "error": "RuntimeError: Could not locate MATLAB community problems folder.",
+      "total_s": 0.0
+    },
+    {
+      "label": "CEC2020_F8 [local]",
+      "id": "local::problems.single.cec2020.CEC2020_F8",
+      "module": "problems.single.cec2020",
+      "status": "exception",
+      "error": "RuntimeError: Could not locate MATLAB community problems folder.",
+      "total_s": 0.0
+    },
+    {
+      "label": "CEC2020_F8_JAX [local]",
+      "id": "local::problems.single.cec2020.CEC2020_F8_JAX",
+      "module": "problems.single.cec2020",
+      "status": "exception",
+      "error": "RuntimeError: Could not locate MATLAB community problems folder.",
+      "total_s": 0.0
+    },
+    {
+      "label": "CEC2020_F9 [local]",
+      "id": "local::problems.single.cec2020.CEC2020_F9",
+      "module": "problems.single.cec2020",
+      "status": "exception",
+      "error": "RuntimeError: Could not locate MATLAB community problems folder.",
+      "total_s": 0.0
+    },
+    {
+      "label": "CEC2020_F9_JAX [local]",
+      "id": "local::problems.single.cec2020.CEC2020_F9_JAX",
+      "module": "problems.single.cec2020",
+      "status": "exception",
+      "error": "RuntimeError: Could not locate MATLAB community problems folder.",
+      "total_s": 0.0011
+    },
+    {
+      "label": "CI_HS [local]",
+      "id": "local::problems.single.multitasking_sops.CI_HS",
+      "module": "problems.single.multitasking_sops",
+      "status": "ok",
+      "n_var": 51,
+      "n_obj": 1,
+      "run_s": 0.0193,
+      "F_shape": [
+        1
+      ],
+      "F_finite": true,
+      "total_s": 0.0201
+    },
+    {
+      "label": "CI_HS_JAX [local]",
+      "id": "local::problems.single.multitasking_sops.CI_HS_JAX",
+      "module": "problems.single.multitasking_sops",
+      "status": "ok",
+      "n_var": 51,
+      "n_obj": 1,
+      "run_s": 0.4707,
+      "F_shape": [
+        1
+      ],
+      "F_finite": true,
+      "total_s": 0.4707
+    },
+    {
+      "label": "CI_LS [local]",
+      "id": "local::problems.single.multitasking_sops.CI_LS",
+      "module": "problems.single.multitasking_sops",
+      "status": "ok",
+      "n_var": 51,
+      "n_obj": 1,
+      "run_s": 0.0088,
+      "F_shape": [
+        1
+      ],
+      "F_finite": true,
+      "total_s": 0.0094
+    },
+    {
+      "label": "CI_LS_JAX [local]",
+      "id": "local::problems.single.multitasking_sops.CI_LS_JAX",
+      "module": "problems.single.multitasking_sops",
+      "status": "ok",
+      "n_var": 51,
+      "n_obj": 1,
+      "run_s": 0.2018,
+      "F_shape": [
+        1
+      ],
+      "F_finite": true,
+      "total_s": 0.2018
+    },
+    {
+      "label": "CI_MS [local]",
+      "id": "local::problems.single.multitasking_sops.CI_MS",
+      "module": "problems.single.multitasking_sops",
+      "status": "ok",
+      "n_var": 51,
+      "n_obj": 1,
+      "run_s": 0.0098,
+      "F_shape": [
+        1
+      ],
+      "F_finite": true,
+      "total_s": 0.0098
+    },
+    {
+      "label": "CI_MS_JAX [local]",
+      "id": "local::problems.single.multitasking_sops.CI_MS_JAX",
+      "module": "problems.single.multitasking_sops",
+      "status": "ok",
+      "n_var": 51,
+      "n_obj": 1,
+      "run_s": 0.0263,
+      "F_shape": [
+        1
+      ],
+      "F_finite": true,
+      "total_s": 0.0266
+    },
+    {
+      "label": "CommunityDetection [local]",
+      "id": "local::problems.single.realworld_sops.CommunityDetection",
+      "module": "problems.single.realworld_sops",
+      "status": "exception",
+      "error": "RuntimeError: Could not locate MATLAB community problems folder.",
+      "total_s": 0.0
+    },
+    {
+      "label": "CommunityDetection_JAX [local]",
+      "id": "local::problems.single.realworld_sops.CommunityDetection_JAX",
+      "module": "problems.single.realworld_sops",
+      "status": "exception",
+      "error": "RuntimeError: Could not locate MATLAB community problems folder.",
+      "total_s": 0.0
+    },
+    {
+      "label": "KP [local]",
+      "id": "local::problems.single.realworld_sops.KP",
+      "module": "problems.single.realworld_sops",
+      "status": "exception",
+      "error": "RuntimeError: Could not locate MATLAB community problems folder.",
+      "total_s": 0.0012
+    },
+    {
+      "label": "KP_JAX [local]",
+      "id": "local::problems.single.realworld_sops.KP_JAX",
+      "module": "problems.single.realworld_sops",
+      "status": "exception",
+      "error": "RuntimeError: Could not locate MATLAB community problems folder.",
+      "total_s": 0.0
+    },
+    {
+      "label": "MaxCut [local]",
+      "id": "local::problems.single.realworld_sops.MaxCut",
+      "module": "problems.single.realworld_sops",
+      "status": "exception",
+      "error": "RuntimeError: Could not locate MATLAB community problems folder.",
+      "total_s": 0.0
+    },
+    {
+      "label": "MaxCut_JAX [local]",
+      "id": "local::problems.single.realworld_sops.MaxCut_JAX",
+      "module": "problems.single.realworld_sops",
+      "status": "exception",
+      "error": "RuntimeError: Could not locate MATLAB community problems folder.",
+      "total_s": 0.0006
+    },
+    {
+      "label": "NI_HS [local]",
+      "id": "local::problems.single.multitasking_sops.NI_HS",
+      "module": "problems.single.multitasking_sops",
+      "status": "ok",
+      "n_var": 51,
+      "n_obj": 1,
+      "run_s": 0.0085,
+      "F_shape": [
+        1
+      ],
+      "F_finite": true,
+      "total_s": 0.0085
+    },
+    {
+      "label": "NI_HS_JAX [local]",
+      "id": "local::problems.single.multitasking_sops.NI_HS_JAX",
+      "module": "problems.single.multitasking_sops",
+      "status": "ok",
+      "n_var": 51,
+      "n_obj": 1,
+      "run_s": 0.1951,
+      "F_shape": [
+        1
+      ],
+      "F_finite": true,
+      "total_s": 0.1951
+    },
+    {
+      "label": "NI_MS [local]",
+      "id": "local::problems.single.multitasking_sops.NI_MS",
+      "module": "problems.single.multitasking_sops",
+      "status": "ok",
+      "n_var": 51,
+      "n_obj": 1,
+      "run_s": 0.0105,
+      "F_shape": [
+        1
+      ],
+      "F_finite": true,
+      "total_s": 0.0116
+    },
+    {
+      "label": "NI_MS_JAX [local]",
+      "id": "local::problems.single.multitasking_sops.NI_MS_JAX",
+      "module": "problems.single.multitasking_sops",
+      "status": "ok",
+      "n_var": 51,
+      "n_obj": 1,
+      "run_s": 0.3535,
+      "F_shape": [
+        1
+      ],
+      "F_finite": true,
+      "total_s": 0.3535
+    },
+    {
+      "label": "SOP_F1 [local]",
+      "id": "local::problems.single.simple_sops.SOP_F1",
+      "module": "problems.single.simple_sops",
+      "status": "ok",
+      "n_var": 30,
+      "n_obj": 1,
+      "run_s": 0.0083,
+      "F_shape": [
+        1
+      ],
+      "F_finite": true,
+      "total_s": 0.0083
+    },
+    {
+      "label": "SOP_F10 [local]",
+      "id": "local::problems.single.simple_sops.SOP_F10",
+      "module": "problems.single.simple_sops",
+      "status": "ok",
+      "n_var": 30,
+      "n_obj": 1,
+      "run_s": 0.0084,
+      "F_shape": [
+        1
+      ],
+      "F_finite": true,
+      "total_s": 0.0084
+    },
+    {
+      "label": "SOP_F10_JAX [local]",
+      "id": "local::problems.single.simple_sops.SOP_F10_JAX",
+      "module": "problems.single.simple_sops",
+      "status": "ok",
+      "n_var": 30,
+      "n_obj": 1,
+      "run_s": 0.0521,
+      "F_shape": [
+        1
+      ],
+      "F_finite": true,
+      "total_s": 0.0526
+    },
+    {
+      "label": "SOP_F11 [local]",
+      "id": "local::problems.single.simple_sops.SOP_F11",
+      "module": "problems.single.simple_sops",
+      "status": "ok",
+      "n_var": 30,
+      "n_obj": 1,
+      "run_s": 0.0084,
+      "F_shape": [
+        1
+      ],
+      "F_finite": true,
+      "total_s": 0.0084
+    },
+    {
+      "label": "SOP_F11_JAX [local]",
+      "id": "local::problems.single.simple_sops.SOP_F11_JAX",
+      "module": "problems.single.simple_sops",
+      "status": "ok",
+      "n_var": 30,
+      "n_obj": 1,
+      "run_s": 0.1328,
+      "F_shape": [
+        1
+      ],
+      "F_finite": true,
+      "total_s": 0.1333
+    },
+    {
+      "label": "SOP_F12 [local]",
+      "id": "local::problems.single.simple_sops.SOP_F12",
+      "module": "problems.single.simple_sops",
+      "status": "ok",
+      "n_var": 30,
+      "n_obj": 1,
+      "run_s": 0.0083,
+      "F_shape": [
+        1
+      ],
+      "F_finite": true,
+      "total_s": 0.0083
+    },
+    {
+      "label": "SOP_F12_JAX [local]",
+      "id": "local::problems.single.simple_sops.SOP_F12_JAX",
+      "module": "problems.single.simple_sops",
+      "status": "ok",
+      "n_var": 30,
+      "n_obj": 1,
+      "run_s": 0.0782,
+      "F_shape": [
+        1
+      ],
+      "F_finite": true,
+      "total_s": 0.0787
+    },
+    {
+      "label": "SOP_F13 [local]",
+      "id": "local::problems.single.simple_sops.SOP_F13",
+      "module": "problems.single.simple_sops",
+      "status": "ok",
+      "n_var": 30,
+      "n_obj": 1,
+      "run_s": 0.0085,
+      "F_shape": [
+        1
+      ],
+      "F_finite": true,
+      "total_s": 0.0085
+    },
+    {
+      "label": "SOP_F13_JAX [local]",
+      "id": "local::problems.single.simple_sops.SOP_F13_JAX",
+      "module": "problems.single.simple_sops",
+      "status": "ok",
+      "n_var": 30,
+      "n_obj": 1,
+      "run_s": 0.0116,
+      "F_shape": [
+        1
+      ],
+      "F_finite": true,
+      "total_s": 0.0116
+    },
+    {
+      "label": "SOP_F14 [local]",
+      "id": "local::problems.single.simple_sops.SOP_F14",
+      "module": "problems.single.simple_sops",
+      "status": "ok",
+      "n_var": 2,
+      "n_obj": 1,
+      "run_s": 0.0052,
+      "F_shape": [
+        1
+      ],
+      "F_finite": true,
+      "total_s": 0.0052
+    },
+    {
+      "label": "SOP_F14_JAX [local]",
+      "id": "local::problems.single.simple_sops.SOP_F14_JAX",
+      "module": "problems.single.simple_sops",
+      "status": "ok",
+      "n_var": 2,
+      "n_obj": 1,
+      "run_s": 0.3377,
+      "F_shape": [
+        1
+      ],
+      "F_finite": true,
+      "total_s": 0.3393
+    },
+    {
+      "label": "SOP_F15 [local]",
+      "id": "local::problems.single.simple_sops.SOP_F15",
+      "module": "problems.single.simple_sops",
+      "status": "ok",
+      "n_var": 4,
+      "n_obj": 1,
+      "run_s": 0.007,
+      "F_shape": [
+        1
+      ],
+      "F_finite": true,
+      "total_s": 0.007
+    },
+    {
+      "label": "SOP_F15_JAX [local]",
+      "id": "local::problems.single.simple_sops.SOP_F15_JAX",
+      "module": "problems.single.simple_sops",
+      "status": "ok",
+      "n_var": 4,
+      "n_obj": 1,
+      "run_s": 0.3157,
+      "F_shape": [
+        1
+      ],
+      "F_finite": true,
+      "total_s": 0.3164
+    },
+    {
+      "label": "SOP_F16 [local]",
+      "id": "local::problems.single.simple_sops.SOP_F16",
+      "module": "problems.single.simple_sops",
+      "status": "ok",
+      "n_var": 2,
+      "n_obj": 1,
+      "run_s": 0.0053,
+      "F_shape": [
+        1
+      ],
+      "F_finite": true,
+      "total_s": 0.0063
+    },
+    {
+      "label": "SOP_F16_JAX [local]",
+      "id": "local::problems.single.simple_sops.SOP_F16_JAX",
+      "module": "problems.single.simple_sops",
+      "status": "ok",
+      "n_var": 2,
+      "n_obj": 1,
+      "run_s": 0.0626,
+      "F_shape": [
+        1
+      ],
+      "F_finite": true,
+      "total_s": 0.0633
+    },
+    {
+      "label": "SOP_F17 [local]",
+      "id": "local::problems.single.simple_sops.SOP_F17",
+      "module": "problems.single.simple_sops",
+      "status": "ok",
+      "n_var": 2,
+      "n_obj": 1,
+      "run_s": 0.0066,
+      "F_shape": [
+        1
+      ],
+      "F_finite": true,
+      "total_s": 0.0066
+    },
+    {
+      "label": "SOP_F17_JAX [local]",
+      "id": "local::problems.single.simple_sops.SOP_F17_JAX",
+      "module": "problems.single.simple_sops",
+      "status": "ok",
+      "n_var": 2,
+      "n_obj": 1,
+      "run_s": 0.025,
+      "F_shape": [
+        1
+      ],
+      "F_finite": true,
+      "total_s": 0.0257
+    },
+    {
+      "label": "SOP_F18 [local]",
+      "id": "local::problems.single.simple_sops.SOP_F18",
+      "module": "problems.single.simple_sops",
+      "status": "ok",
+      "n_var": 2,
+      "n_obj": 1,
+      "run_s": 0.0064,
+      "F_shape": [
+        1
+      ],
+      "F_finite": true,
+      "total_s": 0.0064
+    },
+    {
+      "label": "SOP_F18_JAX [local]",
+      "id": "local::problems.single.simple_sops.SOP_F18_JAX",
+      "module": "problems.single.simple_sops",
+      "status": "ok",
+      "n_var": 2,
+      "n_obj": 1,
+      "run_s": 0.0087,
+      "F_shape": [
+        1
+      ],
+      "F_finite": true,
+      "total_s": 0.0087
+    },
+    {
+      "label": "SOP_F19 [local]",
+      "id": "local::problems.single.simple_sops.SOP_F19",
+      "module": "problems.single.simple_sops",
+      "status": "ok",
+      "n_var": 3,
+      "n_obj": 1,
+      "run_s": 0.0044,
+      "F_shape": [
+        1
+      ],
+      "F_finite": true,
+      "total_s": 0.005
+    },
+    {
+      "label": "SOP_F19_JAX [local]",
+      "id": "local::problems.single.simple_sops.SOP_F19_JAX",
+      "module": "problems.single.simple_sops",
+      "status": "ok",
+      "n_var": 3,
+      "n_obj": 1,
+      "run_s": 0.2628,
+      "F_shape": [
+        1
+      ],
+      "F_finite": true,
+      "total_s": 0.2628
+    },
+    {
+      "label": "SOP_F1_JAX [local]",
+      "id": "local::problems.single.simple_sops.SOP_F1_JAX",
+      "module": "problems.single.simple_sops",
+      "status": "ok",
+      "n_var": 30,
+      "n_obj": 1,
+      "run_s": 0.0087,
+      "F_shape": [
+        1
+      ],
+      "F_finite": true,
+      "total_s": 0.0087
+    },
+    {
+      "label": "SOP_F2 [local]",
+      "id": "local::problems.single.simple_sops.SOP_F2",
+      "module": "problems.single.simple_sops",
+      "status": "ok",
+      "n_var": 30,
+      "n_obj": 1,
+      "run_s": 0.0075,
+      "F_shape": [
+        1
+      ],
+      "F_finite": true,
+      "total_s": 0.0075
+    },
+    {
+      "label": "SOP_F20 [local]",
+      "id": "local::problems.single.simple_sops.SOP_F20",
+      "module": "problems.single.simple_sops",
+      "status": "ok",
+      "n_var": 6,
+      "n_obj": 1,
+      "run_s": 0.0065,
+      "F_shape": [
+        1
+      ],
+      "F_finite": true,
+      "total_s": 0.0065
+    },
+    {
+      "label": "SOP_F20_JAX [local]",
+      "id": "local::problems.single.simple_sops.SOP_F20_JAX",
+      "module": "problems.single.simple_sops",
+      "status": "ok",
+      "n_var": 6,
+      "n_obj": 1,
+      "run_s": 0.1814,
+      "F_shape": [
+        1
+      ],
+      "F_finite": true,
+      "total_s": 0.1814
+    },
+    {
+      "label": "SOP_F21 [local]",
+      "id": "local::problems.single.simple_sops.SOP_F21",
+      "module": "problems.single.simple_sops",
+      "status": "ok",
+      "n_var": 4,
+      "n_obj": 1,
+      "run_s": 0.0057,
+      "F_shape": [
+        1
+      ],
+      "F_finite": true,
+      "total_s": 0.0057
+    },
+    {
+      "label": "SOP_F21_JAX [local]",
+      "id": "local::problems.single.simple_sops.SOP_F21_JAX",
+      "module": "problems.single.simple_sops",
+      "status": "ok",
+      "n_var": 4,
+      "n_obj": 1,
+      "run_s": 0.1806,
+      "F_shape": [
+        1
+      ],
+      "F_finite": true,
+      "total_s": 0.1819
+    },
+    {
+      "label": "SOP_F22 [local]",
+      "id": "local::problems.single.simple_sops.SOP_F22",
+      "module": "problems.single.simple_sops",
+      "status": "ok",
+      "n_var": 4,
+      "n_obj": 1,
+      "run_s": 0.007,
+      "F_shape": [
+        1
+      ],
+      "F_finite": true,
+      "total_s": 0.007
+    },
+    {
+      "label": "SOP_F22_JAX [local]",
+      "id": "local::problems.single.simple_sops.SOP_F22_JAX",
+      "module": "problems.single.simple_sops",
+      "status": "ok",
+      "n_var": 4,
+      "n_obj": 1,
+      "run_s": 0.1736,
+      "F_shape": [
+        1
+      ],
+      "F_finite": true,
+      "total_s": 0.1736
+    },
+    {
+      "label": "SOP_F23 [local]",
+      "id": "local::problems.single.simple_sops.SOP_F23",
+      "module": "problems.single.simple_sops",
+      "status": "ok",
+      "n_var": 4,
+      "n_obj": 1,
+      "run_s": 0.0061,
+      "F_shape": [
+        1
+      ],
+      "F_finite": true,
+      "total_s": 0.0072
+    },
+    {
+      "label": "SOP_F23_JAX [local]",
+      "id": "local::problems.single.simple_sops.SOP_F23_JAX",
+      "module": "problems.single.simple_sops",
+      "status": "ok",
+      "n_var": 4,
+      "n_obj": 1,
+      "run_s": 0.1874,
+      "F_shape": [
+        1
+      ],
+      "F_finite": true,
+      "total_s": 0.1874
+    },
+    {
+      "label": "SOP_F2_JAX [local]",
+      "id": "local::problems.single.simple_sops.SOP_F2_JAX",
+      "module": "problems.single.simple_sops",
+      "status": "ok",
+      "n_var": 30,
+      "n_obj": 1,
+      "run_s": 0.009,
+      "F_shape": [
+        1
+      ],
+      "F_finite": true,
+      "total_s": 0.009
+    },
+    {
+      "label": "SOP_F3 [local]",
+      "id": "local::problems.single.simple_sops.SOP_F3",
+      "module": "problems.single.simple_sops",
+      "status": "ok",
+      "n_var": 30,
+      "n_obj": 1,
+      "run_s": 0.0081,
+      "F_shape": [
+        1
+      ],
+      "F_finite": true,
+      "total_s": 0.0081
+    },
+    {
+      "label": "SOP_F3_JAX [local]",
+      "id": "local::problems.single.simple_sops.SOP_F3_JAX",
+      "module": "problems.single.simple_sops",
+      "status": "ok",
+      "n_var": 30,
+      "n_obj": 1,
+      "run_s": 0.0675,
+      "F_shape": [
+        1
+      ],
+      "F_finite": true,
+      "total_s": 0.0681
+    },
+    {
+      "label": "SOP_F4 [local]",
+      "id": "local::problems.single.simple_sops.SOP_F4",
+      "module": "problems.single.simple_sops",
+      "status": "ok",
+      "n_var": 30,
+      "n_obj": 1,
+      "run_s": 0.0075,
+      "F_shape": [
+        1
+      ],
+      "F_finite": true,
+      "total_s": 0.0096
+    },
+    {
+      "label": "SOP_F4_JAX [local]",
+      "id": "local::problems.single.simple_sops.SOP_F4_JAX",
+      "module": "problems.single.simple_sops",
+      "status": "ok",
+      "n_var": 30,
+      "n_obj": 1,
+      "run_s": 0.0429,
+      "F_shape": [
+        1
+      ],
+      "F_finite": true,
+      "total_s": 0.0435
+    },
+    {
+      "label": "SOP_F5 [local]",
+      "id": "local::problems.single.simple_sops.SOP_F5",
+      "module": "problems.single.simple_sops",
+      "status": "ok",
+      "n_var": 30,
+      "n_obj": 1,
+      "run_s": 0.0071,
+      "F_shape": [
+        1
+      ],
+      "F_finite": true,
+      "total_s": 0.0077
+    },
+    {
+      "label": "SOP_F5_JAX [local]",
+      "id": "local::problems.single.simple_sops.SOP_F5_JAX",
+      "module": "problems.single.simple_sops",
+      "status": "ok",
+      "n_var": 30,
+      "n_obj": 1,
+      "run_s": 0.0084,
+      "F_shape": [
+        1
+      ],
+      "F_finite": true,
+      "total_s": 0.009
+    },
+    {
+      "label": "SOP_F6 [local]",
+      "id": "local::problems.single.simple_sops.SOP_F6",
+      "module": "problems.single.simple_sops",
+      "status": "ok",
+      "n_var": 30,
+      "n_obj": 1,
+      "run_s": 0.0074,
+      "F_shape": [
+        1
+      ],
+      "F_finite": true,
+      "total_s": 0.0074
+    },
+    {
+      "label": "SOP_F6_JAX [local]",
+      "id": "local::problems.single.simple_sops.SOP_F6_JAX",
+      "module": "problems.single.simple_sops",
+      "status": "ok",
+      "n_var": 30,
+      "n_obj": 1,
+      "run_s": 0.0098,
+      "F_shape": [
+        1
+      ],
+      "F_finite": true,
+      "total_s": 0.0098
+    },
+    {
+      "label": "SOP_F7 [local]",
+      "id": "local::problems.single.simple_sops.SOP_F7",
+      "module": "problems.single.simple_sops",
+      "status": "ok",
+      "n_var": 30,
+      "n_obj": 1,
+      "run_s": 0.0072,
+      "F_shape": [
+        1
+      ],
+      "F_finite": true,
+      "total_s": 0.0072
+    },
+    {
+      "label": "SOP_F7_JAX [local]",
+      "id": "local::problems.single.simple_sops.SOP_F7_JAX",
+      "module": "problems.single.simple_sops",
+      "status": "ok",
+      "n_var": 30,
+      "n_obj": 1,
+      "run_s": 0.053,
+      "F_shape": [
+        1
+      ],
+      "F_finite": true,
+      "total_s": 0.053
+    },
+    {
+      "label": "SOP_F8 [local]",
+      "id": "local::problems.single.simple_sops.SOP_F8",
+      "module": "problems.single.simple_sops",
+      "status": "ok",
+      "n_var": 30,
+      "n_obj": 1,
+      "run_s": 0.0151,
+      "F_shape": [
+        1
+      ],
+      "F_finite": true,
+      "total_s": 0.0151
+    },
+    {
+      "label": "SOP_F8_JAX [local]",
+      "id": "local::problems.single.simple_sops.SOP_F8_JAX",
+      "module": "problems.single.simple_sops",
+      "status": "ok",
+      "n_var": 30,
+      "n_obj": 1,
+      "run_s": 0.0076,
+      "F_shape": [
+        1
+      ],
+      "F_finite": true,
+      "total_s": 0.0088
+    },
+    {
+      "label": "SOP_F9 [local]",
+      "id": "local::problems.single.simple_sops.SOP_F9",
+      "module": "problems.single.simple_sops",
+      "status": "ok",
+      "n_var": 30,
+      "n_obj": 1,
+      "run_s": 0.0069,
+      "F_shape": [
+        1
+      ],
+      "F_finite": true,
+      "total_s": 0.0087
+    },
+    {
+      "label": "SOP_F9_JAX [local]",
+      "id": "local::problems.single.simple_sops.SOP_F9_JAX",
+      "module": "problems.single.simple_sops",
+      "status": "ok",
+      "n_var": 30,
+      "n_obj": 1,
+      "run_s": 0.0368,
+      "F_shape": [
+        1
+      ],
+      "F_finite": true,
+      "total_s": 0.0368
+    },
+    {
+      "label": "TSP [local]",
+      "id": "local::problems.single.realworld_sops.TSP",
+      "module": "problems.single.realworld_sops",
+      "status": "exception",
+      "error": "RuntimeError: Could not locate MATLAB community problems folder.",
+      "total_s": 0.0012
+    },
+    {
+      "label": "TSP_JAX [local]",
+      "id": "local::problems.single.realworld_sops.TSP_JAX",
+      "module": "problems.single.realworld_sops",
+      "status": "exception",
+      "error": "RuntimeError: Could not locate MATLAB community problems folder.",
+      "total_s": 0.0
+    }
+  ],
+  "warnings": [
+    "Skipping local problem module multi/realworld_mops.py: MATLAB source folder for Real-world MOPs not found.",
+    "Skipping local problem module multi/sparse_realworld_mops.py: MATLAB source folder for Real-world MOPs not found.",
+    "Problem deduplication removed 2 duplicate entry candidate(s)."
+  ]
+}

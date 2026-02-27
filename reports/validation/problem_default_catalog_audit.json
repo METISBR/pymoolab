@@ -1,0 +1,343 @@
+{
+  "warnings": [
+    "Problem deduplication removed 2 duplicate entry candidate(s)."
+  ],
+  "rows": [
+    {
+      "problem_id": "local::problems.multi.realworld_mops.MOKP",
+      "name": "MOKP",
+      "module": "problems.multi.realworld_mops",
+      "status": "probe_error",
+      "detail": "FileNotFoundError: MATLAB source folder for Real-world MOPs not found."
+    },
+    {
+      "problem_id": "local::problems.multi.realworld_mops.MOKP_JAX",
+      "name": "MOKP_JAX",
+      "module": "problems.multi.realworld_mops",
+      "status": "probe_error",
+      "detail": "FileNotFoundError: MATLAB source folder for Real-world MOPs not found."
+    },
+    {
+      "problem_id": "local::problems.multi.realworld_mops.MONRP",
+      "name": "MONRP",
+      "module": "problems.multi.realworld_mops",
+      "status": "probe_error",
+      "detail": "FileNotFoundError: MATLAB source folder for Real-world MOPs not found."
+    },
+    {
+      "problem_id": "local::problems.multi.realworld_mops.MONRP_JAX",
+      "name": "MONRP_JAX",
+      "module": "problems.multi.realworld_mops",
+      "status": "probe_error",
+      "detail": "FileNotFoundError: MATLAB source folder for Real-world MOPs not found."
+    },
+    {
+      "problem_id": "local::problems.multi.realworld_mops.MOTSP",
+      "name": "MOTSP",
+      "module": "problems.multi.realworld_mops",
+      "status": "probe_error",
+      "detail": "FileNotFoundError: MATLAB source folder for Real-world MOPs not found."
+    },
+    {
+      "problem_id": "local::problems.multi.realworld_mops.MOTSP_JAX",
+      "name": "MOTSP_JAX",
+      "module": "problems.multi.realworld_mops",
+      "status": "probe_error",
+      "detail": "FileNotFoundError: MATLAB source folder for Real-world MOPs not found."
+    },
+    {
+      "problem_id": "local::problems.multi.realworld_mops.mQAP",
+      "name": "mQAP",
+      "module": "problems.multi.realworld_mops",
+      "status": "probe_error",
+      "detail": "FileNotFoundError: MATLAB source folder for Real-world MOPs not found."
+    },
+    {
+      "problem_id": "local::problems.multi.realworld_mops.mQAP_JAX",
+      "name": "mQAP_JAX",
+      "module": "problems.multi.realworld_mops",
+      "status": "probe_error",
+      "detail": "FileNotFoundError: MATLAB source folder for Real-world MOPs not found."
+    },
+    {
+      "problem_id": "local::problems.multi.sparse_realworld_mops.Sparse_KP",
+      "name": "Sparse_KP",
+      "module": "problems.multi.sparse_realworld_mops",
+      "status": "probe_error",
+      "detail": "FileNotFoundError: MATLAB source folder for Real-world MOPs not found."
+    },
+    {
+      "problem_id": "local::problems.multi.sparse_realworld_mops.Sparse_KP_JAX",
+      "name": "Sparse_KP_JAX",
+      "module": "problems.multi.sparse_realworld_mops",
+      "status": "probe_error",
+      "detail": "FileNotFoundError: MATLAB source folder for Real-world MOPs not found."
+    },
+    {
+      "problem_id": "local::problems.single.cec2008.CEC2008_F1",
+      "name": "CEC2008_F1",
+      "module": "problems.single.cec2008",
+      "status": "probe_error",
+      "detail": "RuntimeError: Could not locate MATLAB community problems folder."
+    },
+    {
+      "problem_id": "local::problems.single.cec2008.CEC2008_F1_JAX",
+      "name": "CEC2008_F1_JAX",
+      "module": "problems.single.cec2008",
+      "status": "probe_error",
+      "detail": "RuntimeError: Could not locate MATLAB community problems folder."
+    },
+    {
+      "problem_id": "local::problems.single.cec2008.CEC2008_F2",
+      "name": "CEC2008_F2",
+      "module": "problems.single.cec2008",
+      "status": "probe_error",
+      "detail": "RuntimeError: Could not locate MATLAB community problems folder."
+    },
+    {
+      "problem_id": "local::problems.single.cec2008.CEC2008_F2_JAX",
+      "name": "CEC2008_F2_JAX",
+      "module": "problems.single.cec2008",
+      "status": "probe_error",
+      "detail": "RuntimeError: Could not locate MATLAB community problems folder."
+    },
+    {
+      "problem_id": "local::problems.single.cec2008.CEC2008_F3",
+      "name": "CEC2008_F3",
+      "module": "problems.single.cec2008",
+      "status": "probe_error",
+      "detail": "RuntimeError: Could not locate MATLAB community problems folder."
+    },
+    {
+      "problem_id": "local::problems.single.cec2008.CEC2008_F3_JAX",
+      "name": "CEC2008_F3_JAX",
+      "module": "problems.single.cec2008",
+      "status": "probe_error",
+      "detail": "RuntimeError: Could not locate MATLAB community problems folder."
+    },
+    {
+      "problem_id": "local::problems.single.cec2008.CEC2008_F4",
+      "name": "CEC2008_F4",
+      "module": "problems.single.cec2008",
+      "status": "probe_error",
+      "detail": "RuntimeError: Could not locate MATLAB community problems folder."
+    },
+    {
+      "problem_id": "local::problems.single.cec2008.CEC2008_F4_JAX",
+      "name": "CEC2008_F4_JAX",
+      "module": "problems.single.cec2008",
+      "status": "probe_error",
+      "detail": "RuntimeError: Could not locate MATLAB community problems folder."
+    },
+    {
+      "problem_id": "local::problems.single.cec2008.CEC2008_F5",
+      "name": "CEC2008_F5",
+      "module": "problems.single.cec2008",
+      "status": "probe_error",
+      "detail": "RuntimeError: Could not locate MATLAB community problems folder."
+    },
+    {
+      "problem_id": "local::problems.single.cec2008.CEC2008_F5_JAX",
+      "name": "CEC2008_F5_JAX",
+      "module": "problems.single.cec2008",
+      "status": "probe_error",
+      "detail": "RuntimeError: Could not locate MATLAB community problems folder."
+    },
+    {
+      "problem_id": "local::problems.single.cec2008.CEC2008_F6",
+      "name": "CEC2008_F6",
+      "module": "problems.single.cec2008",
+      "status": "probe_error",
+      "detail": "RuntimeError: Could not locate MATLAB community problems folder."
+    },
+    {
+      "problem_id": "local::problems.single.cec2008.CEC2008_F6_JAX",
+      "name": "CEC2008_F6_JAX",
+      "module": "problems.single.cec2008",
+      "status": "probe_error",
+      "detail": "RuntimeError: Could not locate MATLAB community problems folder."
+    },
+    {
+      "problem_id": "local::problems.single.cec2008.CEC2008_F7",
+      "name": "CEC2008_F7",
+      "module": "problems.single.cec2008",
+      "status": "probe_error",
+      "detail": "RuntimeError: Could not locate MATLAB community problems folder."
+    },
+    {
+      "problem_id": "local::problems.single.cec2008.CEC2008_F7_JAX",
+      "name": "CEC2008_F7_JAX",
+      "module": "problems.single.cec2008",
+      "status": "probe_error",
+      "detail": "RuntimeError: Could not locate MATLAB community problems folder."
+    },
+    {
+      "problem_id": "local::problems.single.cec2020.CEC2020_F1",
+      "name": "CEC2020_F1",
+      "module": "problems.single.cec2020",
+      "status": "probe_error",
+      "detail": "RuntimeError: Could not locate MATLAB community problems folder."
+    },
+    {
+      "problem_id": "local::problems.single.cec2020.CEC2020_F10",
+      "name": "CEC2020_F10",
+      "module": "problems.single.cec2020",
+      "status": "probe_error",
+      "detail": "RuntimeError: Could not locate MATLAB community problems folder."
+    },
+    {
+      "problem_id": "local::problems.single.cec2020.CEC2020_F10_JAX",
+      "name": "CEC2020_F10_JAX",
+      "module": "problems.single.cec2020",
+      "status": "probe_error",
+      "detail": "RuntimeError: Could not locate MATLAB community problems folder."
+    },
+    {
+      "problem_id": "local::problems.single.cec2020.CEC2020_F1_JAX",
+      "name": "CEC2020_F1_JAX",
+      "module": "problems.single.cec2020",
+      "status": "probe_error",
+      "detail": "RuntimeError: Could not locate MATLAB community problems folder."
+    },
+    {
+      "problem_id": "local::problems.single.cec2020.CEC2020_F2",
+      "name": "CEC2020_F2",
+      "module": "problems.single.cec2020",
+      "status": "probe_error",
+      "detail": "RuntimeError: Could not locate MATLAB community problems folder."
+    },
+    {
+      "problem_id": "local::problems.single.cec2020.CEC2020_F2_JAX",
+      "name": "CEC2020_F2_JAX",
+      "module": "problems.single.cec2020",
+      "status": "probe_error",
+      "detail": "RuntimeError: Could not locate MATLAB community problems folder."
+    },
+    {
+      "problem_id": "local::problems.single.cec2020.CEC2020_F3",
+      "name": "CEC2020_F3",
+      "module": "problems.single.cec2020",
+      "status": "probe_error",
+      "detail": "RuntimeError: Could not locate MATLAB community problems folder."
+    },
+    {
+      "problem_id": "local::problems.single.cec2020.CEC2020_F3_JAX",
+      "name": "CEC2020_F3_JAX",
+      "module": "problems.single.cec2020",
+      "status": "probe_error",
+      "detail": "RuntimeError: Could not locate MATLAB community problems folder."
+    },
+    {
+      "problem_id": "local::problems.single.cec2020.CEC2020_F4",
+      "name": "CEC2020_F4",
+      "module": "problems.single.cec2020",
+      "status": "probe_error",
+      "detail": "RuntimeError: Could not locate MATLAB community problems folder."
+    },
+    {
+      "problem_id": "local::problems.single.cec2020.CEC2020_F4_JAX",
+      "name": "CEC2020_F4_JAX",
+      "module": "problems.single.cec2020",
+      "status": "probe_error",
+      "detail": "RuntimeError: Could not locate MATLAB community problems folder."
+    },
+    {
+      "problem_id": "local::problems.single.cec2020.CEC2020_F5",
+      "name": "CEC2020_F5",
+      "module": "problems.single.cec2020",
+      "status": "probe_error",
+      "detail": "RuntimeError: Could not locate MATLAB community problems folder."
+    },
+    {
+      "problem_id": "local::problems.single.cec2020.CEC2020_F5_JAX",
+      "name": "CEC2020_F5_JAX",
+      "module": "problems.single.cec2020",
+      "status": "probe_error",
+      "detail": "RuntimeError: Could not locate MATLAB community problems folder."
+    },
+    {
+      "problem_id": "local::problems.single.cec2020.CEC2020_F6",
+      "name": "CEC2020_F6",
+      "module": "problems.single.cec2020",
+      "status": "probe_error",
+      "detail": "RuntimeError: Could not locate MATLAB community problems folder."
+    },
+    {
+      "problem_id": "local::problems.single.cec2020.CEC2020_F6_JAX",
+      "name": "CEC2020_F6_JAX",
+      "module": "problems.single.cec2020",
+      "status": "probe_error",
+      "detail": "RuntimeError: Could not locate MATLAB community problems folder."
+    },
+    {
+      "problem_id": "local::problems.single.cec2020.CEC2020_F7",
+      "name": "CEC2020_F7",
+      "module": "problems.single.cec2020",
+      "status": "probe_error",
+      "detail": "RuntimeError: Could not locate MATLAB community problems folder."
+    },
+    {
+      "problem_id": "local::problems.single.cec2020.CEC2020_F7_JAX",
+      "name": "CEC2020_F7_JAX",
+      "module": "problems.single.cec2020",
+      "status": "probe_error",
+      "detail": "RuntimeError: Could not locate MATLAB community problems folder."
+    },
+    {
+      "problem_id": "local::problems.single.cec2020.CEC2020_F8",
+      "name": "CEC2020_F8",
+      "module": "problems.single.cec2020",
+      "status": "probe_error",
+      "detail": "RuntimeError: Could not locate MATLAB community problems folder."
+    },
+    {
+      "problem_id": "local::problems.single.cec2020.CEC2020_F8_JAX",
+      "name": "CEC2020_F8_JAX",
+      "module": "problems.single.cec2020",
+      "status": "probe_error",
+      "detail": "RuntimeError: Could not locate MATLAB community problems folder."
+    },
+    {
+      "problem_id": "local::problems.single.cec2020.CEC2020_F9",
+      "name": "CEC2020_F9",
+      "module": "problems.single.cec2020",
+      "status": "probe_error",
+      "detail": "RuntimeError: Could not locate MATLAB community problems folder."
+    },
+    {
+      "problem_id": "local::problems.single.cec2020.CEC2020_F9_JAX",
+      "name": "CEC2020_F9_JAX",
+      "module": "problems.single.cec2020",
+      "status": "probe_error",
+      "detail": "RuntimeError: Could not locate MATLAB community problems folder."
+    },
+    {
+      "problem_id": "local::problems.single.realworld_sops.KP",
+      "name": "KP",
+      "module": "problems.single.realworld_sops",
+      "status": "probe_error",
+      "detail": "RuntimeError: Could not locate MATLAB community problems folder."
+    },
+    {
+      "problem_id": "local::problems.single.realworld_sops.KP_JAX",
+      "name": "KP_JAX",
+      "module": "problems.single.realworld_sops",
+      "status": "probe_error",
+      "detail": "RuntimeError: Could not locate MATLAB community problems folder."
+    },
+    {
+      "problem_id": "local::problems.single.realworld_sops.TSP",
+      "name": "TSP",
+      "module": "problems.single.realworld_sops",
+      "status": "probe_error",
+      "detail": "RuntimeError: Could not locate MATLAB community problems folder."
+    },
+    {
+      "problem_id": "local::problems.single.realworld_sops.TSP_JAX",
+      "name": "TSP_JAX",
+      "module": "problems.single.realworld_sops",
+      "status": "probe_error",
+      "detail": "RuntimeError: Could not locate MATLAB community problems folder."
+    }
+  ]
+}

@@ -1,0 +1,3209 @@
+{
+  "kind": "test_module_worker_single_cmaes_min_value_smoke",
+  "timestamp_epoch": 1771889305.9117124,
+  "discover_warnings": [
+    "Problem deduplication removed 2 duplicate entry candidate(s)."
+  ],
+  "algorithm": "CMAES",
+  "settings": {
+    "n_runs": 1,
+    "pop_size": 20,
+    "max_fe": 80,
+    "parallel_workers": 1
+  },
+  "counts": {
+    "total": 104,
+    "cpu": 52,
+    "jax": 52
+  },
+  "summary_by_status": {
+    "ok": 104
+  },
+  "elapsed_s": 5.567,
+  "rows": [
+    {
+      "index": 1,
+      "problem_id": "local::problems.single.bbob.BBOB_F1",
+      "problem_name": "BBOB_F1",
+      "problem_label": "BBOB_F1 [local]",
+      "module": "problems.single.bbob",
+      "objective_class": "single",
+      "encoding": [
+        "binary",
+        "integer",
+        "mixed",
+        "permutation",
+        "real"
+      ],
+      "difficulties": [],
+      "backend": "cpu",
+      "algorithm": "CMAES",
+      "metric": "Min_value",
+      "n_obj": 1,
+      "n_var": 30,
+      "status": "ok",
+      "metric_value": 126.47434191547815,
+      "run_count": 1,
+      "warnings": [
+        "Reference Pareto front is unavailable for 'BBOB_F1 [local]' (M=1, D=30). PF-based metrics may be disabled."
+      ],
+      "errors": [],
+      "detail": "",
+      "time_s": 0.014
+    },
+    {
+      "index": 2,
+      "problem_id": "local::problems.single.bbob.BBOB_F10",
+      "problem_name": "BBOB_F10",
+      "problem_label": "BBOB_F10 [local]",
+      "module": "problems.single.bbob",
+      "objective_class": "single",
+      "encoding": [
+        "binary",
+        "integer",
+        "mixed",
+        "permutation",
+        "real"
+      ],
+      "difficulties": [],
+      "backend": "cpu",
+      "algorithm": "CMAES",
+      "metric": "Min_value",
+      "n_obj": 1,
+      "n_var": 30,
+      "status": "ok",
+      "metric_value": 2650505.5898089185,
+      "run_count": 1,
+      "warnings": [
+        "Reference Pareto front is unavailable for 'BBOB_F10 [local]' (M=1, D=30). PF-based metrics may be disabled."
+      ],
+      "errors": [],
+      "detail": "",
+      "time_s": 0.0123
+    },
+    {
+      "index": 3,
+      "problem_id": "local::problems.single.bbob.BBOB_F10_JAX",
+      "problem_name": "BBOB_F10_JAX",
+      "problem_label": "BBOB_F10_JAX [local]",
+      "module": "problems.single.bbob",
+      "objective_class": "single",
+      "encoding": [
+        "binary",
+        "integer",
+        "mixed",
+        "permutation",
+        "real"
+      ],
+      "difficulties": [],
+      "backend": "jax",
+      "algorithm": "CMAES",
+      "metric": "Min_value_JAX",
+      "n_obj": 1,
+      "n_var": 30,
+      "status": "ok",
+      "metric_value": 2650505.75,
+      "run_count": 1,
+      "warnings": [
+        "JAX backend requested, but unavailable: No JAX GPU device detected",
+        "Reference Pareto front is unavailable for 'BBOB_F10_JAX [local]' (M=1, D=30). PF-based metrics may be disabled."
+      ],
+      "errors": [],
+      "detail": "",
+      "time_s": 0.5317
+    },
+    {
+      "index": 4,
+      "problem_id": "local::problems.single.bbob.BBOB_F11",
+      "problem_name": "BBOB_F11",
+      "problem_label": "BBOB_F11 [local]",
+      "module": "problems.single.bbob",
+      "objective_class": "single",
+      "encoding": [
+        "binary",
+        "integer",
+        "mixed",
+        "permutation",
+        "real"
+      ],
+      "difficulties": [],
+      "backend": "cpu",
+      "algorithm": "CMAES",
+      "metric": "Min_value",
+      "n_obj": 1,
+      "n_var": 30,
+      "status": "ok",
+      "metric_value": 235.72531890276846,
+      "run_count": 1,
+      "warnings": [
+        "Reference Pareto front is unavailable for 'BBOB_F11 [local]' (M=1, D=30). PF-based metrics may be disabled."
+      ],
+      "errors": [],
+      "detail": "",
+      "time_s": 0.0106
+    },
+    {
+      "index": 5,
+      "problem_id": "local::problems.single.bbob.BBOB_F11_JAX",
+      "problem_name": "BBOB_F11_JAX",
+      "problem_label": "BBOB_F11_JAX [local]",
+      "module": "problems.single.bbob",
+      "objective_class": "single",
+      "encoding": [
+        "binary",
+        "integer",
+        "mixed",
+        "permutation",
+        "real"
+      ],
+      "difficulties": [],
+      "backend": "jax",
+      "algorithm": "CMAES",
+      "metric": "Min_value_JAX",
+      "n_obj": 1,
+      "n_var": 30,
+      "status": "ok",
+      "metric_value": 235.72381591796875,
+      "run_count": 1,
+      "warnings": [
+        "JAX backend requested, but unavailable: No JAX GPU device detected",
+        "Reference Pareto front is unavailable for 'BBOB_F11_JAX [local]' (M=1, D=30). PF-based metrics may be disabled."
+      ],
+      "errors": [],
+      "detail": "",
+      "time_s": 0.0627
+    },
+    {
+      "index": 6,
+      "problem_id": "local::problems.single.bbob.BBOB_F12",
+      "problem_name": "BBOB_F12",
+      "problem_label": "BBOB_F12 [local]",
+      "module": "problems.single.bbob",
+      "objective_class": "single",
+      "encoding": [
+        "binary",
+        "integer",
+        "mixed",
+        "permutation",
+        "real"
+      ],
+      "difficulties": [],
+      "backend": "cpu",
+      "algorithm": "CMAES",
+      "metric": "Min_value",
+      "n_obj": 1,
+      "n_var": 30,
+      "status": "ok",
+      "metric_value": 193672990.53839812,
+      "run_count": 1,
+      "warnings": [
+        "Reference Pareto front is unavailable for 'BBOB_F12 [local]' (M=1, D=30). PF-based metrics may be disabled."
+      ],
+      "errors": [],
+      "detail": "",
+      "time_s": 0.0129
+    },
+    {
+      "index": 7,
+      "problem_id": "local::problems.single.bbob.BBOB_F12_JAX",
+      "problem_name": "BBOB_F12_JAX",
+      "problem_label": "BBOB_F12_JAX [local]",
+      "module": "problems.single.bbob",
+      "objective_class": "single",
+      "encoding": [
+        "binary",
+        "integer",
+        "mixed",
+        "permutation",
+        "real"
+      ],
+      "difficulties": [],
+      "backend": "jax",
+      "algorithm": "CMAES",
+      "metric": "Min_value_JAX",
+      "n_obj": 1,
+      "n_var": 30,
+      "status": "ok",
+      "metric_value": 193673008.0,
+      "run_count": 1,
+      "warnings": [
+        "JAX backend requested, but unavailable: No JAX GPU device detected",
+        "Reference Pareto front is unavailable for 'BBOB_F12_JAX [local]' (M=1, D=30). PF-based metrics may be disabled."
+      ],
+      "errors": [],
+      "detail": "",
+      "time_s": 0.1638
+    },
+    {
+      "index": 8,
+      "problem_id": "local::problems.single.bbob.BBOB_F13",
+      "problem_name": "BBOB_F13",
+      "problem_label": "BBOB_F13 [local]",
+      "module": "problems.single.bbob",
+      "objective_class": "single",
+      "encoding": [
+        "binary",
+        "integer",
+        "mixed",
+        "permutation",
+        "real"
+      ],
+      "difficulties": [],
+      "backend": "cpu",
+      "algorithm": "CMAES",
+      "metric": "Min_value",
+      "n_obj": 1,
+      "n_var": 30,
+      "status": "ok",
+      "metric_value": 2114.6817013780187,
+      "run_count": 1,
+      "warnings": [
+        "Reference Pareto front is unavailable for 'BBOB_F13 [local]' (M=1, D=30). PF-based metrics may be disabled."
+      ],
+      "errors": [],
+      "detail": "",
+      "time_s": 0.0118
+    },
+    {
+      "index": 9,
+      "problem_id": "local::problems.single.bbob.BBOB_F13_JAX",
+      "problem_name": "BBOB_F13_JAX",
+      "problem_label": "BBOB_F13_JAX [local]",
+      "module": "problems.single.bbob",
+      "objective_class": "single",
+      "encoding": [
+        "binary",
+        "integer",
+        "mixed",
+        "permutation",
+        "real"
+      ],
+      "difficulties": [],
+      "backend": "jax",
+      "algorithm": "CMAES",
+      "metric": "Min_value_JAX",
+      "n_obj": 1,
+      "n_var": 30,
+      "status": "ok",
+      "metric_value": 2114.681640625,
+      "run_count": 1,
+      "warnings": [
+        "JAX backend requested, but unavailable: No JAX GPU device detected",
+        "Reference Pareto front is unavailable for 'BBOB_F13_JAX [local]' (M=1, D=30). PF-based metrics may be disabled."
+      ],
+      "errors": [],
+      "detail": "",
+      "time_s": 0.0146
+    },
+    {
+      "index": 10,
+      "problem_id": "local::problems.single.bbob.BBOB_F14",
+      "problem_name": "BBOB_F14",
+      "problem_label": "BBOB_F14 [local]",
+      "module": "problems.single.bbob",
+      "objective_class": "single",
+      "encoding": [
+        "binary",
+        "integer",
+        "mixed",
+        "permutation",
+        "real"
+      ],
+      "difficulties": [],
+      "backend": "cpu",
+      "algorithm": "CMAES",
+      "metric": "Min_value",
+      "n_obj": 1,
+      "n_var": 30,
+      "status": "ok",
+      "metric_value": 27.36113995189087,
+      "run_count": 1,
+      "warnings": [
+        "Reference Pareto front is unavailable for 'BBOB_F14 [local]' (M=1, D=30). PF-based metrics may be disabled."
+      ],
+      "errors": [],
+      "detail": "",
+      "time_s": 0.0113
+    },
+    {
+      "index": 11,
+      "problem_id": "local::problems.single.bbob.BBOB_F14_JAX",
+      "problem_name": "BBOB_F14_JAX",
+      "problem_label": "BBOB_F14_JAX [local]",
+      "module": "problems.single.bbob",
+      "objective_class": "single",
+      "encoding": [
+        "binary",
+        "integer",
+        "mixed",
+        "permutation",
+        "real"
+      ],
+      "difficulties": [],
+      "backend": "jax",
+      "algorithm": "CMAES",
+      "metric": "Min_value_JAX",
+      "n_obj": 1,
+      "n_var": 30,
+      "status": "ok",
+      "metric_value": 27.361135482788086,
+      "run_count": 1,
+      "warnings": [
+        "JAX backend requested, but unavailable: No JAX GPU device detected",
+        "Reference Pareto front is unavailable for 'BBOB_F14_JAX [local]' (M=1, D=30). PF-based metrics may be disabled."
+      ],
+      "errors": [],
+      "detail": "",
+      "time_s": 0.0569
+    },
+    {
+      "index": 12,
+      "problem_id": "local::problems.single.bbob.BBOB_F15",
+      "problem_name": "BBOB_F15",
+      "problem_label": "BBOB_F15 [local]",
+      "module": "problems.single.bbob",
+      "objective_class": "single",
+      "encoding": [
+        "binary",
+        "integer",
+        "mixed",
+        "permutation",
+        "real"
+      ],
+      "difficulties": [],
+      "backend": "cpu",
+      "algorithm": "CMAES",
+      "metric": "Min_value",
+      "n_obj": 1,
+      "n_var": 30,
+      "status": "ok",
+      "metric_value": 843.8371007553772,
+      "run_count": 1,
+      "warnings": [
+        "Reference Pareto front is unavailable for 'BBOB_F15 [local]' (M=1, D=30). PF-based metrics may be disabled."
+      ],
+      "errors": [],
+      "detail": "",
+      "time_s": 0.0132
+    },
+    {
+      "index": 13,
+      "problem_id": "local::problems.single.bbob.BBOB_F15_JAX",
+      "problem_name": "BBOB_F15_JAX",
+      "problem_label": "BBOB_F15_JAX [local]",
+      "module": "problems.single.bbob",
+      "objective_class": "single",
+      "encoding": [
+        "binary",
+        "integer",
+        "mixed",
+        "permutation",
+        "real"
+      ],
+      "difficulties": [],
+      "backend": "jax",
+      "algorithm": "CMAES",
+      "metric": "Min_value_JAX",
+      "n_obj": 1,
+      "n_var": 30,
+      "status": "ok",
+      "metric_value": 843.8369140625,
+      "run_count": 1,
+      "warnings": [
+        "JAX backend requested, but unavailable: No JAX GPU device detected",
+        "Reference Pareto front is unavailable for 'BBOB_F15_JAX [local]' (M=1, D=30). PF-based metrics may be disabled."
+      ],
+      "errors": [],
+      "detail": "",
+      "time_s": 0.0382
+    },
+    {
+      "index": 14,
+      "problem_id": "local::problems.single.bbob.BBOB_F16",
+      "problem_name": "BBOB_F16",
+      "problem_label": "BBOB_F16 [local]",
+      "module": "problems.single.bbob",
+      "objective_class": "single",
+      "encoding": [
+        "binary",
+        "integer",
+        "mixed",
+        "permutation",
+        "real"
+      ],
+      "difficulties": [],
+      "backend": "cpu",
+      "algorithm": "CMAES",
+      "metric": "Min_value",
+      "n_obj": 1,
+      "n_var": 30,
+      "status": "ok",
+      "metric_value": 33.95265312965634,
+      "run_count": 1,
+      "warnings": [
+        "Reference Pareto front is unavailable for 'BBOB_F16 [local]' (M=1, D=30). PF-based metrics may be disabled."
+      ],
+      "errors": [],
+      "detail": "",
+      "time_s": 0.0137
+    },
+    {
+      "index": 15,
+      "problem_id": "local::problems.single.bbob.BBOB_F16_JAX",
+      "problem_name": "BBOB_F16_JAX",
+      "problem_label": "BBOB_F16_JAX [local]",
+      "module": "problems.single.bbob",
+      "objective_class": "single",
+      "encoding": [
+        "binary",
+        "integer",
+        "mixed",
+        "permutation",
+        "real"
+      ],
+      "difficulties": [],
+      "backend": "jax",
+      "algorithm": "CMAES",
+      "metric": "Min_value_JAX",
+      "n_obj": 1,
+      "n_var": 30,
+      "status": "ok",
+      "metric_value": 33.95136642456055,
+      "run_count": 1,
+      "warnings": [
+        "JAX backend requested, but unavailable: No JAX GPU device detected",
+        "Reference Pareto front is unavailable for 'BBOB_F16_JAX [local]' (M=1, D=30). PF-based metrics may be disabled."
+      ],
+      "errors": [],
+      "detail": "",
+      "time_s": 0.2511
+    },
+    {
+      "index": 16,
+      "problem_id": "local::problems.single.bbob.BBOB_F17",
+      "problem_name": "BBOB_F17",
+      "problem_label": "BBOB_F17 [local]",
+      "module": "problems.single.bbob",
+      "objective_class": "single",
+      "encoding": [
+        "binary",
+        "integer",
+        "mixed",
+        "permutation",
+        "real"
+      ],
+      "difficulties": [],
+      "backend": "cpu",
+      "algorithm": "CMAES",
+      "metric": "Min_value",
+      "n_obj": 1,
+      "n_var": 30,
+      "status": "ok",
+      "metric_value": 12.222492789248067,
+      "run_count": 1,
+      "warnings": [
+        "Reference Pareto front is unavailable for 'BBOB_F17 [local]' (M=1, D=30). PF-based metrics may be disabled."
+      ],
+      "errors": [],
+      "detail": "",
+      "time_s": 0.0134
+    },
+    {
+      "index": 17,
+      "problem_id": "local::problems.single.bbob.BBOB_F17_JAX",
+      "problem_name": "BBOB_F17_JAX",
+      "problem_label": "BBOB_F17_JAX [local]",
+      "module": "problems.single.bbob",
+      "objective_class": "single",
+      "encoding": [
+        "binary",
+        "integer",
+        "mixed",
+        "permutation",
+        "real"
+      ],
+      "difficulties": [],
+      "backend": "jax",
+      "algorithm": "CMAES",
+      "metric": "Min_value_JAX",
+      "n_obj": 1,
+      "n_var": 30,
+      "status": "ok",
+      "metric_value": 12.222497940063477,
+      "run_count": 1,
+      "warnings": [
+        "JAX backend requested, but unavailable: No JAX GPU device detected",
+        "Reference Pareto front is unavailable for 'BBOB_F17_JAX [local]' (M=1, D=30). PF-based metrics may be disabled."
+      ],
+      "errors": [],
+      "detail": "",
+      "time_s": 0.1604
+    },
+    {
+      "index": 18,
+      "problem_id": "local::problems.single.bbob.BBOB_F18",
+      "problem_name": "BBOB_F18",
+      "problem_label": "BBOB_F18 [local]",
+      "module": "problems.single.bbob",
+      "objective_class": "single",
+      "encoding": [
+        "binary",
+        "integer",
+        "mixed",
+        "permutation",
+        "real"
+      ],
+      "difficulties": [],
+      "backend": "cpu",
+      "algorithm": "CMAES",
+      "metric": "Min_value",
+      "n_obj": 1,
+      "n_var": 30,
+      "status": "ok",
+      "metric_value": 49.18006618742469,
+      "run_count": 1,
+      "warnings": [
+        "Reference Pareto front is unavailable for 'BBOB_F18 [local]' (M=1, D=30). PF-based metrics may be disabled."
+      ],
+      "errors": [],
+      "detail": "",
+      "time_s": 0.0128
+    },
+    {
+      "index": 19,
+      "problem_id": "local::problems.single.bbob.BBOB_F18_JAX",
+      "problem_name": "BBOB_F18_JAX",
+      "problem_label": "BBOB_F18_JAX [local]",
+      "module": "problems.single.bbob",
+      "objective_class": "single",
+      "encoding": [
+        "binary",
+        "integer",
+        "mixed",
+        "permutation",
+        "real"
+      ],
+      "difficulties": [],
+      "backend": "jax",
+      "algorithm": "CMAES",
+      "metric": "Min_value_JAX",
+      "n_obj": 1,
+      "n_var": 30,
+      "status": "ok",
+      "metric_value": 49.18006896972656,
+      "run_count": 1,
+      "warnings": [
+        "JAX backend requested, but unavailable: No JAX GPU device detected",
+        "Reference Pareto front is unavailable for 'BBOB_F18_JAX [local]' (M=1, D=30). PF-based metrics may be disabled."
+      ],
+      "errors": [],
+      "detail": "",
+      "time_s": 0.0162
+    },
+    {
+      "index": 20,
+      "problem_id": "local::problems.single.bbob.BBOB_F19",
+      "problem_name": "BBOB_F19",
+      "problem_label": "BBOB_F19 [local]",
+      "module": "problems.single.bbob",
+      "objective_class": "single",
+      "encoding": [
+        "binary",
+        "integer",
+        "mixed",
+        "permutation",
+        "real"
+      ],
+      "difficulties": [],
+      "backend": "cpu",
+      "algorithm": "CMAES",
+      "metric": "Min_value",
+      "n_obj": 1,
+      "n_var": 30,
+      "status": "ok",
+      "metric_value": 22.829609565781887,
+      "run_count": 1,
+      "warnings": [
+        "Reference Pareto front is unavailable for 'BBOB_F19 [local]' (M=1, D=30). PF-based metrics may be disabled."
+      ],
+      "errors": [],
+      "detail": "",
+      "time_s": 0.0124
+    },
+    {
+      "index": 21,
+      "problem_id": "local::problems.single.bbob.BBOB_F19_JAX",
+      "problem_name": "BBOB_F19_JAX",
+      "problem_label": "BBOB_F19_JAX [local]",
+      "module": "problems.single.bbob",
+      "objective_class": "single",
+      "encoding": [
+        "binary",
+        "integer",
+        "mixed",
+        "permutation",
+        "real"
+      ],
+      "difficulties": [],
+      "backend": "jax",
+      "algorithm": "CMAES",
+      "metric": "Min_value_JAX",
+      "n_obj": 1,
+      "n_var": 30,
+      "status": "ok",
+      "metric_value": 22.323270797729492,
+      "run_count": 1,
+      "warnings": [
+        "JAX backend requested, but unavailable: No JAX GPU device detected",
+        "Reference Pareto front is unavailable for 'BBOB_F19_JAX [local]' (M=1, D=30). PF-based metrics may be disabled."
+      ],
+      "errors": [],
+      "detail": "",
+      "time_s": 0.137
+    },
+    {
+      "index": 22,
+      "problem_id": "local::problems.single.bbob.BBOB_F1_JAX",
+      "problem_name": "BBOB_F1_JAX",
+      "problem_label": "BBOB_F1_JAX [local]",
+      "module": "problems.single.bbob",
+      "objective_class": "single",
+      "encoding": [
+        "binary",
+        "integer",
+        "mixed",
+        "permutation",
+        "real"
+      ],
+      "difficulties": [],
+      "backend": "jax",
+      "algorithm": "CMAES",
+      "metric": "Min_value_JAX",
+      "n_obj": 1,
+      "n_var": 30,
+      "status": "ok",
+      "metric_value": 126.47433471679688,
+      "run_count": 1,
+      "warnings": [
+        "JAX backend requested, but unavailable: No JAX GPU device detected",
+        "Reference Pareto front is unavailable for 'BBOB_F1_JAX [local]' (M=1, D=30). PF-based metrics may be disabled."
+      ],
+      "errors": [],
+      "detail": "",
+      "time_s": 0.0139
+    },
+    {
+      "index": 23,
+      "problem_id": "local::problems.single.bbob.BBOB_F2",
+      "problem_name": "BBOB_F2",
+      "problem_label": "BBOB_F2 [local]",
+      "module": "problems.single.bbob",
+      "objective_class": "single",
+      "encoding": [
+        "binary",
+        "integer",
+        "mixed",
+        "permutation",
+        "real"
+      ],
+      "difficulties": [],
+      "backend": "cpu",
+      "algorithm": "CMAES",
+      "metric": "Min_value",
+      "n_obj": 1,
+      "n_var": 30,
+      "status": "ok",
+      "metric_value": 3149922.7855873727,
+      "run_count": 1,
+      "warnings": [
+        "Reference Pareto front is unavailable for 'BBOB_F2 [local]' (M=1, D=30). PF-based metrics may be disabled."
+      ],
+      "errors": [],
+      "detail": "",
+      "time_s": 0.0117
+    },
+    {
+      "index": 24,
+      "problem_id": "local::problems.single.bbob.BBOB_F20",
+      "problem_name": "BBOB_F20",
+      "problem_label": "BBOB_F20 [local]",
+      "module": "problems.single.bbob",
+      "objective_class": "single",
+      "encoding": [
+        "binary",
+        "integer",
+        "mixed",
+        "permutation",
+        "real"
+      ],
+      "difficulties": [],
+      "backend": "cpu",
+      "algorithm": "CMAES",
+      "metric": "Min_value",
+      "n_obj": 1,
+      "n_var": 30,
+      "status": "ok",
+      "metric_value": 55495.375462268894,
+      "run_count": 1,
+      "warnings": [
+        "Reference Pareto front is unavailable for 'BBOB_F20 [local]' (M=1, D=30). PF-based metrics may be disabled."
+      ],
+      "errors": [],
+      "detail": "",
+      "time_s": 0.012
+    },
+    {
+      "index": 25,
+      "problem_id": "local::problems.single.bbob.BBOB_F20_JAX",
+      "problem_name": "BBOB_F20_JAX",
+      "problem_label": "BBOB_F20_JAX [local]",
+      "module": "problems.single.bbob",
+      "objective_class": "single",
+      "encoding": [
+        "binary",
+        "integer",
+        "mixed",
+        "permutation",
+        "real"
+      ],
+      "difficulties": [],
+      "backend": "jax",
+      "algorithm": "CMAES",
+      "metric": "Min_value_JAX",
+      "n_obj": 1,
+      "n_var": 30,
+      "status": "ok",
+      "metric_value": 55495.375,
+      "run_count": 1,
+      "warnings": [
+        "JAX backend requested, but unavailable: No JAX GPU device detected",
+        "Reference Pareto front is unavailable for 'BBOB_F20_JAX [local]' (M=1, D=30). PF-based metrics may be disabled."
+      ],
+      "errors": [],
+      "detail": "",
+      "time_s": 0.0326
+    },
+    {
+      "index": 26,
+      "problem_id": "local::problems.single.bbob.BBOB_F21",
+      "problem_name": "BBOB_F21",
+      "problem_label": "BBOB_F21 [local]",
+      "module": "problems.single.bbob",
+      "objective_class": "single",
+      "encoding": [
+        "binary",
+        "integer",
+        "mixed",
+        "permutation",
+        "real"
+      ],
+      "difficulties": [],
+      "backend": "cpu",
+      "algorithm": "CMAES",
+      "metric": "Min_value",
+      "n_obj": 1,
+      "n_var": 30,
+      "status": "ok",
+      "metric_value": 72.05276585842687,
+      "run_count": 1,
+      "warnings": [
+        "Reference Pareto front is unavailable for 'BBOB_F21 [local]' (M=1, D=30). PF-based metrics may be disabled."
+      ],
+      "errors": [],
+      "detail": "",
+      "time_s": 0.0175
+    },
+    {
+      "index": 27,
+      "problem_id": "local::problems.single.bbob.BBOB_F21_JAX",
+      "problem_name": "BBOB_F21_JAX",
+      "problem_label": "BBOB_F21_JAX [local]",
+      "module": "problems.single.bbob",
+      "objective_class": "single",
+      "encoding": [
+        "binary",
+        "integer",
+        "mixed",
+        "permutation",
+        "real"
+      ],
+      "difficulties": [],
+      "backend": "jax",
+      "algorithm": "CMAES",
+      "metric": "Min_value_JAX",
+      "n_obj": 1,
+      "n_var": 30,
+      "status": "ok",
+      "metric_value": 72.05276489257812,
+      "run_count": 1,
+      "warnings": [
+        "JAX backend requested, but unavailable: No JAX GPU device detected",
+        "Reference Pareto front is unavailable for 'BBOB_F21_JAX [local]' (M=1, D=30). PF-based metrics may be disabled."
+      ],
+      "errors": [],
+      "detail": "",
+      "time_s": 0.0194
+    },
+    {
+      "index": 28,
+      "problem_id": "local::problems.single.bbob.BBOB_F22",
+      "problem_name": "BBOB_F22",
+      "problem_label": "BBOB_F22 [local]",
+      "module": "problems.single.bbob",
+      "objective_class": "single",
+      "encoding": [
+        "binary",
+        "integer",
+        "mixed",
+        "permutation",
+        "real"
+      ],
+      "difficulties": [],
+      "backend": "cpu",
+      "algorithm": "CMAES",
+      "metric": "Min_value",
+      "n_obj": 1,
+      "n_var": 30,
+      "status": "ok",
+      "metric_value": 77.38502524605346,
+      "run_count": 1,
+      "warnings": [
+        "Reference Pareto front is unavailable for 'BBOB_F22 [local]' (M=1, D=30). PF-based metrics may be disabled."
+      ],
+      "errors": [],
+      "detail": "",
+      "time_s": 0.0133
+    },
+    {
+      "index": 29,
+      "problem_id": "local::problems.single.bbob.BBOB_F22_JAX",
+      "problem_name": "BBOB_F22_JAX",
+      "problem_label": "BBOB_F22_JAX [local]",
+      "module": "problems.single.bbob",
+      "objective_class": "single",
+      "encoding": [
+        "binary",
+        "integer",
+        "mixed",
+        "permutation",
+        "real"
+      ],
+      "difficulties": [],
+      "backend": "jax",
+      "algorithm": "CMAES",
+      "metric": "Min_value_JAX",
+      "n_obj": 1,
+      "n_var": 30,
+      "status": "ok",
+      "metric_value": 77.38502502441406,
+      "run_count": 1,
+      "warnings": [
+        "JAX backend requested, but unavailable: No JAX GPU device detected",
+        "Reference Pareto front is unavailable for 'BBOB_F22_JAX [local]' (M=1, D=30). PF-based metrics may be disabled."
+      ],
+      "errors": [],
+      "detail": "",
+      "time_s": 0.0142
+    },
+    {
+      "index": 30,
+      "problem_id": "local::problems.single.bbob.BBOB_F23",
+      "problem_name": "BBOB_F23",
+      "problem_label": "BBOB_F23 [local]",
+      "module": "problems.single.bbob",
+      "objective_class": "single",
+      "encoding": [
+        "binary",
+        "integer",
+        "mixed",
+        "permutation",
+        "real"
+      ],
+      "difficulties": [],
+      "backend": "cpu",
+      "algorithm": "CMAES",
+      "metric": "Min_value",
+      "n_obj": 1,
+      "n_var": 30,
+      "status": "ok",
+      "metric_value": 5.254708113488617,
+      "run_count": 1,
+      "warnings": [
+        "Reference Pareto front is unavailable for 'BBOB_F23 [local]' (M=1, D=30). PF-based metrics may be disabled."
+      ],
+      "errors": [],
+      "detail": "",
+      "time_s": 0.0144
+    },
+    {
+      "index": 31,
+      "problem_id": "local::problems.single.bbob.BBOB_F23_JAX",
+      "problem_name": "BBOB_F23_JAX",
+      "problem_label": "BBOB_F23_JAX [local]",
+      "module": "problems.single.bbob",
+      "objective_class": "single",
+      "encoding": [
+        "binary",
+        "integer",
+        "mixed",
+        "permutation",
+        "real"
+      ],
+      "difficulties": [],
+      "backend": "jax",
+      "algorithm": "CMAES",
+      "metric": "Min_value_JAX",
+      "n_obj": 1,
+      "n_var": 30,
+      "status": "ok",
+      "metric_value": 5.254708290100098,
+      "run_count": 1,
+      "warnings": [
+        "JAX backend requested, but unavailable: No JAX GPU device detected",
+        "Reference Pareto front is unavailable for 'BBOB_F23_JAX [local]' (M=1, D=30). PF-based metrics may be disabled."
+      ],
+      "errors": [],
+      "detail": "",
+      "time_s": 0.014
+    },
+    {
+      "index": 32,
+      "problem_id": "local::problems.single.bbob.BBOB_F24",
+      "problem_name": "BBOB_F24",
+      "problem_label": "BBOB_F24 [local]",
+      "module": "problems.single.bbob",
+      "objective_class": "single",
+      "encoding": [
+        "binary",
+        "integer",
+        "mixed",
+        "permutation",
+        "real"
+      ],
+      "difficulties": [],
+      "backend": "cpu",
+      "algorithm": "CMAES",
+      "metric": "Min_value",
+      "n_obj": 1,
+      "n_var": 30,
+      "status": "ok",
+      "metric_value": 188055.7095576693,
+      "run_count": 1,
+      "warnings": [
+        "Reference Pareto front is unavailable for 'BBOB_F24 [local]' (M=1, D=30). PF-based metrics may be disabled."
+      ],
+      "errors": [],
+      "detail": "",
+      "time_s": 0.0116
+    },
+    {
+      "index": 33,
+      "problem_id": "local::problems.single.bbob.BBOB_F24_JAX",
+      "problem_name": "BBOB_F24_JAX",
+      "problem_label": "BBOB_F24_JAX [local]",
+      "module": "problems.single.bbob",
+      "objective_class": "single",
+      "encoding": [
+        "binary",
+        "integer",
+        "mixed",
+        "permutation",
+        "real"
+      ],
+      "difficulties": [],
+      "backend": "jax",
+      "algorithm": "CMAES",
+      "metric": "Min_value_JAX",
+      "n_obj": 1,
+      "n_var": 30,
+      "status": "ok",
+      "metric_value": 188055.703125,
+      "run_count": 1,
+      "warnings": [
+        "JAX backend requested, but unavailable: No JAX GPU device detected",
+        "Reference Pareto front is unavailable for 'BBOB_F24_JAX [local]' (M=1, D=30). PF-based metrics may be disabled."
+      ],
+      "errors": [],
+      "detail": "",
+      "time_s": 0.015
+    },
+    {
+      "index": 34,
+      "problem_id": "local::problems.single.bbob.BBOB_F2_JAX",
+      "problem_name": "BBOB_F2_JAX",
+      "problem_label": "BBOB_F2_JAX [local]",
+      "module": "problems.single.bbob",
+      "objective_class": "single",
+      "encoding": [
+        "binary",
+        "integer",
+        "mixed",
+        "permutation",
+        "real"
+      ],
+      "difficulties": [],
+      "backend": "jax",
+      "algorithm": "CMAES",
+      "metric": "Min_value_JAX",
+      "n_obj": 1,
+      "n_var": 30,
+      "status": "ok",
+      "metric_value": 3149923.0,
+      "run_count": 1,
+      "warnings": [
+        "JAX backend requested, but unavailable: No JAX GPU device detected",
+        "Reference Pareto front is unavailable for 'BBOB_F2_JAX [local]' (M=1, D=30). PF-based metrics may be disabled."
+      ],
+      "errors": [],
+      "detail": "",
+      "time_s": 0.0152
+    },
+    {
+      "index": 35,
+      "problem_id": "local::problems.single.bbob.BBOB_F3",
+      "problem_name": "BBOB_F3",
+      "problem_label": "BBOB_F3 [local]",
+      "module": "problems.single.bbob",
+      "objective_class": "single",
+      "encoding": [
+        "binary",
+        "integer",
+        "mixed",
+        "permutation",
+        "real"
+      ],
+      "difficulties": [],
+      "backend": "cpu",
+      "algorithm": "CMAES",
+      "metric": "Min_value",
+      "n_obj": 1,
+      "n_var": 30,
+      "status": "ok",
+      "metric_value": 769.5999711781635,
+      "run_count": 1,
+      "warnings": [
+        "Reference Pareto front is unavailable for 'BBOB_F3 [local]' (M=1, D=30). PF-based metrics may be disabled."
+      ],
+      "errors": [],
+      "detail": "",
+      "time_s": 0.0116
+    },
+    {
+      "index": 36,
+      "problem_id": "local::problems.single.bbob.BBOB_F3_JAX",
+      "problem_name": "BBOB_F3_JAX",
+      "problem_label": "BBOB_F3_JAX [local]",
+      "module": "problems.single.bbob",
+      "objective_class": "single",
+      "encoding": [
+        "binary",
+        "integer",
+        "mixed",
+        "permutation",
+        "real"
+      ],
+      "difficulties": [],
+      "backend": "jax",
+      "algorithm": "CMAES",
+      "metric": "Min_value_JAX",
+      "n_obj": 1,
+      "n_var": 30,
+      "status": "ok",
+      "metric_value": 769.6000366210938,
+      "run_count": 1,
+      "warnings": [
+        "JAX backend requested, but unavailable: No JAX GPU device detected",
+        "Reference Pareto front is unavailable for 'BBOB_F3_JAX [local]' (M=1, D=30). PF-based metrics may be disabled."
+      ],
+      "errors": [],
+      "detail": "",
+      "time_s": 0.0161
+    },
+    {
+      "index": 37,
+      "problem_id": "local::problems.single.bbob.BBOB_F4",
+      "problem_name": "BBOB_F4",
+      "problem_label": "BBOB_F4 [local]",
+      "module": "problems.single.bbob",
+      "objective_class": "single",
+      "encoding": [
+        "binary",
+        "integer",
+        "mixed",
+        "permutation",
+        "real"
+      ],
+      "difficulties": [],
+      "backend": "cpu",
+      "algorithm": "CMAES",
+      "metric": "Min_value",
+      "n_obj": 1,
+      "n_var": 30,
+      "status": "ok",
+      "metric_value": 1822.9591570464265,
+      "run_count": 1,
+      "warnings": [
+        "Reference Pareto front is unavailable for 'BBOB_F4 [local]' (M=1, D=30). PF-based metrics may be disabled."
+      ],
+      "errors": [],
+      "detail": "",
+      "time_s": 0.0112
+    },
+    {
+      "index": 38,
+      "problem_id": "local::problems.single.bbob.BBOB_F4_JAX",
+      "problem_name": "BBOB_F4_JAX",
+      "problem_label": "BBOB_F4_JAX [local]",
+      "module": "problems.single.bbob",
+      "objective_class": "single",
+      "encoding": [
+        "binary",
+        "integer",
+        "mixed",
+        "permutation",
+        "real"
+      ],
+      "difficulties": [],
+      "backend": "jax",
+      "algorithm": "CMAES",
+      "metric": "Min_value_JAX",
+      "n_obj": 1,
+      "n_var": 30,
+      "status": "ok",
+      "metric_value": 1822.9591064453125,
+      "run_count": 1,
+      "warnings": [
+        "JAX backend requested, but unavailable: No JAX GPU device detected",
+        "Reference Pareto front is unavailable for 'BBOB_F4_JAX [local]' (M=1, D=30). PF-based metrics may be disabled."
+      ],
+      "errors": [],
+      "detail": "",
+      "time_s": 0.0598
+    },
+    {
+      "index": 39,
+      "problem_id": "local::problems.single.bbob.BBOB_F5",
+      "problem_name": "BBOB_F5",
+      "problem_label": "BBOB_F5 [local]",
+      "module": "problems.single.bbob",
+      "objective_class": "single",
+      "encoding": [
+        "binary",
+        "integer",
+        "mixed",
+        "permutation",
+        "real"
+      ],
+      "difficulties": [],
+      "backend": "cpu",
+      "algorithm": "CMAES",
+      "metric": "Min_value",
+      "n_obj": 1,
+      "n_var": 30,
+      "status": "ok",
+      "metric_value": 370.88529294131416,
+      "run_count": 1,
+      "warnings": [
+        "Reference Pareto front is unavailable for 'BBOB_F5 [local]' (M=1, D=30). PF-based metrics may be disabled."
+      ],
+      "errors": [],
+      "detail": "",
+      "time_s": 0.013
+    },
+    {
+      "index": 40,
+      "problem_id": "local::problems.single.bbob.BBOB_F5_JAX",
+      "problem_name": "BBOB_F5_JAX",
+      "problem_label": "BBOB_F5_JAX [local]",
+      "module": "problems.single.bbob",
+      "objective_class": "single",
+      "encoding": [
+        "binary",
+        "integer",
+        "mixed",
+        "permutation",
+        "real"
+      ],
+      "difficulties": [],
+      "backend": "jax",
+      "algorithm": "CMAES",
+      "metric": "Min_value_JAX",
+      "n_obj": 1,
+      "n_var": 30,
+      "status": "ok",
+      "metric_value": 370.88525390625,
+      "run_count": 1,
+      "warnings": [
+        "JAX backend requested, but unavailable: No JAX GPU device detected",
+        "Reference Pareto front is unavailable for 'BBOB_F5_JAX [local]' (M=1, D=30). PF-based metrics may be disabled."
+      ],
+      "errors": [],
+      "detail": "",
+      "time_s": 0.1228
+    },
+    {
+      "index": 41,
+      "problem_id": "local::problems.single.bbob.BBOB_F6",
+      "problem_name": "BBOB_F6",
+      "problem_label": "BBOB_F6 [local]",
+      "module": "problems.single.bbob",
+      "objective_class": "single",
+      "encoding": [
+        "binary",
+        "integer",
+        "mixed",
+        "permutation",
+        "real"
+      ],
+      "difficulties": [],
+      "backend": "cpu",
+      "algorithm": "CMAES",
+      "metric": "Min_value",
+      "n_obj": 1,
+      "n_var": 30,
+      "status": "ok",
+      "metric_value": 220.21752219138145,
+      "run_count": 1,
+      "warnings": [
+        "Reference Pareto front is unavailable for 'BBOB_F6 [local]' (M=1, D=30). PF-based metrics may be disabled."
+      ],
+      "errors": [],
+      "detail": "",
+      "time_s": 0.0129
+    },
+    {
+      "index": 42,
+      "problem_id": "local::problems.single.bbob.BBOB_F6_JAX",
+      "problem_name": "BBOB_F6_JAX",
+      "problem_label": "BBOB_F6_JAX [local]",
+      "module": "problems.single.bbob",
+      "objective_class": "single",
+      "encoding": [
+        "binary",
+        "integer",
+        "mixed",
+        "permutation",
+        "real"
+      ],
+      "difficulties": [],
+      "backend": "jax",
+      "algorithm": "CMAES",
+      "metric": "Min_value_JAX",
+      "n_obj": 1,
+      "n_var": 30,
+      "status": "ok",
+      "metric_value": 220.21749877929688,
+      "run_count": 1,
+      "warnings": [
+        "JAX backend requested, but unavailable: No JAX GPU device detected",
+        "Reference Pareto front is unavailable for 'BBOB_F6_JAX [local]' (M=1, D=30). PF-based metrics may be disabled."
+      ],
+      "errors": [],
+      "detail": "",
+      "time_s": 0.2377
+    },
+    {
+      "index": 43,
+      "problem_id": "local::problems.single.bbob.BBOB_F7",
+      "problem_name": "BBOB_F7",
+      "problem_label": "BBOB_F7 [local]",
+      "module": "problems.single.bbob",
+      "objective_class": "single",
+      "encoding": [
+        "binary",
+        "integer",
+        "mixed",
+        "permutation",
+        "real"
+      ],
+      "difficulties": [],
+      "backend": "cpu",
+      "algorithm": "CMAES",
+      "metric": "Min_value",
+      "n_obj": 1,
+      "n_var": 30,
+      "status": "ok",
+      "metric_value": 445.4405147770335,
+      "run_count": 1,
+      "warnings": [
+        "Reference Pareto front is unavailable for 'BBOB_F7 [local]' (M=1, D=30). PF-based metrics may be disabled."
+      ],
+      "errors": [],
+      "detail": "",
+      "time_s": 0.0118
+    },
+    {
+      "index": 44,
+      "problem_id": "local::problems.single.bbob.BBOB_F7_JAX",
+      "problem_name": "BBOB_F7_JAX",
+      "problem_label": "BBOB_F7_JAX [local]",
+      "module": "problems.single.bbob",
+      "objective_class": "single",
+      "encoding": [
+        "binary",
+        "integer",
+        "mixed",
+        "permutation",
+        "real"
+      ],
+      "difficulties": [],
+      "backend": "jax",
+      "algorithm": "CMAES",
+      "metric": "Min_value_JAX",
+      "n_obj": 1,
+      "n_var": 30,
+      "status": "ok",
+      "metric_value": 445.4405822753906,
+      "run_count": 1,
+      "warnings": [
+        "JAX backend requested, but unavailable: No JAX GPU device detected",
+        "Reference Pareto front is unavailable for 'BBOB_F7_JAX [local]' (M=1, D=30). PF-based metrics may be disabled."
+      ],
+      "errors": [],
+      "detail": "",
+      "time_s": 0.1094
+    },
+    {
+      "index": 45,
+      "problem_id": "local::problems.single.bbob.BBOB_F8",
+      "problem_name": "BBOB_F8",
+      "problem_label": "BBOB_F8 [local]",
+      "module": "problems.single.bbob",
+      "objective_class": "single",
+      "encoding": [
+        "binary",
+        "integer",
+        "mixed",
+        "permutation",
+        "real"
+      ],
+      "difficulties": [],
+      "backend": "cpu",
+      "algorithm": "CMAES",
+      "metric": "Min_value",
+      "n_obj": 1,
+      "n_var": 30,
+      "status": "ok",
+      "metric_value": 106241.53377662764,
+      "run_count": 1,
+      "warnings": [
+        "Reference Pareto front is unavailable for 'BBOB_F8 [local]' (M=1, D=30). PF-based metrics may be disabled."
+      ],
+      "errors": [],
+      "detail": "",
+      "time_s": 0.0116
+    },
+    {
+      "index": 46,
+      "problem_id": "local::problems.single.bbob.BBOB_F8_JAX",
+      "problem_name": "BBOB_F8_JAX",
+      "problem_label": "BBOB_F8_JAX [local]",
+      "module": "problems.single.bbob",
+      "objective_class": "single",
+      "encoding": [
+        "binary",
+        "integer",
+        "mixed",
+        "permutation",
+        "real"
+      ],
+      "difficulties": [],
+      "backend": "jax",
+      "algorithm": "CMAES",
+      "metric": "Min_value_JAX",
+      "n_obj": 1,
+      "n_var": 30,
+      "status": "ok",
+      "metric_value": 106241.5390625,
+      "run_count": 1,
+      "warnings": [
+        "JAX backend requested, but unavailable: No JAX GPU device detected",
+        "Reference Pareto front is unavailable for 'BBOB_F8_JAX [local]' (M=1, D=30). PF-based metrics may be disabled."
+      ],
+      "errors": [],
+      "detail": "",
+      "time_s": 0.014
+    },
+    {
+      "index": 47,
+      "problem_id": "local::problems.single.bbob.BBOB_F9",
+      "problem_name": "BBOB_F9",
+      "problem_label": "BBOB_F9 [local]",
+      "module": "problems.single.bbob",
+      "objective_class": "single",
+      "encoding": [
+        "binary",
+        "integer",
+        "mixed",
+        "permutation",
+        "real"
+      ],
+      "difficulties": [],
+      "backend": "cpu",
+      "algorithm": "CMAES",
+      "metric": "Min_value",
+      "n_obj": 1,
+      "n_var": 30,
+      "status": "ok",
+      "metric_value": 108630.37527216172,
+      "run_count": 1,
+      "warnings": [
+        "Reference Pareto front is unavailable for 'BBOB_F9 [local]' (M=1, D=30). PF-based metrics may be disabled."
+      ],
+      "errors": [],
+      "detail": "",
+      "time_s": 0.0124
+    },
+    {
+      "index": 48,
+      "problem_id": "local::problems.single.bbob.BBOB_F9_JAX",
+      "problem_name": "BBOB_F9_JAX",
+      "problem_label": "BBOB_F9_JAX [local]",
+      "module": "problems.single.bbob",
+      "objective_class": "single",
+      "encoding": [
+        "binary",
+        "integer",
+        "mixed",
+        "permutation",
+        "real"
+      ],
+      "difficulties": [],
+      "backend": "jax",
+      "algorithm": "CMAES",
+      "metric": "Min_value_JAX",
+      "n_obj": 1,
+      "n_var": 30,
+      "status": "ok",
+      "metric_value": 108630.3828125,
+      "run_count": 1,
+      "warnings": [
+        "JAX backend requested, but unavailable: No JAX GPU device detected",
+        "Reference Pareto front is unavailable for 'BBOB_F9_JAX [local]' (M=1, D=30). PF-based metrics may be disabled."
+      ],
+      "errors": [],
+      "detail": "",
+      "time_s": 0.0147
+    },
+    {
+      "index": 49,
+      "problem_id": "local::problems.single.multitasking_sops.CI_HS",
+      "problem_name": "CI_HS",
+      "problem_label": "CI_HS [local]",
+      "module": "problems.single.multitasking_sops",
+      "objective_class": "single",
+      "encoding": [
+        "binary",
+        "integer",
+        "mixed",
+        "permutation",
+        "real"
+      ],
+      "difficulties": [
+        "constrained"
+      ],
+      "backend": "cpu",
+      "algorithm": "CMAES",
+      "metric": "Min_value",
+      "n_obj": 1,
+      "n_var": 51,
+      "status": "ok",
+      "metric_value": 644.2586716764388,
+      "run_count": 1,
+      "warnings": [
+        "Reference Pareto front is unavailable for 'CI_HS [local]' (M=1, D=51). PF-based metrics may be disabled."
+      ],
+      "errors": [],
+      "detail": "",
+      "time_s": 0.0144
+    },
+    {
+      "index": 50,
+      "problem_id": "local::problems.single.multitasking_sops.CI_HS_JAX",
+      "problem_name": "CI_HS_JAX",
+      "problem_label": "CI_HS_JAX [local]",
+      "module": "problems.single.multitasking_sops",
+      "objective_class": "single",
+      "encoding": [
+        "binary",
+        "integer",
+        "mixed",
+        "permutation",
+        "real"
+      ],
+      "difficulties": [
+        "constrained"
+      ],
+      "backend": "jax",
+      "algorithm": "CMAES",
+      "metric": "Min_value_JAX",
+      "n_obj": 1,
+      "n_var": 51,
+      "status": "ok",
+      "metric_value": 644.2587890625,
+      "run_count": 1,
+      "warnings": [
+        "JAX backend requested, but unavailable: No JAX GPU device detected",
+        "Reference Pareto front is unavailable for 'CI_HS_JAX [local]' (M=1, D=51). PF-based metrics may be disabled."
+      ],
+      "errors": [],
+      "detail": "",
+      "time_s": 0.3373
+    },
+    {
+      "index": 51,
+      "problem_id": "local::problems.single.multitasking_sops.CI_LS",
+      "problem_name": "CI_LS",
+      "problem_label": "CI_LS [local]",
+      "module": "problems.single.multitasking_sops",
+      "objective_class": "single",
+      "encoding": [
+        "binary",
+        "integer",
+        "mixed",
+        "permutation",
+        "real"
+      ],
+      "difficulties": [
+        "constrained"
+      ],
+      "backend": "cpu",
+      "algorithm": "CMAES",
+      "metric": "Min_value",
+      "n_obj": 1,
+      "n_var": 51,
+      "status": "ok",
+      "metric_value": -3952.594409844431,
+      "run_count": 1,
+      "warnings": [
+        "Reference Pareto front is unavailable for 'CI_LS [local]' (M=1, D=51). PF-based metrics may be disabled."
+      ],
+      "errors": [],
+      "detail": "",
+      "time_s": 0.0141
+    },
+    {
+      "index": 52,
+      "problem_id": "local::problems.single.multitasking_sops.CI_LS_JAX",
+      "problem_name": "CI_LS_JAX",
+      "problem_label": "CI_LS_JAX [local]",
+      "module": "problems.single.multitasking_sops",
+      "objective_class": "single",
+      "encoding": [
+        "binary",
+        "integer",
+        "mixed",
+        "permutation",
+        "real"
+      ],
+      "difficulties": [
+        "constrained"
+      ],
+      "backend": "jax",
+      "algorithm": "CMAES",
+      "metric": "Min_value_JAX",
+      "n_obj": 1,
+      "n_var": 51,
+      "status": "ok",
+      "metric_value": -3952.5947265625,
+      "run_count": 1,
+      "warnings": [
+        "JAX backend requested, but unavailable: No JAX GPU device detected",
+        "Reference Pareto front is unavailable for 'CI_LS_JAX [local]' (M=1, D=51). PF-based metrics may be disabled."
+      ],
+      "errors": [],
+      "detail": "",
+      "time_s": 0.1792
+    },
+    {
+      "index": 53,
+      "problem_id": "local::problems.single.multitasking_sops.CI_MS",
+      "problem_name": "CI_MS",
+      "problem_label": "CI_MS [local]",
+      "module": "problems.single.multitasking_sops",
+      "objective_class": "single",
+      "encoding": [
+        "binary",
+        "integer",
+        "mixed",
+        "permutation",
+        "real"
+      ],
+      "difficulties": [
+        "constrained"
+      ],
+      "backend": "cpu",
+      "algorithm": "CMAES",
+      "metric": "Min_value",
+      "n_obj": 1,
+      "n_var": 51,
+      "status": "ok",
+      "metric_value": 20.753037359493554,
+      "run_count": 1,
+      "warnings": [
+        "Reference Pareto front is unavailable for 'CI_MS [local]' (M=1, D=51). PF-based metrics may be disabled."
+      ],
+      "errors": [],
+      "detail": "",
+      "time_s": 0.0136
+    },
+    {
+      "index": 54,
+      "problem_id": "local::problems.single.multitasking_sops.CI_MS_JAX",
+      "problem_name": "CI_MS_JAX",
+      "problem_label": "CI_MS_JAX [local]",
+      "module": "problems.single.multitasking_sops",
+      "objective_class": "single",
+      "encoding": [
+        "binary",
+        "integer",
+        "mixed",
+        "permutation",
+        "real"
+      ],
+      "difficulties": [
+        "constrained"
+      ],
+      "backend": "jax",
+      "algorithm": "CMAES",
+      "metric": "Min_value_JAX",
+      "n_obj": 1,
+      "n_var": 51,
+      "status": "ok",
+      "metric_value": 20.753036499023438,
+      "run_count": 1,
+      "warnings": [
+        "JAX backend requested, but unavailable: No JAX GPU device detected",
+        "Reference Pareto front is unavailable for 'CI_MS_JAX [local]' (M=1, D=51). PF-based metrics may be disabled."
+      ],
+      "errors": [],
+      "detail": "",
+      "time_s": 0.0327
+    },
+    {
+      "index": 55,
+      "problem_id": "local::problems.single.multitasking_sops.NI_HS",
+      "problem_name": "NI_HS",
+      "problem_label": "NI_HS [local]",
+      "module": "problems.single.multitasking_sops",
+      "objective_class": "single",
+      "encoding": [
+        "binary",
+        "integer",
+        "mixed",
+        "permutation",
+        "real"
+      ],
+      "difficulties": [],
+      "backend": "cpu",
+      "algorithm": "CMAES",
+      "metric": "Min_value",
+      "n_obj": 1,
+      "n_var": 51,
+      "status": "ok",
+      "metric_value": 644.2586716764388,
+      "run_count": 1,
+      "warnings": [
+        "Reference Pareto front is unavailable for 'NI_HS [local]' (M=1, D=51). PF-based metrics may be disabled."
+      ],
+      "errors": [],
+      "detail": "",
+      "time_s": 0.0134
+    },
+    {
+      "index": 56,
+      "problem_id": "local::problems.single.multitasking_sops.NI_HS_JAX",
+      "problem_name": "NI_HS_JAX",
+      "problem_label": "NI_HS_JAX [local]",
+      "module": "problems.single.multitasking_sops",
+      "objective_class": "single",
+      "encoding": [
+        "binary",
+        "integer",
+        "mixed",
+        "permutation",
+        "real"
+      ],
+      "difficulties": [],
+      "backend": "jax",
+      "algorithm": "CMAES",
+      "metric": "Min_value_JAX",
+      "n_obj": 1,
+      "n_var": 51,
+      "status": "ok",
+      "metric_value": 644.2587890625,
+      "run_count": 1,
+      "warnings": [
+        "JAX backend requested, but unavailable: No JAX GPU device detected",
+        "Reference Pareto front is unavailable for 'NI_HS_JAX [local]' (M=1, D=51). PF-based metrics may be disabled."
+      ],
+      "errors": [],
+      "detail": "",
+      "time_s": 0.1674
+    },
+    {
+      "index": 57,
+      "problem_id": "local::problems.single.multitasking_sops.NI_MS",
+      "problem_name": "NI_MS",
+      "problem_label": "NI_MS [local]",
+      "module": "problems.single.multitasking_sops",
+      "objective_class": "single",
+      "encoding": [
+        "binary",
+        "integer",
+        "mixed",
+        "permutation",
+        "real"
+      ],
+      "difficulties": [],
+      "backend": "cpu",
+      "algorithm": "CMAES",
+      "metric": "Min_value",
+      "n_obj": 1,
+      "n_var": 51,
+      "status": "ok",
+      "metric_value": 82.10468905118229,
+      "run_count": 1,
+      "warnings": [
+        "Reference Pareto front is unavailable for 'NI_MS [local]' (M=1, D=51). PF-based metrics may be disabled."
+      ],
+      "errors": [],
+      "detail": "",
+      "time_s": 0.0147
+    },
+    {
+      "index": 58,
+      "problem_id": "local::problems.single.multitasking_sops.NI_MS_JAX",
+      "problem_name": "NI_MS_JAX",
+      "problem_label": "NI_MS_JAX [local]",
+      "module": "problems.single.multitasking_sops",
+      "objective_class": "single",
+      "encoding": [
+        "binary",
+        "integer",
+        "mixed",
+        "permutation",
+        "real"
+      ],
+      "difficulties": [],
+      "backend": "jax",
+      "algorithm": "CMAES",
+      "metric": "Min_value_JAX",
+      "n_obj": 1,
+      "n_var": 51,
+      "status": "ok",
+      "metric_value": 82.09932708740234,
+      "run_count": 1,
+      "warnings": [
+        "JAX backend requested, but unavailable: No JAX GPU device detected",
+        "Reference Pareto front is unavailable for 'NI_MS_JAX [local]' (M=1, D=51). PF-based metrics may be disabled."
+      ],
+      "errors": [],
+      "detail": "",
+      "time_s": 0.3416
+    },
+    {
+      "index": 59,
+      "problem_id": "local::problems.single.simple_sops.SOP_F1",
+      "problem_name": "SOP_F1",
+      "problem_label": "SOP_F1 [local]",
+      "module": "problems.single.simple_sops",
+      "objective_class": "single",
+      "encoding": [
+        "binary",
+        "integer",
+        "mixed",
+        "permutation",
+        "real"
+      ],
+      "difficulties": [],
+      "backend": "cpu",
+      "algorithm": "CMAES",
+      "metric": "Min_value",
+      "n_obj": 1,
+      "n_var": 30,
+      "status": "ok",
+      "metric_value": 50589.73676635699,
+      "run_count": 1,
+      "warnings": [
+        "Reference Pareto front is unavailable for 'SOP_F1 [local]' (M=1, D=30). PF-based metrics may be disabled."
+      ],
+      "errors": [],
+      "detail": "",
+      "time_s": 0.0116
+    },
+    {
+      "index": 60,
+      "problem_id": "local::problems.single.simple_sops.SOP_F10",
+      "problem_name": "SOP_F10",
+      "problem_label": "SOP_F10 [local]",
+      "module": "problems.single.simple_sops",
+      "objective_class": "single",
+      "encoding": [
+        "binary",
+        "integer",
+        "mixed",
+        "permutation",
+        "real"
+      ],
+      "difficulties": [],
+      "backend": "cpu",
+      "algorithm": "CMAES",
+      "metric": "Min_value",
+      "n_obj": 1,
+      "n_var": 30,
+      "status": "ok",
+      "metric_value": 20.142732069262237,
+      "run_count": 1,
+      "warnings": [
+        "Reference Pareto front is unavailable for 'SOP_F10 [local]' (M=1, D=30). PF-based metrics may be disabled."
+      ],
+      "errors": [],
+      "detail": "",
+      "time_s": 0.0121
+    },
+    {
+      "index": 61,
+      "problem_id": "local::problems.single.simple_sops.SOP_F10_JAX",
+      "problem_name": "SOP_F10_JAX",
+      "problem_label": "SOP_F10_JAX [local]",
+      "module": "problems.single.simple_sops",
+      "objective_class": "single",
+      "encoding": [
+        "binary",
+        "integer",
+        "mixed",
+        "permutation",
+        "real"
+      ],
+      "difficulties": [],
+      "backend": "jax",
+      "algorithm": "CMAES",
+      "metric": "Min_value_JAX",
+      "n_obj": 1,
+      "n_var": 30,
+      "status": "ok",
+      "metric_value": 20.142730712890625,
+      "run_count": 1,
+      "warnings": [
+        "JAX backend requested, but unavailable: No JAX GPU device detected",
+        "Reference Pareto front is unavailable for 'SOP_F10_JAX [local]' (M=1, D=30). PF-based metrics may be disabled."
+      ],
+      "errors": [],
+      "detail": "",
+      "time_s": 0.0126
+    },
+    {
+      "index": 62,
+      "problem_id": "local::problems.single.simple_sops.SOP_F11",
+      "problem_name": "SOP_F11",
+      "problem_label": "SOP_F11 [local]",
+      "module": "problems.single.simple_sops",
+      "objective_class": "single",
+      "encoding": [
+        "binary",
+        "integer",
+        "mixed",
+        "permutation",
+        "real"
+      ],
+      "difficulties": [],
+      "backend": "cpu",
+      "algorithm": "CMAES",
+      "metric": "Min_value",
+      "n_obj": 1,
+      "n_var": 30,
+      "status": "ok",
+      "metric_value": 456.3076308946181,
+      "run_count": 1,
+      "warnings": [
+        "Reference Pareto front is unavailable for 'SOP_F11 [local]' (M=1, D=30). PF-based metrics may be disabled."
+      ],
+      "errors": [],
+      "detail": "",
+      "time_s": 0.0107
+    },
+    {
+      "index": 63,
+      "problem_id": "local::problems.single.simple_sops.SOP_F11_JAX",
+      "problem_name": "SOP_F11_JAX",
+      "problem_label": "SOP_F11_JAX [local]",
+      "module": "problems.single.simple_sops",
+      "objective_class": "single",
+      "encoding": [
+        "binary",
+        "integer",
+        "mixed",
+        "permutation",
+        "real"
+      ],
+      "difficulties": [],
+      "backend": "jax",
+      "algorithm": "CMAES",
+      "metric": "Min_value_JAX",
+      "n_obj": 1,
+      "n_var": 30,
+      "status": "ok",
+      "metric_value": 456.3076171875,
+      "run_count": 1,
+      "warnings": [
+        "JAX backend requested, but unavailable: No JAX GPU device detected",
+        "Reference Pareto front is unavailable for 'SOP_F11_JAX [local]' (M=1, D=30). PF-based metrics may be disabled."
+      ],
+      "errors": [],
+      "detail": "",
+      "time_s": 0.1035
+    },
+    {
+      "index": 64,
+      "problem_id": "local::problems.single.simple_sops.SOP_F12",
+      "problem_name": "SOP_F12",
+      "problem_label": "SOP_F12 [local]",
+      "module": "problems.single.simple_sops",
+      "objective_class": "single",
+      "encoding": [
+        "binary",
+        "integer",
+        "mixed",
+        "permutation",
+        "real"
+      ],
+      "difficulties": [],
+      "backend": "cpu",
+      "algorithm": "CMAES",
+      "metric": "Min_value",
+      "n_obj": 1,
+      "n_var": 30,
+      "status": "ok",
+      "metric_value": 358572832.3813079,
+      "run_count": 1,
+      "warnings": [
+        "Reference Pareto front is unavailable for 'SOP_F12 [local]' (M=1, D=30). PF-based metrics may be disabled."
+      ],
+      "errors": [],
+      "detail": "",
+      "time_s": 0.0127
+    },
+    {
+      "index": 65,
+      "problem_id": "local::problems.single.simple_sops.SOP_F12_JAX",
+      "problem_name": "SOP_F12_JAX",
+      "problem_label": "SOP_F12_JAX [local]",
+      "module": "problems.single.simple_sops",
+      "objective_class": "single",
+      "encoding": [
+        "binary",
+        "integer",
+        "mixed",
+        "permutation",
+        "real"
+      ],
+      "difficulties": [],
+      "backend": "jax",
+      "algorithm": "CMAES",
+      "metric": "Min_value_JAX",
+      "n_obj": 1,
+      "n_var": 30,
+      "status": "ok",
+      "metric_value": 358572896.0,
+      "run_count": 1,
+      "warnings": [
+        "JAX backend requested, but unavailable: No JAX GPU device detected",
+        "Reference Pareto front is unavailable for 'SOP_F12_JAX [local]' (M=1, D=30). PF-based metrics may be disabled."
+      ],
+      "errors": [],
+      "detail": "",
+      "time_s": 0.0783
+    },
+    {
+      "index": 66,
+      "problem_id": "local::problems.single.simple_sops.SOP_F13",
+      "problem_name": "SOP_F13",
+      "problem_label": "SOP_F13 [local]",
+      "module": "problems.single.simple_sops",
+      "objective_class": "single",
+      "encoding": [
+        "binary",
+        "integer",
+        "mixed",
+        "permutation",
+        "real"
+      ],
+      "difficulties": [],
+      "backend": "cpu",
+      "algorithm": "CMAES",
+      "metric": "Min_value",
+      "n_obj": 1,
+      "n_var": 30,
+      "status": "ok",
+      "metric_value": 460828453.0472192,
+      "run_count": 1,
+      "warnings": [
+        "Reference Pareto front is unavailable for 'SOP_F13 [local]' (M=1, D=30). PF-based metrics may be disabled."
+      ],
+      "errors": [],
+      "detail": "",
+      "time_s": 0.0115
+    },
+    {
+      "index": 67,
+      "problem_id": "local::problems.single.simple_sops.SOP_F13_JAX",
+      "problem_name": "SOP_F13_JAX",
+      "problem_label": "SOP_F13_JAX [local]",
+      "module": "problems.single.simple_sops",
+      "objective_class": "single",
+      "encoding": [
+        "binary",
+        "integer",
+        "mixed",
+        "permutation",
+        "real"
+      ],
+      "difficulties": [],
+      "backend": "jax",
+      "algorithm": "CMAES",
+      "metric": "Min_value_JAX",
+      "n_obj": 1,
+      "n_var": 30,
+      "status": "ok",
+      "metric_value": 460828512.0,
+      "run_count": 1,
+      "warnings": [
+        "JAX backend requested, but unavailable: No JAX GPU device detected",
+        "Reference Pareto front is unavailable for 'SOP_F13_JAX [local]' (M=1, D=30). PF-based metrics may be disabled."
+      ],
+      "errors": [],
+      "detail": "",
+      "time_s": 0.0165
+    },
+    {
+      "index": 68,
+      "problem_id": "local::problems.single.simple_sops.SOP_F14",
+      "problem_name": "SOP_F14",
+      "problem_label": "SOP_F14 [local]",
+      "module": "problems.single.simple_sops",
+      "objective_class": "single",
+      "encoding": [
+        "binary",
+        "integer",
+        "mixed",
+        "permutation",
+        "real"
+      ],
+      "difficulties": [],
+      "backend": "cpu",
+      "algorithm": "CMAES",
+      "metric": "Min_value",
+      "n_obj": 1,
+      "n_var": 2,
+      "status": "ok",
+      "metric_value": 23.974476103889668,
+      "run_count": 1,
+      "warnings": [
+        "Reference Pareto front is unavailable for 'SOP_F14 [local]' (M=1, D=2). PF-based metrics may be disabled."
+      ],
+      "errors": [],
+      "detail": "",
+      "time_s": 0.0103
+    },
+    {
+      "index": 69,
+      "problem_id": "local::problems.single.simple_sops.SOP_F14_JAX",
+      "problem_name": "SOP_F14_JAX",
+      "problem_label": "SOP_F14_JAX [local]",
+      "module": "problems.single.simple_sops",
+      "objective_class": "single",
+      "encoding": [
+        "binary",
+        "integer",
+        "mixed",
+        "permutation",
+        "real"
+      ],
+      "difficulties": [],
+      "backend": "jax",
+      "algorithm": "CMAES",
+      "metric": "Min_value_JAX",
+      "n_obj": 1,
+      "n_var": 2,
+      "status": "ok",
+      "metric_value": 23.97447395324707,
+      "run_count": 1,
+      "warnings": [
+        "JAX backend requested, but unavailable: No JAX GPU device detected",
+        "Reference Pareto front is unavailable for 'SOP_F14_JAX [local]' (M=1, D=2). PF-based metrics may be disabled."
+      ],
+      "errors": [],
+      "detail": "",
+      "time_s": 0.2172
+    },
+    {
+      "index": 70,
+      "problem_id": "local::problems.single.simple_sops.SOP_F15",
+      "problem_name": "SOP_F15",
+      "problem_label": "SOP_F15 [local]",
+      "module": "problems.single.simple_sops",
+      "objective_class": "single",
+      "encoding": [
+        "binary",
+        "integer",
+        "mixed",
+        "permutation",
+        "real"
+      ],
+      "difficulties": [],
+      "backend": "cpu",
+      "algorithm": "CMAES",
+      "metric": "Min_value",
+      "n_obj": 1,
+      "n_var": 4,
+      "status": "ok",
+      "metric_value": 0.07434350203175984,
+      "run_count": 1,
+      "warnings": [
+        "Reference Pareto front is unavailable for 'SOP_F15 [local]' (M=1, D=4). PF-based metrics may be disabled."
+      ],
+      "errors": [],
+      "detail": "",
+      "time_s": 0.0106
+    },
+    {
+      "index": 71,
+      "problem_id": "local::problems.single.simple_sops.SOP_F15_JAX",
+      "problem_name": "SOP_F15_JAX",
+      "problem_label": "SOP_F15_JAX [local]",
+      "module": "problems.single.simple_sops",
+      "objective_class": "single",
+      "encoding": [
+        "binary",
+        "integer",
+        "mixed",
+        "permutation",
+        "real"
+      ],
+      "difficulties": [],
+      "backend": "jax",
+      "algorithm": "CMAES",
+      "metric": "Min_value_JAX",
+      "n_obj": 1,
+      "n_var": 4,
+      "status": "ok",
+      "metric_value": 0.0743434950709343,
+      "run_count": 1,
+      "warnings": [
+        "JAX backend requested, but unavailable: No JAX GPU device detected",
+        "Reference Pareto front is unavailable for 'SOP_F15_JAX [local]' (M=1, D=4). PF-based metrics may be disabled."
+      ],
+      "errors": [],
+      "detail": "",
+      "time_s": 0.2607
+    },
+    {
+      "index": 72,
+      "problem_id": "local::problems.single.simple_sops.SOP_F16",
+      "problem_name": "SOP_F16",
+      "problem_label": "SOP_F16 [local]",
+      "module": "problems.single.simple_sops",
+      "objective_class": "single",
+      "encoding": [
+        "binary",
+        "integer",
+        "mixed",
+        "permutation",
+        "real"
+      ],
+      "difficulties": [],
+      "backend": "cpu",
+      "algorithm": "CMAES",
+      "metric": "Min_value",
+      "n_obj": 1,
+      "n_var": 2,
+      "status": "ok",
+      "metric_value": -0.9835863769553488,
+      "run_count": 1,
+      "warnings": [
+        "Reference Pareto front is unavailable for 'SOP_F16 [local]' (M=1, D=2). PF-based metrics may be disabled."
+      ],
+      "errors": [],
+      "detail": "",
+      "time_s": 0.0097
+    },
+    {
+      "index": 73,
+      "problem_id": "local::problems.single.simple_sops.SOP_F16_JAX",
+      "problem_name": "SOP_F16_JAX",
+      "problem_label": "SOP_F16_JAX [local]",
+      "module": "problems.single.simple_sops",
+      "objective_class": "single",
+      "encoding": [
+        "binary",
+        "integer",
+        "mixed",
+        "permutation",
+        "real"
+      ],
+      "difficulties": [],
+      "backend": "jax",
+      "algorithm": "CMAES",
+      "metric": "Min_value_JAX",
+      "n_obj": 1,
+      "n_var": 2,
+      "status": "ok",
+      "metric_value": -0.9835863709449768,
+      "run_count": 1,
+      "warnings": [
+        "JAX backend requested, but unavailable: No JAX GPU device detected",
+        "Reference Pareto front is unavailable for 'SOP_F16_JAX [local]' (M=1, D=2). PF-based metrics may be disabled."
+      ],
+      "errors": [],
+      "detail": "",
+      "time_s": 0.0303
+    },
+    {
+      "index": 74,
+      "problem_id": "local::problems.single.simple_sops.SOP_F17",
+      "problem_name": "SOP_F17",
+      "problem_label": "SOP_F17 [local]",
+      "module": "problems.single.simple_sops",
+      "objective_class": "single",
+      "encoding": [
+        "binary",
+        "integer",
+        "mixed",
+        "permutation",
+        "real"
+      ],
+      "difficulties": [],
+      "backend": "cpu",
+      "algorithm": "CMAES",
+      "metric": "Min_value",
+      "n_obj": 1,
+      "n_var": 2,
+      "status": "ok",
+      "metric_value": 0.4305004980863845,
+      "run_count": 1,
+      "warnings": [
+        "Reference Pareto front is unavailable for 'SOP_F17 [local]' (M=1, D=2). PF-based metrics may be disabled."
+      ],
+      "errors": [],
+      "detail": "",
+      "time_s": 0.0092
+    },
+    {
+      "index": 75,
+      "problem_id": "local::problems.single.simple_sops.SOP_F17_JAX",
+      "problem_name": "SOP_F17_JAX",
+      "problem_label": "SOP_F17_JAX [local]",
+      "module": "problems.single.simple_sops",
+      "objective_class": "single",
+      "encoding": [
+        "binary",
+        "integer",
+        "mixed",
+        "permutation",
+        "real"
+      ],
+      "difficulties": [],
+      "backend": "jax",
+      "algorithm": "CMAES",
+      "metric": "Min_value_JAX",
+      "n_obj": 1,
+      "n_var": 2,
+      "status": "ok",
+      "metric_value": 0.4304998517036438,
+      "run_count": 1,
+      "warnings": [
+        "JAX backend requested, but unavailable: No JAX GPU device detected",
+        "Reference Pareto front is unavailable for 'SOP_F17_JAX [local]' (M=1, D=2). PF-based metrics may be disabled."
+      ],
+      "errors": [],
+      "detail": "",
+      "time_s": 0.0141
+    },
+    {
+      "index": 76,
+      "problem_id": "local::problems.single.simple_sops.SOP_F18",
+      "problem_name": "SOP_F18",
+      "problem_label": "SOP_F18 [local]",
+      "module": "problems.single.simple_sops",
+      "objective_class": "single",
+      "encoding": [
+        "binary",
+        "integer",
+        "mixed",
+        "permutation",
+        "real"
+      ],
+      "difficulties": [],
+      "backend": "cpu",
+      "algorithm": "CMAES",
+      "metric": "Min_value",
+      "n_obj": 1,
+      "n_var": 2,
+      "status": "ok",
+      "metric_value": 3.6318684287376293,
+      "run_count": 1,
+      "warnings": [
+        "Reference Pareto front is unavailable for 'SOP_F18 [local]' (M=1, D=2). PF-based metrics may be disabled."
+      ],
+      "errors": [],
+      "detail": "",
+      "time_s": 0.0099
+    },
+    {
+      "index": 77,
+      "problem_id": "local::problems.single.simple_sops.SOP_F18_JAX",
+      "problem_name": "SOP_F18_JAX",
+      "problem_label": "SOP_F18_JAX [local]",
+      "module": "problems.single.simple_sops",
+      "objective_class": "single",
+      "encoding": [
+        "binary",
+        "integer",
+        "mixed",
+        "permutation",
+        "real"
+      ],
+      "difficulties": [],
+      "backend": "jax",
+      "algorithm": "CMAES",
+      "metric": "Min_value_JAX",
+      "n_obj": 1,
+      "n_var": 2,
+      "status": "ok",
+      "metric_value": 3.6318717002868652,
+      "run_count": 1,
+      "warnings": [
+        "JAX backend requested, but unavailable: No JAX GPU device detected",
+        "Reference Pareto front is unavailable for 'SOP_F18_JAX [local]' (M=1, D=2). PF-based metrics may be disabled."
+      ],
+      "errors": [],
+      "detail": "",
+      "time_s": 0.0143
+    },
+    {
+      "index": 78,
+      "problem_id": "local::problems.single.simple_sops.SOP_F19",
+      "problem_name": "SOP_F19",
+      "problem_label": "SOP_F19 [local]",
+      "module": "problems.single.simple_sops",
+      "objective_class": "single",
+      "encoding": [
+        "binary",
+        "integer",
+        "mixed",
+        "permutation",
+        "real"
+      ],
+      "difficulties": [],
+      "backend": "cpu",
+      "algorithm": "CMAES",
+      "metric": "Min_value",
+      "n_obj": 1,
+      "n_var": 3,
+      "status": "ok",
+      "metric_value": -3.8524129626137866,
+      "run_count": 1,
+      "warnings": [
+        "Reference Pareto front is unavailable for 'SOP_F19 [local]' (M=1, D=3). PF-based metrics may be disabled."
+      ],
+      "errors": [],
+      "detail": "",
+      "time_s": 0.0098
+    },
+    {
+      "index": 79,
+      "problem_id": "local::problems.single.simple_sops.SOP_F19_JAX",
+      "problem_name": "SOP_F19_JAX",
+      "problem_label": "SOP_F19_JAX [local]",
+      "module": "problems.single.simple_sops",
+      "objective_class": "single",
+      "encoding": [
+        "binary",
+        "integer",
+        "mixed",
+        "permutation",
+        "real"
+      ],
+      "difficulties": [],
+      "backend": "jax",
+      "algorithm": "CMAES",
+      "metric": "Min_value_JAX",
+      "n_obj": 1,
+      "n_var": 3,
+      "status": "ok",
+      "metric_value": -3.8524129390716553,
+      "run_count": 1,
+      "warnings": [
+        "JAX backend requested, but unavailable: No JAX GPU device detected",
+        "Reference Pareto front is unavailable for 'SOP_F19_JAX [local]' (M=1, D=3). PF-based metrics may be disabled."
+      ],
+      "errors": [],
+      "detail": "",
+      "time_s": 0.2071
+    },
+    {
+      "index": 80,
+      "problem_id": "local::problems.single.simple_sops.SOP_F1_JAX",
+      "problem_name": "SOP_F1_JAX",
+      "problem_label": "SOP_F1_JAX [local]",
+      "module": "problems.single.simple_sops",
+      "objective_class": "single",
+      "encoding": [
+        "binary",
+        "integer",
+        "mixed",
+        "permutation",
+        "real"
+      ],
+      "difficulties": [],
+      "backend": "jax",
+      "algorithm": "CMAES",
+      "metric": "Min_value_JAX",
+      "n_obj": 1,
+      "n_var": 30,
+      "status": "ok",
+      "metric_value": 50589.73828125,
+      "run_count": 1,
+      "warnings": [
+        "JAX backend requested, but unavailable: No JAX GPU device detected",
+        "Reference Pareto front is unavailable for 'SOP_F1_JAX [local]' (M=1, D=30). PF-based metrics may be disabled."
+      ],
+      "errors": [],
+      "detail": "",
+      "time_s": 0.0135
+    },
+    {
+      "index": 81,
+      "problem_id": "local::problems.single.simple_sops.SOP_F2",
+      "problem_name": "SOP_F2",
+      "problem_label": "SOP_F2 [local]",
+      "module": "problems.single.simple_sops",
+      "objective_class": "single",
+      "encoding": [
+        "binary",
+        "integer",
+        "mixed",
+        "permutation",
+        "real"
+      ],
+      "difficulties": [],
+      "backend": "cpu",
+      "algorithm": "CMAES",
+      "metric": "Min_value",
+      "n_obj": 1,
+      "n_var": 30,
+      "status": "ok",
+      "metric_value": 101786675.87723112,
+      "run_count": 1,
+      "warnings": [
+        "Reference Pareto front is unavailable for 'SOP_F2 [local]' (M=1, D=30). PF-based metrics may be disabled."
+      ],
+      "errors": [],
+      "detail": "",
+      "time_s": 0.0112
+    },
+    {
+      "index": 82,
+      "problem_id": "local::problems.single.simple_sops.SOP_F20",
+      "problem_name": "SOP_F20",
+      "problem_label": "SOP_F20 [local]",
+      "module": "problems.single.simple_sops",
+      "objective_class": "single",
+      "encoding": [
+        "binary",
+        "integer",
+        "mixed",
+        "permutation",
+        "real"
+      ],
+      "difficulties": [],
+      "backend": "cpu",
+      "algorithm": "CMAES",
+      "metric": "Min_value",
+      "n_obj": 1,
+      "n_var": 6,
+      "status": "ok",
+      "metric_value": -3.131185494780528,
+      "run_count": 1,
+      "warnings": [
+        "Reference Pareto front is unavailable for 'SOP_F20 [local]' (M=1, D=6). PF-based metrics may be disabled."
+      ],
+      "errors": [],
+      "detail": "",
+      "time_s": 0.0102
+    },
+    {
+      "index": 83,
+      "problem_id": "local::problems.single.simple_sops.SOP_F20_JAX",
+      "problem_name": "SOP_F20_JAX",
+      "problem_label": "SOP_F20_JAX [local]",
+      "module": "problems.single.simple_sops",
+      "objective_class": "single",
+      "encoding": [
+        "binary",
+        "integer",
+        "mixed",
+        "permutation",
+        "real"
+      ],
+      "difficulties": [],
+      "backend": "jax",
+      "algorithm": "CMAES",
+      "metric": "Min_value_JAX",
+      "n_obj": 1,
+      "n_var": 6,
+      "status": "ok",
+      "metric_value": -3.131185293197632,
+      "run_count": 1,
+      "warnings": [
+        "JAX backend requested, but unavailable: No JAX GPU device detected",
+        "Reference Pareto front is unavailable for 'SOP_F20_JAX [local]' (M=1, D=6). PF-based metrics may be disabled."
+      ],
+      "errors": [],
+      "detail": "",
+      "time_s": 0.1535
+    },
+    {
+      "index": 84,
+      "problem_id": "local::problems.single.simple_sops.SOP_F21",
+      "problem_name": "SOP_F21",
+      "problem_label": "SOP_F21 [local]",
+      "module": "problems.single.simple_sops",
+      "objective_class": "single",
+      "encoding": [
+        "binary",
+        "integer",
+        "mixed",
+        "permutation",
+        "real"
+      ],
+      "difficulties": [],
+      "backend": "cpu",
+      "algorithm": "CMAES",
+      "metric": "Min_value",
+      "n_obj": 1,
+      "n_var": 4,
+      "status": "ok",
+      "metric_value": -1.4365869224013057,
+      "run_count": 1,
+      "warnings": [
+        "Reference Pareto front is unavailable for 'SOP_F21 [local]' (M=1, D=4). PF-based metrics may be disabled."
+      ],
+      "errors": [],
+      "detail": "",
+      "time_s": 0.011
+    },
+    {
+      "index": 85,
+      "problem_id": "local::problems.single.simple_sops.SOP_F21_JAX",
+      "problem_name": "SOP_F21_JAX",
+      "problem_label": "SOP_F21_JAX [local]",
+      "module": "problems.single.simple_sops",
+      "objective_class": "single",
+      "encoding": [
+        "binary",
+        "integer",
+        "mixed",
+        "permutation",
+        "real"
+      ],
+      "difficulties": [],
+      "backend": "jax",
+      "algorithm": "CMAES",
+      "metric": "Min_value_JAX",
+      "n_obj": 1,
+      "n_var": 4,
+      "status": "ok",
+      "metric_value": -1.4365874528884888,
+      "run_count": 1,
+      "warnings": [
+        "JAX backend requested, but unavailable: No JAX GPU device detected",
+        "Reference Pareto front is unavailable for 'SOP_F21_JAX [local]' (M=1, D=4). PF-based metrics may be disabled."
+      ],
+      "errors": [],
+      "detail": "",
+      "time_s": 0.1463
+    },
+    {
+      "index": 86,
+      "problem_id": "local::problems.single.simple_sops.SOP_F22",
+      "problem_name": "SOP_F22",
+      "problem_label": "SOP_F22 [local]",
+      "module": "problems.single.simple_sops",
+      "objective_class": "single",
+      "encoding": [
+        "binary",
+        "integer",
+        "mixed",
+        "permutation",
+        "real"
+      ],
+      "difficulties": [],
+      "backend": "cpu",
+      "algorithm": "CMAES",
+      "metric": "Min_value",
+      "n_obj": 1,
+      "n_var": 4,
+      "status": "ok",
+      "metric_value": -1.650269198267647,
+      "run_count": 1,
+      "warnings": [
+        "Reference Pareto front is unavailable for 'SOP_F22 [local]' (M=1, D=4). PF-based metrics may be disabled."
+      ],
+      "errors": [],
+      "detail": "",
+      "time_s": 0.0097
+    },
+    {
+      "index": 87,
+      "problem_id": "local::problems.single.simple_sops.SOP_F22_JAX",
+      "problem_name": "SOP_F22_JAX",
+      "problem_label": "SOP_F22_JAX [local]",
+      "module": "problems.single.simple_sops",
+      "objective_class": "single",
+      "encoding": [
+        "binary",
+        "integer",
+        "mixed",
+        "permutation",
+        "real"
+      ],
+      "difficulties": [],
+      "backend": "jax",
+      "algorithm": "CMAES",
+      "metric": "Min_value_JAX",
+      "n_obj": 1,
+      "n_var": 4,
+      "status": "ok",
+      "metric_value": -1.6502690315246582,
+      "run_count": 1,
+      "warnings": [
+        "JAX backend requested, but unavailable: No JAX GPU device detected",
+        "Reference Pareto front is unavailable for 'SOP_F22_JAX [local]' (M=1, D=4). PF-based metrics may be disabled."
+      ],
+      "errors": [],
+      "detail": "",
+      "time_s": 0.1449
+    },
+    {
+      "index": 88,
+      "problem_id": "local::problems.single.simple_sops.SOP_F23",
+      "problem_name": "SOP_F23",
+      "problem_label": "SOP_F23 [local]",
+      "module": "problems.single.simple_sops",
+      "objective_class": "single",
+      "encoding": [
+        "binary",
+        "integer",
+        "mixed",
+        "permutation",
+        "real"
+      ],
+      "difficulties": [],
+      "backend": "cpu",
+      "algorithm": "CMAES",
+      "metric": "Min_value",
+      "n_obj": 1,
+      "n_var": 4,
+      "status": "ok",
+      "metric_value": -1.8624475841768344,
+      "run_count": 1,
+      "warnings": [
+        "Reference Pareto front is unavailable for 'SOP_F23 [local]' (M=1, D=4). PF-based metrics may be disabled."
+      ],
+      "errors": [],
+      "detail": "",
+      "time_s": 0.0108
+    },
+    {
+      "index": 89,
+      "problem_id": "local::problems.single.simple_sops.SOP_F23_JAX",
+      "problem_name": "SOP_F23_JAX",
+      "problem_label": "SOP_F23_JAX [local]",
+      "module": "problems.single.simple_sops",
+      "objective_class": "single",
+      "encoding": [
+        "binary",
+        "integer",
+        "mixed",
+        "permutation",
+        "real"
+      ],
+      "difficulties": [],
+      "backend": "jax",
+      "algorithm": "CMAES",
+      "metric": "Min_value_JAX",
+      "n_obj": 1,
+      "n_var": 4,
+      "status": "ok",
+      "metric_value": -1.8624472618103027,
+      "run_count": 1,
+      "warnings": [
+        "JAX backend requested, but unavailable: No JAX GPU device detected",
+        "Reference Pareto front is unavailable for 'SOP_F23_JAX [local]' (M=1, D=4). PF-based metrics may be disabled."
+      ],
+      "errors": [],
+      "detail": "",
+      "time_s": 0.126
+    },
+    {
+      "index": 90,
+      "problem_id": "local::problems.single.simple_sops.SOP_F2_JAX",
+      "problem_name": "SOP_F2_JAX",
+      "problem_label": "SOP_F2_JAX [local]",
+      "module": "problems.single.simple_sops",
+      "objective_class": "single",
+      "encoding": [
+        "binary",
+        "integer",
+        "mixed",
+        "permutation",
+        "real"
+      ],
+      "difficulties": [],
+      "backend": "jax",
+      "algorithm": "CMAES",
+      "metric": "Min_value_JAX",
+      "n_obj": 1,
+      "n_var": 30,
+      "status": "ok",
+      "metric_value": 101786664.0,
+      "run_count": 1,
+      "warnings": [
+        "JAX backend requested, but unavailable: No JAX GPU device detected",
+        "Reference Pareto front is unavailable for 'SOP_F2_JAX [local]' (M=1, D=30). PF-based metrics may be disabled."
+      ],
+      "errors": [],
+      "detail": "",
+      "time_s": 0.0127
+    },
+    {
+      "index": 91,
+      "problem_id": "local::problems.single.simple_sops.SOP_F3",
+      "problem_name": "SOP_F3",
+      "problem_label": "SOP_F3 [local]",
+      "module": "problems.single.simple_sops",
+      "objective_class": "single",
+      "encoding": [
+        "binary",
+        "integer",
+        "mixed",
+        "permutation",
+        "real"
+      ],
+      "difficulties": [],
+      "backend": "cpu",
+      "algorithm": "CMAES",
+      "metric": "Min_value",
+      "n_obj": 1,
+      "n_var": 30,
+      "status": "ok",
+      "metric_value": 55345.93221031845,
+      "run_count": 1,
+      "warnings": [
+        "Reference Pareto front is unavailable for 'SOP_F3 [local]' (M=1, D=30). PF-based metrics may be disabled."
+      ],
+      "errors": [],
+      "detail": "",
+      "time_s": 0.0121
+    },
+    {
+      "index": 92,
+      "problem_id": "local::problems.single.simple_sops.SOP_F3_JAX",
+      "problem_name": "SOP_F3_JAX",
+      "problem_label": "SOP_F3_JAX [local]",
+      "module": "problems.single.simple_sops",
+      "objective_class": "single",
+      "encoding": [
+        "binary",
+        "integer",
+        "mixed",
+        "permutation",
+        "real"
+      ],
+      "difficulties": [],
+      "backend": "jax",
+      "algorithm": "CMAES",
+      "metric": "Min_value_JAX",
+      "n_obj": 1,
+      "n_var": 30,
+      "status": "ok",
+      "metric_value": 55345.9296875,
+      "run_count": 1,
+      "warnings": [
+        "JAX backend requested, but unavailable: No JAX GPU device detected",
+        "Reference Pareto front is unavailable for 'SOP_F3_JAX [local]' (M=1, D=30). PF-based metrics may be disabled."
+      ],
+      "errors": [],
+      "detail": "",
+      "time_s": 0.0469
+    },
+    {
+      "index": 93,
+      "problem_id": "local::problems.single.simple_sops.SOP_F4",
+      "problem_name": "SOP_F4",
+      "problem_label": "SOP_F4 [local]",
+      "module": "problems.single.simple_sops",
+      "objective_class": "single",
+      "encoding": [
+        "binary",
+        "integer",
+        "mixed",
+        "permutation",
+        "real"
+      ],
+      "difficulties": [],
+      "backend": "cpu",
+      "algorithm": "CMAES",
+      "metric": "Min_value",
+      "n_obj": 1,
+      "n_var": 30,
+      "status": "ok",
+      "metric_value": 86.20072151084874,
+      "run_count": 1,
+      "warnings": [
+        "Reference Pareto front is unavailable for 'SOP_F4 [local]' (M=1, D=30). PF-based metrics may be disabled."
+      ],
+      "errors": [],
+      "detail": "",
+      "time_s": 0.0111
+    },
+    {
+      "index": 94,
+      "problem_id": "local::problems.single.simple_sops.SOP_F4_JAX",
+      "problem_name": "SOP_F4_JAX",
+      "problem_label": "SOP_F4_JAX [local]",
+      "module": "problems.single.simple_sops",
+      "objective_class": "single",
+      "encoding": [
+        "binary",
+        "integer",
+        "mixed",
+        "permutation",
+        "real"
+      ],
+      "difficulties": [],
+      "backend": "jax",
+      "algorithm": "CMAES",
+      "metric": "Min_value_JAX",
+      "n_obj": 1,
+      "n_var": 30,
+      "status": "ok",
+      "metric_value": 86.20072174072266,
+      "run_count": 1,
+      "warnings": [
+        "JAX backend requested, but unavailable: No JAX GPU device detected",
+        "Reference Pareto front is unavailable for 'SOP_F4_JAX [local]' (M=1, D=30). PF-based metrics may be disabled."
+      ],
+      "errors": [],
+      "detail": "",
+      "time_s": 0.0356
+    },
+    {
+      "index": 95,
+      "problem_id": "local::problems.single.simple_sops.SOP_F5",
+      "problem_name": "SOP_F5",
+      "problem_label": "SOP_F5 [local]",
+      "module": "problems.single.simple_sops",
+      "objective_class": "single",
+      "encoding": [
+        "binary",
+        "integer",
+        "mixed",
+        "permutation",
+        "real"
+      ],
+      "difficulties": [],
+      "backend": "cpu",
+      "algorithm": "CMAES",
+      "metric": "Min_value",
+      "n_obj": 1,
+      "n_var": 30,
+      "status": "ok",
+      "metric_value": 112472350.86837207,
+      "run_count": 1,
+      "warnings": [
+        "Reference Pareto front is unavailable for 'SOP_F5 [local]' (M=1, D=30). PF-based metrics may be disabled."
+      ],
+      "errors": [],
+      "detail": "",
+      "time_s": 0.0113
+    },
+    {
+      "index": 96,
+      "problem_id": "local::problems.single.simple_sops.SOP_F5_JAX",
+      "problem_name": "SOP_F5_JAX",
+      "problem_label": "SOP_F5_JAX [local]",
+      "module": "problems.single.simple_sops",
+      "objective_class": "single",
+      "encoding": [
+        "binary",
+        "integer",
+        "mixed",
+        "permutation",
+        "real"
+      ],
+      "difficulties": [],
+      "backend": "jax",
+      "algorithm": "CMAES",
+      "metric": "Min_value_JAX",
+      "n_obj": 1,
+      "n_var": 30,
+      "status": "ok",
+      "metric_value": 112472360.0,
+      "run_count": 1,
+      "warnings": [
+        "JAX backend requested, but unavailable: No JAX GPU device detected",
+        "Reference Pareto front is unavailable for 'SOP_F5_JAX [local]' (M=1, D=30). PF-based metrics may be disabled."
+      ],
+      "errors": [],
+      "detail": "",
+      "time_s": 0.0148
+    },
+    {
+      "index": 97,
+      "problem_id": "local::problems.single.simple_sops.SOP_F6",
+      "problem_name": "SOP_F6",
+      "problem_label": "SOP_F6 [local]",
+      "module": "problems.single.simple_sops",
+      "objective_class": "single",
+      "encoding": [
+        "binary",
+        "integer",
+        "mixed",
+        "permutation",
+        "real"
+      ],
+      "difficulties": [],
+      "backend": "cpu",
+      "algorithm": "CMAES",
+      "metric": "Min_value",
+      "n_obj": 1,
+      "n_var": 30,
+      "status": "ok",
+      "metric_value": 53634.0,
+      "run_count": 1,
+      "warnings": [
+        "Reference Pareto front is unavailable for 'SOP_F6 [local]' (M=1, D=30). PF-based metrics may be disabled."
+      ],
+      "errors": [],
+      "detail": "",
+      "time_s": 0.0116
+    },
+    {
+      "index": 98,
+      "problem_id": "local::problems.single.simple_sops.SOP_F6_JAX",
+      "problem_name": "SOP_F6_JAX",
+      "problem_label": "SOP_F6_JAX [local]",
+      "module": "problems.single.simple_sops",
+      "objective_class": "single",
+      "encoding": [
+        "binary",
+        "integer",
+        "mixed",
+        "permutation",
+        "real"
+      ],
+      "difficulties": [],
+      "backend": "jax",
+      "algorithm": "CMAES",
+      "metric": "Min_value_JAX",
+      "n_obj": 1,
+      "n_var": 30,
+      "status": "ok",
+      "metric_value": 53634.0,
+      "run_count": 1,
+      "warnings": [
+        "JAX backend requested, but unavailable: No JAX GPU device detected",
+        "Reference Pareto front is unavailable for 'SOP_F6_JAX [local]' (M=1, D=30). PF-based metrics may be disabled."
+      ],
+      "errors": [],
+      "detail": "",
+      "time_s": 0.0126
+    },
+    {
+      "index": 99,
+      "problem_id": "local::problems.single.simple_sops.SOP_F7",
+      "problem_name": "SOP_F7",
+      "problem_label": "SOP_F7 [local]",
+      "module": "problems.single.simple_sops",
+      "objective_class": "single",
+      "encoding": [
+        "binary",
+        "integer",
+        "mixed",
+        "permutation",
+        "real"
+      ],
+      "difficulties": [],
+      "backend": "cpu",
+      "algorithm": "CMAES",
+      "metric": "Min_value",
+      "n_obj": 1,
+      "n_var": 30,
+      "status": "ok",
+      "metric_value": 59.4561736960223,
+      "run_count": 1,
+      "warnings": [
+        "Reference Pareto front is unavailable for 'SOP_F7 [local]' (M=1, D=30). PF-based metrics may be disabled."
+      ],
+      "errors": [],
+      "detail": "",
+      "time_s": 0.0116
+    },
+    {
+      "index": 100,
+      "problem_id": "local::problems.single.simple_sops.SOP_F7_JAX",
+      "problem_name": "SOP_F7_JAX",
+      "problem_label": "SOP_F7_JAX [local]",
+      "module": "problems.single.simple_sops",
+      "objective_class": "single",
+      "encoding": [
+        "binary",
+        "integer",
+        "mixed",
+        "permutation",
+        "real"
+      ],
+      "difficulties": [],
+      "backend": "jax",
+      "algorithm": "CMAES",
+      "metric": "Min_value_JAX",
+      "n_obj": 1,
+      "n_var": 30,
+      "status": "ok",
+      "metric_value": 59.45616912841797,
+      "run_count": 1,
+      "warnings": [
+        "JAX backend requested, but unavailable: No JAX GPU device detected",
+        "Reference Pareto front is unavailable for 'SOP_F7_JAX [local]' (M=1, D=30). PF-based metrics may be disabled."
+      ],
+      "errors": [],
+      "detail": "",
+      "time_s": 0.0378
+    },
+    {
+      "index": 101,
+      "problem_id": "local::problems.single.simple_sops.SOP_F8",
+      "problem_name": "SOP_F8",
+      "problem_label": "SOP_F8 [local]",
+      "module": "problems.single.simple_sops",
+      "objective_class": "single",
+      "encoding": [
+        "binary",
+        "integer",
+        "mixed",
+        "permutation",
+        "real"
+      ],
+      "difficulties": [],
+      "backend": "cpu",
+      "algorithm": "CMAES",
+      "metric": "Min_value",
+      "n_obj": 1,
+      "n_var": 30,
+      "status": "ok",
+      "metric_value": -3407.160816788774,
+      "run_count": 1,
+      "warnings": [
+        "Reference Pareto front is unavailable for 'SOP_F8 [local]' (M=1, D=30). PF-based metrics may be disabled."
+      ],
+      "errors": [],
+      "detail": "",
+      "time_s": 0.0116
+    },
+    {
+      "index": 102,
+      "problem_id": "local::problems.single.simple_sops.SOP_F8_JAX",
+      "problem_name": "SOP_F8_JAX",
+      "problem_label": "SOP_F8_JAX [local]",
+      "module": "problems.single.simple_sops",
+      "objective_class": "single",
+      "encoding": [
+        "binary",
+        "integer",
+        "mixed",
+        "permutation",
+        "real"
+      ],
+      "difficulties": [],
+      "backend": "jax",
+      "algorithm": "CMAES",
+      "metric": "Min_value_JAX",
+      "n_obj": 1,
+      "n_var": 30,
+      "status": "ok",
+      "metric_value": -3407.15966796875,
+      "run_count": 1,
+      "warnings": [
+        "JAX backend requested, but unavailable: No JAX GPU device detected",
+        "Reference Pareto front is unavailable for 'SOP_F8_JAX [local]' (M=1, D=30). PF-based metrics may be disabled."
+      ],
+      "errors": [],
+      "detail": "",
+      "time_s": 0.0135
+    },
+    {
+      "index": 103,
+      "problem_id": "local::problems.single.simple_sops.SOP_F9",
+      "problem_name": "SOP_F9",
+      "problem_label": "SOP_F9 [local]",
+      "module": "problems.single.simple_sops",
+      "objective_class": "single",
+      "encoding": [
+        "binary",
+        "integer",
+        "mixed",
+        "permutation",
+        "real"
+      ],
+      "difficulties": [],
+      "backend": "cpu",
+      "algorithm": "CMAES",
+      "metric": "Min_value",
+      "n_obj": 1,
+      "n_var": 30,
+      "status": "ok",
+      "metric_value": 427.74563661309895,
+      "run_count": 1,
+      "warnings": [
+        "Reference Pareto front is unavailable for 'SOP_F9 [local]' (M=1, D=30). PF-based metrics may be disabled."
+      ],
+      "errors": [],
+      "detail": "",
+      "time_s": 0.0117
+    },
+    {
+      "index": 104,
+      "problem_id": "local::problems.single.simple_sops.SOP_F9_JAX",
+      "problem_name": "SOP_F9_JAX",
+      "problem_label": "SOP_F9_JAX [local]",
+      "module": "problems.single.simple_sops",
+      "objective_class": "single",
+      "encoding": [
+        "binary",
+        "integer",
+        "mixed",
+        "permutation",
+        "real"
+      ],
+      "difficulties": [],
+      "backend": "jax",
+      "algorithm": "CMAES",
+      "metric": "Min_value_JAX",
+      "n_obj": 1,
+      "n_var": 30,
+      "status": "ok",
+      "metric_value": 427.7457275390625,
+      "run_count": 1,
+      "warnings": [
+        "JAX backend requested, but unavailable: No JAX GPU device detected",
+        "Reference Pareto front is unavailable for 'SOP_F9_JAX [local]' (M=1, D=30). PF-based metrics may be disabled."
+      ],
+      "errors": [],
+      "detail": "",
+      "time_s": 0.0385
+    }
+  ]
+}

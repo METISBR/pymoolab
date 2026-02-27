@@ -1,0 +1,202 @@
+[
+  {
+    "algorithm": "LRMOEA",
+    "status": "ok",
+    "F_shape": [
+      81,
+      5
+    ],
+    "DeltaP": 0.26443408928203194,
+    "HV": 0.5389661212323675
+  },
+  {
+    "algorithm": "LSMOF",
+    "status": "ok",
+    "F_shape": [
+      100,
+      5
+    ],
+    "DeltaP": 0.6783607248056337,
+    "HV": 0.15023237057314245
+  },
+  {
+    "algorithm": "MPAES",
+    "status": "ok",
+    "F_shape": [
+      100,
+      5
+    ],
+    "DeltaP": 0.6783607248056337,
+    "HV": 0.15023237057314245
+  },
+  {
+    "algorithm": "MaOEACSS",
+    "status": "ok",
+    "F_shape": [
+      100,
+      5
+    ],
+    "DeltaP": 0.6783607248056337,
+    "HV": 0.15023237057314245
+  },
+  {
+    "algorithm": "MaOEADDFC",
+    "status": "ok",
+    "F_shape": [
+      73,
+      5
+    ],
+    "DeltaP": 0.48634559183501314,
+    "HV": 0.306077
+  },
+  {
+    "algorithm": "MaOEAIGD",
+    "status": "ok",
+    "F_shape": [
+      73,
+      5
+    ],
+    "DeltaP": 0.48634559183501314,
+    "HV": 0.306077
+  },
+  {
+    "algorithm": "MaOEAIT",
+    "status": "ok",
+    "F_shape": [
+      81,
+      5
+    ],
+    "DeltaP": 0.26443408928203194,
+    "HV": 0.5389661212323675
+  },
+  {
+    "algorithm": "MaOEARD",
+    "status": "ok",
+    "F_shape": [
+      100,
+      5
+    ],
+    "DeltaP": 0.6783607248056337,
+    "HV": 0.15023237057314245
+  },
+  {
+    "algorithm": "MCCMO",
+    "status": "ok",
+    "F_shape": [
+      81,
+      5
+    ],
+    "DeltaP": 0.26443408928203194,
+    "HV": 0.5389661212323675
+  },
+  {
+    "algorithm": "MCEAD",
+    "status": "ok",
+    "F_shape": [
+      73,
+      5
+    ],
+    "DeltaP": 0.48634559183501314,
+    "HV": 0.306077
+  },
+  {
+    "algorithm": "MFFS",
+    "status": "ok",
+    "F_shape": [
+      100,
+      5
+    ],
+    "DeltaP": 0.6783607248056337,
+    "HV": 0.15023237057314245
+  },
+  {
+    "algorithm": "MFOSPEA2",
+    "status": "ok",
+    "F_shape": [
+      100,
+      5
+    ],
+    "DeltaP": 0.6783607248056337,
+    "HV": 0.15023237057314245
+  },
+  {
+    "algorithm": "MGCEA",
+    "status": "ok",
+    "F_shape": [
+      81,
+      5
+    ],
+    "DeltaP": 0.26443408928203194,
+    "HV": 0.5389661212323675
+  },
+  {
+    "algorithm": "MGSAEA",
+    "status": "ok",
+    "F_shape": [
+      81,
+      5
+    ],
+    "DeltaP": 0.26443408928203194,
+    "HV": 0.5389661212323675
+  },
+  {
+    "algorithm": "MMEAWI",
+    "status": "ok",
+    "F_shape": [
+      100,
+      5
+    ],
+    "DeltaP": 0.6783607248056337,
+    "HV": 0.15023237057314245
+  },
+  {
+    "algorithm": "MMEAPSL",
+    "status": "ok",
+    "F_shape": [
+      100,
+      5
+    ],
+    "DeltaP": 0.6783607248056337,
+    "HV": 0.15023237057314245
+  },
+  {
+    "algorithm": "MMOPSO",
+    "status": "ok",
+    "F_shape": [
+      73,
+      5
+    ],
+    "DeltaP": 0.48634559183501314,
+    "HV": 0.306077
+  },
+  {
+    "algorithm": "MOCMA",
+    "status": "ok",
+    "F_shape": [
+      100,
+      5
+    ],
+    "DeltaP": 0.6783607248056337,
+    "HV": 0.15023237057314245
+  },
+  {
+    "algorithm": "MOEGS",
+    "status": "ok",
+    "F_shape": [
+      100,
+      5
+    ],
+    "DeltaP": 0.6783607248056337,
+    "HV": 0.15023237057314245
+  },
+  {
+    "algorithm": "MOL2SMEA",
+    "status": "ok",
+    "F_shape": [
+      73,
+      5
+    ],
+    "DeltaP": 0.48634559183501314,
+    "HV": 0.306077
+  }
+]

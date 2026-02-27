@@ -1,0 +1,202 @@
+[
+  {
+    "algorithm": "ANSGAIII",
+    "status": "ok",
+    "F_shape": [
+      81,
+      5
+    ],
+    "DeltaP": 0.26443408928203194,
+    "HV": 0.5389661212323675
+  },
+  {
+    "algorithm": "BLEAQII",
+    "status": "ok",
+    "F_shape": [
+      100,
+      5
+    ],
+    "DeltaP": 0.6783607248056337,
+    "HV": 0.15023237057314245
+  },
+  {
+    "algorithm": "CMOEMT",
+    "status": "ok",
+    "F_shape": [
+      81,
+      5
+    ],
+    "DeltaP": 0.26443408928203194,
+    "HV": 0.5389661212323675
+  },
+  {
+    "algorithm": "CMOES",
+    "status": "ok",
+    "F_shape": [
+      81,
+      5
+    ],
+    "DeltaP": 0.26443408928203194,
+    "HV": 0.5389661212323675
+  },
+  {
+    "algorithm": "CMOQLMT",
+    "status": "ok",
+    "F_shape": [
+      81,
+      5
+    ],
+    "DeltaP": 0.26443408928203194,
+    "HV": 0.5389661212323675
+  },
+  {
+    "algorithm": "CMOSMA",
+    "status": "ok",
+    "F_shape": [
+      81,
+      5
+    ],
+    "DeltaP": 0.26443408928203194,
+    "HV": 0.5389661212323675
+  },
+  {
+    "algorithm": "CoMMEA",
+    "status": "ok",
+    "F_shape": [
+      100,
+      5
+    ],
+    "DeltaP": 0.6783607248056337,
+    "HV": 0.15023237057314245
+  },
+  {
+    "algorithm": "CSEA",
+    "status": "ok",
+    "F_shape": [
+      73,
+      5
+    ],
+    "DeltaP": 0.48634559183501314,
+    "HV": 0.306077
+  },
+  {
+    "algorithm": "CSEMT",
+    "status": "ok",
+    "F_shape": [
+      81,
+      5
+    ],
+    "DeltaP": 0.26443408928203194,
+    "HV": 0.5389661212323675
+  },
+  {
+    "algorithm": "DAEA",
+    "status": "ok",
+    "F_shape": [
+      100,
+      5
+    ],
+    "DeltaP": 0.6783607248056337,
+    "HV": 0.15023237057314245
+  },
+  {
+    "algorithm": "DBEMTO",
+    "status": "ok",
+    "F_shape": [
+      81,
+      5
+    ],
+    "DeltaP": 0.26443408928203194,
+    "HV": 0.5389661212323675
+  },
+  {
+    "algorithm": "DCNSGAIII",
+    "status": "ok",
+    "F_shape": [
+      81,
+      5
+    ],
+    "DeltaP": 0.26443408928203194,
+    "HV": 0.5389661212323675
+  },
+  {
+    "algorithm": "DEAGNG",
+    "status": "ok",
+    "F_shape": [
+      73,
+      5
+    ],
+    "DeltaP": 0.48634559183501314,
+    "HV": 0.306077
+  },
+  {
+    "algorithm": "DGEA",
+    "status": "ok",
+    "F_shape": [
+      73,
+      5
+    ],
+    "DeltaP": 0.48634559183501314,
+    "HV": 0.306077
+  },
+  {
+    "algorithm": "DirHVEI",
+    "status": "ok",
+    "F_shape": [
+      73,
+      5
+    ],
+    "DeltaP": 0.48634559183501314,
+    "HV": 0.306077
+  },
+  {
+    "algorithm": "DISK",
+    "status": "ok",
+    "F_shape": [
+      73,
+      5
+    ],
+    "DeltaP": 0.48634559183501314,
+    "HV": 0.306077
+  },
+  {
+    "algorithm": "DISKplus",
+    "status": "ok",
+    "F_shape": [
+      81,
+      5
+    ],
+    "DeltaP": 0.26443408928203194,
+    "HV": 0.5389661212323675
+  },
+  {
+    "algorithm": "DKCA",
+    "status": "ok",
+    "F_shape": [
+      81,
+      5
+    ],
+    "DeltaP": 0.26443408928203194,
+    "HV": 0.5389661212323675
+  },
+  {
+    "algorithm": "DMMOEA",
+    "status": "ok",
+    "F_shape": [
+      100,
+      5
+    ],
+    "DeltaP": 0.6783607248056337,
+    "HV": 0.15023237057314245
+  },
+  {
+    "algorithm": "DMOEAeC",
+    "status": "ok",
+    "F_shape": [
+      73,
+      5
+    ],
+    "DeltaP": 0.48634559183501314,
+    "HV": 0.306077
+  }
+]

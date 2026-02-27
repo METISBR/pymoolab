@@ -1,0 +1,315 @@
+{
+  "artifact_type": "metric",
+  "base_name": "IGD_LLM",
+  "provider": "anthropic_messages",
+  "model": "claude-sonnet-4-6",
+  "cpu_file": "IGD_LLM.py",
+  "jax_file": "IGD_LLM_JAX.py",
+  "n_var": 30,
+  "n_obj": 2,
+  "repair_attempts": 1,
+  "spec_first": true,
+  "spec_report": {
+    "summary": "PymooLab metric plugin for 'igd_llm': a from-scratch, GitHub-converted implementation of the Inverted Generational Distance (IGD) indicator with a configurable p-norm exponent for an arbitrary number of objectives. IGD is defined as (1/|PF|) * sum_{z in PF} [ min_{s in S} ||z - s||_p ] — i.e., for each reference-front point z, compute the p-norm distance to the nearest approximation-front point s, then average over all |PF| reference points. The plugin exposes `p` (float, default 2.0) as a user-tunable hyperparameter, accepting any p >= 1. Distances per reference point are computed via scipy.spatial or vectorised NumPy broadcasting over the full (|PF| x |S| x n_obj) tensor to avoid Python loops. The final scalar is lower-is-better; zero indicates that every reference point is exactly covered by at least one solution. The implementation is a direct GitHub-converted translation of the classical formula found in jMetal/jMetalPy, pymoo, and the pyMultiobjective indicator family, preserving exact metric semantics and NOT wrapping pymoo's native InvertedGenerationalDistance class.",
+    "assumptions": [
+      "Both the approximation front S (shape: [n_solutions, n_obj]) and the reference front PF (shape: [n_ref, n_obj]) are provided as 2-D NumPy arrays of floats in objective space; no decision-variable coordinates are needed.",
+      "PF is a dense, pre-sampled discrete approximation of the true Pareto front supplied externally by the user or benchmark problem; the plugin does not generate PF internally.",
+      "p >= 1.0 is enforced to guarantee the p-norm satisfies the triangle inequality; p=2 recovers the classical Euclidean IGD, p=1 recovers Manhattan IGD.",
+      "No objective-space normalisation is applied inside the plugin by default; normalisation (e.g., dividing by the nadir–ideal range) is the caller's responsibility.",
+      "S must be non-empty (at least one solution) and PF must be non-empty (at least one reference point); violations raise a ValueError at call time.",
+      "n_obj (number of objectives) is inferred at runtime from the column dimension of S and PF; both must agree on n_obj.",
+      "Objectives are assumed to be minimisation-oriented, consistent with pymoo convention; the formula is direction-agnostic but the semantic meaning (lower IGD = better convergence+diversity) holds only for minimisation.",
+      "The metric is a scalar float in [0, +inf); the plugin returns a Python float (or 1-element NumPy scalar), not an array.",
+      "scipy >= 1.0 is available in the PymooLab runtime for optional use of scipy.spatial.cdist; fallback to pure NumPy broadcasting is also supported."
+    ],
+    "invariants": [
+      "Formula: IGD_p(S, PF) = mean_{z in PF}( min_{s in S} ||z - s||_p ) where ||.||_p is the standard Minkowski p-norm over n_obj dimensions.",
+      "The outer aggregation is a simple arithmetic mean over |PF| reference points, NOT a p-th power mean; only the per-point distance uses the p-norm.",
+      "For p=2 the result must be numerically identical (to float64 tolerance) to the classical Euclidean IGD used in jMetal, jMetalPy, and the pyMultiobjective IGD indicator.",
+      "The minimum over S for each reference point z is a true global minimum, not an approximation; full pairwise distance computation is required.",
+      "Result is invariant to permutation of rows in S and permutation of rows in PF.",
+      "Result is zero if and only if every z in PF equals at least one s in S (exact coverage).",
+      "The plugin does NOT aggregate or average across multiple runs; it computes a single-call deterministic scalar.",
+      "The plugin must be lower-is-better; metadata must declare direction='minimize'.",
+      "p is a float hyperparameter stored on the metric object and must not be mutated between calls (stateless computation)."
+    ],
+    "limitations": [
+      "IGD is not Pareto-compliant in general: a set with worse convergence can occasionally yield a better (lower) IGD than a Pareto-superior set if the distribution of reference points is uneven.",
+      "Result is sensitive to the density and distribution of the reference front PF; sparse or biased PF sampling can render IGD misleading, especially in many-objective settings.",
+      "Computational complexity is O(|PF| * |S| * n_obj) per call; for very large fronts (>10k points) and high n_obj, this can be slow without a KD-tree or FAISS index — the plugin does not implement approximate nearest-neighbor search.",
+      "For p -> infinity the p-norm converges to the Chebyshev (L-inf) norm; numerical stability of very large p values is not guaranteed and the plugin should warn or clamp if p > 100.",
+      "IGD does not measure spread or distribution quality independently; it conflates convergence and diversity into one scalar.",
+      "The plugin has no access to the true analytical Pareto front; PF quality directly limits IGD validity.",
+      "For n_obj > 10 (many-objective), IGD values become harder to interpret comparatively across problems with different scales; normalisation should be applied externally.",
+      "Unlike IGD+ (Ishibuchi et al., 2015), this IGD variant is not Pareto-compliant and can reward dominated solutions; users needing compliance should use a separate igd_plus_llm plugin."
+    ],
+    "known_family_hint": "IGD / Generational Distance family (GD, IGD, GD+, IGD+). Direct academic lineage: Van Veldhuizen & Lamont (1998) for GD; Zhang & Li MOEA/D IEEE TEC 2007 for IGD as commonly cited; Sierra & Coello Coello (2004) for the p-norm generalisation. jMetal InvertedGenerationalDistance.java and jMetalPy quality_indicator.py are the primary open-source reference implementations. pymoo's native `pymoo.indicators.igd.IGD` uses p=2 Euclidean distance and does NOT expose p as a parameter — this plugin fills that gap with a standalone, p-configurable, GitHub-converted implementation.",
+    "metric_kind_hint": "convergence-and-diversity composite quality indicator (reference-front-based, lower-is-better scalar, multi-objective performance metric)",
+    "ambiguity_notes": [
+      "OUTER AGGREGATION FORM — Two conventions exist: (A) arithmetic mean (1/|PF|)*sum d_p(z,S) [standard, used in jMetal, jMetalPy, MOEA/D paper]; (B) p-th root of mean of p-th powers (1/|PF| * sum d(z,S)^p)^(1/p) [occasionally used to match the GD paper notation]. This spec mandates convention (A): plain arithmetic mean of p-norm distances. The LLM agent must implement (A) and document the choice.",
+      "P-NORM SCOPE — 'p-norm' is ambiguous: it could mean (i) p-norm used only for the per-point distance ||z-s||_p (this spec), or (ii) p applied also to the outer aggregation. This spec uses p only in the inner per-point Minkowski distance; the outer aggregation is always a plain mean.",
+      "NORMALISATION — Some community usages normalise objectives by nadir-ideal range before computing IGD; others do not. This plugin defaults to NO normalisation. An optional `normalize: bool = False` flag may be exposed but must default to False to match the canonical formula.",
+      "REFERENCE FRONT SOURCE — PymooLab may pass PF from a benchmark problem's `.pareto_front()` method or from a user-supplied CSV; the plugin must accept any 2-D float array and must not assume PF originates from a specific problem.",
+      "PYMOO NATIVE CLASS — pymoo has `pymoo.indicators.igd.IGD` but it hardcodes Euclidean (p=2) and uses `scipy.spatial.distance.cdist` internally; the open GitHub issue #153 confirms p is not user-adjustable. This plugin must NOT wrap or proxy that class (per policy); it reimplements the formula directly.",
+      "SIGN CONVENTION — IGD is universally lower-is-better; no sign flip is needed. If PymooLab's plugin interface uses a 'higher-is-better' flag, it must be set to False.",
+      "DEGENERATE CASES — When S contains a single solution, IGD equals the mean distance from each PF point to that single solution; this is valid and must not raise an error."
+    ],
+    "suggested_n_var_default": 30,
+    "suggested_n_obj_default": 2,
+    "dimension_defaults_source_note": "n_var_default=30 and n_obj_default=2 are taken verbatim from the PymooLab UI defaults/presets supplied in the user request. These values are consistent with standard benchmark usage (e.g., ZDT suite uses n_var=30, n_obj=2). They do NOT constrain the plugin; IGD is dimension-agnostic and works for any n_obj >= 2 and any n_var >= 1. The plugin derives n_obj at runtime from input array shapes.",
+    "task_kind": "plugin_generation",
+    "needs_external_sources": false,
+    "fit_for_llm_agent": true,
+    "unsupported_for_generation": false,
+    "mode": "anthropic_spec_first",
+    "model": "claude-sonnet-4-6",
+    "_raw_text": "I'll search for trustworthy IGD implementations from official/academic sources before generating the specification.\nAll required signal has been gathered. I now have sufficient information from GitHub sources to synthesize the full specification. Key findings from the search:\n\n-\nIGD measures the average Euclidean distance in objective space from each solution in PF to the closest solution in S; the Pareto front as a whole needs to be covered by solutions from S to minimize the metric.\n-\nThere is a known open question in the pymoo community about whether the parameter `p` in the IGD formula can be adjusted, such as `p=1`\n— confirming pymoo's native IGD hardcodes `p=2` and does not expose a general p-norm.\n-\nThe canonical IGD reference is Zhang, Qingfu, and Hui Li, \"MOEA/D: A multiobjective evolutionary algorithm based on decomposition,\" IEEE Transactions on Evolutionary Computation, 11.6 (2007): 712–731.\n-\nThe standard averaging formula sums `distanceToClosestPoint` for each reference front point and divides by the number of reference front points.\n-\njMetalPy implements quality indicators including hypervolume, additive epsilon, GD, IGD, and IGD+.\n```json\n{\n  \"summary\": \"PymooLab metric plugin for 'igd_llm': a from-scratch, GitHub-converted implementation of the Inverted Generational Distance (IGD) indicator with a configurable p-norm exponent for an arbitrary number of objectives. IGD is defined as (1/|PF|) * sum_{z in PF} [ min_{s in S} ||z - s||_p ] — i.e., for each reference-front point z, compute the p-norm distance to the nearest approximation-front point s, then average over all |PF| reference points. The plugin exposes `p` (float, default 2.0) as a user-tunable hyperparameter, accepting any p >= 1. Distances per reference point are computed via scipy.spatial or vectorised NumPy broadcasting over the full (|PF| x |S| x n_obj) tensor to avoid Python loops. The final scalar is lower-is-better; zero indicates that every reference point is exactly covered by at least one solution. The implementation is a direct GitHub-converted translation of the classical formula found in jMetal/jMetalPy, pymoo, and the pyMultiobjective indicator family, preserving exact metric semantics and NOT wrapping pymoo's native InvertedGenerationalDistance class.\",\n\n  \"assumptions\": [\n    \"Both the approximation front S (shape: [n_solutions, n_obj]) and the reference front PF (shape: [n_ref, n_obj]) are provided as 2-D NumPy arrays of floats in objective space; no decision-variable coordinates are needed.\",\n    \"PF is a dense, pre-sampled discrete approximation of the true Pareto front supplied externally by the user or benchmark problem; the plugin does not generate PF internally.\",\n    \"p >= 1.0 is enforced to guarantee the p-norm satisfies the triangle inequality; p=2 recovers the classical Euclidean IGD, p=1 recovers Manhattan IGD.\",\n    \"No objective-space normalisation is applied inside the plugin by default; normalisation (e.g., dividing by the nadir–ideal range) is the caller's responsibility.\",\n    \"S must be non-empty (at least one solution) and PF must be non-empty (at least one reference point); violations raise a ValueError at call time.\",\n    \"n_obj (number of objectives) is inferred at runtime from the column dimension of S and PF; both must agree on n_obj.\",\n    \"Objectives are assumed to be minimisation-oriented, consistent with pymoo convention; the formula is direction-agnostic but the semantic meaning (lower IGD = better convergence+diversity) holds only for minimisation.\",\n    \"The metric is a scalar float in [0, +inf); the plugin returns a Python float (or 1-element NumPy scalar), not an array.\",\n    \"scipy >= 1.0 is available in the PymooLab runtime for optional use of scipy.spatial.cdist; fallback to pure NumPy broadcasting is also supported.\"\n  ],\n\n  \"invariants\": [\n    \"Formula: IGD_p(S, PF) = mean_{z in PF}( min_{s in S} ||z - s||_p ) where ||.||_p is the standard Minkowski p-norm over n_obj dimensions.\",\n    \"The outer aggregation is a simple arithmetic mean over |PF| reference points, NOT a p-th power mean; only the per-point distance uses the p-norm.\",\n    \"For p=2 the result must be numerically identical (to float64 tolerance) to the classical Euclidean IGD used in jMetal, jMetalPy, and the pyMultiobjective IGD indicator.\",\n    \"The minimum over S for each reference point z is a true global minimum, not an approximation; full pairwise distance computation is required.\",\n    \"Result is invariant to permutation of rows in S and permutation of rows in PF.\",\n    \"Result is zero if and only if every z in PF equals at least one s in S (exact coverage).\",\n    \"The plugin does NOT aggregate or average across multiple runs; it computes a single-call deterministic scalar.\",\n    \"The plugin must be lower-is-better; metadata must declare direction='minimize'.\",\n    \"p is a float hyperparameter stored on the metric object and must not be mutated between calls (stateless computation).\"\n  ],\n\n  \"limitations\": [\n    \"IGD is not Pareto-compliant in general: a set with worse convergence can occasionally yield a better (lower) IGD than a Pareto-superior set if the distribution of reference points is uneven.\",\n    \"Result is sensitive to the density and distribution of the reference front PF; sparse or biased PF sampling can render IGD misleading, especially in many-objective settings.\",\n    \"Computational complexity is O(|PF| * |S| * n_obj) per call; for very large fronts (>10k points) and high n_obj, this can be slow without a KD-tree or FAISS index — the plugin does not implement approximate nearest-neighbor search.\",\n    \"For p -> infinity the p-norm converges to the Chebyshev (L-inf) norm; numerical stability of very large p values is not guaranteed and the plugin should warn or clamp if p > 100.\",\n    \"IGD does not measure spread or distribution quality independently; it conflates convergence and diversity into one scalar.\",\n    \"The plugin has no access to the true analytical Pareto front; PF quality directly limits IGD validity.\",\n    \"For n_obj > 10 (many-objective), IGD values become harder to interpret comparatively across problems with different scales; normalisation should be applied externally.\",\n    \"Unlike IGD+ (Ishibuchi et al., 2015), this IGD variant is not Pareto-compliant and can reward dominated solutions; users needing compliance should use a separate igd_plus_llm plugin.\"\n  ],\n\n  \"known_family_hint\": \"IGD / Generational Distance family (GD, IGD, GD+, IGD+). Direct academic lineage: Van Veldhuizen & Lamont (1998) for GD; Zhang & Li MOEA/D IEEE TEC 2007 for IGD as commonly cited; Sierra & Coello Coello (2004) for the p-norm generalisation. jMetal InvertedGenerationalDistance.java and jMetalPy quality_indicator.py are the primary open-source reference implementations. pymoo's native `pymoo.indicators.igd.IGD` uses p=2 Euclidean distance and does NOT expose p as a parameter — this plugin fills that gap with a standalone, p-configurable, GitHub-converted implementation.\",\n\n  \"metric_kind_hint\": \"convergence-and-diversity composite quality indicator (reference-front-based, lower-is-better scalar, multi-objective performance metric)\",\n\n  \"ambiguity_notes\": [\n    \"OUTER AGGREGATION FORM — Two conventions exist: (A) arithmetic mean (1/|PF|)*sum d_p(z,S) [standard, used in jMetal, jMetalPy, MOEA/D paper]; (B) p-th root of mean of p-th powers (1/|PF| * sum d(z,S)^p)^(1/p) [occasionally used to match the GD paper notation]. This spec mandates convention (A): plain arithmetic mean of p-norm distances. The LLM agent must implement (A) and document the choice.\",\n    \"P-NORM SCOPE — 'p-norm' is ambiguous: it could mean (i) p-norm used only for the per-point distance ||z-s||_p (this spec), or (ii) p applied also to the outer aggregation. This spec uses p only in the inner per-point Minkowski distance; the outer aggregation is always a plain mean.\",\n    \"NORMALISATION — Some community usages normalise objectives by nadir-ideal range before computing IGD; others do not. This plugin defaults to NO normalisation. An optional `normalize: bool = False` flag may be exposed but must default to False to match the canonical formula.\",\n    \"REFERENCE FRONT SOURCE — PymooLab may pass PF from a benchmark problem's `.pareto_front()` method or from a user-supplied CSV; the plugin must accept any 2-D float array and must not assume PF originates from a specific problem.\",\n    \"PYMOO NATIVE CLASS — pymoo has `pymoo.indicators.igd.IGD` but it hardcodes Euclidean (p=2) and uses `scipy.spatial.distance.cdist` internally; the open GitHub issue #153 confirms p is not user-adjustable. This plugin must NOT wrap or proxy that class (per policy); it reimplements the formula directly.\",\n    \"SIGN CONVENTION — IGD is universally lower-is-better; no sign flip is needed. If PymooLab's plugin interface uses a 'higher-is-better' flag, it must be set to False.\",\n    \"DEGENERATE CASES — When S contains a single solution, IGD equals the mean distance from each PF point to that single solution; this is valid and must not raise an error.\"\n  ],\n\n  \"suggested_n_var_default\": 30,\n  \"suggested_n_obj_default\": 2,\n\n  \"dimension_defaults_source_note\": \"n_var_default=30 and n_obj_default=2 are taken verbatim from the PymooLab UI defaults/presets supplied in the user request. These values are consistent with standard benchmark usage (e.g., ZDT suite uses n_var=30, n_obj=2). They do NOT constrain the plugin; IGD is dimension-agnostic and works for any n_obj >= 2 and any n_var >= 1. The plugin derives n_obj at runtime from input array shapes.\",\n\n  \"task_kind\": \"metric_plugin_generation\",\n\n  \"needs_external_sources\": true,\n\n  \"fit_for_llm_agent\": true,\n\n  \"unsupported_for_generation\": false\n}\n```",
+    "_api_call_debug": {
+      "provider": "anthropic_messages",
+      "endpoint": "https://api.anthropic.com/v1/messages",
+      "method": "POST",
+      "enable_web_search": true,
+      "web_search_profile": "github_only",
+      "stream": true,
+      "timeout_s": 45.0,
+      "payload": {
+        "model": "claude-sonnet-4-6",
+        "max_tokens": 8192,
+        "system": "Act as a senior software engineer specialized in pymoo, PlatEMO, and optimization frameworks. Produce a compact specification JSON for code generation. Return strict JSON only.",
+        "messages": [
+          {
+            "role": "user",
+            "content": "Create a specification for generating a metric plugin for PymooLab.\nBase name: igd_llm\nPymooLab UI defaults/presets: n_var_default=30, n_obj_default=2\nRequest:\nImplement the IGD indicator using the p-norm for an arbitrary number of objectives.\n\nMetric-generation policy (GitHub-converted mode): use web_search in GitHub-only mode to recover trustworthy metric implementations/references (official/academic Python/MATLAB code) and preserve exact metric semantics when converting to PymooLab metric plugins. Do not propose canonical wrapper/proxy mode in this spec unless the user explicitly asks for it.\n\nReturn JSON with keys: summary (string), assumptions (list[string]), invariants (list[string]), limitations (list[string]), known_family_hint (string), metric_kind_hint (string), ambiguity_notes (list[string]), suggested_n_var_default (integer|null), suggested_n_obj_default (integer|null), dimension_defaults_source_note (string), task_kind (string), needs_external_sources (bool), fit_for_llm_agent (bool), unsupported_for_generation (bool)."
+          }
+        ],
+        "tool_choice": {
+          "type": "auto"
+        },
+        "tools": [
+          {
+            "name": "web_search",
+            "type": "web_search_20250305",
+            "user_location": {
+              "type": "approximate",
+              "country": "US"
+            },
+            "max_uses": 5,
+            "allowed_domains": [
+              "github.com"
+            ]
+          }
+        ],
+        "stream_phase": "spec_first"
+      },
+      "payload_chars": {
+        "system": 176,
+        "user_prompt": 1047
+      },
+      "response_status_code": 200,
+      "response_content_type": "application/json (anthropic sdk)",
+      "response_url": "https://api.anthropic.com/v1/messages",
+      "response_id": "msg_01NH2LedsT1E1J29Y2i1LFY7",
+      "response_model": "claude-sonnet-4-6",
+      "response_content_items": 20
+    },
+    "intent_reasons": [
+      "Prompt is compatible with single plugin generation workflow.",
+      "Code-generation cues detected in request."
+    ]
+  },
+  "repair_report": {
+    "used": true,
+    "final_status": "success",
+    "attempts": [
+      {
+        "attempt": 1,
+        "model": "claude-sonnet-4-6",
+        "issue_count": 21,
+        "issue_categories": [
+          "ast"
+        ],
+        "api_call_debug": {
+          "provider": "anthropic_messages",
+          "endpoint": "https://api.anthropic.com/v1/messages",
+          "method": "POST",
+          "enable_web_search": true,
+          "web_search_profile": "github_only",
+          "stream": true,
+          "timeout_s": 90.0,
+          "payload": {
+            "model": "claude-sonnet-4-6",
+            "max_tokens": 8192,
+            "system": "Act as a senior software engineer specialized in pymoo, PlatEMO, and optimization frameworks. You are fixing invalid PymooLab metric plugin code. Return strict JSON with cpu_code and jax_code only.",
+            "messages": [
+              {
+                "role": "user",
+                "content": "Repair these two PymooLab metric modules for the original request:\nImplement the IGD indicator using the p-norm for an arbitrary number of objectives.\n\nConstraints: n_obj=2, base_name=IGD_LLM.\nKeep create_metric(context) -> metric(front)->float, CPU/JAX parity, and PymooLab context compatibility.\nUse web_search in GitHub-only mode to recover/re-check trustworthy metric implementations (official/academic Python/MATLAB repositories) and preserve metric semantics while converting to PymooLab.\nDo not fall back to placeholder metric semantics/comments.\nDo not repair by replacing the code with a trivial project canonical wrapper/proxy; preserve the requested metric semantics via GitHub-sourced implementations.\nFix the validation failures listed below.\n\nValidation failures:\n- CPU: Unsupported import: warnings\n- CPU: Unsupported import-from: scipy.spatial.distance\n- CPU: Unsupported AST node: Raise\n- CPU: Unsupported AST node: Raise\n- CPU: Unsupported AST node: Raise\n- CPU: Unsupported AST node: Raise\n- CPU: Unsupported AST node: Raise\n- CPU: Unsupported AST node: Raise\n- CPU: Unsupported AST node: Raise\n- CPU: Unsupported AST node: Raise\n- CPU: Unsupported AST node: Raise\n- CPU: Unsupported AST node: Raise\n- JAX: Unsupported import: warnings\n- JAX: Unsupported import-from: scipy.spatial.distance\n- JAX: Unsupported AST node: Raise\n- JAX: Unsupported AST node: Raise\n- JAX: Unsupported AST node: Raise\n- JAX: Unsupported AST node: Raise\n- JAX: Unsupported AST node: Raise\n- JAX: Unsupported AST node: Raise\n\nCurrent CPU code:\n# Made by PymooLab 2026.\n# igd_llm.py\n# PymooLab metric plugin: IGD with configurable p-norm (igd_llm)\n#\n# Formula (Convention A — arithmetic mean, jMetal/jMetalPy/MOEA-D standard):\n#   IGD_p(S, PF) = (1/|PF|) * sum_{z in PF} min_{s in S} ||z - s||_p\n#\n# References:\n#   - Zhang & Li, MOEA/D, IEEE TEC 11(6):712-731, 2007  (IGD canonical citation)\n#   - Van Veldhuizen & Lamont, TR-98-03, 1998            (GD lineage)\n#   - jMetal InvertedGenerationalDistance.java           (Java reference)\n#   - jMetalPy quality_indicator.py                      (Python reference)\n#   - Sierra & Coello Coello, 2004                       (p-norm generalisation)\n#\n# Outer aggregation: plain arithmetic mean over |PF| reference points.\n# p-norm: used ONLY in the inner per-point Minkowski distance ||z-s||_p.\n# No normalisation applied by default; caller is responsible.\n# Does NOT wrap pymoo.indicators.igd.IGD (per policy).\n\nimport warnings\nimport numpy as np\nfrom scipy.spatial.distance import cdist\n\n# ---------------------------------------------------------------------------\n# Core IGD computation (pure function, no side-effects)\n# ---------------------------------------------------------------------------\n\ndef _compute_igd_numpy(approx_front: np.ndarray,\n                       ref_front: np.ndarray,\n                       p: float) -> float:\n    \"\"\"\n    Compute IGD_p(approx_front, ref_front) using scipy cdist for p==2 (fast\n    Euclidean path) or vectorised NumPy broadcasting for general p.\n\n    Parameters\n    ----------\n    approx_front : np.ndarray, shape (n_solutions, n_obj)\n        Approximation front S in objective space.\n    ref_front   : np.ndarray, shape (n_ref, n_obj)\n        Reference (Pareto) front PF in objective space.\n    p           : float\n        Minkowski p-norm exponent (>= 1.0).\n\n    Returns\n    -------\n    float\n        IGD_p scalar in [0, +inf).  Lower is better.\n    \"\"\"\n    # --- input validation ---\n    approx_front = np.asarray(approx_front, dtype=np.float64)\n    ref_front    = np.asarray(ref_front,    dtype=np.float64)\n\n    if approx_front.ndim != 2:\n        raise ValueError(\n            f\"approx_front must be a 2-D array, got shape {approx_front.shape}\")\n    if ref_front.ndim != 2:\n        raise ValueError(\n            f\"ref_front must be a 2-D array, got shape {ref_front.shape}\")\n    if approx_front.shape[0] == 0:\n        raise ValueError(\"approx_front (S) must be non-empty.\")\n    if ref_front.shape[0] == 0:\n        raise ValueError(\"ref_front (PF) must be non-empty.\")\n    if approx_front.shape[1] != ref_front.shape[1]:\n        raise ValueError(\n            f\"n_obj mismatch: approx_front has {approx_front.shape[1]} objectives \"\n            f\"but ref_front has {ref_front.shape[1]}.\")\n    if p < 1.0:\n        raise ValueError(f\"p must be >= 1.0 to satisfy triangle inequality; got p={p}.\")\n    if p > 100.0:\n        warnings.warn(\n            f\"p={p} > 100 may cause numerical instability in the p-norm; \"\n            \"consider clamping p or using p=100 as a Chebyshev approximation.\",\n            RuntimeWarning, stacklevel=3)\n\n    # --- pairwise distance matrix: shape (|PF|, |S|) ---\n    # Use scipy cdist which internally dispatches to optimised BLAS routines.\n    # cdist metric='minkowski' with p=2 is identical to 'euclidean' path.\n    dist_matrix = cdist(ref_front, approx_front, metric='minkowski', p=p)\n    # shape: (n_ref, n_solutions)\n\n    # --- for each reference point: distance to closest solution ---\n    min_dists = dist_matrix.min(axis=1)   # shape: (n_ref,)\n\n    # --- outer aggregation: arithmetic mean (Convention A) ---\n    igd_value = float(np.mean(min_dists))\n    return igd_value\n\n\n# ---------------------------------------------------------------------------\n# Context helper\n# ---------------------------------------------------------------------------\n\ndef _extract_context(context: dict) -> dict:\n    \"\"\"Support nested context['config'] as well as flat context dicts.\"\"\"\n    if context is None:\n        return {}\n    cfg = context.get('config', context)  # unwrap one level if nested\n    return cfg if cfg is not None else {}\n\n\ndef _get_ref_front(cfg: dict) -> np.ndarray:\n    \"\"\"Resolve reference front from known PymooLab context keys.\"\"\"\n    for key in ('pareto_front', 'ref_pf', 'reference_front', 'pf'):\n        pf = cfg.get(key)\n        if pf is not None:\n            return np.asarray(pf, dtype=np.float64)\n    raise KeyError(\n        \"No reference front found in context. \"\n        \"Expected one of: 'pareto_front', 'ref_pf', 'reference_front', 'pf'.\")\n\n\n# ---------------------------------------------------------------------------\n# Plugin factory\n# ---------------------------------------------------------------------------\n\ndef create_metric(context: dict):\n    \"\"\"\n    PymooLab metric plugin factory for IGD with configurable p-norm.\n\n    Parameters read from context (or context['config']):\n        p           : float, default 2.0  — Minkowski p-norm exponent (>= 1.0)\n        pareto_front / ref_pf / reference_front / pf\n                    : 2-D array-like — reference front PF\n\n    Returns\n    -------\n    callable\n        metric(front) -> float\n        where `front` is the approximation front S as a 2-D array of shape\n        (n_solutions, n_obj) in objective space.\n    \"\"\"\n    cfg = _extract_context(context)\n\n    # --- hyperparameter: p ---\n    p = float(cfg.get('p', 2.0))\n    if p < 1.0:\n        raise ValueError(f\"Hyperparameter p must be >= 1.0; got p={p}.\")\n    if p > 100.0:\n        warnings.warn(\n            f\"Hyperparameter p={p} > 100 may cause numerical instability.\",\n            RuntimeWarning, stacklevel=2)\n\n    # --- resolve and cache the reference front ---\n    ref_front = _get_ref_front(cfg)\n    if ref_front.ndim != 2:\n        raise ValueError(\n            f\"Reference front must be 2-D, got shape {ref_front.shape}.\")\n    if ref_front.shape[0] == 0:\n        raise ValueError(\"Reference front (PF) must be non-empty.\")\n\n    # Freeze p as a local (stateless capture — no mutation between calls)\n    _p = p\n    _ref_front = ref_front\n\n    def metric(front) -> float:\n        \"\"\"\n        Compute IGD_p(front, PF).\n\n        Parameters\n        ----------\n        front : array-like, shape (n_solutions, n_obj)\n            Approximation front in objective space.\n\n        Returns\n        -------\n        float\n            IGD_p value in [0, +inf).  Lower is better (direction='minimize').\n        \"\"\"\n        S = np.asarray(front, dtype=np.float64)\n        if S.ndim == 1:\n            # single solution edge-case: promote to (1, n_obj)\n            S = S.reshape(1, -1)\n        return _compute_igd_numpy(S, _ref_front, _p)\n\n    # Attach metadata for PymooLab introspection\n    metric.__name__       = 'igd_llm'\n    metric.direction      = 'minimize'\n    metric.lower_is_better = True\n    metric.p              = _p\n    metric.ref_front_shape = _ref_front.shape\n    metric.__doc_extra__  = (\n        f\"IGD_p with p={_p}, ref_front shape={_ref_front.shape}. \"\n        \"Formula: mean_{{z in PF}}(min_{{s in S}} ||z-s||_p). \"\n        \"Convention A (arithmetic mean outer aggregation, jMetal/jMetalPy standard).\"\n    )\n    return metric\n\nCurrent JAX code:\n# Made by PymooLab 2026.\n# igd_llm_JAX.py\n# PymooLab metric plugin: IGD with configurable p-norm — JAX variant (igd_llm_JAX)\n#\n# Formula (Convention A — arithmetic mean, jMetal/jMetalPy/MOEA-D standard):\n#   IGD_p(S, PF) = (1/|PF|) * sum_{z in PF} min_{s in S} ||z - s||_p\n#\n# References:\n#   - Zhang & Li, MOEA/D, IEEE TEC 11(6):712-731, 2007  (IGD canonical citation)\n#   - Van Veldhuizen & Lamont, TR-98-03, 1998            (GD lineage)\n#   - jMetal InvertedGenerationalDistance.java           (Java reference)\n#   - jMetalPy quality_indicator.py                      (Python reference)\n#   - Sierra & Coello Coello, 2004                       (p-norm generalisation)\n#\n# JAX strategy:\n#   - Uses jax.numpy (jnp) for vectorised pairwise distance computation.\n#   - Falls back to NumPy + scipy if JAX is not available.\n#   - Numerically consistent with the CPU variant under float64 inputs.\n#   - jax.jit compilation is optional; the returned metric callable is plain Python\n#     (not jitted by default) to stay compatible with PymooLab's dispatch.\n#\n# Outer aggregation: plain arithmetic mean over |PF| reference points.\n# p-norm: used ONLY in the inner per-point Minkowski distance ||z-s||_p.\n# Does NOT wrap pymoo.indicators.igd.IGD (per policy).\n\nimport warnings\nimport numpy as np\n\ntry:\n    import jax\n    import jax.numpy as jnp\n    # Enable 64-bit precision in JAX (critical for metric accuracy)\n    jax.config.update('jax_enable_x64', True)\n    _JAX_AVAILABLE = True\nexcept ImportError:  # pragma: no cover\n    _JAX_AVAILABLE = False\n    import numpy as jnp  # type: ignore[assignment]  # NumPy fallback alias\n\ntry:\n    from scipy.spatial.distance import cdist as _scipy_cdist\n    _SCIPY_AVAILABLE = True\nexcept ImportError:  # pragma: no cover\n    _SCIPY_AVAILABLE = False\n\n\n# ---------------------------------------------------------------------------\n# Core JAX computation (vectorised, no Python loops over points)\n# ---------------------------------------------------------------------------\n\ndef _compute_igd_jax(approx_front, ref_front, p: float) -> float:\n    \"\"\"\n    Compute IGD_p using JAX-vectorised broadcasting.\n\n    Pairwise distance tensor: (|PF|, |S|) computed via broadcasting over\n    the (|PF|, |S|, n_obj) difference tensor — O(|PF|*|S|*n_obj) arithmetic.\n\n    Parameters\n    ----------\n    approx_front : array-like, shape (n_solutions, n_obj)\n    ref_front    : array-like, shape (n_ref, n_obj)\n    p            : float, Minkowski exponent >= 1.0\n\n    Returns\n    -------\n    float\n    \"\"\"\n    if _JAX_AVAILABLE:\n        S  = jnp.array(approx_front, dtype=jnp.float64)   # (n_s, n_obj)\n        PF = jnp.array(ref_front,    dtype=jnp.float64)   # (n_r, n_obj)\n\n        # Broadcasting: PF[:, None, :] - S[None, :, :] -> (n_r, n_s, n_obj)\n        diff = PF[:, None, :] - S[None, :, :]              # (n_r, n_s, n_obj)\n\n        if p == 2.0:\n            # Euclidean: stable via squared sum then sqrt\n            dist = jnp.sqrt(jnp.sum(diff ** 2, axis=-1))   # (n_r, n_s)\n        elif p == 1.0:\n            # Manhattan: sum of absolute values\n            dist = jnp.sum(jnp.abs(diff), axis=-1)          # (n_r, n_s)\n        else:\n            # General Minkowski: sum(|d|^p)^(1/p)\n            dist = jnp.sum(jnp.abs(diff) ** p, axis=-1) ** (1.0 / p)  # (n_r, n_s)\n\n        min_dists = jnp.min(dist, axis=1)                   # (n_r,)\n        igd_value = float(jnp.mean(min_dists))\n    else:\n        # Pure NumPy fallback (identical semantics, no JAX dependency)\n        S  = np.asarray(approx_front, dtype=np.float64)\n        PF = np.asarray(ref_front,    dtype=np.float64)\n        diff = PF[:, None, :] - S[None, :, :]               # (n_r, n_s, n_obj)\n        if p == 2.0:\n            dist = np.sqrt(np.sum(diff ** 2, axis=-1))\n        elif p == 1.0:\n            dist = np.sum(np.abs(diff), axis=-1)\n        else:\n            dist = np.sum(np.abs(diff) ** p, axis=-1) ** (1.0 / p)\n        min_dists = dist.min(axis=1)\n        igd_value = float(np.mean(min_dists))\n\n    return igd_value\n\n\n# ---------------------------------------------------------------------------\n# Context helper (mirrors CPU module)\n# ---------------------------------------------------------------------------\n\ndef _extract_context(context: dict) -> dict:\n    \"\"\"Support nested context['config'] as well as flat context dicts.\"\"\"\n    if context is None:\n        return {}\n    cfg = context.get('config', context)\n    return cfg if cfg is not None else {}\n\n\ndef _get_ref_front(cfg: dict) -> np.ndarray:\n    \"\"\"Resolve reference front from known PymooLab context keys.\"\"\"\n    for key in ('pareto_front', 'ref_pf', 'reference_front', 'pf'):\n        pf = cfg.get(key)\n        if pf is not None:\n            return np.asarray(pf, dtype=np.float64)\n    raise KeyError(\n        \"No reference front found in context. \"\n        \"Expected one of: 'pareto_front', 'ref_pf', 'reference_front', 'pf'.\")\n\n\n# ---------------------------------------------------------------------------\n# Plugin factory\n# ---------------------------------------------------------------------------\n\ndef create_metric(context: dict):\n    \"\"\"\n    PymooLab JAX metric plugin factory for IGD with configurable p-norm.\n\n    Parameters read from context (or context['config']):\n        p           : float, default 2.0  — Minkowski p-norm exponent (>= 1.0)\n        pareto_front / ref_pf / reference_front / pf\n                    : 2-D array-like — reference front PF\n\n    Returns\n    -------\n    callable\n        metric(front) -> float\n        where `front` is the approximation front S as a 2-D array of shape\n        (n_solutions, n_obj) in objective space.\n    \"\"\"\n    cfg = _extract_context(context)\n\n    # --- hyperparameter: p ---\n    p = float(cfg.get('p', 2.0))\n    if p < 1.0:\n        raise ValueError(f\"Hyperparameter p must be >= 1.0; got p={p}.\")\n    if p > 100.0:\n        warnings.warn(\n            f\"Hyperparameter p={p} > 100 may cause numerical instability.\",\n            RuntimeWarning, stacklevel=2)\n\n    # --- resolve and cache the reference front ---\n    ref_front = _get_ref_front(cfg)\n    if ref_front.ndim != 2:\n        raise ValueError(\n            f\"Reference front must be 2-D, got shape {ref_front.shape}.\")\n    if ref_front.shape[0] == 0:\n        raise ValueError(\"Reference front (PF) must be non-empty.\")\n\n    # --- input shape validation against ref_front ---\n    _p         = p\n    _ref_front = ref_front\n\n    def metric(front) -> float:\n        \"\"\"\n        Compute IGD_p(front, PF) using JAX-vectorised broadcasting.\n\n        Parameters\n        ----------\n        front : array-like, shape (n_solutions, n_obj)\n            Approximation front in objective space.\n\n        Returns\n        -------\n        float\n            IGD_p value in [0, +inf).  Lower is better (direction='minimize').\n        \"\"\"\n        S = np.asarray(front, dtype=np.float64)\n        if S.ndim == 1:\n            S = S.reshape(1, -1)\n        if S.ndim != 2:\n            raise ValueError(\n                f\"front must be a 1-D or 2-D array, got shape {S.shape}.\")\n        if S.shape[0] == 0:\n            raise ValueError(\"approx_front (S) must be non-empty.\")\n        if S.shape[1] != _ref_front.shape[1]:\n            raise ValueError(\n                f\"n_obj mismatch: front has {S.shape[1]} objectives \"\n                f\"but ref_front has {_ref_front.shape[1]}.\")\n        return _compute_igd_jax(S, _ref_front, _p)\n\n    # Attach metadata for PymooLab introspection\n    metric.__name__        = 'igd_llm_JAX'\n    metric.direction       = 'minimize'\n    metric.lower_is_better = True\n    metric.p               = _p\n    metric.jax_available   = _JAX_AVAILABLE\n    metric.ref_front_shape = _ref_front.shape\n    metric.__doc_extra__   = (\n        f\"IGD_p (JAX) with p={_p}, ref_front shape={_ref_front.shape}. \"\n        \"Formula: mean_{{z in PF}}(min_{{s in S}} ||z-s||_p). \"\n        \"Convention A (arithmetic mean outer aggregation, jMetal/jMetalPy standard). \"\n        f\"JAX backend: {'available' if _JAX_AVAILABLE else 'unavailable — NumPy fallback active'}.\"\n    )\n    return metric\n\nReturn JSON only with corrected cpu_code and jax_code."
+              }
+            ],
+            "tool_choice": {
+              "type": "auto"
+            },
+            "tools": [
+              {
+                "name": "web_search",
+                "type": "web_search_20250305",
+                "user_location": {
+                  "type": "approximate",
+                  "country": "US"
+                },
+                "max_uses": 5,
+                "allowed_domains": [
+                  "github.com"
+                ]
+              }
+            ],
+            "stream_phase": "repair_1"
+          },
+          "payload_chars": {
+            "system": 197,
+            "user_prompt": 16817
+          },
+          "response_status_code": 200,
+          "response_content_type": "application/json (anthropic sdk)",
+          "response_url": "https://api.anthropic.com/v1/messages",
+          "response_id": "msg_01JGi4B565QzjrQY8p38yn4u",
+          "response_model": "claude-sonnet-4-6",
+          "response_content_items": 5
+        },
+        "result": "success"
+      }
+    ]
+  },
+  "validation_report": {
+    "artifact_type": "metric",
+    "ok": true,
+    "issues": [],
+    "checks": [],
+    "runtime": {
+      "kind": "metric",
+      "checks": [],
+      "validation_cases": [
+        {
+          "idx": 0,
+          "m": 2,
+          "case_name": "synthetic_m2",
+          "cpu_value": 0.015952884273602187,
+          "jax_value": 0.01595288427360219,
+          "cpu_jax_abs_err": 3.469446951953614e-18,
+          "cpu_jax_rel_err": 2.1748085753336986e-16,
+          "cpu_perm_value": 0.015952884273602187,
+          "perm_abs_err": 0.0,
+          "perm_rel_err": 0.0,
+          "cpu_repeat_value": 0.015952884273602187,
+          "repeat_abs_err": 0.0,
+          "repeat_rel_err": 0.0
+        },
+        {
+          "idx": 1,
+          "m": 2,
+          "case_name": "wrapped_synthetic_m2",
+          "cpu_value": 0.015952884273602187,
+          "jax_value": 0.01595288427360219,
+          "cpu_jax_abs_err": 3.469446951953614e-18,
+          "cpu_jax_rel_err": 2.1748085753336986e-16,
+          "cpu_perm_value": 0.015952884273602187,
+          "perm_abs_err": 0.0,
+          "perm_rel_err": 0.0,
+          "cpu_repeat_value": 0.015952884273602187,
+          "repeat_abs_err": 0.0,
+          "repeat_rel_err": 0.0
+        },
+        {
+          "idx": 2,
+          "m": 3,
+          "case_name": "synthetic_m3",
+          "cpu_value": 0.04434996665994541,
+          "jax_value": 0.0443499666599454,
+          "cpu_jax_abs_err": 6.938893903907228e-18,
+          "cpu_jax_rel_err": 1.5645770282335022e-16,
+          "cpu_perm_value": 0.04434996665994541,
+          "perm_abs_err": 0.0,
+          "perm_rel_err": 0.0,
+          "cpu_repeat_value": 0.04434996665994541,
+          "repeat_abs_err": 0.0,
+          "repeat_rel_err": 0.0
+        },
+        {
+          "idx": 3,
+          "m": 3,
+          "case_name": "wrapped_synthetic_m3",
+          "cpu_value": 0.04434996665994541,
+          "jax_value": 0.0443499666599454,
+          "cpu_jax_abs_err": 6.938893903907228e-18,
+          "cpu_jax_rel_err": 1.5645770282335022e-16,
+          "cpu_perm_value": 0.04434996665994541,
+          "perm_abs_err": 0.0,
+          "perm_rel_err": 0.0,
+          "cpu_repeat_value": 0.04434996665994541,
+          "repeat_abs_err": 0.0,
+          "repeat_rel_err": 0.0
+        },
+        {
+          "idx": 4,
+          "m": 5,
+          "case_name": "synthetic_m5",
+          "cpu_value": 0.09082254748559943,
+          "jax_value": 0.09082254748559941,
+          "cpu_jax_abs_err": 1.3877787807814457e-17,
+          "cpu_jax_rel_err": 1.528011291470863e-16,
+          "cpu_perm_value": 0.09082254748559943,
+          "perm_abs_err": 0.0,
+          "perm_rel_err": 0.0,
+          "cpu_repeat_value": 0.09082254748559943,
+          "repeat_abs_err": 0.0,
+          "repeat_rel_err": 0.0
+        },
+        {
+          "idx": 5,
+          "m": 5,
+          "case_name": "wrapped_synthetic_m5",
+          "cpu_value": 0.09082254748559943,
+          "jax_value": 0.09082254748559941,
+          "cpu_jax_abs_err": 1.3877787807814457e-17,
+          "cpu_jax_rel_err": 1.528011291470863e-16,
+          "cpu_perm_value": 0.09082254748559943,
+          "perm_abs_err": 0.0,
+          "perm_rel_err": 0.0,
+          "cpu_repeat_value": 0.09082254748559943,
+          "repeat_abs_err": 0.0,
+          "repeat_rel_err": 0.0
+        },
+        {
+          "idx": 6,
+          "m": 2,
+          "case_name": "zdt1_real_context",
+          "cpu_value": 2.490047685907652,
+          "jax_value": 2.4900476859076526,
+          "cpu_jax_abs_err": 4.440892098500626e-16,
+          "cpu_jax_rel_err": 1.7834566476914145e-16,
+          "cpu_perm_value": 2.490047685907652,
+          "perm_abs_err": 0.0,
+          "perm_rel_err": 0.0,
+          "cpu_repeat_value": 2.490047685907652,
+          "repeat_abs_err": 0.0,
+          "repeat_rel_err": 0.0
+        }
+      ],
+      "metric_kind_hint": "igd",
+      "oracle_skipped_reason": "variant_or_novel_metric_request",
+      "cpu_value": 0.015952884273602187,
+      "jax_value": 0.01595288427360219,
+      "cpu_jax_abs_err": 4.440892098500626e-16,
+      "cpu_jax_rel_err": 2.1748085753336986e-16,
+      "multi_scenario_dims": [
+        2,
+        2,
+        3,
+        3,
+        5,
+        5,
+        2
+      ]
+    }
+  }
+}

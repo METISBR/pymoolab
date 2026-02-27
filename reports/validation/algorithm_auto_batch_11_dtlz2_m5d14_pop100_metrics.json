@@ -1,0 +1,202 @@
+[
+  {
+    "algorithm": "SMOA",
+    "status": "ok",
+    "F_shape": [
+      73,
+      5
+    ],
+    "DeltaP": 0.48634559183501314,
+    "HV": 0.306077
+  },
+  {
+    "algorithm": "SMPSO",
+    "status": "ok",
+    "F_shape": [
+      100,
+      5
+    ],
+    "DeltaP": 0.6783607248056337,
+    "HV": 0.15023237057314245
+  },
+  {
+    "algorithm": "SMSEGO",
+    "status": "ok",
+    "F_shape": [
+      73,
+      5
+    ],
+    "DeltaP": 0.48634559183501314,
+    "HV": 0.306077
+  },
+  {
+    "algorithm": "SparseEA",
+    "status": "ok",
+    "F_shape": [
+      81,
+      5
+    ],
+    "DeltaP": 0.26443408928203194,
+    "HV": 0.5389661212323675
+  },
+  {
+    "algorithm": "SparseEA2",
+    "status": "ok",
+    "F_shape": [
+      100,
+      5
+    ],
+    "DeltaP": 0.6783607248056337,
+    "HV": 0.15023237057314245
+  },
+  {
+    "algorithm": "SPEAR",
+    "status": "ok",
+    "F_shape": [
+      73,
+      5
+    ],
+    "DeltaP": 0.48634559183501314,
+    "HV": 0.306077
+  },
+  {
+    "algorithm": "SPEA2SDE",
+    "status": "ok",
+    "F_shape": [
+      100,
+      5
+    ],
+    "DeltaP": 0.6783607248056337,
+    "HV": 0.15023237057314245
+  },
+  {
+    "algorithm": "SRA",
+    "status": "ok",
+    "F_shape": [
+      100,
+      5
+    ],
+    "DeltaP": 0.6783607248056337,
+    "HV": 0.15023237057314245
+  },
+  {
+    "algorithm": "SSCEA",
+    "status": "ok",
+    "F_shape": [
+      100,
+      5
+    ],
+    "DeltaP": 0.6783607248056337,
+    "HV": 0.15023237057314245
+  },
+  {
+    "algorithm": "SSDE",
+    "status": "ok",
+    "F_shape": [
+      100,
+      5
+    ],
+    "DeltaP": 1.1935488003500871,
+    "HV": 0.06544951427111671
+  },
+  {
+    "algorithm": "SVRNSGAII",
+    "status": "ok",
+    "F_shape": [
+      100,
+      5
+    ],
+    "DeltaP": 0.6783607248056337,
+    "HV": 0.15023237057314245
+  },
+  {
+    "algorithm": "tDEA",
+    "status": "ok",
+    "F_shape": [
+      73,
+      5
+    ],
+    "DeltaP": 0.48634559183501314,
+    "HV": 0.306077
+  },
+  {
+    "algorithm": "tDEACPBI",
+    "status": "ok",
+    "F_shape": [
+      81,
+      5
+    ],
+    "DeltaP": 0.26443408928203194,
+    "HV": 0.5389661212323675
+  },
+  {
+    "algorithm": "TEA",
+    "status": "ok",
+    "F_shape": [
+      81,
+      5
+    ],
+    "DeltaP": 0.26443408928203194,
+    "HV": 0.5389661212323675
+  },
+  {
+    "algorithm": "TELSO",
+    "status": "ok",
+    "F_shape": [
+      81,
+      5
+    ],
+    "DeltaP": 0.26443408928203194,
+    "HV": 0.5389661212323675
+  },
+  {
+    "algorithm": "TiGE2",
+    "status": "ok",
+    "F_shape": [
+      100,
+      5
+    ],
+    "DeltaP": 0.6783607248056337,
+    "HV": 0.15023237057314245
+  },
+  {
+    "algorithm": "ToP",
+    "status": "ok",
+    "F_shape": [
+      100,
+      5
+    ],
+    "DeltaP": 1.1935488003500871,
+    "HV": 0.06544951427111671
+  },
+  {
+    "algorithm": "TPCMaO",
+    "status": "ok",
+    "F_shape": [
+      81,
+      5
+    ],
+    "DeltaP": 0.26443408928203194,
+    "HV": 0.5389661212323675
+  },
+  {
+    "algorithm": "TriMOEATAR",
+    "status": "ok",
+    "F_shape": [
+      73,
+      5
+    ],
+    "DeltaP": 0.48634559183501314,
+    "HV": 0.306077
+  },
+  {
+    "algorithm": "TSNSGAII",
+    "status": "ok",
+    "F_shape": [
+      73,
+      5
+    ],
+    "DeltaP": 0.48634559183501314,
+    "HV": 0.306077
+  }
+]

@@ -1,0 +1,36 @@
+{
+  "kind": "pymoolab_mcdm_decision",
+  "schema_version": 1,
+  "saved_at_iso": "2026-02-26T21:27:57.356502-03:00",
+  "saved_at_en_us": "Thursday, February 26, 2026 09:27:57 PM GMT-03:00",
+  "payload": {
+    "method_id": "topsis",
+    "method_label": "TOPSIS",
+    "weights_input": "",
+    "weights_normalized": [
+      0.3333333333333333,
+      0.3333333333333333,
+      0.3333333333333333
+    ],
+    "score": 0.5857250084719289,
+    "front_index": 2,
+    "selected_point": [
+      0.00014579164068450207,
+      0.00036364237251586924,
+      1.0009170373390892
+    ],
+    "n_points_front": 100,
+    "n_obj": 3,
+    "run_ref": {
+      "algorithm": "NSGA-III [pymoo]",
+      "algorithm_id": "pymoo::pymoo.algorithms.moo.nsga3.NSGA3",
+      "problem": "DTLZ2 [local]",
+      "problem_id": "local::problems.many.dtlz.DTLZ2",
+      "run_index": 1,
+      "seed": 1823558901,
+      "timestamp_iso": "2026-02-26T21:08:34.134817-03:00",
+      "timestamp_en_us": "Thursday, February 26, 2026 09:08:34 PM GMT-03:00",
+      "timestamp_epoch": 1772150914.134817
+    }
+  }
+}

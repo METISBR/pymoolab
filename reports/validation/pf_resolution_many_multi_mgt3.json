@@ -1,0 +1,8640 @@
+[
+  {
+    "label": "C1_DTLZ1 [local]",
+    "module": "problems.many.dtlz",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0158,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "C1_DTLZ1_JAX [local]",
+    "module": "problems.many.dtlz",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0157,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "C1_DTLZ3 [local]",
+    "module": "problems.many.dtlz",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0156,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "C1_DTLZ3_JAX [local]",
+    "module": "problems.many.dtlz",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0144,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "C2_DTLZ2 [local]",
+    "module": "problems.many.dtlz",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0145,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "C2_DTLZ2_JAX [local]",
+    "module": "problems.many.dtlz",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0164,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "C3_DTLZ4 [local]",
+    "module": "problems.many.dtlz",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.016,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "C3_DTLZ4_JAX [local]",
+    "module": "problems.many.dtlz",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0154,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "CDTLZ2 [local]",
+    "module": "problems.many.dtlz",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0158,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "CDTLZ2_JAX [local]",
+    "module": "problems.many.dtlz",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0152,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "DC1_DTLZ1 [local]",
+    "module": "problems.many.dtlz",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.015,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "DC1_DTLZ1_JAX [local]",
+    "module": "problems.many.dtlz",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0158,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "DC1_DTLZ3 [local]",
+    "module": "problems.many.dtlz",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0159,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "DC1_DTLZ3_JAX [local]",
+    "module": "problems.many.dtlz",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0147,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "DC2_DTLZ1 [local]",
+    "module": "problems.many.dtlz",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0147,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "DC2_DTLZ1_JAX [local]",
+    "module": "problems.many.dtlz",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0155,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "DC2_DTLZ3 [local]",
+    "module": "problems.many.dtlz",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0164,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "DC2_DTLZ3_JAX [local]",
+    "module": "problems.many.dtlz",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0152,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "DC3_DTLZ1 [local]",
+    "module": "problems.many.dtlz",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0161,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "DC3_DTLZ1_JAX [local]",
+    "module": "problems.many.dtlz",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0155,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "DC3_DTLZ3 [local]",
+    "module": "problems.many.dtlz",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0157,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "DC3_DTLZ3_JAX [local]",
+    "module": "problems.many.dtlz",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0151,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "DTLZ1 [local]",
+    "module": "problems.many.dtlz",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "DTLZ1_JAX [local]",
+    "module": "problems.many.dtlz",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "DTLZ2 [local]",
+    "module": "problems.many.dtlz",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "DTLZ2_JAX [local]",
+    "module": "problems.many.dtlz",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "DTLZ3 [local]",
+    "module": "problems.many.dtlz",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "DTLZ3_JAX [local]",
+    "module": "problems.many.dtlz",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "DTLZ4 [local]",
+    "module": "problems.many.dtlz",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "DTLZ4_JAX [local]",
+    "module": "problems.many.dtlz",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "DTLZ5 [local]",
+    "module": "problems.many.dtlz",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      200,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "DTLZ5_JAX [local]",
+    "module": "problems.many.dtlz",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      200,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "DTLZ6 [local]",
+    "module": "problems.many.dtlz",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.001,
+    "pf_shape": [
+      200,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "DTLZ6_JAX [local]",
+    "module": "problems.many.dtlz",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.001,
+    "pf_shape": [
+      200,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "DTLZ7 [local]",
+    "module": "problems.many.dtlz",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      400,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "DTLZ7_JAX [local]",
+    "module": "problems.many.dtlz",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      400,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "DTLZ8 [local]",
+    "module": "problems.many.dtlz",
+    "status": "ok",
+    "m": 10,
+    "d": 20,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": null,
+    "pf_none": true
+  },
+  {
+    "label": "DTLZ8_JAX [local]",
+    "module": "problems.many.dtlz",
+    "status": "ok",
+    "m": 10,
+    "d": 20,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": null,
+    "pf_none": true
+  },
+  {
+    "label": "DTLZ9 [local]",
+    "module": "problems.many.dtlz",
+    "status": "ok",
+    "m": 10,
+    "d": 20,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": null,
+    "pf_none": true
+  },
+  {
+    "label": "DTLZ9_JAX [local]",
+    "module": "problems.many.dtlz",
+    "status": "ok",
+    "m": 10,
+    "d": 20,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": null,
+    "pf_none": true
+  },
+  {
+    "label": "IDTLZ1 [local]",
+    "module": "problems.many.dtlz",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0154,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "IDTLZ1_JAX [local]",
+    "module": "problems.many.dtlz",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0163,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "IDTLZ2 [local]",
+    "module": "problems.many.dtlz",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0155,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "IDTLZ2_JAX [local]",
+    "module": "problems.many.dtlz",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0153,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "SDTLZ1 [local]",
+    "module": "problems.many.dtlz",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0147,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "SDTLZ1_JAX [local]",
+    "module": "problems.many.dtlz",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0152,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "SDTLZ2 [local]",
+    "module": "problems.many.dtlz",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0153,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "SDTLZ2_JAX [local]",
+    "module": "problems.many.dtlz",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0151,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "GLSMOP1 [local]",
+    "module": "problems.many.glsmop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "GLSMOP1_JAX [local]",
+    "module": "problems.many.glsmop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "GLSMOP2 [local]",
+    "module": "problems.many.glsmop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "GLSMOP2_JAX [local]",
+    "module": "problems.many.glsmop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0003,
+    "pf_s": 0.001,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "GLSMOP3 [local]",
+    "module": "problems.many.glsmop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "GLSMOP3_JAX [local]",
+    "module": "problems.many.glsmop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.001,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "GLSMOP4 [local]",
+    "module": "problems.many.glsmop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "GLSMOP4_JAX [local]",
+    "module": "problems.many.glsmop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0007,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "GLSMOP5 [local]",
+    "module": "problems.many.glsmop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "GLSMOP5_JAX [local]",
+    "module": "problems.many.glsmop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "GLSMOP6 [local]",
+    "module": "problems.many.glsmop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "GLSMOP6_JAX [local]",
+    "module": "problems.many.glsmop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "GLSMOP7 [local]",
+    "module": "problems.many.glsmop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "GLSMOP7_JAX [local]",
+    "module": "problems.many.glsmop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "GLSMOP8 [local]",
+    "module": "problems.many.glsmop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "GLSMOP8_JAX [local]",
+    "module": "problems.many.glsmop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "GLSMOP9 [local]",
+    "module": "problems.many.glsmop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0081,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "GLSMOP9_JAX [local]",
+    "module": "problems.many.glsmop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0066,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "LSMOP1 [local]",
+    "module": "problems.many.lsmop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.001,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "LSMOP1_JAX [local]",
+    "module": "problems.many.lsmop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "LSMOP2 [local]",
+    "module": "problems.many.lsmop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "LSMOP2_JAX [local]",
+    "module": "problems.many.lsmop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "LSMOP3 [local]",
+    "module": "problems.many.lsmop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "LSMOP3_JAX [local]",
+    "module": "problems.many.lsmop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "LSMOP4 [local]",
+    "module": "problems.many.lsmop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "LSMOP4_JAX [local]",
+    "module": "problems.many.lsmop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "LSMOP5 [local]",
+    "module": "problems.many.lsmop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "LSMOP5_JAX [local]",
+    "module": "problems.many.lsmop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "LSMOP6 [local]",
+    "module": "problems.many.lsmop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.001,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "LSMOP6_JAX [local]",
+    "module": "problems.many.lsmop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "LSMOP7 [local]",
+    "module": "problems.many.lsmop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "LSMOP7_JAX [local]",
+    "module": "problems.many.lsmop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "LSMOP8 [local]",
+    "module": "problems.many.lsmop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.001,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "LSMOP8_JAX [local]",
+    "module": "problems.many.lsmop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "LSMOP9 [local]",
+    "module": "problems.many.lsmop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.001,
+    "pf_s": 0.0075,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "LSMOP9_JAX [local]",
+    "module": "problems.many.lsmop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0078,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "MaF1 [local]",
+    "module": "problems.many.maf",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "MaF10 [local]",
+    "module": "problems.many.maf",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": null,
+    "pf_none": true
+  },
+  {
+    "label": "MaF10_JAX [local]",
+    "module": "problems.many.maf",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": null,
+    "pf_none": true
+  },
+  {
+    "label": "MaF11 [local]",
+    "module": "problems.many.maf",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": null,
+    "pf_none": true
+  },
+  {
+    "label": "MaF11_JAX [local]",
+    "module": "problems.many.maf",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": null,
+    "pf_none": true
+  },
+  {
+    "label": "MaF12 [local]",
+    "module": "problems.many.maf",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": null,
+    "pf_none": true
+  },
+  {
+    "label": "MaF12_JAX [local]",
+    "module": "problems.many.maf",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": null,
+    "pf_none": true
+  },
+  {
+    "label": "MaF13 [local]",
+    "module": "problems.many.maf",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "MaF13_JAX [local]",
+    "module": "problems.many.maf",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0015,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "MaF14 [local]",
+    "module": "problems.many.maf",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.001,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "MaF14_JAX [local]",
+    "module": "problems.many.maf",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "MaF15 [local]",
+    "module": "problems.many.maf",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.001,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "MaF15_JAX [local]",
+    "module": "problems.many.maf",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "MaF1_JAX [local]",
+    "module": "problems.many.maf",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "MaF2 [local]",
+    "module": "problems.many.maf",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0135,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "MaF2_JAX [local]",
+    "module": "problems.many.maf",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0123,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "MaF3 [local]",
+    "module": "problems.many.maf",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "MaF3_JAX [local]",
+    "module": "problems.many.maf",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "MaF4 [local]",
+    "module": "problems.many.maf",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "MaF4_JAX [local]",
+    "module": "problems.many.maf",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "MaF5 [local]",
+    "module": "problems.many.maf",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "MaF5_JAX [local]",
+    "module": "problems.many.maf",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "MaF6 [local]",
+    "module": "problems.many.maf",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": null,
+    "pf_none": true
+  },
+  {
+    "label": "MaF6_JAX [local]",
+    "module": "problems.many.maf",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": null,
+    "pf_none": true
+  },
+  {
+    "label": "MaF7 [local]",
+    "module": "problems.many.maf",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "MaF7_JAX [local]",
+    "module": "problems.many.maf",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "MaF8 [local]",
+    "module": "problems.many.maf",
+    "status": "ok",
+    "m": 10,
+    "d": 2,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      145,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "MaF8_JAX [local]",
+    "module": "problems.many.maf",
+    "status": "ok",
+    "m": 10,
+    "d": 2,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      145,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "MaF9 [local]",
+    "module": "problems.many.maf",
+    "status": "ok",
+    "m": 10,
+    "d": 2,
+    "factory_s": 0.0031,
+    "pf_s": 0.0005,
+    "pf_shape": [
+      145,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "MaF9_JAX [local]",
+    "module": "problems.many.maf",
+    "status": "ok",
+    "m": 10,
+    "d": 2,
+    "factory_s": 0.002,
+    "pf_s": 0.0,
+    "pf_shape": [
+      145,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "MaOPP_binary [local]",
+    "module": "problems.many.maopp",
+    "status": "ok",
+    "m": 5,
+    "d": 27,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      200,
+      5
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "MaOPP_binary_JAX [local]",
+    "module": "problems.many.maopp",
+    "status": "ok",
+    "m": 5,
+    "d": 27,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      200,
+      5
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "MaOPP_real [local]",
+    "module": "problems.many.maopp",
+    "status": "ok",
+    "m": 5,
+    "d": 27,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      200,
+      5
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "MaOPP_real_JAX [local]",
+    "module": "problems.many.maopp",
+    "status": "ok",
+    "m": 5,
+    "d": 27,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      200,
+      5
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "WFG1 [local]",
+    "module": "problems.many.wfg",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 4.1518,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "WFG1_JAX [local]",
+    "module": "problems.many.wfg",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.001,
+    "pf_s": 4.1144,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "WFG2 [local]",
+    "module": "problems.many.wfg",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.001,
+    "pf_s": 4.1039,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "WFG2_JAX [local]",
+    "module": "problems.many.wfg",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 4.0328,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "WFG3 [local]",
+    "module": "problems.many.wfg",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 3.8912,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "WFG3_JAX [local]",
+    "module": "problems.many.wfg",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 3.8799,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "WFG4 [local]",
+    "module": "problems.many.wfg",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 3.9738,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "WFG4_JAX [local]",
+    "module": "problems.many.wfg",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 4.024,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "WFG5 [local]",
+    "module": "problems.many.wfg",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 4.2253,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "WFG5_JAX [local]",
+    "module": "problems.many.wfg",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 4.2161,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "WFG6 [local]",
+    "module": "problems.many.wfg",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 4.1588,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "WFG6_JAX [local]",
+    "module": "problems.many.wfg",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 4.1002,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "WFG7 [local]",
+    "module": "problems.many.wfg",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 4.1401,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "WFG7_JAX [local]",
+    "module": "problems.many.wfg",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 4.1215,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "WFG8 [local]",
+    "module": "problems.many.wfg",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.001,
+    "pf_s": 4.2896,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "WFG8_JAX [local]",
+    "module": "problems.many.wfg",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 4.3157,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "WFG9 [local]",
+    "module": "problems.many.wfg",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.001,
+    "pf_s": 0.0015,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "WFG9_JAX [local]",
+    "module": "problems.many.wfg",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "ZCAT1 [local]",
+    "module": "problems.many.zcat",
+    "status": "ok",
+    "m": 10,
+    "d": 20,
+    "factory_s": 0.0,
+    "pf_s": 0.0111,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "ZCAT10 [local]",
+    "module": "problems.many.zcat",
+    "status": "ok",
+    "m": 10,
+    "d": 20,
+    "factory_s": 0.0,
+    "pf_s": 0.0092,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "ZCAT10_JAX [local]",
+    "module": "problems.many.zcat",
+    "status": "ok",
+    "m": 10,
+    "d": 20,
+    "factory_s": 0.0,
+    "pf_s": 0.0085,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "ZCAT11 [local]",
+    "module": "problems.many.zcat",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0082,
+    "pf_shape": [
+      219,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "ZCAT11_JAX [local]",
+    "module": "problems.many.zcat",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0091,
+    "pf_shape": [
+      219,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "ZCAT12 [local]",
+    "module": "problems.many.zcat",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0091,
+    "pf_shape": [
+      214,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "ZCAT12_JAX [local]",
+    "module": "problems.many.zcat",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0078,
+    "pf_shape": [
+      214,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "ZCAT13 [local]",
+    "module": "problems.many.zcat",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0083,
+    "pf_shape": [
+      219,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "ZCAT13_JAX [local]",
+    "module": "problems.many.zcat",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0078,
+    "pf_shape": [
+      219,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "ZCAT14 [local]",
+    "module": "problems.many.zcat",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0075,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "ZCAT14_JAX [local]",
+    "module": "problems.many.zcat",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0083,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "ZCAT15 [local]",
+    "module": "problems.many.zcat",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0072,
+    "pf_shape": [
+      151,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "ZCAT15_JAX [local]",
+    "module": "problems.many.zcat",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0084,
+    "pf_shape": [
+      151,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "ZCAT16 [local]",
+    "module": "problems.many.zcat",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0083,
+    "pf_shape": [
+      157,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "ZCAT16_JAX [local]",
+    "module": "problems.many.zcat",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0084,
+    "pf_shape": [
+      157,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "ZCAT17 [local]",
+    "module": "problems.many.zcat",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0075,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "ZCAT17_JAX [local]",
+    "module": "problems.many.zcat",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0082,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "ZCAT18 [local]",
+    "module": "problems.many.zcat",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0082,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "ZCAT18_JAX [local]",
+    "module": "problems.many.zcat",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0076,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "ZCAT19 [local]",
+    "module": "problems.many.zcat",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0081,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "ZCAT19_JAX [local]",
+    "module": "problems.many.zcat",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0081,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "ZCAT1_JAX [local]",
+    "module": "problems.many.zcat",
+    "status": "ok",
+    "m": 10,
+    "d": 20,
+    "factory_s": 0.0,
+    "pf_s": 0.0087,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "ZCAT2 [local]",
+    "module": "problems.many.zcat",
+    "status": "ok",
+    "m": 10,
+    "d": 20,
+    "factory_s": 0.0,
+    "pf_s": 0.0081,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "ZCAT20 [local]",
+    "module": "problems.many.zcat",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0075,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "ZCAT20_JAX [local]",
+    "module": "problems.many.zcat",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0088,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "ZCAT2_JAX [local]",
+    "module": "problems.many.zcat",
+    "status": "ok",
+    "m": 10,
+    "d": 20,
+    "factory_s": 0.0,
+    "pf_s": 0.0091,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "ZCAT3 [local]",
+    "module": "problems.many.zcat",
+    "status": "ok",
+    "m": 10,
+    "d": 20,
+    "factory_s": 0.0,
+    "pf_s": 0.0077,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "ZCAT3_JAX [local]",
+    "module": "problems.many.zcat",
+    "status": "ok",
+    "m": 10,
+    "d": 20,
+    "factory_s": 0.0,
+    "pf_s": 0.0093,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "ZCAT4 [local]",
+    "module": "problems.many.zcat",
+    "status": "ok",
+    "m": 10,
+    "d": 20,
+    "factory_s": 0.0,
+    "pf_s": 0.0075,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "ZCAT4_JAX [local]",
+    "module": "problems.many.zcat",
+    "status": "ok",
+    "m": 10,
+    "d": 20,
+    "factory_s": 0.0,
+    "pf_s": 0.0082,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "ZCAT5 [local]",
+    "module": "problems.many.zcat",
+    "status": "ok",
+    "m": 10,
+    "d": 20,
+    "factory_s": 0.0,
+    "pf_s": 0.0083,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "ZCAT5_JAX [local]",
+    "module": "problems.many.zcat",
+    "status": "ok",
+    "m": 10,
+    "d": 20,
+    "factory_s": 0.0,
+    "pf_s": 0.0077,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "ZCAT6 [local]",
+    "module": "problems.many.zcat",
+    "status": "ok",
+    "m": 10,
+    "d": 20,
+    "factory_s": 0.0,
+    "pf_s": 0.0073,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "ZCAT6_JAX [local]",
+    "module": "problems.many.zcat",
+    "status": "ok",
+    "m": 10,
+    "d": 20,
+    "factory_s": 0.0,
+    "pf_s": 0.0081,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "ZCAT7 [local]",
+    "module": "problems.many.zcat",
+    "status": "ok",
+    "m": 10,
+    "d": 20,
+    "factory_s": 0.0,
+    "pf_s": 0.0071,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "ZCAT7_JAX [local]",
+    "module": "problems.many.zcat",
+    "status": "ok",
+    "m": 10,
+    "d": 20,
+    "factory_s": 0.0,
+    "pf_s": 0.0086,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "ZCAT8 [local]",
+    "module": "problems.many.zcat",
+    "status": "ok",
+    "m": 10,
+    "d": 20,
+    "factory_s": 0.0,
+    "pf_s": 0.008,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "ZCAT8_JAX [local]",
+    "module": "problems.many.zcat",
+    "status": "ok",
+    "m": 10,
+    "d": 20,
+    "factory_s": 0.0,
+    "pf_s": 0.0081,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "ZCAT9 [local]",
+    "module": "problems.many.zcat",
+    "status": "ok",
+    "m": 10,
+    "d": 20,
+    "factory_s": 0.0,
+    "pf_s": 0.0079,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "ZCAT9_JAX [local]",
+    "module": "problems.many.zcat",
+    "status": "ok",
+    "m": 10,
+    "d": 20,
+    "factory_s": 0.0,
+    "pf_s": 0.0076,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "BT1 [local]",
+    "module": "problems.multi.bt",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "BT1_JAX [local]",
+    "module": "problems.multi.bt",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0012
+  },
+  {
+    "label": "BT2 [local]",
+    "module": "problems.multi.bt",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "BT2_JAX [local]",
+    "module": "problems.multi.bt",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "BT3 [local]",
+    "module": "problems.multi.bt",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "BT3_JAX [local]",
+    "module": "problems.multi.bt",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "BT4 [local]",
+    "module": "problems.multi.bt",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "BT4_JAX [local]",
+    "module": "problems.multi.bt",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "BT5 [local]",
+    "module": "problems.multi.bt",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "BT5_JAX [local]",
+    "module": "problems.multi.bt",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "BT6 [local]",
+    "module": "problems.multi.bt",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "BT6_JAX [local]",
+    "module": "problems.multi.bt",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "BT7 [local]",
+    "module": "problems.multi.bt",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "BT7_JAX [local]",
+    "module": "problems.multi.bt",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "BT8 [local]",
+    "module": "problems.multi.bt",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "BT8_JAX [local]",
+    "module": "problems.multi.bt",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "BT9 [local]",
+    "module": "problems.multi.bt",
+    "status": "skip_m_le_3",
+    "m": 3,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "BT9_JAX [local]",
+    "module": "problems.multi.bt",
+    "status": "skip_m_le_3",
+    "m": 3,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "CF1 [local]",
+    "module": "problems.multi.cf",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "CF10 [local]",
+    "module": "problems.multi.cf",
+    "status": "skip_m_le_3",
+    "m": 3,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "CF10_JAX [local]",
+    "module": "problems.multi.cf",
+    "status": "skip_m_le_3",
+    "m": 3,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "CF1_JAX [local]",
+    "module": "problems.multi.cf",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "CF2 [local]",
+    "module": "problems.multi.cf",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "CF2_JAX [local]",
+    "module": "problems.multi.cf",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "CF3 [local]",
+    "module": "problems.multi.cf",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "CF3_JAX [local]",
+    "module": "problems.multi.cf",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "CF4 [local]",
+    "module": "problems.multi.cf",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.001
+  },
+  {
+    "label": "CF4_JAX [local]",
+    "module": "problems.multi.cf",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "CF5 [local]",
+    "module": "problems.multi.cf",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "CF5_JAX [local]",
+    "module": "problems.multi.cf",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "CF6 [local]",
+    "module": "problems.multi.cf",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "CF6_JAX [local]",
+    "module": "problems.multi.cf",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "CF7 [local]",
+    "module": "problems.multi.cf",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "CF7_JAX [local]",
+    "module": "problems.multi.cf",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "CF8 [local]",
+    "module": "problems.multi.cf",
+    "status": "skip_m_le_3",
+    "m": 3,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "CF8_JAX [local]",
+    "module": "problems.multi.cf",
+    "status": "skip_m_le_3",
+    "m": 3,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "CF9 [local]",
+    "module": "problems.multi.cf",
+    "status": "skip_m_le_3",
+    "m": 3,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "CF9_JAX [local]",
+    "module": "problems.multi.cf",
+    "status": "skip_m_le_3",
+    "m": 3,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "DASCMOP1 [local]",
+    "module": "problems.multi.dascmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "DASCMOP1_JAX [local]",
+    "module": "problems.multi.dascmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "DASCMOP2 [local]",
+    "module": "problems.multi.dascmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "DASCMOP2_JAX [local]",
+    "module": "problems.multi.dascmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "DASCMOP3 [local]",
+    "module": "problems.multi.dascmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "DASCMOP3_JAX [local]",
+    "module": "problems.multi.dascmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "DASCMOP4 [local]",
+    "module": "problems.multi.dascmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "DASCMOP4_JAX [local]",
+    "module": "problems.multi.dascmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "DASCMOP5 [local]",
+    "module": "problems.multi.dascmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "DASCMOP5_JAX [local]",
+    "module": "problems.multi.dascmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "DASCMOP6 [local]",
+    "module": "problems.multi.dascmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "DASCMOP6_JAX [local]",
+    "module": "problems.multi.dascmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "DASCMOP7 [local]",
+    "module": "problems.multi.dascmop",
+    "status": "skip_m_le_3",
+    "m": 3,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "DASCMOP7_JAX [local]",
+    "module": "problems.multi.dascmop",
+    "status": "skip_m_le_3",
+    "m": 3,
+    "d": 19,
+    "factory_s": 0.001
+  },
+  {
+    "label": "DASCMOP8 [local]",
+    "module": "problems.multi.dascmop",
+    "status": "skip_m_le_3",
+    "m": 3,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "DASCMOP8_JAX [local]",
+    "module": "problems.multi.dascmop",
+    "status": "skip_m_le_3",
+    "m": 3,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "DASCMOP9 [local]",
+    "module": "problems.multi.dascmop",
+    "status": "skip_m_le_3",
+    "m": 3,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "DASCMOP9_JAX [local]",
+    "module": "problems.multi.dascmop",
+    "status": "skip_m_le_3",
+    "m": 3,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "DOC1 [local]",
+    "module": "problems.multi.doc",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 6,
+    "factory_s": 0.0
+  },
+  {
+    "label": "DOC1_JAX [local]",
+    "module": "problems.multi.doc",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 6,
+    "factory_s": 0.0
+  },
+  {
+    "label": "DOC2 [local]",
+    "module": "problems.multi.doc",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 16,
+    "factory_s": 0.0
+  },
+  {
+    "label": "DOC2_JAX [local]",
+    "module": "problems.multi.doc",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 16,
+    "factory_s": 0.0
+  },
+  {
+    "label": "DOC3 [local]",
+    "module": "problems.multi.doc",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 10,
+    "factory_s": 0.0
+  },
+  {
+    "label": "DOC3_JAX [local]",
+    "module": "problems.multi.doc",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 10,
+    "factory_s": 0.0
+  },
+  {
+    "label": "DOC4 [local]",
+    "module": "problems.multi.doc",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 8,
+    "factory_s": 0.0
+  },
+  {
+    "label": "DOC4_JAX [local]",
+    "module": "problems.multi.doc",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 8,
+    "factory_s": 0.0
+  },
+  {
+    "label": "DOC5 [local]",
+    "module": "problems.multi.doc",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 8,
+    "factory_s": 0.0
+  },
+  {
+    "label": "DOC5_JAX [local]",
+    "module": "problems.multi.doc",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 8,
+    "factory_s": 0.0
+  },
+  {
+    "label": "DOC6 [local]",
+    "module": "problems.multi.doc",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 11,
+    "factory_s": 0.0
+  },
+  {
+    "label": "DOC6_JAX [local]",
+    "module": "problems.multi.doc",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 11,
+    "factory_s": 0.0
+  },
+  {
+    "label": "DOC7 [local]",
+    "module": "problems.multi.doc",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 11,
+    "factory_s": 0.0
+  },
+  {
+    "label": "DOC7_JAX [local]",
+    "module": "problems.multi.doc",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 11,
+    "factory_s": 0.0
+  },
+  {
+    "label": "DOC8 [local]",
+    "module": "problems.multi.doc",
+    "status": "skip_m_le_3",
+    "m": 3,
+    "d": 10,
+    "factory_s": 0.0
+  },
+  {
+    "label": "DOC8_JAX [local]",
+    "module": "problems.multi.doc",
+    "status": "skip_m_le_3",
+    "m": 3,
+    "d": 10,
+    "factory_s": 0.0
+  },
+  {
+    "label": "DOC9 [local]",
+    "module": "problems.multi.doc",
+    "status": "skip_m_le_3",
+    "m": 3,
+    "d": 11,
+    "factory_s": 0.0
+  },
+  {
+    "label": "DOC9_JAX [local]",
+    "module": "problems.multi.doc",
+    "status": "skip_m_le_3",
+    "m": 3,
+    "d": 11,
+    "factory_s": 0.0
+  },
+  {
+    "label": "DSMOP1 [local]",
+    "module": "problems.multi.dsmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 100,
+    "factory_s": 0.0014
+  },
+  {
+    "label": "DSMOP10 [local]",
+    "module": "problems.multi.dsmop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "DSMOP10_JAX [local]",
+    "module": "problems.multi.dsmop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "DSMOP11 [local]",
+    "module": "problems.multi.dsmop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0176,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "DSMOP11_JAX [local]",
+    "module": "problems.multi.dsmop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0185,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "DSMOP12 [local]",
+    "module": "problems.multi.dsmop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "DSMOP12_JAX [local]",
+    "module": "problems.multi.dsmop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "DSMOP1_JAX [local]",
+    "module": "problems.multi.dsmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 100,
+    "factory_s": 0.0
+  },
+  {
+    "label": "DSMOP2 [local]",
+    "module": "problems.multi.dsmop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "DSMOP2_JAX [local]",
+    "module": "problems.multi.dsmop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "DSMOP3 [local]",
+    "module": "problems.multi.dsmop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.001,
+    "pf_s": 0.001,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "DSMOP3_JAX [local]",
+    "module": "problems.multi.dsmop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "DSMOP4 [local]",
+    "module": "problems.multi.dsmop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "DSMOP4_JAX [local]",
+    "module": "problems.multi.dsmop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "DSMOP5 [local]",
+    "module": "problems.multi.dsmop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0212,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "DSMOP5_JAX [local]",
+    "module": "problems.multi.dsmop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0012,
+    "pf_s": 0.0168,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "DSMOP6 [local]",
+    "module": "problems.multi.dsmop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "DSMOP6_JAX [local]",
+    "module": "problems.multi.dsmop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "DSMOP7 [local]",
+    "module": "problems.multi.dsmop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "DSMOP7_JAX [local]",
+    "module": "problems.multi.dsmop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "DSMOP8 [local]",
+    "module": "problems.multi.dsmop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "DSMOP8_JAX [local]",
+    "module": "problems.multi.dsmop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "DSMOP9 [local]",
+    "module": "problems.multi.dsmop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0165,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "DSMOP9_JAX [local]",
+    "module": "problems.multi.dsmop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.017,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "FCP1 [local]",
+    "module": "problems.multi.fcp",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "FCP1_JAX [local]",
+    "module": "problems.multi.fcp",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "FCP2 [local]",
+    "module": "problems.multi.fcp",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "FCP2_JAX [local]",
+    "module": "problems.multi.fcp",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0008
+  },
+  {
+    "label": "FCP3 [local]",
+    "module": "problems.multi.fcp",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "FCP3_JAX [local]",
+    "module": "problems.multi.fcp",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "FCP4 [local]",
+    "module": "problems.multi.fcp",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "FCP4_JAX [local]",
+    "module": "problems.multi.fcp",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "FCP5 [local]",
+    "module": "problems.multi.fcp",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "FCP5_JAX [local]",
+    "module": "problems.multi.fcp",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "FDA1 [local]",
+    "module": "problems.multi.fda",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "FDA1_JAX [local]",
+    "module": "problems.multi.fda",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "FDA2 [local]",
+    "module": "problems.multi.fda",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "FDA2_JAX [local]",
+    "module": "problems.multi.fda",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "FDA3 [local]",
+    "module": "problems.multi.fda",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "FDA3_JAX [local]",
+    "module": "problems.multi.fda",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "FDA4 [local]",
+    "module": "problems.multi.fda",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "FDA4_JAX [local]",
+    "module": "problems.multi.fda",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.001,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "FDA5 [local]",
+    "module": "problems.multi.fda",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "FDA5_JAX [local]",
+    "module": "problems.multi.fda",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "IMMOEA_F1 [local]",
+    "module": "problems.multi.immoea",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0023,
+    "pf_shape": [
+      220,
+      2
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "IMMOEA_F10 [local]",
+    "module": "problems.multi.immoea",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      2
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "IMMOEA_F10_JAX [local]",
+    "module": "problems.multi.immoea",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0005,
+    "pf_shape": [
+      220,
+      2
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "IMMOEA_F1_JAX [local]",
+    "module": "problems.multi.immoea",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      2
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "IMMOEA_F2 [local]",
+    "module": "problems.multi.immoea",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      2
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "IMMOEA_F2_JAX [local]",
+    "module": "problems.multi.immoea",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      2
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "IMMOEA_F3 [local]",
+    "module": "problems.multi.immoea",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      2
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "IMMOEA_F3_JAX [local]",
+    "module": "problems.multi.immoea",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      2
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "IMMOEA_F4 [local]",
+    "module": "problems.multi.immoea",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      2
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "IMMOEA_F4_JAX [local]",
+    "module": "problems.multi.immoea",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0007,
+    "pf_shape": [
+      220,
+      2
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "IMMOEA_F5 [local]",
+    "module": "problems.multi.immoea",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      2
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "IMMOEA_F5_JAX [local]",
+    "module": "problems.multi.immoea",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      2
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "IMMOEA_F6 [local]",
+    "module": "problems.multi.immoea",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      2
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "IMMOEA_F6_JAX [local]",
+    "module": "problems.multi.immoea",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      2
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "IMMOEA_F7 [local]",
+    "module": "problems.multi.immoea",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      2
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "IMMOEA_F7_JAX [local]",
+    "module": "problems.multi.immoea",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      2
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "IMMOEA_F8 [local]",
+    "module": "problems.multi.immoea",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      2
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "IMMOEA_F8_JAX [local]",
+    "module": "problems.multi.immoea",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      2
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "IMMOEA_F9 [local]",
+    "module": "problems.multi.immoea",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      2
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "IMMOEA_F9_JAX [local]",
+    "module": "problems.multi.immoea",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      2
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "IMOP1 [local]",
+    "module": "problems.multi.imop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.001
+  },
+  {
+    "label": "IMOP1_JAX [local]",
+    "module": "problems.multi.imop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "IMOP2 [local]",
+    "module": "problems.multi.imop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "IMOP2_JAX [local]",
+    "module": "problems.multi.imop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "IMOP3 [local]",
+    "module": "problems.multi.imop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "IMOP3_JAX [local]",
+    "module": "problems.multi.imop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "IMOP4 [local]",
+    "module": "problems.multi.imop",
+    "status": "skip_m_le_3",
+    "m": 3,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "IMOP4_JAX [local]",
+    "module": "problems.multi.imop",
+    "status": "skip_m_le_3",
+    "m": 3,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "IMOP5 [local]",
+    "module": "problems.multi.imop",
+    "status": "skip_m_le_3",
+    "m": 3,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "IMOP5_JAX [local]",
+    "module": "problems.multi.imop",
+    "status": "skip_m_le_3",
+    "m": 3,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "IMOP6 [local]",
+    "module": "problems.multi.imop",
+    "status": "skip_m_le_3",
+    "m": 3,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "IMOP6_JAX [local]",
+    "module": "problems.multi.imop",
+    "status": "skip_m_le_3",
+    "m": 3,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "IMOP7 [local]",
+    "module": "problems.multi.imop",
+    "status": "skip_m_le_3",
+    "m": 3,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "IMOP7_JAX [local]",
+    "module": "problems.multi.imop",
+    "status": "skip_m_le_3",
+    "m": 3,
+    "d": 19,
+    "factory_s": 0.0007
+  },
+  {
+    "label": "IMOP8 [local]",
+    "module": "problems.multi.imop",
+    "status": "skip_m_le_3",
+    "m": 3,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "IMOP8_JAX [local]",
+    "module": "problems.multi.imop",
+    "status": "skip_m_le_3",
+    "m": 3,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "LIRCMOP1 [local]",
+    "module": "problems.multi.lircmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "LIRCMOP10 [local]",
+    "module": "problems.multi.lircmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "LIRCMOP10_JAX [local]",
+    "module": "problems.multi.lircmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "LIRCMOP11 [local]",
+    "module": "problems.multi.lircmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "LIRCMOP11_JAX [local]",
+    "module": "problems.multi.lircmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "LIRCMOP12 [local]",
+    "module": "problems.multi.lircmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "LIRCMOP12_JAX [local]",
+    "module": "problems.multi.lircmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "LIRCMOP13 [local]",
+    "module": "problems.multi.lircmop",
+    "status": "skip_m_le_3",
+    "m": 3,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "LIRCMOP13_JAX [local]",
+    "module": "problems.multi.lircmop",
+    "status": "skip_m_le_3",
+    "m": 3,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "LIRCMOP14 [local]",
+    "module": "problems.multi.lircmop",
+    "status": "skip_m_le_3",
+    "m": 3,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "LIRCMOP14_JAX [local]",
+    "module": "problems.multi.lircmop",
+    "status": "skip_m_le_3",
+    "m": 3,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "LIRCMOP1_JAX [local]",
+    "module": "problems.multi.lircmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "LIRCMOP2 [local]",
+    "module": "problems.multi.lircmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "LIRCMOP2_JAX [local]",
+    "module": "problems.multi.lircmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "LIRCMOP3 [local]",
+    "module": "problems.multi.lircmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "LIRCMOP3_JAX [local]",
+    "module": "problems.multi.lircmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "LIRCMOP4 [local]",
+    "module": "problems.multi.lircmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "LIRCMOP4_JAX [local]",
+    "module": "problems.multi.lircmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "LIRCMOP5 [local]",
+    "module": "problems.multi.lircmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "LIRCMOP5_JAX [local]",
+    "module": "problems.multi.lircmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "LIRCMOP6 [local]",
+    "module": "problems.multi.lircmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "LIRCMOP6_JAX [local]",
+    "module": "problems.multi.lircmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "LIRCMOP7 [local]",
+    "module": "problems.multi.lircmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "LIRCMOP7_JAX [local]",
+    "module": "problems.multi.lircmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "LIRCMOP8 [local]",
+    "module": "problems.multi.lircmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.001
+  },
+  {
+    "label": "LIRCMOP8_JAX [local]",
+    "module": "problems.multi.lircmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "LIRCMOP9 [local]",
+    "module": "problems.multi.lircmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "LIRCMOP9_JAX [local]",
+    "module": "problems.multi.lircmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "LRMOP1 [local]",
+    "module": "problems.multi.lrmop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "LRMOP1_JAX [local]",
+    "module": "problems.multi.lrmop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "LRMOP2 [local]",
+    "module": "problems.multi.lrmop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.017,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "LRMOP2_JAX [local]",
+    "module": "problems.multi.lrmop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0174,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "LRMOP3 [local]",
+    "module": "problems.multi.lrmop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0167,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "LRMOP3_JAX [local]",
+    "module": "problems.multi.lrmop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0006,
+    "pf_s": 0.0169,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "LRMOP4 [local]",
+    "module": "problems.multi.lrmop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0183,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "LRMOP4_JAX [local]",
+    "module": "problems.multi.lrmop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0172,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "LRMOP5 [local]",
+    "module": "problems.multi.lrmop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "LRMOP5_JAX [local]",
+    "module": "problems.multi.lrmop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "LRMOP6 [local]",
+    "module": "problems.multi.lrmop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "LRMOP6_JAX [local]",
+    "module": "problems.multi.lrmop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "LSCM1 [local]",
+    "module": "problems.multi.lscm",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 100,
+    "factory_s": 0.0
+  },
+  {
+    "label": "LSCM10 [local]",
+    "module": "problems.multi.lscm",
+    "status": "skip_m_le_3",
+    "m": 3,
+    "d": 100,
+    "factory_s": 0.0
+  },
+  {
+    "label": "LSCM10_JAX [local]",
+    "module": "problems.multi.lscm",
+    "status": "skip_m_le_3",
+    "m": 3,
+    "d": 100,
+    "factory_s": 0.0
+  },
+  {
+    "label": "LSCM11 [local]",
+    "module": "problems.multi.lscm",
+    "status": "skip_m_le_3",
+    "m": 3,
+    "d": 100,
+    "factory_s": 0.0
+  },
+  {
+    "label": "LSCM11_JAX [local]",
+    "module": "problems.multi.lscm",
+    "status": "skip_m_le_3",
+    "m": 3,
+    "d": 100,
+    "factory_s": 0.0
+  },
+  {
+    "label": "LSCM12 [local]",
+    "module": "problems.multi.lscm",
+    "status": "skip_m_le_3",
+    "m": 3,
+    "d": 100,
+    "factory_s": 0.0
+  },
+  {
+    "label": "LSCM12_JAX [local]",
+    "module": "problems.multi.lscm",
+    "status": "skip_m_le_3",
+    "m": 3,
+    "d": 100,
+    "factory_s": 0.0015
+  },
+  {
+    "label": "LSCM1_JAX [local]",
+    "module": "problems.multi.lscm",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 100,
+    "factory_s": 0.0
+  },
+  {
+    "label": "LSCM2 [local]",
+    "module": "problems.multi.lscm",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 100,
+    "factory_s": 0.0
+  },
+  {
+    "label": "LSCM2_JAX [local]",
+    "module": "problems.multi.lscm",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 100,
+    "factory_s": 0.0
+  },
+  {
+    "label": "LSCM3 [local]",
+    "module": "problems.multi.lscm",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 100,
+    "factory_s": 0.0
+  },
+  {
+    "label": "LSCM3_JAX [local]",
+    "module": "problems.multi.lscm",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 100,
+    "factory_s": 0.0
+  },
+  {
+    "label": "LSCM4 [local]",
+    "module": "problems.multi.lscm",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 100,
+    "factory_s": 0.0
+  },
+  {
+    "label": "LSCM4_JAX [local]",
+    "module": "problems.multi.lscm",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 100,
+    "factory_s": 0.0
+  },
+  {
+    "label": "LSCM5 [local]",
+    "module": "problems.multi.lscm",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 100,
+    "factory_s": 0.001
+  },
+  {
+    "label": "LSCM5_JAX [local]",
+    "module": "problems.multi.lscm",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 100,
+    "factory_s": 0.0
+  },
+  {
+    "label": "LSCM6 [local]",
+    "module": "problems.multi.lscm",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 100,
+    "factory_s": 0.0
+  },
+  {
+    "label": "LSCM6_JAX [local]",
+    "module": "problems.multi.lscm",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 100,
+    "factory_s": 0.0
+  },
+  {
+    "label": "LSCM7 [local]",
+    "module": "problems.multi.lscm",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 100,
+    "factory_s": 0.0
+  },
+  {
+    "label": "LSCM7_JAX [local]",
+    "module": "problems.multi.lscm",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 100,
+    "factory_s": 0.0
+  },
+  {
+    "label": "LSCM8 [local]",
+    "module": "problems.multi.lscm",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 100,
+    "factory_s": 0.0
+  },
+  {
+    "label": "LSCM8_JAX [local]",
+    "module": "problems.multi.lscm",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 100,
+    "factory_s": 0.0
+  },
+  {
+    "label": "LSCM9 [local]",
+    "module": "problems.multi.lscm",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 100,
+    "factory_s": 0.001
+  },
+  {
+    "label": "LSCM9_JAX [local]",
+    "module": "problems.multi.lscm",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 100,
+    "factory_s": 0.0
+  },
+  {
+    "label": "MMOP_HS1 [local]",
+    "module": "problems.multi.lsmmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 1001,
+    "factory_s": 0.0
+  },
+  {
+    "label": "MMOP_HS1_JAX [local]",
+    "module": "problems.multi.lsmmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 1001,
+    "factory_s": 0.0
+  },
+  {
+    "label": "MMOP_HS2 [local]",
+    "module": "problems.multi.lsmmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 1001,
+    "factory_s": 0.0
+  },
+  {
+    "label": "MMOP_HS2_JAX [local]",
+    "module": "problems.multi.lsmmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 1001,
+    "factory_s": 0.0
+  },
+  {
+    "label": "MMOP_LS1 [local]",
+    "module": "problems.multi.lsmmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 1001,
+    "factory_s": 0.0
+  },
+  {
+    "label": "MMOP_LS1_JAX [local]",
+    "module": "problems.multi.lsmmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 1001,
+    "factory_s": 0.001
+  },
+  {
+    "label": "MMOP_LS2 [local]",
+    "module": "problems.multi.lsmmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 1001,
+    "factory_s": 0.0
+  },
+  {
+    "label": "MMOP_LS2_JAX [local]",
+    "module": "problems.multi.lsmmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 1001,
+    "factory_s": 0.0
+  },
+  {
+    "label": "MMOP_MS1 [local]",
+    "module": "problems.multi.lsmmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 1001,
+    "factory_s": 0.0
+  },
+  {
+    "label": "MMOP_MS1_JAX [local]",
+    "module": "problems.multi.lsmmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 1001,
+    "factory_s": 0.0
+  },
+  {
+    "label": "MMOP_MS2 [local]",
+    "module": "problems.multi.lsmmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 1001,
+    "factory_s": 0.0
+  },
+  {
+    "label": "MMOP_MS2_JAX [local]",
+    "module": "problems.multi.lsmmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 1001,
+    "factory_s": 0.0
+  },
+  {
+    "label": "MMOP_NS1 [local]",
+    "module": "problems.multi.lsmmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 1001,
+    "factory_s": 0.0
+  },
+  {
+    "label": "MMOP_NS1_JAX [local]",
+    "module": "problems.multi.lsmmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 1001,
+    "factory_s": 0.0
+  },
+  {
+    "label": "MMOP_NS2 [local]",
+    "module": "problems.multi.lsmmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 1001,
+    "factory_s": 0.0
+  },
+  {
+    "label": "MMOP_NS2_JAX [local]",
+    "module": "problems.multi.lsmmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 1001,
+    "factory_s": 0.0
+  },
+  {
+    "label": "MMF1 [local]",
+    "module": "problems.multi.mmf",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 2,
+    "factory_s": 0.001
+  },
+  {
+    "label": "MMF1_JAX [local]",
+    "module": "problems.multi.mmf",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 2,
+    "factory_s": 0.0
+  },
+  {
+    "label": "MMF2 [local]",
+    "module": "problems.multi.mmf",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 2,
+    "factory_s": 0.0
+  },
+  {
+    "label": "MMF2_JAX [local]",
+    "module": "problems.multi.mmf",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 2,
+    "factory_s": 0.0
+  },
+  {
+    "label": "MMF3 [local]",
+    "module": "problems.multi.mmf",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 2,
+    "factory_s": 0.0
+  },
+  {
+    "label": "MMF3_JAX [local]",
+    "module": "problems.multi.mmf",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 2,
+    "factory_s": 0.0
+  },
+  {
+    "label": "MMF4 [local]",
+    "module": "problems.multi.mmf",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 2,
+    "factory_s": 0.0
+  },
+  {
+    "label": "MMF4_JAX [local]",
+    "module": "problems.multi.mmf",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 2,
+    "factory_s": 0.0
+  },
+  {
+    "label": "MMF5 [local]",
+    "module": "problems.multi.mmf",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 2,
+    "factory_s": 0.0
+  },
+  {
+    "label": "MMF5_JAX [local]",
+    "module": "problems.multi.mmf",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 2,
+    "factory_s": 0.0
+  },
+  {
+    "label": "MMF6 [local]",
+    "module": "problems.multi.mmf",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 2,
+    "factory_s": 0.0
+  },
+  {
+    "label": "MMF6_JAX [local]",
+    "module": "problems.multi.mmf",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 2,
+    "factory_s": 0.0
+  },
+  {
+    "label": "MMF7 [local]",
+    "module": "problems.multi.mmf",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 2,
+    "factory_s": 0.0
+  },
+  {
+    "label": "MMF7_JAX [local]",
+    "module": "problems.multi.mmf",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 2,
+    "factory_s": 0.0
+  },
+  {
+    "label": "MMF8 [local]",
+    "module": "problems.multi.mmf",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 2,
+    "factory_s": 0.0
+  },
+  {
+    "label": "MMF8_JAX [local]",
+    "module": "problems.multi.mmf",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 2,
+    "factory_s": 0.0
+  },
+  {
+    "label": "MMMOP1 [local]",
+    "module": "problems.multi.mmmop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "MMMOP1_JAX [local]",
+    "module": "problems.multi.mmmop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "MMMOP2 [local]",
+    "module": "problems.multi.mmmop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "MMMOP2_JAX [local]",
+    "module": "problems.multi.mmmop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "MMMOP3 [local]",
+    "module": "problems.multi.mmmop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.001,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "MMMOP3_JAX [local]",
+    "module": "problems.multi.mmmop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "MMMOP4 [local]",
+    "module": "problems.multi.mmmop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "MMMOP4_JAX [local]",
+    "module": "problems.multi.mmmop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "MMMOP5 [local]",
+    "module": "problems.multi.mmmop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "MMMOP5_JAX [local]",
+    "module": "problems.multi.mmmop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "MMMOP6 [local]",
+    "module": "problems.multi.mmmop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "MMMOP6_JAX [local]",
+    "module": "problems.multi.mmmop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "MOEADDE_F1 [local]",
+    "module": "problems.multi.moeadde",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      2
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "MOEADDE_F1_JAX [local]",
+    "module": "problems.multi.moeadde",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      2
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "MOEADDE_F2 [local]",
+    "module": "problems.multi.moeadde",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      2
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "MOEADDE_F2_JAX [local]",
+    "module": "problems.multi.moeadde",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      2
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "MOEADDE_F3 [local]",
+    "module": "problems.multi.moeadde",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      2
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "MOEADDE_F3_JAX [local]",
+    "module": "problems.multi.moeadde",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0015,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      2
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "MOEADDE_F4 [local]",
+    "module": "problems.multi.moeadde",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      2
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "MOEADDE_F4_JAX [local]",
+    "module": "problems.multi.moeadde",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      2
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "MOEADDE_F5 [local]",
+    "module": "problems.multi.moeadde",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      2
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "MOEADDE_F5_JAX [local]",
+    "module": "problems.multi.moeadde",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      2
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "MOEADDE_F6 [local]",
+    "module": "problems.multi.moeadde",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      2
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "MOEADDE_F6_JAX [local]",
+    "module": "problems.multi.moeadde",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0007,
+    "pf_shape": [
+      220,
+      2
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "MOEADDE_F7 [local]",
+    "module": "problems.multi.moeadde",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      2
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "MOEADDE_F7_JAX [local]",
+    "module": "problems.multi.moeadde",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      2
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "MOEADDE_F8 [local]",
+    "module": "problems.multi.moeadde",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      2
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "MOEADDE_F8_JAX [local]",
+    "module": "problems.multi.moeadde",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      2
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "MOEADDE_F9 [local]",
+    "module": "problems.multi.moeadde",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.001,
+    "pf_s": 0.001,
+    "pf_shape": [
+      220,
+      2
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "MOEADDE_F9_JAX [local]",
+    "module": "problems.multi.moeadde",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      2
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "MOEADM2M_F1 [local]",
+    "module": "problems.multi.moeadm2m",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      2
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "MOEADM2M_F1_JAX [local]",
+    "module": "problems.multi.moeadm2m",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      2
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "MOEADM2M_F2 [local]",
+    "module": "problems.multi.moeadm2m",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      2
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "MOEADM2M_F2_JAX [local]",
+    "module": "problems.multi.moeadm2m",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      2
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "MOEADM2M_F3 [local]",
+    "module": "problems.multi.moeadm2m",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      2
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "MOEADM2M_F3_JAX [local]",
+    "module": "problems.multi.moeadm2m",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      2
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "MOEADM2M_F4 [local]",
+    "module": "problems.multi.moeadm2m",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0036,
+    "pf_shape": [
+      72,
+      2
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "MOEADM2M_F4_JAX [local]",
+    "module": "problems.multi.moeadm2m",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.004,
+    "pf_shape": [
+      72,
+      2
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "MOEADM2M_F5 [local]",
+    "module": "problems.multi.moeadm2m",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      2
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "MOEADM2M_F5_JAX [local]",
+    "module": "problems.multi.moeadm2m",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      2
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "MOEADM2M_F6 [local]",
+    "module": "problems.multi.moeadm2m",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      3
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "MOEADM2M_F6_JAX [local]",
+    "module": "problems.multi.moeadm2m",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.001,
+    "pf_shape": [
+      220,
+      3
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "MOEADM2M_F7 [local]",
+    "module": "problems.multi.moeadm2m",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      3
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "MOEADM2M_F7_JAX [local]",
+    "module": "problems.multi.moeadm2m",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      3
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "Instance1 [local]",
+    "module": "problems.multi.multitasking_mops",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 11,
+    "factory_s": 0.0
+  },
+  {
+    "label": "Instance1_JAX [local]",
+    "module": "problems.multi.multitasking_mops",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 11,
+    "factory_s": 0.0
+  },
+  {
+    "label": "Instance2 [local]",
+    "module": "problems.multi.multitasking_mops",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 11,
+    "factory_s": 0.0
+  },
+  {
+    "label": "Instance2_JAX [local]",
+    "module": "problems.multi.multitasking_mops",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 11,
+    "factory_s": 0.0015
+  },
+  {
+    "label": "MW1 [local]",
+    "module": "problems.multi.mw",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "MW10 [local]",
+    "module": "problems.multi.mw",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "MW10_JAX [local]",
+    "module": "problems.multi.mw",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "MW11 [local]",
+    "module": "problems.multi.mw",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "MW11_JAX [local]",
+    "module": "problems.multi.mw",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "MW12 [local]",
+    "module": "problems.multi.mw",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "MW12_JAX [local]",
+    "module": "problems.multi.mw",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "MW13 [local]",
+    "module": "problems.multi.mw",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "MW13_JAX [local]",
+    "module": "problems.multi.mw",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "MW14 [local]",
+    "module": "problems.multi.mw",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": null,
+    "pf_none": true
+  },
+  {
+    "label": "MW14_JAX [local]",
+    "module": "problems.multi.mw",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": null,
+    "pf_none": true
+  },
+  {
+    "label": "MW1_JAX [local]",
+    "module": "problems.multi.mw",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "MW2 [local]",
+    "module": "problems.multi.mw",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "MW2_JAX [local]",
+    "module": "problems.multi.mw",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "MW3 [local]",
+    "module": "problems.multi.mw",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "MW3_JAX [local]",
+    "module": "problems.multi.mw",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "MW4 [local]",
+    "module": "problems.multi.mw",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": null,
+    "pf_none": true
+  },
+  {
+    "label": "MW4_JAX [local]",
+    "module": "problems.multi.mw",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": null,
+    "pf_none": true
+  },
+  {
+    "label": "MW5 [local]",
+    "module": "problems.multi.mw",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0013
+  },
+  {
+    "label": "MW5_JAX [local]",
+    "module": "problems.multi.mw",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "MW6 [local]",
+    "module": "problems.multi.mw",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "MW6_JAX [local]",
+    "module": "problems.multi.mw",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "MW7 [local]",
+    "module": "problems.multi.mw",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "MW7_JAX [local]",
+    "module": "problems.multi.mw",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "MW8 [local]",
+    "module": "problems.multi.mw",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": null,
+    "pf_none": true
+  },
+  {
+    "label": "MW8_JAX [local]",
+    "module": "problems.multi.mw",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": null,
+    "pf_none": true
+  },
+  {
+    "label": "MW9 [local]",
+    "module": "problems.multi.mw",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "MW9_JAX [local]",
+    "module": "problems.multi.mw",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "MLDMP [local]",
+    "module": "problems.multi.realworld_mops",
+    "status": "ok",
+    "m": 10,
+    "d": 2,
+    "factory_s": 0.0031,
+    "pf_s": 0.0026,
+    "pf_shape": [
+      145,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "MLDMP_JAX [local]",
+    "module": "problems.multi.realworld_mops",
+    "status": "ok",
+    "m": 10,
+    "d": 2,
+    "factory_s": 0.0025,
+    "pf_s": 0.0027,
+    "pf_shape": [
+      145,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "MPDMP [local]",
+    "module": "problems.multi.realworld_mops",
+    "status": "ok",
+    "m": 10,
+    "d": 2,
+    "factory_s": 0.0,
+    "pf_s": 0.001,
+    "pf_shape": [
+      145,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "MPDMP_JAX [local]",
+    "module": "problems.multi.realworld_mops",
+    "status": "ok",
+    "m": 10,
+    "d": 2,
+    "factory_s": 0.0,
+    "pf_s": 0.0005,
+    "pf_shape": [
+      145,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "RMMEDA_F1 [local]",
+    "module": "problems.multi.rmmeda",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      2
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "RMMEDA_F10 [local]",
+    "module": "problems.multi.rmmeda",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      2
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "RMMEDA_F10_JAX [local]",
+    "module": "problems.multi.rmmeda",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      2
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "RMMEDA_F1_JAX [local]",
+    "module": "problems.multi.rmmeda",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.001,
+    "pf_shape": [
+      220,
+      2
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "RMMEDA_F2 [local]",
+    "module": "problems.multi.rmmeda",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      2
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "RMMEDA_F2_JAX [local]",
+    "module": "problems.multi.rmmeda",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      2
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "RMMEDA_F3 [local]",
+    "module": "problems.multi.rmmeda",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      2
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "RMMEDA_F3_JAX [local]",
+    "module": "problems.multi.rmmeda",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0005,
+    "pf_shape": [
+      220,
+      2
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "RMMEDA_F4 [local]",
+    "module": "problems.multi.rmmeda",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0005,
+    "pf_shape": [
+      220,
+      2
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "RMMEDA_F4_JAX [local]",
+    "module": "problems.multi.rmmeda",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      2
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "RMMEDA_F5 [local]",
+    "module": "problems.multi.rmmeda",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      2
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "RMMEDA_F5_JAX [local]",
+    "module": "problems.multi.rmmeda",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      2
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "RMMEDA_F6 [local]",
+    "module": "problems.multi.rmmeda",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0007,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      2
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "RMMEDA_F6_JAX [local]",
+    "module": "problems.multi.rmmeda",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      2
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "RMMEDA_F7 [local]",
+    "module": "problems.multi.rmmeda",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      2
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "RMMEDA_F7_JAX [local]",
+    "module": "problems.multi.rmmeda",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      2
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "RMMEDA_F8 [local]",
+    "module": "problems.multi.rmmeda",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      2
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "RMMEDA_F8_JAX [local]",
+    "module": "problems.multi.rmmeda",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      2
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "RMMEDA_F9 [local]",
+    "module": "problems.multi.rmmeda",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      2
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "RMMEDA_F9_JAX [local]",
+    "module": "problems.multi.rmmeda",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      2
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "RWMOP1 [local]",
+    "module": "problems.multi.rwmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 4,
+    "factory_s": 0.0
+  },
+  {
+    "label": "RWMOP10 [local]",
+    "module": "problems.multi.rwmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 2,
+    "factory_s": 0.001
+  },
+  {
+    "label": "RWMOP10_JAX [local]",
+    "module": "problems.multi.rwmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 2,
+    "factory_s": 0.0
+  },
+  {
+    "label": "RWMOP11 [local]",
+    "module": "problems.multi.rwmop",
+    "status": "ok",
+    "m": 5,
+    "d": 3,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": null,
+    "pf_none": true
+  },
+  {
+    "label": "RWMOP11_JAX [local]",
+    "module": "problems.multi.rwmop",
+    "status": "ok",
+    "m": 5,
+    "d": 3,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": null,
+    "pf_none": true
+  },
+  {
+    "label": "RWMOP12 [local]",
+    "module": "problems.multi.rwmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 4,
+    "factory_s": 0.0
+  },
+  {
+    "label": "RWMOP12_JAX [local]",
+    "module": "problems.multi.rwmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 4,
+    "factory_s": 0.0
+  },
+  {
+    "label": "RWMOP13 [local]",
+    "module": "problems.multi.rwmop",
+    "status": "skip_m_le_3",
+    "m": 3,
+    "d": 7,
+    "factory_s": 0.0
+  },
+  {
+    "label": "RWMOP13_JAX [local]",
+    "module": "problems.multi.rwmop",
+    "status": "skip_m_le_3",
+    "m": 3,
+    "d": 7,
+    "factory_s": 0.0
+  },
+  {
+    "label": "RWMOP14 [local]",
+    "module": "problems.multi.rwmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 5,
+    "factory_s": 0.0
+  },
+  {
+    "label": "RWMOP14_JAX [local]",
+    "module": "problems.multi.rwmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 5,
+    "factory_s": 0.0
+  },
+  {
+    "label": "RWMOP15 [local]",
+    "module": "problems.multi.rwmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 3,
+    "factory_s": 0.0
+  },
+  {
+    "label": "RWMOP15_JAX [local]",
+    "module": "problems.multi.rwmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 3,
+    "factory_s": 0.0
+  },
+  {
+    "label": "RWMOP16 [local]",
+    "module": "problems.multi.rwmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 2,
+    "factory_s": 0.0
+  },
+  {
+    "label": "RWMOP16_JAX [local]",
+    "module": "problems.multi.rwmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 2,
+    "factory_s": 0.0
+  },
+  {
+    "label": "RWMOP17 [local]",
+    "module": "problems.multi.rwmop",
+    "status": "skip_m_le_3",
+    "m": 3,
+    "d": 6,
+    "factory_s": 0.0
+  },
+  {
+    "label": "RWMOP17_JAX [local]",
+    "module": "problems.multi.rwmop",
+    "status": "skip_m_le_3",
+    "m": 3,
+    "d": 6,
+    "factory_s": 0.0
+  },
+  {
+    "label": "RWMOP18 [local]",
+    "module": "problems.multi.rwmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 3,
+    "factory_s": 0.0
+  },
+  {
+    "label": "RWMOP18_JAX [local]",
+    "module": "problems.multi.rwmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 3,
+    "factory_s": 0.0
+  },
+  {
+    "label": "RWMOP19 [local]",
+    "module": "problems.multi.rwmop",
+    "status": "skip_m_le_3",
+    "m": 3,
+    "d": 10,
+    "factory_s": 0.0
+  },
+  {
+    "label": "RWMOP19_JAX [local]",
+    "module": "problems.multi.rwmop",
+    "status": "skip_m_le_3",
+    "m": 3,
+    "d": 10,
+    "factory_s": 0.0
+  },
+  {
+    "label": "RWMOP1_JAX [local]",
+    "module": "problems.multi.rwmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 4,
+    "factory_s": 0.0
+  },
+  {
+    "label": "RWMOP2 [local]",
+    "module": "problems.multi.rwmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 5,
+    "factory_s": 0.0
+  },
+  {
+    "label": "RWMOP20 [local]",
+    "module": "problems.multi.rwmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 4,
+    "factory_s": 0.0
+  },
+  {
+    "label": "RWMOP20_JAX [local]",
+    "module": "problems.multi.rwmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 4,
+    "factory_s": 0.0
+  },
+  {
+    "label": "RWMOP21 [local]",
+    "module": "problems.multi.rwmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 6,
+    "factory_s": 0.0
+  },
+  {
+    "label": "RWMOP21_JAX [local]",
+    "module": "problems.multi.rwmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 6,
+    "factory_s": 0.0
+  },
+  {
+    "label": "RWMOP22 [local]",
+    "module": "problems.multi.rwmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 9,
+    "factory_s": 0.0
+  },
+  {
+    "label": "RWMOP22_JAX [local]",
+    "module": "problems.multi.rwmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 9,
+    "factory_s": 0.0
+  },
+  {
+    "label": "RWMOP23 [local]",
+    "module": "problems.multi.rwmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 6,
+    "factory_s": 0.0
+  },
+  {
+    "label": "RWMOP23_JAX [local]",
+    "module": "problems.multi.rwmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 6,
+    "factory_s": 0.0
+  },
+  {
+    "label": "RWMOP24 [local]",
+    "module": "problems.multi.rwmop",
+    "status": "skip_m_le_3",
+    "m": 3,
+    "d": 9,
+    "factory_s": 0.0
+  },
+  {
+    "label": "RWMOP24_JAX [local]",
+    "module": "problems.multi.rwmop",
+    "status": "skip_m_le_3",
+    "m": 3,
+    "d": 9,
+    "factory_s": 0.0
+  },
+  {
+    "label": "RWMOP25 [local]",
+    "module": "problems.multi.rwmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 2,
+    "factory_s": 0.0
+  },
+  {
+    "label": "RWMOP25_JAX [local]",
+    "module": "problems.multi.rwmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 2,
+    "factory_s": 0.001
+  },
+  {
+    "label": "RWMOP26 [local]",
+    "module": "problems.multi.rwmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 3,
+    "factory_s": 0.0
+  },
+  {
+    "label": "RWMOP26_JAX [local]",
+    "module": "problems.multi.rwmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 3,
+    "factory_s": 0.0
+  },
+  {
+    "label": "RWMOP27 [local]",
+    "module": "problems.multi.rwmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 3,
+    "factory_s": 0.0
+  },
+  {
+    "label": "RWMOP27_JAX [local]",
+    "module": "problems.multi.rwmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 3,
+    "factory_s": 0.0
+  },
+  {
+    "label": "RWMOP28 [local]",
+    "module": "problems.multi.rwmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 7,
+    "factory_s": 0.0
+  },
+  {
+    "label": "RWMOP28_JAX [local]",
+    "module": "problems.multi.rwmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 7,
+    "factory_s": 0.0
+  },
+  {
+    "label": "RWMOP29 [local]",
+    "module": "problems.multi.rwmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 7,
+    "factory_s": 0.0
+  },
+  {
+    "label": "RWMOP29_JAX [local]",
+    "module": "problems.multi.rwmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 7,
+    "factory_s": 0.0
+  },
+  {
+    "label": "RWMOP2_JAX [local]",
+    "module": "problems.multi.rwmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 5,
+    "factory_s": 0.0
+  },
+  {
+    "label": "RWMOP3 [local]",
+    "module": "problems.multi.rwmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 3,
+    "factory_s": 0.0
+  },
+  {
+    "label": "RWMOP30 [local]",
+    "module": "problems.multi.rwmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 25,
+    "factory_s": 0.0
+  },
+  {
+    "label": "RWMOP30_JAX [local]",
+    "module": "problems.multi.rwmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 25,
+    "factory_s": 0.0
+  },
+  {
+    "label": "RWMOP31 [local]",
+    "module": "problems.multi.rwmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 25,
+    "factory_s": 0.0
+  },
+  {
+    "label": "RWMOP31_JAX [local]",
+    "module": "problems.multi.rwmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 25,
+    "factory_s": 0.0
+  },
+  {
+    "label": "RWMOP32 [local]",
+    "module": "problems.multi.rwmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 25,
+    "factory_s": 0.0
+  },
+  {
+    "label": "RWMOP32_JAX [local]",
+    "module": "problems.multi.rwmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 25,
+    "factory_s": 0.0
+  },
+  {
+    "label": "RWMOP33 [local]",
+    "module": "problems.multi.rwmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 30,
+    "factory_s": 0.001
+  },
+  {
+    "label": "RWMOP33_JAX [local]",
+    "module": "problems.multi.rwmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 30,
+    "factory_s": 0.0
+  },
+  {
+    "label": "RWMOP34 [local]",
+    "module": "problems.multi.rwmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 30,
+    "factory_s": 0.0
+  },
+  {
+    "label": "RWMOP34_JAX [local]",
+    "module": "problems.multi.rwmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 30,
+    "factory_s": 0.0
+  },
+  {
+    "label": "RWMOP35 [local]",
+    "module": "problems.multi.rwmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 30,
+    "factory_s": 0.0
+  },
+  {
+    "label": "RWMOP35_JAX [local]",
+    "module": "problems.multi.rwmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 30,
+    "factory_s": 0.0
+  },
+  {
+    "label": "RWMOP36 [local]",
+    "module": "problems.multi.rwmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 28,
+    "factory_s": 0.0
+  },
+  {
+    "label": "RWMOP36_JAX [local]",
+    "module": "problems.multi.rwmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 28,
+    "factory_s": 0.0
+  },
+  {
+    "label": "RWMOP37 [local]",
+    "module": "problems.multi.rwmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 28,
+    "factory_s": 0.0
+  },
+  {
+    "label": "RWMOP37_JAX [local]",
+    "module": "problems.multi.rwmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 28,
+    "factory_s": 0.0
+  },
+  {
+    "label": "RWMOP38 [local]",
+    "module": "problems.multi.rwmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 28,
+    "factory_s": 0.0
+  },
+  {
+    "label": "RWMOP38_JAX [local]",
+    "module": "problems.multi.rwmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 28,
+    "factory_s": 0.0
+  },
+  {
+    "label": "RWMOP39 [local]",
+    "module": "problems.multi.rwmop",
+    "status": "skip_m_le_3",
+    "m": 3,
+    "d": 28,
+    "factory_s": 0.0
+  },
+  {
+    "label": "RWMOP39_JAX [local]",
+    "module": "problems.multi.rwmop",
+    "status": "skip_m_le_3",
+    "m": 3,
+    "d": 28,
+    "factory_s": 0.0
+  },
+  {
+    "label": "RWMOP3_JAX [local]",
+    "module": "problems.multi.rwmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 3,
+    "factory_s": 0.0
+  },
+  {
+    "label": "RWMOP4 [local]",
+    "module": "problems.multi.rwmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 4,
+    "factory_s": 0.0
+  },
+  {
+    "label": "RWMOP40 [local]",
+    "module": "problems.multi.rwmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 34,
+    "factory_s": 0.0
+  },
+  {
+    "label": "RWMOP40_JAX [local]",
+    "module": "problems.multi.rwmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 34,
+    "factory_s": 0.0
+  },
+  {
+    "label": "RWMOP41 [local]",
+    "module": "problems.multi.rwmop",
+    "status": "skip_m_le_3",
+    "m": 3,
+    "d": 34,
+    "factory_s": 0.0
+  },
+  {
+    "label": "RWMOP41_JAX [local]",
+    "module": "problems.multi.rwmop",
+    "status": "skip_m_le_3",
+    "m": 3,
+    "d": 34,
+    "factory_s": 0.0
+  },
+  {
+    "label": "RWMOP42 [local]",
+    "module": "problems.multi.rwmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 34,
+    "factory_s": 0.0
+  },
+  {
+    "label": "RWMOP42_JAX [local]",
+    "module": "problems.multi.rwmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 34,
+    "factory_s": 0.0
+  },
+  {
+    "label": "RWMOP43 [local]",
+    "module": "problems.multi.rwmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 34,
+    "factory_s": 0.0
+  },
+  {
+    "label": "RWMOP43_JAX [local]",
+    "module": "problems.multi.rwmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 34,
+    "factory_s": 0.0
+  },
+  {
+    "label": "RWMOP44 [local]",
+    "module": "problems.multi.rwmop",
+    "status": "skip_m_le_3",
+    "m": 3,
+    "d": 34,
+    "factory_s": 0.0
+  },
+  {
+    "label": "RWMOP44_JAX [local]",
+    "module": "problems.multi.rwmop",
+    "status": "skip_m_le_3",
+    "m": 3,
+    "d": 34,
+    "factory_s": 0.0
+  },
+  {
+    "label": "RWMOP45 [local]",
+    "module": "problems.multi.rwmop",
+    "status": "skip_m_le_3",
+    "m": 3,
+    "d": 34,
+    "factory_s": 0.0
+  },
+  {
+    "label": "RWMOP45_JAX [local]",
+    "module": "problems.multi.rwmop",
+    "status": "skip_m_le_3",
+    "m": 3,
+    "d": 34,
+    "factory_s": 0.0
+  },
+  {
+    "label": "RWMOP46 [local]",
+    "module": "problems.multi.rwmop",
+    "status": "ok",
+    "m": 4,
+    "d": 34,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": null,
+    "pf_none": true
+  },
+  {
+    "label": "RWMOP46_JAX [local]",
+    "module": "problems.multi.rwmop",
+    "status": "ok",
+    "m": 4,
+    "d": 34,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": null,
+    "pf_none": true
+  },
+  {
+    "label": "RWMOP47 [local]",
+    "module": "problems.multi.rwmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 18,
+    "factory_s": 0.0011
+  },
+  {
+    "label": "RWMOP47_JAX [local]",
+    "module": "problems.multi.rwmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 18,
+    "factory_s": 0.0
+  },
+  {
+    "label": "RWMOP48 [local]",
+    "module": "problems.multi.rwmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 18,
+    "factory_s": 0.0
+  },
+  {
+    "label": "RWMOP48_JAX [local]",
+    "module": "problems.multi.rwmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 18,
+    "factory_s": 0.0
+  },
+  {
+    "label": "RWMOP49 [local]",
+    "module": "problems.multi.rwmop",
+    "status": "skip_m_le_3",
+    "m": 3,
+    "d": 18,
+    "factory_s": 0.0
+  },
+  {
+    "label": "RWMOP49_JAX [local]",
+    "module": "problems.multi.rwmop",
+    "status": "skip_m_le_3",
+    "m": 3,
+    "d": 18,
+    "factory_s": 0.0
+  },
+  {
+    "label": "RWMOP4_JAX [local]",
+    "module": "problems.multi.rwmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 4,
+    "factory_s": 0.0
+  },
+  {
+    "label": "RWMOP5 [local]",
+    "module": "problems.multi.rwmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 4,
+    "factory_s": 0.0
+  },
+  {
+    "label": "RWMOP50 [local]",
+    "module": "problems.multi.rwmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 6,
+    "factory_s": 0.0
+  },
+  {
+    "label": "RWMOP50_JAX [local]",
+    "module": "problems.multi.rwmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 6,
+    "factory_s": 0.0
+  },
+  {
+    "label": "RWMOP5_JAX [local]",
+    "module": "problems.multi.rwmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 4,
+    "factory_s": 0.0
+  },
+  {
+    "label": "RWMOP6 [local]",
+    "module": "problems.multi.rwmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 7,
+    "factory_s": 0.0
+  },
+  {
+    "label": "RWMOP6_JAX [local]",
+    "module": "problems.multi.rwmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 7,
+    "factory_s": 0.0
+  },
+  {
+    "label": "RWMOP7 [local]",
+    "module": "problems.multi.rwmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 4,
+    "factory_s": 0.0
+  },
+  {
+    "label": "RWMOP7_JAX [local]",
+    "module": "problems.multi.rwmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 4,
+    "factory_s": 0.0
+  },
+  {
+    "label": "RWMOP8 [local]",
+    "module": "problems.multi.rwmop",
+    "status": "skip_m_le_3",
+    "m": 3,
+    "d": 7,
+    "factory_s": 0.0
+  },
+  {
+    "label": "RWMOP8_JAX [local]",
+    "module": "problems.multi.rwmop",
+    "status": "skip_m_le_3",
+    "m": 3,
+    "d": 7,
+    "factory_s": 0.0
+  },
+  {
+    "label": "RWMOP9 [local]",
+    "module": "problems.multi.rwmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 4,
+    "factory_s": 0.0
+  },
+  {
+    "label": "RWMOP9_JAX [local]",
+    "module": "problems.multi.rwmop",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 4,
+    "factory_s": 0.0
+  },
+  {
+    "label": "SDC1 [local]",
+    "module": "problems.multi.sdc",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "SDC10 [local]",
+    "module": "problems.multi.sdc",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "SDC10_JAX [local]",
+    "module": "problems.multi.sdc",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "SDC11 [local]",
+    "module": "problems.multi.sdc",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "SDC11_JAX [local]",
+    "module": "problems.multi.sdc",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "SDC12 [local]",
+    "module": "problems.multi.sdc",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "SDC12_JAX [local]",
+    "module": "problems.multi.sdc",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "SDC13 [local]",
+    "module": "problems.multi.sdc",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "SDC13_JAX [local]",
+    "module": "problems.multi.sdc",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "SDC14 [local]",
+    "module": "problems.multi.sdc",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "SDC14_JAX [local]",
+    "module": "problems.multi.sdc",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "SDC15 [local]",
+    "module": "problems.multi.sdc",
+    "status": "skip_m_le_3",
+    "m": 3,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "SDC15_JAX [local]",
+    "module": "problems.multi.sdc",
+    "status": "skip_m_le_3",
+    "m": 3,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "SDC1_JAX [local]",
+    "module": "problems.multi.sdc",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "SDC2 [local]",
+    "module": "problems.multi.sdc",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0015
+  },
+  {
+    "label": "SDC2_JAX [local]",
+    "module": "problems.multi.sdc",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "SDC3 [local]",
+    "module": "problems.multi.sdc",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "SDC3_JAX [local]",
+    "module": "problems.multi.sdc",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "SDC4 [local]",
+    "module": "problems.multi.sdc",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "SDC4_JAX [local]",
+    "module": "problems.multi.sdc",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "SDC5 [local]",
+    "module": "problems.multi.sdc",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "SDC5_JAX [local]",
+    "module": "problems.multi.sdc",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "SDC6 [local]",
+    "module": "problems.multi.sdc",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "SDC6_JAX [local]",
+    "module": "problems.multi.sdc",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "SDC7 [local]",
+    "module": "problems.multi.sdc",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "SDC7_JAX [local]",
+    "module": "problems.multi.sdc",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "SDC8 [local]",
+    "module": "problems.multi.sdc",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "SDC8_JAX [local]",
+    "module": "problems.multi.sdc",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "SDC9 [local]",
+    "module": "problems.multi.sdc",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.001
+  },
+  {
+    "label": "SDC9_JAX [local]",
+    "module": "problems.multi.sdc",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "SMD1 [local]",
+    "module": "problems.multi.smd",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "SMD10 [local]",
+    "module": "problems.multi.smd",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "SMD10_JAX [local]",
+    "module": "problems.multi.smd",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "SMD11 [local]",
+    "module": "problems.multi.smd",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "SMD11_JAX [local]",
+    "module": "problems.multi.smd",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "SMD12 [local]",
+    "module": "problems.multi.smd",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "SMD12_JAX [local]",
+    "module": "problems.multi.smd",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0005
+  },
+  {
+    "label": "SMD1_JAX [local]",
+    "module": "problems.multi.smd",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "SMD2 [local]",
+    "module": "problems.multi.smd",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "SMD2_JAX [local]",
+    "module": "problems.multi.smd",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "SMD3 [local]",
+    "module": "problems.multi.smd",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "SMD3_JAX [local]",
+    "module": "problems.multi.smd",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "SMD4 [local]",
+    "module": "problems.multi.smd",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "SMD4_JAX [local]",
+    "module": "problems.multi.smd",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "SMD5 [local]",
+    "module": "problems.multi.smd",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "SMD5_JAX [local]",
+    "module": "problems.multi.smd",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "SMD6 [local]",
+    "module": "problems.multi.smd",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "SMD6_JAX [local]",
+    "module": "problems.multi.smd",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "SMD7 [local]",
+    "module": "problems.multi.smd",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "SMD7_JAX [local]",
+    "module": "problems.multi.smd",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "SMD8 [local]",
+    "module": "problems.multi.smd",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "SMD8_JAX [local]",
+    "module": "problems.multi.smd",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "SMD9 [local]",
+    "module": "problems.multi.smd",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "SMD9_JAX [local]",
+    "module": "problems.multi.smd",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "SMMOP1 [local]",
+    "module": "problems.multi.smmop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "SMMOP1_JAX [local]",
+    "module": "problems.multi.smmop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "SMMOP2 [local]",
+    "module": "problems.multi.smmop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "SMMOP2_JAX [local]",
+    "module": "problems.multi.smmop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "SMMOP3 [local]",
+    "module": "problems.multi.smmop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "SMMOP3_JAX [local]",
+    "module": "problems.multi.smmop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "SMMOP4 [local]",
+    "module": "problems.multi.smmop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0165,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "SMMOP4_JAX [local]",
+    "module": "problems.multi.smmop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0181,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "SMMOP5 [local]",
+    "module": "problems.multi.smmop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0166,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "SMMOP5_JAX [local]",
+    "module": "problems.multi.smmop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0175,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "SMMOP6 [local]",
+    "module": "problems.multi.smmop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0174,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "SMMOP6_JAX [local]",
+    "module": "problems.multi.smmop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0178,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "SMMOP7 [local]",
+    "module": "problems.multi.smmop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "SMMOP7_JAX [local]",
+    "module": "problems.multi.smmop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0005,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "SMMOP8 [local]",
+    "module": "problems.multi.smmop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "SMMOP8_JAX [local]",
+    "module": "problems.multi.smmop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "SMOP1 [local]",
+    "module": "problems.multi.smop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "SMOP1_JAX [local]",
+    "module": "problems.multi.smop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "SMOP2 [local]",
+    "module": "problems.multi.smop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "SMOP2_JAX [local]",
+    "module": "problems.multi.smop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "SMOP3 [local]",
+    "module": "problems.multi.smop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "SMOP3_JAX [local]",
+    "module": "problems.multi.smop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "SMOP4 [local]",
+    "module": "problems.multi.smop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0179,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "SMOP4_JAX [local]",
+    "module": "problems.multi.smop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0183,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "SMOP5 [local]",
+    "module": "problems.multi.smop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0172,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "SMOP5_JAX [local]",
+    "module": "problems.multi.smop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0014,
+    "pf_s": 0.0175,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "SMOP6 [local]",
+    "module": "problems.multi.smop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0171,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "SMOP6_JAX [local]",
+    "module": "problems.multi.smop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0169,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "SMOP7 [local]",
+    "module": "problems.multi.smop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "SMOP7_JAX [local]",
+    "module": "problems.multi.smop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "SMOP8 [local]",
+    "module": "problems.multi.smop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0012,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "SMOP8_JAX [local]",
+    "module": "problems.multi.smop",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0,
+    "pf_shape": [
+      220,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "TP1 [local]",
+    "module": "problems.multi.tp",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "TP10 [local]",
+    "module": "problems.multi.tp",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 3,
+    "factory_s": 0.0
+  },
+  {
+    "label": "TP10_JAX [local]",
+    "module": "problems.multi.tp",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 3,
+    "factory_s": 0.0
+  },
+  {
+    "label": "TP1_JAX [local]",
+    "module": "problems.multi.tp",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "TP2 [local]",
+    "module": "problems.multi.tp",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "TP2_JAX [local]",
+    "module": "problems.multi.tp",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "TP3 [local]",
+    "module": "problems.multi.tp",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "TP3_JAX [local]",
+    "module": "problems.multi.tp",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "TP4 [local]",
+    "module": "problems.multi.tp",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "TP4_JAX [local]",
+    "module": "problems.multi.tp",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "TP5 [local]",
+    "module": "problems.multi.tp",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "TP5_JAX [local]",
+    "module": "problems.multi.tp",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "TP6 [local]",
+    "module": "problems.multi.tp",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.001
+  },
+  {
+    "label": "TP6_JAX [local]",
+    "module": "problems.multi.tp",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "TP7 [local]",
+    "module": "problems.multi.tp",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "TP7_JAX [local]",
+    "module": "problems.multi.tp",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "TP8 [local]",
+    "module": "problems.multi.tp",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "TP8_JAX [local]",
+    "module": "problems.multi.tp",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "TP9 [local]",
+    "module": "problems.multi.tp",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "TP9_JAX [local]",
+    "module": "problems.multi.tp",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "UF1 [local]",
+    "module": "problems.multi.uf",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "UF10 [local]",
+    "module": "problems.multi.uf",
+    "status": "skip_m_le_3",
+    "m": 3,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "UF10_JAX [local]",
+    "module": "problems.multi.uf",
+    "status": "skip_m_le_3",
+    "m": 3,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "UF1_JAX [local]",
+    "module": "problems.multi.uf",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "UF2 [local]",
+    "module": "problems.multi.uf",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "UF2_JAX [local]",
+    "module": "problems.multi.uf",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "UF3 [local]",
+    "module": "problems.multi.uf",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "UF3_JAX [local]",
+    "module": "problems.multi.uf",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "UF4 [local]",
+    "module": "problems.multi.uf",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "UF4_JAX [local]",
+    "module": "problems.multi.uf",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.001
+  },
+  {
+    "label": "UF5 [local]",
+    "module": "problems.multi.uf",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "UF5_JAX [local]",
+    "module": "problems.multi.uf",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "UF6 [local]",
+    "module": "problems.multi.uf",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "UF6_JAX [local]",
+    "module": "problems.multi.uf",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "UF7 [local]",
+    "module": "problems.multi.uf",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "UF7_JAX [local]",
+    "module": "problems.multi.uf",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "UF8 [local]",
+    "module": "problems.multi.uf",
+    "status": "skip_m_le_3",
+    "m": 3,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "UF8_JAX [local]",
+    "module": "problems.multi.uf",
+    "status": "skip_m_le_3",
+    "m": 3,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "UF9 [local]",
+    "module": "problems.multi.uf",
+    "status": "skip_m_le_3",
+    "m": 3,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "UF9_JAX [local]",
+    "module": "problems.multi.uf",
+    "status": "skip_m_le_3",
+    "m": 3,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "VNT1 [local]",
+    "module": "problems.multi.vnt",
+    "status": "skip_m_le_3",
+    "m": 3,
+    "d": 2,
+    "factory_s": 0.0005
+  },
+  {
+    "label": "VNT1_JAX [local]",
+    "module": "problems.multi.vnt",
+    "status": "skip_m_le_3",
+    "m": 3,
+    "d": 2,
+    "factory_s": 0.0
+  },
+  {
+    "label": "VNT2 [local]",
+    "module": "problems.multi.vnt",
+    "status": "skip_m_le_3",
+    "m": 3,
+    "d": 2,
+    "factory_s": 0.0
+  },
+  {
+    "label": "VNT2_JAX [local]",
+    "module": "problems.multi.vnt",
+    "status": "skip_m_le_3",
+    "m": 3,
+    "d": 2,
+    "factory_s": 0.0
+  },
+  {
+    "label": "VNT3 [local]",
+    "module": "problems.multi.vnt",
+    "status": "skip_m_le_3",
+    "m": 3,
+    "d": 2,
+    "factory_s": 0.0
+  },
+  {
+    "label": "VNT3_JAX [local]",
+    "module": "problems.multi.vnt",
+    "status": "skip_m_le_3",
+    "m": 3,
+    "d": 2,
+    "factory_s": 0.0
+  },
+  {
+    "label": "VNT4 [local]",
+    "module": "problems.multi.vnt",
+    "status": "skip_m_le_3",
+    "m": 3,
+    "d": 2,
+    "factory_s": 0.0
+  },
+  {
+    "label": "VNT4_JAX [local]",
+    "module": "problems.multi.vnt",
+    "status": "skip_m_le_3",
+    "m": 3,
+    "d": 2,
+    "factory_s": 0.0
+  },
+  {
+    "label": "ZDT1 [local]",
+    "module": "problems.multi.zdt",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "ZDT1_JAX [local]",
+    "module": "problems.multi.zdt",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "ZDT2 [local]",
+    "module": "problems.multi.zdt",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "ZDT2_JAX [local]",
+    "module": "problems.multi.zdt",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "ZDT3 [local]",
+    "module": "problems.multi.zdt",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "ZDT3_JAX [local]",
+    "module": "problems.multi.zdt",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "ZDT4 [local]",
+    "module": "problems.multi.zdt",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "ZDT4_JAX [local]",
+    "module": "problems.multi.zdt",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "ZDT5 [local]",
+    "module": "problems.multi.zdt",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 35,
+    "factory_s": 0.0
+  },
+  {
+    "label": "ZDT5_JAX [local]",
+    "module": "problems.multi.zdt",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 35,
+    "factory_s": 0.0
+  },
+  {
+    "label": "ZDT6 [local]",
+    "module": "problems.multi.zdt",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "ZDT6_JAX [local]",
+    "module": "problems.multi.zdt",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 19,
+    "factory_s": 0.0
+  },
+  {
+    "label": "ZDT1_LLM [local]",
+    "module": "problems.multi.zdt1_llm",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 30,
+    "factory_s": 0.0
+  },
+  {
+    "label": "ZDT1_LLM_JAX [local]",
+    "module": "problems.multi.zdt1_llm_JAX",
+    "status": "skip_m_le_3",
+    "m": 2,
+    "d": 30,
+    "factory_s": 0.0
+  },
+  {
+    "label": "ZXH_CF1 [local]",
+    "module": "problems.multi.zxh_cf",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.7053,
+    "pf_shape": [
+      3526,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "ZXH_CF10 [local]",
+    "module": "problems.multi.zxh_cf",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.009,
+    "pf_shape": [
+      71,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "ZXH_CF10_JAX [local]",
+    "module": "problems.multi.zxh_cf",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0085,
+    "pf_shape": [
+      71,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "ZXH_CF11 [local]",
+    "module": "problems.multi.zxh_cf",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0085,
+    "pf_shape": [
+      71,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "ZXH_CF11_JAX [local]",
+    "module": "problems.multi.zxh_cf",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0077,
+    "pf_shape": [
+      71,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "ZXH_CF12 [local]",
+    "module": "problems.multi.zxh_cf",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0078,
+    "pf_shape": [
+      71,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "ZXH_CF12_JAX [local]",
+    "module": "problems.multi.zxh_cf",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0074,
+    "pf_shape": [
+      71,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "ZXH_CF13 [local]",
+    "module": "problems.multi.zxh_cf",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.001,
+    "pf_s": 0.2948,
+    "pf_shape": [
+      2157,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "ZXH_CF13_JAX [local]",
+    "module": "problems.multi.zxh_cf",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.2943,
+    "pf_shape": [
+      2157,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "ZXH_CF14 [local]",
+    "module": "problems.multi.zxh_cf",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.2924,
+    "pf_shape": [
+      2157,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "ZXH_CF14_JAX [local]",
+    "module": "problems.multi.zxh_cf",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.2975,
+    "pf_shape": [
+      2157,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "ZXH_CF15 [local]",
+    "module": "problems.multi.zxh_cf",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.2843,
+    "pf_shape": [
+      2157,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "ZXH_CF15_JAX [local]",
+    "module": "problems.multi.zxh_cf",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.2889,
+    "pf_shape": [
+      2157,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "ZXH_CF16 [local]",
+    "module": "problems.multi.zxh_cf",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.2857,
+    "pf_shape": [
+      2157,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "ZXH_CF16_JAX [local]",
+    "module": "problems.multi.zxh_cf",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.001,
+    "pf_s": 0.2882,
+    "pf_shape": [
+      2157,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "ZXH_CF1_JAX [local]",
+    "module": "problems.multi.zxh_cf",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0015,
+    "pf_s": 0.7148,
+    "pf_shape": [
+      3526,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "ZXH_CF2 [local]",
+    "module": "problems.multi.zxh_cf",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.7146,
+    "pf_shape": [
+      3526,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "ZXH_CF2_JAX [local]",
+    "module": "problems.multi.zxh_cf",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.7623,
+    "pf_shape": [
+      3526,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "ZXH_CF3 [local]",
+    "module": "problems.multi.zxh_cf",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.7225,
+    "pf_shape": [
+      3526,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "ZXH_CF3_JAX [local]",
+    "module": "problems.multi.zxh_cf",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.7308,
+    "pf_shape": [
+      3526,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "ZXH_CF4 [local]",
+    "module": "problems.multi.zxh_cf",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.7145,
+    "pf_shape": [
+      3526,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "ZXH_CF4_JAX [local]",
+    "module": "problems.multi.zxh_cf",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.7146,
+    "pf_shape": [
+      3526,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "ZXH_CF5 [local]",
+    "module": "problems.multi.zxh_cf",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0091,
+    "pf_shape": [
+      131,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "ZXH_CF5_JAX [local]",
+    "module": "problems.multi.zxh_cf",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0017,
+    "pf_s": 0.0105,
+    "pf_shape": [
+      131,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "ZXH_CF6 [local]",
+    "module": "problems.multi.zxh_cf",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.01,
+    "pf_shape": [
+      131,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "ZXH_CF6_JAX [local]",
+    "module": "problems.multi.zxh_cf",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0095,
+    "pf_shape": [
+      131,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "ZXH_CF7 [local]",
+    "module": "problems.multi.zxh_cf",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0092,
+    "pf_shape": [
+      131,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "ZXH_CF7_JAX [local]",
+    "module": "problems.multi.zxh_cf",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0091,
+    "pf_shape": [
+      131,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "ZXH_CF8 [local]",
+    "module": "problems.multi.zxh_cf",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0096,
+    "pf_shape": [
+      131,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "ZXH_CF8_JAX [local]",
+    "module": "problems.multi.zxh_cf",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.001,
+    "pf_s": 0.01,
+    "pf_shape": [
+      131,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "ZXH_CF9 [local]",
+    "module": "problems.multi.zxh_cf",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0086,
+    "pf_shape": [
+      71,
+      10
+    ],
+    "pf_none": false
+  },
+  {
+    "label": "ZXH_CF9_JAX [local]",
+    "module": "problems.multi.zxh_cf",
+    "status": "ok",
+    "m": 10,
+    "d": 19,
+    "factory_s": 0.0,
+    "pf_s": 0.0085,
+    "pf_shape": [
+      71,
+      10
+    ],
+    "pf_none": false
+  }
+]

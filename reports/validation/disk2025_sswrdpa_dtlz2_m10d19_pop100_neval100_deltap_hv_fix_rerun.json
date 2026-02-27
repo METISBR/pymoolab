@@ -1,0 +1,43 @@
+{
+  "protocol": {
+    "problem": "DTLZ2 [local]",
+    "n_obj": 10,
+    "n_var": 19,
+    "pop_size": 100,
+    "max_fe": 100,
+    "metrics": [
+      "DeltaP [local]",
+      "HV [local]"
+    ],
+    "compute_backend": "cpu",
+    "hv_mc_samples": 5000
+  },
+  "results": [
+    {
+      "algorithm": "DISK_2025 [local]",
+      "status": "ok",
+      "elapsed_s": 0.048129499999049585,
+      "front_shape": [
+        62,
+        10
+      ],
+      "metrics": {
+        "DeltaP [local]": 1.1860292530587218,
+        "HV [local]": 0.028950067976302316
+      }
+    },
+    {
+      "algorithm": "SSW_RDPA [local]",
+      "status": "ok",
+      "elapsed_s": 0.014629200002673315,
+      "front_shape": [
+        42,
+        10
+      ],
+      "metrics": {
+        "DeltaP [local]": 1.1686079837484364,
+        "HV [local]": 0.013801368946942148
+      }
+    }
+  ]
+}

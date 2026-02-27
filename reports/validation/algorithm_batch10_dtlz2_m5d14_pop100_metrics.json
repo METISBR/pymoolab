@@ -1,0 +1,102 @@
+[
+  {
+    "algorithm": "MOEADDE",
+    "status": "ok",
+    "F_shape": [
+      72,
+      5
+    ],
+    "DeltaP": 0.5645282951141207,
+    "HV": 0.213855
+  },
+  {
+    "algorithm": "CMOEAD",
+    "status": "ok",
+    "F_shape": [
+      73,
+      5
+    ],
+    "DeltaP": 0.4164782618592236,
+    "HV": 0.2611111446672283
+  },
+  {
+    "algorithm": "MOEADDRA",
+    "status": "ok",
+    "F_shape": [
+      71,
+      5
+    ],
+    "DeltaP": 0.7200295440642324,
+    "HV": 0.15441552449390641
+  },
+  {
+    "algorithm": "ENSMOEAD",
+    "status": "ok",
+    "F_shape": [
+      60,
+      5
+    ],
+    "DeltaP": 0.5334121785438554,
+    "HV": 0.184952
+  },
+  {
+    "algorithm": "MOEADPaS",
+    "status": "ok",
+    "F_shape": [
+      74,
+      5
+    ],
+    "DeltaP": 0.6423622111873213,
+    "HV": 0.1053220614672904
+  },
+  {
+    "algorithm": "MOEADDU",
+    "status": "ok",
+    "F_shape": [
+      67,
+      5
+    ],
+    "DeltaP": 0.5236284534588334,
+    "HV": 0.13578503661791924
+  },
+  {
+    "algorithm": "MOEADDCWV",
+    "status": "ok",
+    "F_shape": [
+      61,
+      5
+    ],
+    "DeltaP": 0.5850133342458537,
+    "HV": 0.13104622253707182
+  },
+  {
+    "algorithm": "eMOEA",
+    "status": "ok",
+    "F_shape": [
+      186,
+      5
+    ],
+    "DeltaP": 0.41431328380763643,
+    "HV": 0.3395333459107597
+  },
+  {
+    "algorithm": "gNSGAII",
+    "status": "ok",
+    "F_shape": [
+      100,
+      5
+    ],
+    "DeltaP": 0.9161539161997309,
+    "HV": 0.03004643656394234
+  },
+  {
+    "algorithm": "FLEA",
+    "status": "ok",
+    "F_shape": [
+      100,
+      5
+    ],
+    "DeltaP": 0.8058476248499692,
+    "HV": 0.1515815704433943
+  }
+]

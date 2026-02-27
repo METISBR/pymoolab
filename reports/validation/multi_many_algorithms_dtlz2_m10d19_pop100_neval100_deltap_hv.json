@@ -1,0 +1,3727 @@
+{
+  "benchmark": {
+    "problem": "DTLZ2",
+    "n_obj": 10,
+    "n_var": 19,
+    "pop_size": 100,
+    "n_eval": 100,
+    "metrics": [
+      "DeltaP",
+      "HV"
+    ],
+    "hv_mc_samples": 5000
+  },
+  "scope": {
+    "algorithm_source": "local",
+    "flags": [
+      "multi",
+      "many"
+    ],
+    "count": 285
+  },
+  "results": [
+    {
+      "algorithm": "ABSAEA",
+      "algorithm_id": "local::algorithms.ab_saea.ab_saea.ABSAEA",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.013066
+    },
+    {
+      "algorithm": "ACMMEA",
+      "algorithm_id": "local::algorithms.ac_mmea.ac_mmea.ACMMEA",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.010649
+    },
+    {
+      "algorithm": "AdaW",
+      "algorithm_id": "local::algorithms.adaw.adaw.AdaW",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        53,
+        10
+      ],
+      "DeltaP": 1.2343975435436128,
+      "HV": 0.02188167270639305,
+      "elapsed_s": 0.0162
+    },
+    {
+      "algorithm": "ADSAPSO",
+      "algorithm_id": "local::algorithms.adsapso.adsapso.ADSAPSO",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.010696
+    },
+    {
+      "algorithm": "AENSGAII",
+      "algorithm_id": "local::algorithms.ae_nsgaii.ae_nsgaii.AENSGAII",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.010656
+    },
+    {
+      "algorithm": "AFSEA",
+      "algorithm_id": "local::algorithms.afsea.afsea.AFSEA",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.010486
+    },
+    {
+      "algorithm": "AGEII",
+      "algorithm_id": "local::algorithms.age_ii.age_ii.AGEII",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.010308
+    },
+    {
+      "algorithm": "AGSEA",
+      "algorithm_id": "local::algorithms.agsea.agsea.AGSEA",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.010697
+    },
+    {
+      "algorithm": "AMGPSL",
+      "algorithm_id": "local::algorithms.amg_psl.amg_psl.AMGPSL",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.010585
+    },
+    {
+      "algorithm": "ANSGAIII",
+      "algorithm_id": "local::algorithms.a_nsga_iii.a_nsga_iii.ANSGAIII",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        41,
+        10
+      ],
+      "DeltaP": 1.207121128979486,
+      "HV": 0.02727260946293296,
+      "elapsed_s": 0.021319
+    },
+    {
+      "algorithm": "APSEA",
+      "algorithm_id": "local::algorithms.apsea.apsea.APSEA",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.010567
+    },
+    {
+      "algorithm": "ARMOEA",
+      "algorithm_id": "local::algorithms.ar_moea.ar_moea.ARMOEA",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.010456
+    },
+    {
+      "algorithm": "AVGSAEA",
+      "algorithm_id": "local::algorithms.avg_saea.avg_saea.AVGSAEA",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.010366
+    },
+    {
+      "algorithm": "BCEIBEA",
+      "algorithm_id": "local::algorithms.bce_ibea.bce_ibea.BCEIBEA",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        38,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.008886
+    },
+    {
+      "algorithm": "BCEMOEAD",
+      "algorithm_id": "local::algorithms.bce_moead.bce_moead.BCEMOEAD",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        53,
+        10
+      ],
+      "DeltaP": 1.2343975435436128,
+      "HV": 0.02188167270639305,
+      "elapsed_s": 0.016125
+    },
+    {
+      "algorithm": "BiCo",
+      "algorithm_id": "local::algorithms.bico.bico.BiCo",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.010671
+    },
+    {
+      "algorithm": "BiGE",
+      "algorithm_id": "local::algorithms.bige.bige.BiGE",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.010954
+    },
+    {
+      "algorithm": "BLEAQII",
+      "algorithm_id": "local::algorithms.bleaq_ii.bleaq_ii.BLEAQII",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.010457
+    },
+    {
+      "algorithm": "BLSAEA",
+      "algorithm_id": "local::algorithms.bl_saea.bl_saea.BLSAEA",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.010468
+    },
+    {
+      "algorithm": "C3M",
+      "algorithm_id": "local::algorithms.c3m.c3m.C3M",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        41,
+        10
+      ],
+      "DeltaP": 1.207121128979486,
+      "HV": 0.02727260946293296,
+      "elapsed_s": 0.021301
+    },
+    {
+      "algorithm": "CAEAD",
+      "algorithm_id": "local::algorithms.caead.caead.CAEAD",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        41,
+        10
+      ],
+      "DeltaP": 1.207121128979486,
+      "HV": 0.02727260946293296,
+      "elapsed_s": 0.021027
+    },
+    {
+      "algorithm": "CAMOEA",
+      "algorithm_id": "local::algorithms.ca_moea.ca_moea.CAMOEA",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.01076
+    },
+    {
+      "algorithm": "CCGDE3",
+      "algorithm_id": "local::algorithms.ccgde3.ccgde3.CCGDE3",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.009484
+    },
+    {
+      "algorithm": "CCMO",
+      "algorithm_id": "local::algorithms.ccmo.ccmo.CCMO",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        41,
+        10
+      ],
+      "DeltaP": 1.207121128979486,
+      "HV": 0.02727260946293296,
+      "elapsed_s": 0.021115
+    },
+    {
+      "algorithm": "cDPEA",
+      "algorithm_id": "local::algorithms.c_dpea.c_dpea.cDPEA",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        41,
+        10
+      ],
+      "DeltaP": 1.207121128979486,
+      "HV": 0.02727260946293296,
+      "elapsed_s": 0.037339
+    },
+    {
+      "algorithm": "CGLP",
+      "algorithm_id": "local::algorithms.cglp.cglp.CGLP",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.023516
+    },
+    {
+      "algorithm": "CLIA",
+      "algorithm_id": "local::algorithms.clia.clia.CLIA",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        53,
+        10
+      ],
+      "DeltaP": 1.2343975435436128,
+      "HV": 0.02188167270639305,
+      "elapsed_s": 0.038091
+    },
+    {
+      "algorithm": "CMaDPPs",
+      "algorithm_id": "local::algorithms.cmadpps.cmadpps.CMaDPPs",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.023519
+    },
+    {
+      "algorithm": "CMDEIPCM",
+      "algorithm_id": "local::algorithms.cmdeipcm.cmdeipcm.CMDEIPCM",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.021822
+    },
+    {
+      "algorithm": "CMEGL",
+      "algorithm_id": "local::algorithms.cmegl.cmegl.CMEGL",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.023472
+    },
+    {
+      "algorithm": "CMME",
+      "algorithm_id": "local::algorithms.cmme.cmme.CMME",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.023379
+    },
+    {
+      "algorithm": "CMMO",
+      "algorithm_id": "local::algorithms.cmmo.cmmo.CMMO",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        41,
+        10
+      ],
+      "DeltaP": 1.207121128979486,
+      "HV": 0.02727260946293296,
+      "elapsed_s": 0.050759
+    },
+    {
+      "algorithm": "CMOBR",
+      "algorithm_id": "local::algorithms.cmobr.cmobr.CMOBR",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        53,
+        10
+      ],
+      "DeltaP": 1.2343975435436128,
+      "HV": 0.02188167270639305,
+      "elapsed_s": 0.038301
+    },
+    {
+      "algorithm": "CMOCSO",
+      "algorithm_id": "local::algorithms.cmocso.cmocso.CMOCSO",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.023481
+    },
+    {
+      "algorithm": "CMODEFTR",
+      "algorithm_id": "local::algorithms.cmode_ftr.cmode_ftr.CMODEFTR",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.021804
+    },
+    {
+      "algorithm": "CMODRL",
+      "algorithm_id": "local::algorithms.cmodrl.cmodrl.CMODRL",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        41,
+        10
+      ],
+      "DeltaP": 1.207121128979486,
+      "HV": 0.02727260946293296,
+      "elapsed_s": 0.050129
+    },
+    {
+      "algorithm": "CMOEA_CD",
+      "algorithm_id": "local::algorithms.cmoea_cd.cmoea_cd.CMOEA_CD",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        100,
+        10
+      ],
+      "DeltaP": 1.1469016167134491,
+      "HV": 0.028039158502927028,
+      "elapsed_s": 0.043186
+    },
+    {
+      "algorithm": "CMOEAD",
+      "algorithm_id": "local::algorithms.c_moead.c_moead.CMOEAD",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        41,
+        10
+      ],
+      "DeltaP": 1.207121128979486,
+      "HV": 0.02727260946293296,
+      "elapsed_s": 0.050407
+    },
+    {
+      "algorithm": "CMOEAMS",
+      "algorithm_id": "local::algorithms.cmoea_ms.cmoea_ms.CMOEAMS",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        41,
+        10
+      ],
+      "DeltaP": 1.207121128979486,
+      "HV": 0.02727260946293296,
+      "elapsed_s": 0.050876
+    },
+    {
+      "algorithm": "CMOEAMSG",
+      "algorithm_id": "local::algorithms.cmoea_msg.cmoea_msg.CMOEAMSG",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        41,
+        10
+      ],
+      "DeltaP": 1.207121128979486,
+      "HV": 0.02727260946293296,
+      "elapsed_s": 0.050159
+    },
+    {
+      "algorithm": "CMOEBOD",
+      "algorithm_id": "local::algorithms.cmoebod.cmoebod.CMOEBOD",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        53,
+        10
+      ],
+      "DeltaP": 1.2343975435436128,
+      "HV": 0.02188167270639305,
+      "elapsed_s": 0.038239
+    },
+    {
+      "algorithm": "CMOEMT",
+      "algorithm_id": "local::algorithms.cmoemt.cmoemt.CMOEMT",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        41,
+        10
+      ],
+      "DeltaP": 1.207121128979486,
+      "HV": 0.02727260946293296,
+      "elapsed_s": 0.050089
+    },
+    {
+      "algorithm": "CMOES",
+      "algorithm_id": "local::algorithms.cmoes.cmoes.CMOES",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        41,
+        10
+      ],
+      "DeltaP": 1.207121128979486,
+      "HV": 0.02727260946293296,
+      "elapsed_s": 0.050062
+    },
+    {
+      "algorithm": "CMOQLMT",
+      "algorithm_id": "local::algorithms.cmoqlmt.cmoqlmt.CMOQLMT",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        41,
+        10
+      ],
+      "DeltaP": 1.207121128979486,
+      "HV": 0.02727260946293296,
+      "elapsed_s": 0.050538
+    },
+    {
+      "algorithm": "CMOSMA",
+      "algorithm_id": "local::algorithms.cmosma.cmosma.CMOSMA",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        41,
+        10
+      ],
+      "DeltaP": 1.207121128979486,
+      "HV": 0.02727260946293296,
+      "elapsed_s": 0.050414
+    },
+    {
+      "algorithm": "CNSDEDVC",
+      "algorithm_id": "local::algorithms.cnsde_dvc.cnsde_dvc.CNSDEDVC",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.021996
+    },
+    {
+      "algorithm": "CoMMEA",
+      "algorithm_id": "local::algorithms.commea.commea.CoMMEA",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.023256
+    },
+    {
+      "algorithm": "CPSMOEA",
+      "algorithm_id": "local::algorithms.cps_moea.cps_moea.CPSMOEA",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.021808
+    },
+    {
+      "algorithm": "CSEA",
+      "algorithm_id": "local::algorithms.csea.csea.CSEA",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        53,
+        10
+      ],
+      "DeltaP": 1.2343975435436128,
+      "HV": 0.02188167270639305,
+      "elapsed_s": 0.038495
+    },
+    {
+      "algorithm": "CSEMT",
+      "algorithm_id": "local::algorithms.csemt.csemt.CSEMT",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        41,
+        10
+      ],
+      "DeltaP": 1.207121128979486,
+      "HV": 0.02727260946293296,
+      "elapsed_s": 0.050496
+    },
+    {
+      "algorithm": "CTSEA",
+      "algorithm_id": "local::algorithms.c_tsea.c_tsea.CTSEA",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.023613
+    },
+    {
+      "algorithm": "DAEA",
+      "algorithm_id": "local::algorithms.daea.daea.DAEA",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.023264
+    },
+    {
+      "algorithm": "DBEMTO",
+      "algorithm_id": "local::algorithms.dbemto.dbemto.DBEMTO",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        41,
+        10
+      ],
+      "DeltaP": 1.207121128979486,
+      "HV": 0.02727260946293296,
+      "elapsed_s": 0.050382
+    },
+    {
+      "algorithm": "DCNSGAIII",
+      "algorithm_id": "local::algorithms.dcnsga_iii.dcnsga_iii.DCNSGAIII",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        41,
+        10
+      ],
+      "DeltaP": 1.207121128979486,
+      "HV": 0.02727260946293296,
+      "elapsed_s": 0.050127
+    },
+    {
+      "algorithm": "DEAGNG",
+      "algorithm_id": "local::algorithms.dea_gng.dea_gng.DEAGNG",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        53,
+        10
+      ],
+      "DeltaP": 1.2343975435436128,
+      "HV": 0.02188167270639305,
+      "elapsed_s": 0.038309
+    },
+    {
+      "algorithm": "DGEA",
+      "algorithm_id": "local::algorithms.dgea.dgea.DGEA",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        53,
+        10
+      ],
+      "DeltaP": 1.2343975435436128,
+      "HV": 0.02188167270639305,
+      "elapsed_s": 0.038111
+    },
+    {
+      "algorithm": "DirHVEI",
+      "algorithm_id": "local::algorithms.dirhv_ei.dirhv_ei.DirHVEI",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        53,
+        10
+      ],
+      "DeltaP": 1.2343975435436128,
+      "HV": 0.02188167270639305,
+      "elapsed_s": 0.038207
+    },
+    {
+      "algorithm": "DISK",
+      "algorithm_id": "local::algorithms.disk.disk.DISK",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        53,
+        10
+      ],
+      "DeltaP": 1.2343975435436128,
+      "HV": 0.02188167270639305,
+      "elapsed_s": 0.038077
+    },
+    {
+      "algorithm": "DISK_2025",
+      "algorithm_id": "local::algorithms.disk_2025.disk_2025.DISK_2025",
+      "source": "local",
+      "status": "error",
+      "error": "ValueError: ref_dirs shape mismatch: expected (?, 10), got (100, 2)",
+      "elapsed_s": 0.015575
+    },
+    {
+      "algorithm": "DISKplus",
+      "algorithm_id": "local::algorithms.diskplus.diskplus.DISKplus",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        41,
+        10
+      ],
+      "DeltaP": 1.207121128979486,
+      "HV": 0.02727260946293296,
+      "elapsed_s": 0.049988
+    },
+    {
+      "algorithm": "DKCA",
+      "algorithm_id": "local::algorithms.dkca.dkca.DKCA",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        41,
+        10
+      ],
+      "DeltaP": 1.207121128979486,
+      "HV": 0.02727260946293296,
+      "elapsed_s": 0.050077
+    },
+    {
+      "algorithm": "DMMOEA",
+      "algorithm_id": "local::algorithms.dm_moea.dm_moea.DMMOEA",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.023405
+    },
+    {
+      "algorithm": "DMOEAeC",
+      "algorithm_id": "local::algorithms.dmoea_ec.dmoea_ec.DMOEAeC",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        53,
+        10
+      ],
+      "DeltaP": 1.2343975435436128,
+      "HV": 0.02188167270639305,
+      "elapsed_s": 0.038295
+    },
+    {
+      "algorithm": "dMOPSO",
+      "algorithm_id": "local::algorithms.dmopso.dmopso.dMOPSO",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        53,
+        10
+      ],
+      "DeltaP": 1.2343975435436128,
+      "HV": 0.02188167270639305,
+      "elapsed_s": 0.038606
+    },
+    {
+      "algorithm": "DNNSGAII",
+      "algorithm_id": "local::algorithms.dn_nsga_ii.dn_nsga_ii.DNNSGAII",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.023511
+    },
+    {
+      "algorithm": "DPCPRA",
+      "algorithm_id": "local::algorithms.dpcpra.dpcpra.DPCPRA",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        41,
+        10
+      ],
+      "DeltaP": 1.207121128979486,
+      "HV": 0.02727260946293296,
+      "elapsed_s": 0.050688
+    },
+    {
+      "algorithm": "DPPPS",
+      "algorithm_id": "local::algorithms.dp_pps.dp_pps.DPPPS",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        41,
+        10
+      ],
+      "DeltaP": 1.207121128979486,
+      "HV": 0.02727260946293296,
+      "elapsed_s": 0.050139
+    },
+    {
+      "algorithm": "DPVAPS",
+      "algorithm_id": "local::algorithms.dpvaps.dpvaps.DPVAPS",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        41,
+        10
+      ],
+      "DeltaP": 1.207121128979486,
+      "HV": 0.02727260946293296,
+      "elapsed_s": 0.050137
+    },
+    {
+      "algorithm": "DRLOSEMCMO",
+      "algorithm_id": "local::algorithms.drlos_emcmo.drlos_emcmo.DRLOSEMCMO",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        41,
+        10
+      ],
+      "DeltaP": 1.207121128979486,
+      "HV": 0.02727260946293296,
+      "elapsed_s": 0.050005
+    },
+    {
+      "algorithm": "DRLSAEA",
+      "algorithm_id": "local::algorithms.drl_saea.drl_saea.DRLSAEA",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        41,
+        10
+      ],
+      "DeltaP": 1.207121128979486,
+      "HV": 0.02727260946293296,
+      "elapsed_s": 0.050423
+    },
+    {
+      "algorithm": "DSPCMDE",
+      "algorithm_id": "local::algorithms.dspcmde.dspcmde.DSPCMDE",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.023711
+    },
+    {
+      "algorithm": "DSSEA",
+      "algorithm_id": "local::algorithms.dssea.dssea.DSSEA",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.02325
+    },
+    {
+      "algorithm": "DVCEA",
+      "algorithm_id": "local::algorithms.dvcea.dvcea.DVCEA",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.02316
+    },
+    {
+      "algorithm": "DWU",
+      "algorithm_id": "local::algorithms.dwu.dwu.DWU",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.023114
+    },
+    {
+      "algorithm": "EAGMOEAD",
+      "algorithm_id": "local::algorithms.eag_moea_d.eag_moea_d.EAGMOEAD",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        53,
+        10
+      ],
+      "DeltaP": 1.2343975435436128,
+      "HV": 0.02188167270639305,
+      "elapsed_s": 0.038567
+    },
+    {
+      "algorithm": "EDNARMOEA",
+      "algorithm_id": "local::algorithms.edn_armoea.edn_armoea.EDNARMOEA",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        53,
+        10
+      ],
+      "DeltaP": 1.2343975435436128,
+      "HV": 0.02188167270639305,
+      "elapsed_s": 0.038818
+    },
+    {
+      "algorithm": "EFRRR",
+      "algorithm_id": "local::algorithms.efr_rr.efr_rr.EFRRR",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        53,
+        10
+      ],
+      "DeltaP": 1.2343975435436128,
+      "HV": 0.02188167270639305,
+      "elapsed_s": 0.038283
+    },
+    {
+      "algorithm": "EIMEGO",
+      "algorithm_id": "local::algorithms.eim_ego.eim_ego.EIMEGO",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        53,
+        10
+      ],
+      "DeltaP": 1.2343975435436128,
+      "HV": 0.02188167270639305,
+      "elapsed_s": 0.038426
+    },
+    {
+      "algorithm": "EM_SAEA",
+      "algorithm_id": "local::algorithms.em_saea.em_saea.EM_SAEA",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        41,
+        10
+      ],
+      "DeltaP": 1.207121128979486,
+      "HV": 0.02727260946293296,
+      "elapsed_s": 0.050605
+    },
+    {
+      "algorithm": "EMCMMS",
+      "algorithm_id": "local::algorithms.emcmms.emcmms.EMCMMS",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        41,
+        10
+      ],
+      "DeltaP": 1.207121128979486,
+      "HV": 0.02727260946293296,
+      "elapsed_s": 0.050153
+    },
+    {
+      "algorithm": "EMCMO",
+      "algorithm_id": "local::algorithms.emcmo.emcmo.EMCMO",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        41,
+        10
+      ],
+      "DeltaP": 1.207121128979486,
+      "HV": 0.02727260946293296,
+      "elapsed_s": 0.050141
+    },
+    {
+      "algorithm": "EMMOEA",
+      "algorithm_id": "local::algorithms.emmoea.emmoea.EMMOEA",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        53,
+        10
+      ],
+      "DeltaP": 1.2343975435436128,
+      "HV": 0.02188167270639305,
+      "elapsed_s": 0.038242
+    },
+    {
+      "algorithm": "eMOEA",
+      "algorithm_id": "local::algorithms.e_moea.e_moea.eMOEA",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        38,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.020409
+    },
+    {
+      "algorithm": "EMOSKT",
+      "algorithm_id": "local::algorithms.emoskt.emoskt.EMOSKT",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        41,
+        10
+      ],
+      "DeltaP": 1.207121128979486,
+      "HV": 0.02727260946293296,
+      "elapsed_s": 0.050331
+    },
+    {
+      "algorithm": "EMyOC",
+      "algorithm_id": "local::algorithms.emyo_c.emyo_c.EMyOC",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.023363
+    },
+    {
+      "algorithm": "ENSMOEAD",
+      "algorithm_id": "local::algorithms.ens_moead.ens_moead.ENSMOEAD",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        54,
+        10
+      ],
+      "DeltaP": 1.194956460946775,
+      "HV": 0.03205843811447653,
+      "elapsed_s": 0.042207
+    },
+    {
+      "algorithm": "ESBCEO",
+      "algorithm_id": "local::algorithms.esb_ceo.esb_ceo.ESBCEO",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        53,
+        10
+      ],
+      "DeltaP": 1.2343975435436128,
+      "HV": 0.02188167270639305,
+      "elapsed_s": 0.038447
+    },
+    {
+      "algorithm": "FDV",
+      "algorithm_id": "local::algorithms.fdv.fdv.FDV",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        53,
+        10
+      ],
+      "DeltaP": 1.2343975435436128,
+      "HV": 0.02188167270639305,
+      "elapsed_s": 0.039222
+    },
+    {
+      "algorithm": "FLEA",
+      "algorithm_id": "local::algorithms.flea.flea.FLEA",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.022327
+    },
+    {
+      "algorithm": "FRCGM",
+      "algorithm_id": "local::algorithms.frcg_m.frcg_m.FRCGM",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        41,
+        10
+      ],
+      "DeltaP": 1.207121128979486,
+      "HV": 0.02727260946293296,
+      "elapsed_s": 0.051707
+    },
+    {
+      "algorithm": "GCNMOEA",
+      "algorithm_id": "local::algorithms.gcnmoea.gcnmoea.GCNMOEA",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        53,
+        10
+      ],
+      "DeltaP": 1.2343975435436128,
+      "HV": 0.02188167270639305,
+      "elapsed_s": 0.040661
+    },
+    {
+      "algorithm": "GDE3",
+      "algorithm_id": "local::algorithms.gde3.gde3.GDE3",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.023035
+    },
+    {
+      "algorithm": "GFMMOEA",
+      "algorithm_id": "local::algorithms.gfm_moea.gfm_moea.GFMMOEA",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.025742
+    },
+    {
+      "algorithm": "GLMO",
+      "algorithm_id": "local::algorithms.glmo.glmo.GLMO",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        53,
+        10
+      ],
+      "DeltaP": 1.2343975435436128,
+      "HV": 0.02188167270639305,
+      "elapsed_s": 0.041591
+    },
+    {
+      "algorithm": "gNSGAII",
+      "algorithm_id": "local::algorithms.g_nsgaii.g_nsgaii.gNSGAII",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.025
+    },
+    {
+      "algorithm": "GPSOM",
+      "algorithm_id": "local::algorithms.gpso_m.gpso_m.GPSOM",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        41,
+        10
+      ],
+      "DeltaP": 1.207121128979486,
+      "HV": 0.02727260946293296,
+      "elapsed_s": 0.053834
+    },
+    {
+      "algorithm": "GrEA",
+      "algorithm_id": "local::algorithms.grea.grea.GrEA",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.024597
+    },
+    {
+      "algorithm": "GWASFGA",
+      "algorithm_id": "local::algorithms.gwasf_ga.gwasf_ga.GWASFGA",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        53,
+        10
+      ],
+      "DeltaP": 1.2343975435436128,
+      "HV": 0.02188167270639305,
+      "elapsed_s": 0.038722
+    },
+    {
+      "algorithm": "HEA",
+      "algorithm_id": "local::algorithms.hea.hea.HEA",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        53,
+        10
+      ],
+      "DeltaP": 1.2343975435436128,
+      "HV": 0.02188167270639305,
+      "elapsed_s": 0.040642
+    },
+    {
+      "algorithm": "HeEMOEA",
+      "algorithm_id": "local::algorithms.hee_moea.hee_moea.HeEMOEA",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        53,
+        10
+      ],
+      "DeltaP": 1.2343975435436128,
+      "HV": 0.02188167270639305,
+      "elapsed_s": 0.040591
+    },
+    {
+      "algorithm": "HHCMMEA",
+      "algorithm_id": "local::algorithms.hhc_mmea.hhc_mmea.HHCMMEA",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        53,
+        10
+      ],
+      "DeltaP": 1.2343975435436128,
+      "HV": 0.02188167270639305,
+      "elapsed_s": 0.040971
+    },
+    {
+      "algorithm": "hpaEA",
+      "algorithm_id": "local::algorithms.hpaea.hpaea.hpaEA",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        53,
+        10
+      ],
+      "DeltaP": 1.2343975435436128,
+      "HV": 0.02188167270639305,
+      "elapsed_s": 0.044077
+    },
+    {
+      "algorithm": "HREA",
+      "algorithm_id": "local::algorithms.hrea.hrea.HREA",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.026727
+    },
+    {
+      "algorithm": "HypE",
+      "algorithm_id": "local::algorithms.hype.hype.HypE",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.025552
+    },
+    {
+      "algorithm": "IBEA",
+      "algorithm_id": "local::algorithms.ibea.ibea.IBEA",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        38,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.021019
+    },
+    {
+      "algorithm": "ICMA",
+      "algorithm_id": "local::algorithms.icma.icma.ICMA",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        41,
+        10
+      ],
+      "DeltaP": 1.207121128979486,
+      "HV": 0.02727260946293296,
+      "elapsed_s": 0.053368
+    },
+    {
+      "algorithm": "IDBEA",
+      "algorithm_id": "local::algorithms.i_dbea.i_dbea.IDBEA",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        41,
+        10
+      ],
+      "DeltaP": 1.207121128979486,
+      "HV": 0.02727260946293296,
+      "elapsed_s": 0.052136
+    },
+    {
+      "algorithm": "IMCMOEAD",
+      "algorithm_id": "local::algorithms.im_c_moea_d.im_c_moea_d.IMCMOEAD",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        41,
+        10
+      ],
+      "DeltaP": 1.207121128979486,
+      "HV": 0.02727260946293296,
+      "elapsed_s": 0.051738
+    },
+    {
+      "algorithm": "IMMOEA",
+      "algorithm_id": "local::algorithms.im_moea.im_moea.IMMOEA",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        53,
+        10
+      ],
+      "DeltaP": 1.2343975435436128,
+      "HV": 0.02188167270639305,
+      "elapsed_s": 0.040187
+    },
+    {
+      "algorithm": "IMMOEAD",
+      "algorithm_id": "local::algorithms.im_moea_d.im_moea_d.IMMOEAD",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        53,
+        10
+      ],
+      "DeltaP": 1.2343975435436128,
+      "HV": 0.02188167270639305,
+      "elapsed_s": 0.040227
+    },
+    {
+      "algorithm": "IMTCMO",
+      "algorithm_id": "local::algorithms.imtcmo.imtcmo.IMTCMO",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.024198
+    },
+    {
+      "algorithm": "IMTCMO_BS",
+      "algorithm_id": "local::algorithms.imtcmo_bs.imtcmo_bs.IMTCMO_BS",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        41,
+        10
+      ],
+      "DeltaP": 1.207121128979486,
+      "HV": 0.02727260946293296,
+      "elapsed_s": 0.051684
+    },
+    {
+      "algorithm": "ISIBEA",
+      "algorithm_id": "local::algorithms.i_sibea.i_sibea.ISIBEA",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        38,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.021377
+    },
+    {
+      "algorithm": "Izui",
+      "algorithm_id": "local::algorithms.izui.izui.Izui",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.023786
+    },
+    {
+      "algorithm": "KLEA",
+      "algorithm_id": "local::algorithms.klea.klea.KLEA",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.023801
+    },
+    {
+      "algorithm": "KLNSGAII",
+      "algorithm_id": "local::algorithms.kl_nsga_ii.kl_nsga_ii.KLNSGAII",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.023861
+    },
+    {
+      "algorithm": "KnEA",
+      "algorithm_id": "local::algorithms.knea.knea.KnEA",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.024306
+    },
+    {
+      "algorithm": "KRVEA",
+      "algorithm_id": "local::algorithms.k_rvea.k_rvea.KRVEA",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        53,
+        10
+      ],
+      "DeltaP": 1.2343975435436128,
+      "HV": 0.02188167270639305,
+      "elapsed_s": 0.039338
+    },
+    {
+      "algorithm": "KTA2",
+      "algorithm_id": "local::algorithms.kta2.kta2.KTA2",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        53,
+        10
+      ],
+      "DeltaP": 1.2343975435436128,
+      "HV": 0.02188167270639305,
+      "elapsed_s": 0.039271
+    },
+    {
+      "algorithm": "KTS",
+      "algorithm_id": "local::algorithms.kts.kts.KTS",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        41,
+        10
+      ],
+      "DeltaP": 1.207121128979486,
+      "HV": 0.02727260946293296,
+      "elapsed_s": 0.051485
+    },
+    {
+      "algorithm": "LCMEA",
+      "algorithm_id": "local::algorithms.lcmea.lcmea.LCMEA",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.023847
+    },
+    {
+      "algorithm": "LCSA",
+      "algorithm_id": "local::algorithms.lcsa.lcsa.LCSA",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        53,
+        10
+      ],
+      "DeltaP": 1.2343975435436128,
+      "HV": 0.02188167270639305,
+      "elapsed_s": 0.039174
+    },
+    {
+      "algorithm": "LDSAF",
+      "algorithm_id": "local::algorithms.lds_af.lds_af.LDSAF",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        53,
+        10
+      ],
+      "DeltaP": 1.2343975435436128,
+      "HV": 0.02188167270639305,
+      "elapsed_s": 0.03991
+    },
+    {
+      "algorithm": "LERD",
+      "algorithm_id": "local::algorithms.lerd.lerd.LERD",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        53,
+        10
+      ],
+      "DeltaP": 1.2343975435436128,
+      "HV": 0.02188167270639305,
+      "elapsed_s": 0.039594
+    },
+    {
+      "algorithm": "LMEA",
+      "algorithm_id": "local::algorithms.lmea.lmea.LMEA",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.024055
+    },
+    {
+      "algorithm": "LMOCSO",
+      "algorithm_id": "local::algorithms.lmocso.lmocso.LMOCSO",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        41,
+        10
+      ],
+      "DeltaP": 1.207121128979486,
+      "HV": 0.02727260946293296,
+      "elapsed_s": 0.052795
+    },
+    {
+      "algorithm": "LMOEADS",
+      "algorithm_id": "local::algorithms.lmoea_ds.lmoea_ds.LMOEADS",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        53,
+        10
+      ],
+      "DeltaP": 1.2343975435436128,
+      "HV": 0.02188167270639305,
+      "elapsed_s": 0.039489
+    },
+    {
+      "algorithm": "LMPFE",
+      "algorithm_id": "local::algorithms.lmpfe.lmpfe.LMPFE",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.024759
+    },
+    {
+      "algorithm": "LRMOEA",
+      "algorithm_id": "local::algorithms.lrmoea.lrmoea.LRMOEA",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        41,
+        10
+      ],
+      "DeltaP": 1.207121128979486,
+      "HV": 0.02727260946293296,
+      "elapsed_s": 0.052826
+    },
+    {
+      "algorithm": "LSMOF",
+      "algorithm_id": "local::algorithms.lsmof.lsmof.LSMOF",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.024828
+    },
+    {
+      "algorithm": "MaOEACSS",
+      "algorithm_id": "local::algorithms.maoea_css.maoea_css.MaOEACSS",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.024947
+    },
+    {
+      "algorithm": "MaOEADDFC",
+      "algorithm_id": "local::algorithms.maoea_ddfc.maoea_ddfc.MaOEADDFC",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        53,
+        10
+      ],
+      "DeltaP": 1.2343975435436128,
+      "HV": 0.02188167270639305,
+      "elapsed_s": 0.04032
+    },
+    {
+      "algorithm": "MaOEAIGD",
+      "algorithm_id": "local::algorithms.maoea_igd.maoea_igd.MaOEAIGD",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        53,
+        10
+      ],
+      "DeltaP": 1.2343975435436128,
+      "HV": 0.02188167270639305,
+      "elapsed_s": 0.040932
+    },
+    {
+      "algorithm": "MaOEAIT",
+      "algorithm_id": "local::algorithms.maoea_it.maoea_it.MaOEAIT",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        41,
+        10
+      ],
+      "DeltaP": 1.207121128979486,
+      "HV": 0.02727260946293296,
+      "elapsed_s": 0.056956
+    },
+    {
+      "algorithm": "MaOEARD",
+      "algorithm_id": "local::algorithms.maoea_r_d.maoea_r_d.MaOEARD",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.026212
+    },
+    {
+      "algorithm": "MCCMO",
+      "algorithm_id": "local::algorithms.mccmo.mccmo.MCCMO",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        41,
+        10
+      ],
+      "DeltaP": 1.207121128979486,
+      "HV": 0.02727260946293296,
+      "elapsed_s": 0.056221
+    },
+    {
+      "algorithm": "MCEAD",
+      "algorithm_id": "local::algorithms.mcea_d.mcea_d.MCEAD",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        53,
+        10
+      ],
+      "DeltaP": 1.2343975435436128,
+      "HV": 0.02188167270639305,
+      "elapsed_s": 0.042137
+    },
+    {
+      "algorithm": "MFFS",
+      "algorithm_id": "local::algorithms.mffs.mffs.MFFS",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.023987
+    },
+    {
+      "algorithm": "MFOSPEA2",
+      "algorithm_id": "local::algorithms.mfo_spea2.mfo_spea2.MFOSPEA2",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.024097
+    },
+    {
+      "algorithm": "MGCEA",
+      "algorithm_id": "local::algorithms.mgcea.mgcea.MGCEA",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        41,
+        10
+      ],
+      "DeltaP": 1.207121128979486,
+      "HV": 0.02727260946293296,
+      "elapsed_s": 0.054326
+    },
+    {
+      "algorithm": "MGSAEA",
+      "algorithm_id": "local::algorithms.mgsaea.mgsaea.MGSAEA",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        41,
+        10
+      ],
+      "DeltaP": 1.207121128979486,
+      "HV": 0.02727260946293296,
+      "elapsed_s": 0.060939
+    },
+    {
+      "algorithm": "MMEAPSL",
+      "algorithm_id": "local::algorithms.mmeapsl.mmeapsl.MMEAPSL",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.02473
+    },
+    {
+      "algorithm": "MMEAWI",
+      "algorithm_id": "local::algorithms.mmea_wi.mmea_wi.MMEAWI",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.02441
+    },
+    {
+      "algorithm": "MMOPSO",
+      "algorithm_id": "local::algorithms.mmopso.mmopso.MMOPSO",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        53,
+        10
+      ],
+      "DeltaP": 1.2343975435436128,
+      "HV": 0.02188167270639305,
+      "elapsed_s": 0.039894
+    },
+    {
+      "algorithm": "MO_Ring_PSO_SCD",
+      "algorithm_id": "local::algorithms.mo_ring_pso_scd.mo_ring_pso_scd.MO_Ring_PSO_SCD",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.023999
+    },
+    {
+      "algorithm": "MOBCA",
+      "algorithm_id": "local::algorithms.mobca.mobca.MOBCA",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        53,
+        10
+      ],
+      "DeltaP": 1.2343975435436128,
+      "HV": 0.02188167270639305,
+      "elapsed_s": 0.039752
+    },
+    {
+      "algorithm": "MOCell",
+      "algorithm_id": "local::algorithms.mocell.mocell.MOCell",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.022897
+    },
+    {
+      "algorithm": "MOCGDE",
+      "algorithm_id": "local::algorithms.mocgde.mocgde.MOCGDE",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        41,
+        10
+      ],
+      "DeltaP": 1.207121128979486,
+      "HV": 0.02727260946293296,
+      "elapsed_s": 0.052604
+    },
+    {
+      "algorithm": "MOCMA",
+      "algorithm_id": "local::algorithms.mo_cma.mo_cma.MOCMA",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.024503
+    },
+    {
+      "algorithm": "MOEACKF",
+      "algorithm_id": "local::algorithms.moea_ckf.moea_ckf.MOEACKF",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.024709
+    },
+    {
+      "algorithm": "MOEAD2WA",
+      "algorithm_id": "local::algorithms.moea_d_2wa.moea_d_2wa.MOEAD2WA",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        41,
+        10
+      ],
+      "DeltaP": 1.207121128979486,
+      "HV": 0.02727260946293296,
+      "elapsed_s": 0.052782
+    },
+    {
+      "algorithm": "MOEADAWA",
+      "algorithm_id": "local::algorithms.moea_d_awa.moea_d_awa.MOEADAWA",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        53,
+        10
+      ],
+      "DeltaP": 1.2343975435436128,
+      "HV": 0.02188167270639305,
+      "elapsed_s": 0.04009
+    },
+    {
+      "algorithm": "MOEADCMA",
+      "algorithm_id": "local::algorithms.moea_d_cma.moea_d_cma.MOEADCMA",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        53,
+        10
+      ],
+      "DeltaP": 1.2343975435436128,
+      "HV": 0.02188167270639305,
+      "elapsed_s": 0.039238
+    },
+    {
+      "algorithm": "MOEADCMT",
+      "algorithm_id": "local::algorithms.moea_d_cmt.moea_d_cmt.MOEADCMT",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        41,
+        10
+      ],
+      "DeltaP": 1.207121128979486,
+      "HV": 0.02727260946293296,
+      "elapsed_s": 0.05138
+    },
+    {
+      "algorithm": "MOEADD",
+      "algorithm_id": "local::algorithms.moea_dd.moea_dd.MOEADD",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        41,
+        10
+      ],
+      "DeltaP": 1.207121128979486,
+      "HV": 0.02727260946293296,
+      "elapsed_s": 0.050975
+    },
+    {
+      "algorithm": "MOEADDAE",
+      "algorithm_id": "local::algorithms.moea_d_dae.moea_d_dae.MOEADDAE",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        41,
+        10
+      ],
+      "DeltaP": 1.207121128979486,
+      "HV": 0.02727260946293296,
+      "elapsed_s": 0.052207
+    },
+    {
+      "algorithm": "MOEADDCWV",
+      "algorithm_id": "local::algorithms.moead_dcwv.moead_dcwv.MOEADDCWV",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        52,
+        10
+      ],
+      "DeltaP": 1.2458278049952793,
+      "HV": 0.027042678086219737,
+      "elapsed_s": 0.05215
+    },
+    {
+      "algorithm": "MOEADDE",
+      "algorithm_id": "local::algorithms.moead_de.moead_de.MOEADDE",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        53,
+        10
+      ],
+      "DeltaP": 1.2343975435436128,
+      "HV": 0.02188167270639305,
+      "elapsed_s": 0.03983
+    },
+    {
+      "algorithm": "MOEADDQN",
+      "algorithm_id": "local::algorithms.moea_d_dqn.moea_d_dqn.MOEADDQN",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        53,
+        10
+      ],
+      "DeltaP": 1.2343975435436128,
+      "HV": 0.02188167270639305,
+      "elapsed_s": 0.04012
+    },
+    {
+      "algorithm": "MOEADDRA",
+      "algorithm_id": "local::algorithms.moead_dra.moead_dra.MOEADDRA",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        37,
+        10
+      ],
+      "DeltaP": 1.1675345376419308,
+      "HV": 0.018512608184815423,
+      "elapsed_s": 0.041135
+    },
+    {
+      "algorithm": "MOEADDU",
+      "algorithm_id": "local::algorithms.moead_du.moead_du.MOEADDU",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        41,
+        10
+      ],
+      "DeltaP": 1.206509843801947,
+      "HV": 0.028244095642002566,
+      "elapsed_s": 0.050772
+    },
+    {
+      "algorithm": "MOEADDYTS",
+      "algorithm_id": "local::algorithms.moea_d_dyts.moea_d_dyts.MOEADDYTS",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        53,
+        10
+      ],
+      "DeltaP": 1.2343975435436128,
+      "HV": 0.02188167270639305,
+      "elapsed_s": 0.039445
+    },
+    {
+      "algorithm": "MOEADEGO",
+      "algorithm_id": "local::algorithms.moea_d_ego.moea_d_ego.MOEADEGO",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        53,
+        10
+      ],
+      "DeltaP": 1.2343975435436128,
+      "HV": 0.02188167270639305,
+      "elapsed_s": 0.039535
+    },
+    {
+      "algorithm": "MOEADFRRMAB",
+      "algorithm_id": "local::algorithms.moea_d_frrmab.moea_d_frrmab.MOEADFRRMAB",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        53,
+        10
+      ],
+      "DeltaP": 1.2343975435436128,
+      "HV": 0.02188167270639305,
+      "elapsed_s": 0.039924
+    },
+    {
+      "algorithm": "MOEADM2M",
+      "algorithm_id": "local::algorithms.moea_d_m2m.moea_d_m2m.MOEADM2M",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        53,
+        10
+      ],
+      "DeltaP": 1.2343975435436128,
+      "HV": 0.02188167270639305,
+      "elapsed_s": 0.039937
+    },
+    {
+      "algorithm": "MOEADMRDL",
+      "algorithm_id": "local::algorithms.moea_d_mrdl.moea_d_mrdl.MOEADMRDL",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        53,
+        10
+      ],
+      "DeltaP": 1.2343975435436128,
+      "HV": 0.02188167270639305,
+      "elapsed_s": 0.040331
+    },
+    {
+      "algorithm": "MOEADPaS",
+      "algorithm_id": "local::algorithms.moead_pas.moead_pas.MOEADPaS",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        42,
+        10
+      ],
+      "DeltaP": 1.3539810182412217,
+      "HV": 0.010809036771031613,
+      "elapsed_s": 0.043164
+    },
+    {
+      "algorithm": "MOEADPFE",
+      "algorithm_id": "local::algorithms.moea_d_pfe.moea_d_pfe.MOEADPFE",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        53,
+        10
+      ],
+      "DeltaP": 1.2343975435436128,
+      "HV": 0.02188167270639305,
+      "elapsed_s": 0.039381
+    },
+    {
+      "algorithm": "MOEADSTM",
+      "algorithm_id": "local::algorithms.moea_d_stm.moea_d_stm.MOEADSTM",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        53,
+        10
+      ],
+      "DeltaP": 1.2343975435436128,
+      "HV": 0.02188167270639305,
+      "elapsed_s": 0.040003
+    },
+    {
+      "algorithm": "MOEADUR",
+      "algorithm_id": "local::algorithms.moea_d_ur.moea_d_ur.MOEADUR",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        53,
+        10
+      ],
+      "DeltaP": 1.2343975435436128,
+      "HV": 0.02188167270639305,
+      "elapsed_s": 0.040148
+    },
+    {
+      "algorithm": "MOEADURAW",
+      "algorithm_id": "local::algorithms.moea_d_uraw.moea_d_uraw.MOEADURAW",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        53,
+        10
+      ],
+      "DeltaP": 1.2343975435436128,
+      "HV": 0.02188167270639305,
+      "elapsed_s": 0.039812
+    },
+    {
+      "algorithm": "MOEADVA",
+      "algorithm_id": "local::algorithms.moea_dva.moea_dva.MOEADVA",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        53,
+        10
+      ],
+      "DeltaP": 1.2343975435436128,
+      "HV": 0.02188167270639305,
+      "elapsed_s": 0.04053
+    },
+    {
+      "algorithm": "MOEADVOV",
+      "algorithm_id": "local::algorithms.moea_d_vov.moea_d_vov.MOEADVOV",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        53,
+        10
+      ],
+      "DeltaP": 1.2343975435436128,
+      "HV": 0.02188167270639305,
+      "elapsed_s": 0.040164
+    },
+    {
+      "algorithm": "MOEAIGDNS",
+      "algorithm_id": "local::algorithms.moea_igd_ns.moea_igd_ns.MOEAIGDNS",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.024951
+    },
+    {
+      "algorithm": "MOEANZD",
+      "algorithm_id": "local::algorithms.moea_nzd.moea_nzd.MOEANZD",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        41,
+        10
+      ],
+      "DeltaP": 1.207121128979486,
+      "HV": 0.02727260946293296,
+      "elapsed_s": 0.052665
+    },
+    {
+      "algorithm": "MOEAPC",
+      "algorithm_id": "local::algorithms.moea_pc.moea_pc.MOEAPC",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.022765
+    },
+    {
+      "algorithm": "MOEAPSL",
+      "algorithm_id": "local::algorithms.moea_psl.moea_psl.MOEAPSL",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        41,
+        10
+      ],
+      "DeltaP": 1.207121128979486,
+      "HV": 0.02727260946293296,
+      "elapsed_s": 0.052725
+    },
+    {
+      "algorithm": "MOEARE",
+      "algorithm_id": "local::algorithms.moea_re.moea_re.MOEARE",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        53,
+        10
+      ],
+      "DeltaP": 1.2343975435436128,
+      "HV": 0.02188167270639305,
+      "elapsed_s": 0.038962
+    },
+    {
+      "algorithm": "MOEGS",
+      "algorithm_id": "local::algorithms.mo_egs.mo_egs.MOEGS",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.023895
+    },
+    {
+      "algorithm": "MOL2SMEA",
+      "algorithm_id": "local::algorithms.mo_l2smea.mo_l2smea.MOL2SMEA",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        53,
+        10
+      ],
+      "DeltaP": 1.2343975435436128,
+      "HV": 0.02188167270639305,
+      "elapsed_s": 0.039341
+    },
+    {
+      "algorithm": "MOMBIII",
+      "algorithm_id": "local::algorithms.mombi_ii.mombi_ii.MOMBIII",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        53,
+        10
+      ],
+      "DeltaP": 1.2343975435436128,
+      "HV": 0.02188167270639305,
+      "elapsed_s": 0.039156
+    },
+    {
+      "algorithm": "MOMFEA",
+      "algorithm_id": "local::algorithms.mo_mfea.mo_mfea.MOMFEA",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.023965
+    },
+    {
+      "algorithm": "MOMFEAII",
+      "algorithm_id": "local::algorithms.mo_mfea_ii.mo_mfea_ii.MOMFEAII",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        41,
+        10
+      ],
+      "DeltaP": 1.207121128979486,
+      "HV": 0.02727260946293296,
+      "elapsed_s": 0.053175
+    },
+    {
+      "algorithm": "MOMFEASADE",
+      "algorithm_id": "local::algorithms.momfea_sade.momfea_sade.MOMFEASADE",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.024557
+    },
+    {
+      "algorithm": "MONAS",
+      "algorithm_id": "local::algorithms.monas.monas.MONAS",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.024786
+    },
+    {
+      "algorithm": "MOPSO",
+      "algorithm_id": "local::algorithms.mopso.mopso.MOPSO",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        53,
+        10
+      ],
+      "DeltaP": 1.2343975435436128,
+      "HV": 0.02188167270639305,
+      "elapsed_s": 0.040354
+    },
+    {
+      "algorithm": "MOSD",
+      "algorithm_id": "local::algorithms.mosd.mosd.MOSD",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.024264
+    },
+    {
+      "algorithm": "MPAES",
+      "algorithm_id": "local::algorithms.m_paes.m_paes.MPAES",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.02481
+    },
+    {
+      "algorithm": "MPMMEA",
+      "algorithm_id": "local::algorithms.mp_mmea.mp_mmea.MPMMEA",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.02447
+    },
+    {
+      "algorithm": "MPSOD",
+      "algorithm_id": "local::algorithms.mpso_d.mpso_d.MPSOD",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        53,
+        10
+      ],
+      "DeltaP": 1.2343975435436128,
+      "HV": 0.02188167270639305,
+      "elapsed_s": 0.03982
+    },
+    {
+      "algorithm": "MSCEA",
+      "algorithm_id": "local::algorithms.mscea.mscea.MSCEA",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        41,
+        10
+      ],
+      "DeltaP": 1.207121128979486,
+      "HV": 0.02727260946293296,
+      "elapsed_s": 0.051005
+    },
+    {
+      "algorithm": "MSCMO",
+      "algorithm_id": "local::algorithms.mscmo.mscmo.MSCMO",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        41,
+        10
+      ],
+      "DeltaP": 1.207121128979486,
+      "HV": 0.02727260946293296,
+      "elapsed_s": 0.052331
+    },
+    {
+      "algorithm": "MSEA",
+      "algorithm_id": "local::algorithms.msea.msea.MSEA",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.024806
+    },
+    {
+      "algorithm": "MSKEA",
+      "algorithm_id": "local::algorithms.mskea.mskea.MSKEA",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        41,
+        10
+      ],
+      "DeltaP": 1.207121128979486,
+      "HV": 0.02727260946293296,
+      "elapsed_s": 0.052932
+    },
+    {
+      "algorithm": "MSOPSII",
+      "algorithm_id": "local::algorithms.msops_ii.msops_ii.MSOPSII",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        41,
+        10
+      ],
+      "DeltaP": 1.207121128979486,
+      "HV": 0.02727260946293296,
+      "elapsed_s": 0.052364
+    },
+    {
+      "algorithm": "MTCMO",
+      "algorithm_id": "local::algorithms.mtcmo.mtcmo.MTCMO",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        41,
+        10
+      ],
+      "DeltaP": 1.207121128979486,
+      "HV": 0.02727260946293296,
+      "elapsed_s": 0.051623
+    },
+    {
+      "algorithm": "MTDEMKTA",
+      "algorithm_id": "local::algorithms.mtde_mkta.mtde_mkta.MTDEMKTA",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.024298
+    },
+    {
+      "algorithm": "MTEADDN",
+      "algorithm_id": "local::algorithms.mtea_d_dn.mtea_d_dn.MTEADDN",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        41,
+        10
+      ],
+      "DeltaP": 1.207121128979486,
+      "HV": 0.02727260946293296,
+      "elapsed_s": 0.052414
+    },
+    {
+      "algorithm": "MTS",
+      "algorithm_id": "local::algorithms.mts.mts.MTS",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.023984
+    },
+    {
+      "algorithm": "MultiObjectiveEGO",
+      "algorithm_id": "local::algorithms.multiobjectiveego.multiobjectiveego.MultiObjectiveEGO",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        41,
+        10
+      ],
+      "DeltaP": 1.207121128979486,
+      "HV": 0.02727260946293296,
+      "elapsed_s": 0.051876
+    },
+    {
+      "algorithm": "MyODEMR",
+      "algorithm_id": "local::algorithms.myo_demr.myo_demr.MyODEMR",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        53,
+        10
+      ],
+      "DeltaP": 1.2343975435436128,
+      "HV": 0.02188167270639305,
+      "elapsed_s": 0.040106
+    },
+    {
+      "algorithm": "NBLEA",
+      "algorithm_id": "local::algorithms.nblea.nblea.NBLEA",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.024383
+    },
+    {
+      "algorithm": "NMPSO",
+      "algorithm_id": "local::algorithms.nmpso.nmpso.NMPSO",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.023974
+    },
+    {
+      "algorithm": "NNDREAMO",
+      "algorithm_id": "local::algorithms.nndrea_mo.nndrea_mo.NNDREAMO",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        41,
+        10
+      ],
+      "DeltaP": 1.207121128979486,
+      "HV": 0.02727260946293296,
+      "elapsed_s": 0.050824
+    },
+    {
+      "algorithm": "NNIA",
+      "algorithm_id": "local::algorithms.nnia.nnia.NNIA",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.024533
+    },
+    {
+      "algorithm": "NRVMOEA",
+      "algorithm_id": "local::algorithms.nrv_moea.nrv_moea.NRVMOEA",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.024392
+    },
+    {
+      "algorithm": "NSBiDiCo",
+      "algorithm_id": "local::algorithms.nsbidico.nsbidico.NSBiDiCo",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.023086
+    },
+    {
+      "algorithm": "NSGAIIARSBX",
+      "algorithm_id": "local::algorithms.nsga_ii_arsbx.nsga_ii_arsbx.NSGAIIARSBX",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.024132
+    },
+    {
+      "algorithm": "NSGAIIconflict",
+      "algorithm_id": "local::algorithms.nsga_ii_conflict.nsga_ii_conflict.NSGAIIconflict",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.023977
+    },
+    {
+      "algorithm": "NSGAIIDTI",
+      "algorithm_id": "local::algorithms.nsga_ii_dti.nsga_ii_dti.NSGAIIDTI",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.024063
+    },
+    {
+      "algorithm": "NSGAIIIEHVI",
+      "algorithm_id": "local::algorithms.nsgaiii_ehvi.nsgaiii_ehvi.NSGAIIIEHVI",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        53,
+        10
+      ],
+      "DeltaP": 1.2343975435436128,
+      "HV": 0.02188167270639305,
+      "elapsed_s": 0.039762
+    },
+    {
+      "algorithm": "NSGAIISDR",
+      "algorithm_id": "local::algorithms.nsga_ii_sdr.nsga_ii_sdr.NSGAIISDR",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.024379
+    },
+    {
+      "algorithm": "NSLS",
+      "algorithm_id": "local::algorithms.nsls.nsls.NSLS",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.024422
+    },
+    {
+      "algorithm": "NUCEA",
+      "algorithm_id": "local::algorithms.nucea.nucea.NUCEA",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.024224
+    },
+    {
+      "algorithm": "onebyoneEA",
+      "algorithm_id": "local::algorithms.one_by_one_ea.one_by_one_ea.onebyoneEA",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.024244
+    },
+    {
+      "algorithm": "OSPNSDE",
+      "algorithm_id": "local::algorithms.osp_nsde.osp_nsde.OSPNSDE",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.022616
+    },
+    {
+      "algorithm": "ParEGO",
+      "algorithm_id": "local::algorithms.parego.parego.ParEGO",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        53,
+        10
+      ],
+      "DeltaP": 1.2343975435436128,
+      "HV": 0.02188167270639305,
+      "elapsed_s": 0.040128
+    },
+    {
+      "algorithm": "PBNSGAIII",
+      "algorithm_id": "local::algorithms.pb_nsga_iii.pb_nsga_iii.PBNSGAIII",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        53,
+        10
+      ],
+      "DeltaP": 1.2343975435436128,
+      "HV": 0.02188167270639305,
+      "elapsed_s": 0.040462
+    },
+    {
+      "algorithm": "PBRVEA",
+      "algorithm_id": "local::algorithms.pb_rvea.pb_rvea.PBRVEA",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        53,
+        10
+      ],
+      "DeltaP": 1.2343975435436128,
+      "HV": 0.02188167270639305,
+      "elapsed_s": 0.040726
+    },
+    {
+      "algorithm": "PCSAEA",
+      "algorithm_id": "local::algorithms.pc_saea.pc_saea.PCSAEA",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        53,
+        10
+      ],
+      "DeltaP": 1.2343975435436128,
+      "HV": 0.02188167270639305,
+      "elapsed_s": 0.040366
+    },
+    {
+      "algorithm": "PEA",
+      "algorithm_id": "local::algorithms.pea.pea.PEA",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        41,
+        10
+      ],
+      "DeltaP": 1.207121128979486,
+      "HV": 0.02727260946293296,
+      "elapsed_s": 0.050997
+    },
+    {
+      "algorithm": "PEAplus",
+      "algorithm_id": "local::algorithms.peaplus.peaplus.PEAplus",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        41,
+        10
+      ],
+      "DeltaP": 1.207121128979486,
+      "HV": 0.02727260946293296,
+      "elapsed_s": 0.050351
+    },
+    {
+      "algorithm": "PeEA",
+      "algorithm_id": "local::algorithms.peea.peea.PeEA",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.0234
+    },
+    {
+      "algorithm": "PESAII",
+      "algorithm_id": "local::algorithms.pesa_ii.pesa_ii.PESAII",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.023239
+    },
+    {
+      "algorithm": "PICEAg",
+      "algorithm_id": "local::algorithms.picea_g.picea_g.PICEAg",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.023225
+    },
+    {
+      "algorithm": "PIEA",
+      "algorithm_id": "local::algorithms.piea.piea.PIEA",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        53,
+        10
+      ],
+      "DeltaP": 1.2343975435436128,
+      "HV": 0.02188167270639305,
+      "elapsed_s": 0.038235
+    },
+    {
+      "algorithm": "PIMD",
+      "algorithm_id": "local::algorithms.pimd.pimd.PIMD",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        53,
+        10
+      ],
+      "DeltaP": 1.2343975435436128,
+      "HV": 0.02188167270639305,
+      "elapsed_s": 0.038172
+    },
+    {
+      "algorithm": "PMMOEA",
+      "algorithm_id": "local::algorithms.pm_moea.pm_moea.PMMOEA",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        41,
+        10
+      ],
+      "DeltaP": 1.207121128979486,
+      "HV": 0.02727260946293296,
+      "elapsed_s": 0.050117
+    },
+    {
+      "algorithm": "POCEA",
+      "algorithm_id": "local::algorithms.pocea.pocea.POCEA",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        41,
+        10
+      ],
+      "DeltaP": 1.207121128979486,
+      "HV": 0.02727260946293296,
+      "elapsed_s": 0.050232
+    },
+    {
+      "algorithm": "PPS",
+      "algorithm_id": "local::algorithms.pps.pps.PPS",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        41,
+        10
+      ],
+      "DeltaP": 1.207121128979486,
+      "HV": 0.02727260946293296,
+      "elapsed_s": 0.050298
+    },
+    {
+      "algorithm": "PRDH",
+      "algorithm_id": "local::algorithms.prdh.prdh.PRDH",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.023372
+    },
+    {
+      "algorithm": "PREA",
+      "algorithm_id": "local::algorithms.prea.prea.PREA",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.023514
+    },
+    {
+      "algorithm": "REMO",
+      "algorithm_id": "local::algorithms.remo.remo.REMO",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        53,
+        10
+      ],
+      "DeltaP": 1.2343975435436128,
+      "HV": 0.02188167270639305,
+      "elapsed_s": 0.038188
+    },
+    {
+      "algorithm": "RGA_M1_2",
+      "algorithm_id": "local::algorithms.rga_m1_2.rga_m1_2.RGA_M1_2",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.023363
+    },
+    {
+      "algorithm": "RGA_M2_2",
+      "algorithm_id": "local::algorithms.rga_m2_2.rga_m2_2.RGA_M2_2",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.023624
+    },
+    {
+      "algorithm": "RMMEDA",
+      "algorithm_id": "local::algorithms.rm_meda.rm_meda.RMMEDA",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.023421
+    },
+    {
+      "algorithm": "RMOEADVA",
+      "algorithm_id": "local::algorithms.rmoea_dva.rmoea_dva.RMOEADVA",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        53,
+        10
+      ],
+      "DeltaP": 1.2343975435436128,
+      "HV": 0.02188167270639305,
+      "elapsed_s": 0.038477
+    },
+    {
+      "algorithm": "RPDNSGAII",
+      "algorithm_id": "local::algorithms.rpd_nsga_ii.rpd_nsga_ii.RPDNSGAII",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        53,
+        10
+      ],
+      "DeltaP": 1.2343975435436128,
+      "HV": 0.02188167270639305,
+      "elapsed_s": 0.038582
+    },
+    {
+      "algorithm": "RPEA",
+      "algorithm_id": "local::algorithms.rpea.rpea.RPEA",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.023623
+    },
+    {
+      "algorithm": "RSEA",
+      "algorithm_id": "local::algorithms.rsea.rsea.RSEA",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.02389
+    },
+    {
+      "algorithm": "RVEAa",
+      "algorithm_id": "local::algorithms.rveaa.rveaa.RVEAa",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        41,
+        10
+      ],
+      "DeltaP": 1.207121128979486,
+      "HV": 0.02727260946293296,
+      "elapsed_s": 0.05061
+    },
+    {
+      "algorithm": "RVEAiGNG",
+      "algorithm_id": "local::algorithms.rvea_igng.rvea_igng.RVEAiGNG",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        53,
+        10
+      ],
+      "DeltaP": 1.2343975435436128,
+      "HV": 0.02188167270639305,
+      "elapsed_s": 0.03839
+    },
+    {
+      "algorithm": "S3CMAES",
+      "algorithm_id": "local::algorithms.s3_cma_es.s3_cma_es.S3CMAES",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.023304
+    },
+    {
+      "algorithm": "SAMOEA_TL2M",
+      "algorithm_id": "local::algorithms.samoea_tl2m.samoea_tl2m.SAMOEA_TL2M",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        55,
+        10
+      ],
+      "DeltaP": 1.1800409234504847,
+      "HV": 0.018768629403694167,
+      "elapsed_s": 0.02284
+    },
+    {
+      "algorithm": "SCDAS",
+      "algorithm_id": "local::algorithms.s_cdas.s_cdas.SCDAS",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.023345
+    },
+    {
+      "algorithm": "SCEA",
+      "algorithm_id": "local::algorithms.scea.scea.SCEA",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        41,
+        10
+      ],
+      "DeltaP": 1.207121128979486,
+      "HV": 0.02727260946293296,
+      "elapsed_s": 0.05022
+    },
+    {
+      "algorithm": "SECSO",
+      "algorithm_id": "local::algorithms.s_ecso.s_ecso.SECSO",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.023427
+    },
+    {
+      "algorithm": "SFADE",
+      "algorithm_id": "local::algorithms.sfa_de.sfa_de.SFADE",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        53,
+        10
+      ],
+      "DeltaP": 1.2343975435436128,
+      "HV": 0.02188167270639305,
+      "elapsed_s": 0.038321
+    },
+    {
+      "algorithm": "SGEA",
+      "algorithm_id": "local::algorithms.sgea.sgea.SGEA",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        41,
+        10
+      ],
+      "DeltaP": 1.207121128979486,
+      "HV": 0.02727260946293296,
+      "elapsed_s": 0.050176
+    },
+    {
+      "algorithm": "SGECF",
+      "algorithm_id": "local::algorithms.sgecf.sgecf.SGECF",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        41,
+        10
+      ],
+      "DeltaP": 1.207121128979486,
+      "HV": 0.02727260946293296,
+      "elapsed_s": 0.050185
+    },
+    {
+      "algorithm": "SIBEA",
+      "algorithm_id": "local::algorithms.sibea.sibea.SIBEA",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        38,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.020473
+    },
+    {
+      "algorithm": "SIBEAkEMOSS",
+      "algorithm_id": "local::algorithms.sibea_kemoss.sibea_kemoss.SIBEAkEMOSS",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        38,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.020273
+    },
+    {
+      "algorithm": "SLMEA",
+      "algorithm_id": "local::algorithms.slmea.slmea.SLMEA",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.023444
+    },
+    {
+      "algorithm": "SMEA",
+      "algorithm_id": "local::algorithms.smea.smea.SMEA",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.021917
+    },
+    {
+      "algorithm": "SMOA",
+      "algorithm_id": "local::algorithms.smoa.smoa.SMOA",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        53,
+        10
+      ],
+      "DeltaP": 1.2343975435436128,
+      "HV": 0.02188167270639305,
+      "elapsed_s": 0.038579
+    },
+    {
+      "algorithm": "SMPSO",
+      "algorithm_id": "local::algorithms.smpso.smpso.SMPSO",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.023677
+    },
+    {
+      "algorithm": "SMSEGO",
+      "algorithm_id": "local::algorithms.sms_ego.sms_ego.SMSEGO",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        53,
+        10
+      ],
+      "DeltaP": 1.2343975435436128,
+      "HV": 0.02188167270639305,
+      "elapsed_s": 0.038361
+    },
+    {
+      "algorithm": "SNSGAII",
+      "algorithm_id": "local::algorithms.s_nsga_ii.s_nsga_ii.SNSGAII",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.023315
+    },
+    {
+      "algorithm": "SparseEA",
+      "algorithm_id": "local::algorithms.sparseea.sparseea.SparseEA",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        41,
+        10
+      ],
+      "DeltaP": 1.207121128979486,
+      "HV": 0.02727260946293296,
+      "elapsed_s": 0.050149
+    },
+    {
+      "algorithm": "SparseEA2",
+      "algorithm_id": "local::algorithms.sparseea2.sparseea2.SparseEA2",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.023358
+    },
+    {
+      "algorithm": "SPEA2SDE",
+      "algorithm_id": "local::algorithms.spea2_sde.spea2_sde.SPEA2SDE",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.023264
+    },
+    {
+      "algorithm": "SPEAR",
+      "algorithm_id": "local::algorithms.spea_r.spea_r.SPEAR",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        53,
+        10
+      ],
+      "DeltaP": 1.2343975435436128,
+      "HV": 0.02188167270639305,
+      "elapsed_s": 0.038683
+    },
+    {
+      "algorithm": "SRA",
+      "algorithm_id": "local::algorithms.sra.sra.SRA",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.023515
+    },
+    {
+      "algorithm": "SSCEA",
+      "algorithm_id": "local::algorithms.sscea.sscea.SSCEA",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.023537
+    },
+    {
+      "algorithm": "SSDE",
+      "algorithm_id": "local::algorithms.ssde.ssde.SSDE",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.021949
+    },
+    {
+      "algorithm": "SSW",
+      "algorithm_id": "local::algorithms.ssw.ssw.SSW",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.022234
+    },
+    {
+      "algorithm": "SSW_RDPA",
+      "algorithm_id": "local::algorithms.ssw_rdpa.ssw_rdpa.SSW_RDPA",
+      "source": "local",
+      "status": "error",
+      "error": "ValueError: ref_dirs shape mismatch: expected n_obj=10, got 2",
+      "elapsed_s": 0.01573
+    },
+    {
+      "algorithm": "SVRNSGAII",
+      "algorithm_id": "local::algorithms.svr_nsga_ii.svr_nsga_ii.SVRNSGAII",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.023157
+    },
+    {
+      "algorithm": "tDEA",
+      "algorithm_id": "local::algorithms.t_dea.t_dea.tDEA",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        53,
+        10
+      ],
+      "DeltaP": 1.2343975435436128,
+      "HV": 0.02188167270639305,
+      "elapsed_s": 0.038297
+    },
+    {
+      "algorithm": "tDEACPBI",
+      "algorithm_id": "local::algorithms.tdea_cpbi.tdea_cpbi.tDEACPBI",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        41,
+        10
+      ],
+      "DeltaP": 1.207121128979486,
+      "HV": 0.02727260946293296,
+      "elapsed_s": 0.049896
+    },
+    {
+      "algorithm": "TEA",
+      "algorithm_id": "local::algorithms.tea.tea.TEA",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        41,
+        10
+      ],
+      "DeltaP": 1.207121128979486,
+      "HV": 0.02727260946293296,
+      "elapsed_s": 0.0503
+    },
+    {
+      "algorithm": "TELSO",
+      "algorithm_id": "local::algorithms.telso.telso.TELSO",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        41,
+        10
+      ],
+      "DeltaP": 1.207121128979486,
+      "HV": 0.02727260946293296,
+      "elapsed_s": 0.050824
+    },
+    {
+      "algorithm": "TiGE2",
+      "algorithm_id": "local::algorithms.tige_2.tige_2.TiGE2",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.023296
+    },
+    {
+      "algorithm": "ToP",
+      "algorithm_id": "local::algorithms.top.top.ToP",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.02172
+    },
+    {
+      "algorithm": "TPCMaO",
+      "algorithm_id": "local::algorithms.tpcmao.tpcmao.TPCMaO",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        41,
+        10
+      ],
+      "DeltaP": 1.207121128979486,
+      "HV": 0.02727260946293296,
+      "elapsed_s": 0.050337
+    },
+    {
+      "algorithm": "TriMOEATAR",
+      "algorithm_id": "local::algorithms.trimoea_ta_r.trimoea_ta_r.TriMOEATAR",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        53,
+        10
+      ],
+      "DeltaP": 1.2343975435436128,
+      "HV": 0.02188167270639305,
+      "elapsed_s": 0.03824
+    },
+    {
+      "algorithm": "TSNSGAII",
+      "algorithm_id": "local::algorithms.ts_nsga_ii.ts_nsga_ii.TSNSGAII",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        53,
+        10
+      ],
+      "DeltaP": 1.2343975435436128,
+      "HV": 0.02188167270639305,
+      "elapsed_s": 0.038258
+    },
+    {
+      "algorithm": "TSSparseEA",
+      "algorithm_id": "local::algorithms.ts_sparseea.ts_sparseea.TSSparseEA",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        41,
+        10
+      ],
+      "DeltaP": 1.207121128979486,
+      "HV": 0.02727260946293296,
+      "elapsed_s": 0.050221
+    },
+    {
+      "algorithm": "TSTI",
+      "algorithm_id": "local::algorithms.tsti.tsti.TSTI",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.023292
+    },
+    {
+      "algorithm": "Two_Arch2",
+      "algorithm_id": "local::algorithms.two_arch2.two_arch2.Two_Arch2",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.023165
+    },
+    {
+      "algorithm": "URCMO",
+      "algorithm_id": "local::algorithms.urcmo.urcmo.URCMO",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        41,
+        10
+      ],
+      "DeltaP": 1.207121128979486,
+      "HV": 0.02727260946293296,
+      "elapsed_s": 0.05013
+    },
+    {
+      "algorithm": "VaEA",
+      "algorithm_id": "local::algorithms.vaea.vaea.VaEA",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        62,
+        10
+      ],
+      "DeltaP": 1.1860292530587218,
+      "HV": 0.028950067976302316,
+      "elapsed_s": 0.023218
+    },
+    {
+      "algorithm": "WASFGA",
+      "algorithm_id": "local::algorithms.wasf_ga.wasf_ga.WASFGA",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        53,
+        10
+      ],
+      "DeltaP": 1.2343975435436128,
+      "HV": 0.02188167270639305,
+      "elapsed_s": 0.038275
+    },
+    {
+      "algorithm": "WOF",
+      "algorithm_id": "local::algorithms.wof.wof.WOF",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        53,
+        10
+      ],
+      "DeltaP": 1.2343975435436128,
+      "HV": 0.02188167270639305,
+      "elapsed_s": 0.038079
+    },
+    {
+      "algorithm": "WVMOEAP",
+      "algorithm_id": "local::algorithms.wv_moea_p.wv_moea_p.WVMOEAP",
+      "source": "local",
+      "status": "ok",
+      "F_shape": [
+        53,
+        10
+      ],
+      "DeltaP": 1.2343975435436128,
+      "HV": 0.02188167270639305,
+      "elapsed_s": 0.038313
+    }
+  ],
+  "totals": {
+    "ok": 283,
+    "metric_nonfinite": 0,
+    "empty_front": 0,
+    "error": 2
+  },
+  "elapsed_total_s": 9.736844,
+  "warnings_count": 7
+}
