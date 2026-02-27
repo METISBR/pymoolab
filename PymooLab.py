@@ -1,4 +1,4 @@
-﻿# Author: Professor Thiago Santos at UFOP, Brazil
+# Author: Professor Thiago Santos at UFOP, Brazil
 from __future__ import annotations
 
 import csv
@@ -10314,14 +10314,14 @@ class PymooExperimentWindow(QMainWindow):
     def _sanitize_exp_status_message(text: str) -> str:
         value = str(text)
         replacements = {
-            "Ã¢â‚¬â€": "-",
-            "Ã¢â‚¬â€œ": "-",
-            "â€”": "-",
-            "â€“": "-",
-            "Ã¢â‚¬Â¦": "...",
-            "â€¦": "...",
-            "Ãƒâ€”": "x",
-            "Ä‚â€”": "x",
+            "\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u009d": "-",
+            "\u00c3\u00a2\u00e2\u201a\u00ac\u00e2\u20ac\u0153": "-",
+            "\u00e2\u20ac\u201d": "-",
+            "\u00e2\u20ac\u201c": "-",
+            "\u00c3\u00a2\u00e2\u201a\u00ac\u00c2\u00a6": "...",
+            "\u00e2\u20ac\u00a6": "...",
+            "\u00c3\u0192\u00e2\u20ac\u201d": "x",
+            "\u00c4\u201a\u00e2\u20ac\u201d": "x",
             " x ": " x ",
         }
         for old, new in replacements.items():
