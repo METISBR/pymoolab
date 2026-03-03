@@ -240,6 +240,7 @@ MANY_OBJECTIVE_ALGO_HINTS = {
 LOCAL_ALGORITHM_EXCLUDED_ROOTS = {"base", "moo", "soo", "__pycache__"}
 LOCAL_ALGORITHM_EXCLUDED_FILES = {"hyperparameters.py", "ssw_rdpa copy.py"}
 OPTIONAL_PYMOO_ALGORITHM_MODULE_HINTS = {"optuna"}
+EXCLUDED_PYMOO_ALGORITHM_MODULE_HINTS = {"mopso_cd"}
 LOCAL_METRIC_FOLDERS = ("metrics",)
 
 SOURCE_PYMOO = "pymoo"
@@ -2403,6 +2404,8 @@ def discover_algorithm_specs(base_dir: Path, warnings: list[str]) -> dict[str, A
                 continue
             if any(f".{hint}" in module_name for hint in OPTIONAL_PYMOO_ALGORITHM_MODULE_HINTS):
                 continue
+            if any(f".{hint}" in module_name for hint in EXCLUDED_PYMOO_ALGORITHM_MODULE_HINTS):
+                continue
             try:
                 module = importlib.import_module(module_name)
             except Exception as exc:  # noqa: BLE001
@@ -2548,11 +2551,14 @@ def discover_algorithm_specs(base_dir: Path, warnings: list[str]) -> dict[str, A
 
         try:
             from pymoo.core.algorithm import Algorithm
+            known_entries = {id(obj) for _, obj in entries}
 
             for class_name, cls in inspect.getmembers(module, inspect.isclass):
                 if class_name.startswith("_"):
                     continue
                 if cls.__module__ != module.__name__:
+                    continue
+                if id(cls) in known_entries:
                     continue
                 try:
                     if issubclass(cls, Algorithm) and cls is not Algorithm:
@@ -4435,6 +4441,9 @@ class ExperimentBridge(QObject):
             metric_context["gpu_dtype"] = gpu_dtype
 
             runtime_cfg_trial = _runtime_cfg_with_algo_overrides(runtime_cfg_trial, algo_spec.id)
+            # CAUSA 2: Injeta seed no config para que instantiate_algorithm_class
+            # a passe no construtor do algoritmo (se o __init__ aceitar 'seed')
+            runtime_cfg_trial["seed"] = int(seed)
             algorithm = algo_spec.factory(runtime_cfg_trial)
             callback = MetricCallback(
                 active_metrics,
@@ -4673,12 +4682,243 @@ class ExperimentBridge(QObject):
             algo_spec, run_idx = task
             seed_lookup[(algo_spec.id, int(run_idx))] = int(seed_plan["seeds"][idx])
         
-        with concurrent.futures.ThreadPoolExecutor(max_workers=parallel_workers) as executor:
-            futures = [executor.submit(run_single_trial, algo, idx) for algo, idx in tasks]
-            for future in concurrent.futures.as_completed(futures):
-                if self._cancelled:
-                    executor.shutdown(wait=False, cancel_futures=True)
-                    break
+        # -----------------------------------------------------------
+        # Determina se pode usar ProcessPoolExecutor (subprocessos)
+        # ou precisa do ThreadPoolExecutor (closure com Qt signals).
+        # ProcessPoolExecutor exige:
+        #   1. parallel_workers > 1 (sem overhead desnecessário)
+        #   2. Sem profile compare (precisa de 2 calls por trial)
+        #   3. Worker serializável (sem closure/lambda/Qt)
+        # -----------------------------------------------------------
+        use_process_pool = bool(
+            parallel_workers > 1
+            and not profile_compare_enabled
+        )
+
+        if use_process_pool:
+            # ===== CAMINHO ProcessPoolExecutor (subprocessos isolados) =====
+            try:
+                from pymoolab_process_worker import run_trial_in_process
+            except ImportError:
+                use_process_pool = False
+
+        if use_process_pool:
+            emit_progress(0, f"Using ProcessPoolExecutor ({parallel_workers} workers)")
+            project_root_str = str(Path(__file__).resolve().parent)
+
+            # Extrai module/class_name de cada AlgorithmSpec
+            def _algo_info_for_process(algo_spec: AlgorithmSpec) -> dict[str, str]:
+                """Extrai informações serializáveis do AlgorithmSpec."""
+                mod_name = algo_spec.module
+
+                # Estratégia 1: extrair class_name do id
+                # Formato: "source::module.ClassName"
+                class_name = algo_spec.name  # fallback = display name
+                spec_id = algo_spec.id
+                if "::" in spec_id:
+                    fqn = spec_id.split("::", 1)[1]  # "module.ClassName"
+                    candidate = fqn.rsplit(".", 1)[-1]  # "ClassName"
+                    if candidate:
+                        class_name = candidate
+
+                # Estratégia 2: verificar se a classe existe no módulo
+                try:
+                    mod = importlib.import_module(mod_name)
+                    # Verifica se o candidato do id existe
+                    if hasattr(mod, class_name):
+                        return {"module": mod_name, "class_name": class_name}
+                    # Fallback: busca normalizada
+                    for attr_name in dir(mod):
+                        obj = getattr(mod, attr_name, None)
+                        if inspect.isclass(obj) and (
+                            _normalize_type_name_key(attr_name) == _normalize_type_name_key(algo_spec.name)
+                        ):
+                            class_name = attr_name
+                            break
+                except Exception:
+                    pass
+                return {"module": mod_name, "class_name": class_name}
+
+            # Prepara problem info serializável
+            problem_class_name = problem_spec.name  # fallback = display name
+            # Extrair do id (formato: "source::module.ClassName")
+            if "::" in problem_spec.id:
+                fqn = problem_spec.id.split("::", 1)[1]
+                candidate = fqn.rsplit(".", 1)[-1]
+                if candidate:
+                    problem_class_name = candidate
+
+            problem_info = {
+                "source": problem_spec.source,
+                "name": problem_spec.name,
+                "module": problem_spec.module,
+                "class_name": problem_class_name,
+            }
+            # Verifica se o class_name existe no módulo
+            try:
+                prob_mod = importlib.import_module(problem_spec.module)
+                if not hasattr(prob_mod, problem_class_name):
+                    # Busca normalizada como fallback
+                    for attr_name in dir(prob_mod):
+                        obj = getattr(prob_mod, attr_name, None)
+                        if inspect.isclass(obj) and (
+                            _normalize_type_name_key(attr_name) == _normalize_type_name_key(problem_spec.name)
+                        ):
+                            problem_info["class_name"] = attr_name
+                            break
+            except Exception:
+                pass
+
+            problem_kwargs: dict[str, Any] = {}
+            if effective_n_var > 0:
+                problem_kwargs["n_var"] = int(effective_n_var)
+            if effective_n_obj > 0:
+                problem_kwargs["n_obj"] = int(effective_n_obj)
+
+            process_futures: dict[concurrent.futures.Future, tuple[AlgorithmSpec, int, int]] = {}
+
+            with concurrent.futures.ProcessPoolExecutor(max_workers=parallel_workers) as executor:
+                for algo_spec, run_idx in tasks:
+                    if self._cancelled:
+                        break
+
+                    seed = int(seed_lookup.get((algo_spec.id, int(run_idx)), _random_seed()))
+                    algo_info = _algo_info_for_process(algo_spec)
+
+                    # Preparar runtime_cfg para o worker (sem objetos não-serializáveis)
+                    worker_cfg = {
+                        k: v for k, v in runtime_cfg.items()
+                        if isinstance(v, (int, float, str, bool, list, dict, type(None)))
+                    }
+                    worker_cfg["use_gpu"] = bool(primary_prefers_gpu)
+                    worker_cfg["gpu_dtype"] = gpu_dtype
+                    worker_cfg["array_backend"] = "jax" if primary_prefers_gpu else "numpy"
+                    worker_cfg["seed"] = int(seed)
+                    ref_dirs_array = build_reference_dirs(
+                        n_obj=int(effective_n_obj),
+                        target=max(12, int(runtime_cfg.get("pop_size", 100))),
+                    )
+                    worker_cfg["ref_dirs"] = ref_dirs_array.tolist()
+
+                    future = executor.submit(
+                        run_trial_in_process,
+                        algo_module=algo_info["module"],
+                        algo_class_name=algo_info["class_name"],
+                        algo_spec_id=algo_spec.id,
+                        algo_spec_name=algo_spec.name,
+                        problem_source=problem_info["source"],
+                        problem_name=problem_info["name"],
+                        problem_module=problem_info["module"],
+                        problem_class_name=problem_info["class_name"],
+                        problem_kwargs=problem_kwargs,
+                        runtime_cfg=worker_cfg,
+                        seed=seed,
+                        max_fe=max_fe,
+                        run_index=run_idx,
+                        n_runs=n_runs,
+                        project_root=project_root_str,
+                    )
+                    process_futures[future] = (algo_spec, run_idx, seed)
+
+                for future in concurrent.futures.as_completed(process_futures):
+                    if self._cancelled:
+                        executor.shutdown(wait=False, cancel_futures=True)
+                        break
+
+                    algo_spec, run_idx, seed = process_futures[future]
+                    try:
+                        raw = future.result()
+                    except Exception as exc:
+                        self.warning.emit(f"{algo_spec.label} trial {run_idx} skipped: {exc}")
+                        done_runs_ref[0] += 1
+                        progress = int(100 * done_runs_ref[0] / max(1, total_runs))
+                        emit_progress(progress, f"{algo_spec.label} trial {run_idx} skipped")
+                        continue
+
+                    # Computar métricas no QThread (processo principal)
+                    final_front_list = raw.get("final_front", [])
+                    final_front = np.asarray(final_front_list, dtype=float) if final_front_list else np.empty((0, 0))
+                    if final_front.ndim == 1 and final_front.size > 0:
+                        final_front = final_front[None, :]
+
+                    final_pop_data = raw.get("final_population", {})
+                    final_pop_F = None
+                    if final_pop_data.get("F") is not None:
+                        final_pop_F = np.asarray(final_pop_data["F"], dtype=float)
+                    elif final_front.size > 0:
+                        final_pop_F = final_front
+
+                    final_pop_X = None
+                    if final_pop_data.get("X") is not None:
+                        final_pop_X = np.asarray(final_pop_data["X"], dtype=float)
+
+                    # Alimentar metric_context com dados da população
+                    metric_context["current_population_F"] = final_pop_F
+                    metric_context["current_population_X"] = final_pop_X
+                    for field in ("G", "H", "CV", "feasible"):
+                        val = final_pop_data.get(field)
+                        if val is not None:
+                            metric_context[f"current_population_{field}"] = np.asarray(val)
+                        else:
+                            metric_context[f"current_population_{field}"] = None
+
+                    metric_values: dict[str, float] = {}
+                    for metric_name, metric_fn in active_metrics.items():
+                        try:
+                            metric_values[metric_name] = float(metric_fn(final_front))
+                        except Exception:
+                            metric_values[metric_name] = float("nan")
+
+                    trial_backend_code = str(raw.get("backend_code", "cpu"))
+                    trial_backend_label = str(raw.get("backend_label", cpu_backend_label))
+
+                    run_payload: dict[str, Any] = {
+                        "problem": (problem_label_override or problem_spec.label),
+                        "problem_id": problem_instance_id,
+                        "base_problem_id": problem_spec.id,
+                        "problem_name": problem_spec.name,
+                        "algorithm": algo_spec.label,
+                        "algorithm_id": algo_spec.id,
+                        "run_index": run_idx,
+                        "seed": seed,
+                        "n_obj": int(effective_n_obj),
+                        "n_var": int(effective_n_var),
+                        "backend": trial_backend_label,
+                        "backend_code": trial_backend_code,
+                        "time_s": _float_or_nan(raw.get("time_s")),
+                        "evaluations": int(raw.get("evaluations", -1)),
+                        "metrics": metric_values,
+                        "history": {},
+                        "generations": [],
+                        "final_front": final_front.tolist() if final_front.size > 0 else [],
+                        "final_population": final_pop_data,
+                        "block_profile": None,
+                        "profile_cpu_time_s": None,
+                        "profile_gpu_time_s": None,
+                        "profile_speedup_gpu_vs_cpu": None,
+                    }
+                    completed_dt = datetime.now().astimezone()
+                    run_payload["timestamp_iso"] = completed_dt.isoformat()
+                    run_payload["timestamp_en_us"] = format_timestamp_en_us(completed_dt)
+                    run_payload["timestamp_epoch"] = float(completed_dt.timestamp())
+
+                    if not self._cancelled:
+                        results[algo_spec.label].append(run_payload)
+                        self.run_ready.emit(run_payload)
+                        done_runs_ref[0] += 1
+                        progress = int(100 * done_runs_ref[0] / max(1, total_runs))
+                        emit_progress(progress, f"{algo_spec.label} trial {run_idx}/{n_runs} finished")
+
+        else:
+            # ===== CAMINHO ThreadPoolExecutor (fallback seguro) =====
+            # Usado quando parallel_workers == 1 ou profile compare habilitado.
+            # Mantém closure com acesso direto a Qt signals e métricas em tempo real.
+            with concurrent.futures.ThreadPoolExecutor(max_workers=parallel_workers) as executor:
+                futures = [executor.submit(run_single_trial, algo, idx) for algo, idx in tasks]
+                for future in concurrent.futures.as_completed(futures):
+                    if self._cancelled:
+                        executor.shutdown(wait=False, cancel_futures=True)
+                        break
         
         if len(valid_algorithms) > 0 and len(results[valid_algorithms[0].label]) > 0:
             first_run = results[valid_algorithms[0].label][0]
@@ -8057,19 +8297,9 @@ class PymooExperimentWindow(QMainWindow):
             btn.toggled.connect(lambda _checked, k=key: self._make_exclusive_toggle(self.encoding_filter_buttons, k))
         selection_layout.addWidget(encoding_box)
 
-        difficult_box = QGroupBox("Special difficulties")
-        difficult_layout = QGridLayout(difficult_box)
-        difficult_layout.setContentsMargins(6, 6, 6, 6)
+
+        # Special difficulties filter removido da UI (não utilizado)
         self.difficulty_filter_buttons: dict[str, QPushButton] = {}
-        for idx, value in enumerate(DIFFICULTY_FILTER_VALUES):
-            button = QPushButton(value)
-            button.setCheckable(True)
-            button.setStyleSheet("QPushButton { padding: 4px 8px; }")
-            difficult_layout.addWidget(button, idx // 3, idx % 3)
-            self.difficulty_filter_buttons[value] = button
-        for key, btn in self.difficulty_filter_buttons.items():
-            btn.toggled.connect(lambda _checked, k=key: self._make_exclusive_toggle(self.difficulty_filter_buttons, k))
-        selection_layout.addWidget(difficult_box)
 
         algo_header = QHBoxLayout()
         algo_title = QLabel("Algorithms")
@@ -8345,14 +8575,11 @@ class PymooExperimentWindow(QMainWindow):
 
         default_workers, max_workers = resolve_parallel_worker_limits()
         
+        # Test Module sempre usa 1 worker (1 algo, 1 problema, 1 run)
         self.parallel_workers_spin = QSpinBox()
-        self.parallel_workers_spin.setRange(1, max_workers)
-        self.parallel_workers_spin.setValue(default_workers)
-        self.parallel_workers_spin.setToolTip(
-            "Number of parallel threads for multi-run executions. "
-            f"Recommended: {default_workers}. Max in PymooLab UI: {max_workers}."
-        )
-        backend_form.addRow("Parallel workers:", self.parallel_workers_spin)
+        self.parallel_workers_spin.setRange(1, 1)
+        self.parallel_workers_spin.setValue(1)
+        self.parallel_workers_spin.setVisible(False)
 
         self.compute_backend_combo = QComboBox()
         for key, label in BACKEND_OPTIONS.items():
@@ -14135,7 +14362,7 @@ class PymooExperimentWindow(QMainWindow):
             "mutation_eta": 20.0,
             "mutation_prob": None,
             "selection_pressure": 2,
-            "parallel_workers": self.parallel_workers_spin.value(),
+            "parallel_workers": 1,  # Test Module sempre usa 1 worker
         }
 
     @Slot()

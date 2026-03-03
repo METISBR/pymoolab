@@ -1,35 +1,67 @@
 import argparse
 import csv
 import inspect
+import json
 import os
 import random
 import re
+import hashlib
 import sys
 import time
 from concurrent.futures import ProcessPoolExecutor, as_completed
 from pathlib import Path
-from typing import Dict, List, Tuple
+from typing import Dict, List, Optional, Tuple
+
+import warnings
+import numpy as np
+
+# Suprimir avisos de tempo de execução e divisões por zero comuns em benchmarks MOO
+warnings.filterwarnings("ignore", category=RuntimeWarning)
+warnings.filterwarnings("ignore", category=DeprecationWarning)
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
-from util.array_backend import xp as np
-from algorithms.moo.nsga3 import NSGA3
+from algorithms.cmoea_gbss.cmoea_gbss import CMOEA_GBSS
+from algorithms.cmoea_cd.cmoea_cd import CMOEA_CD
+from algorithms.nsga3_local.nsga3_local import NSGA3Local
 from optimize import minimize
-from problems import get_problem
+from pymoo.problems import get_problem
+from pymoolab_core.analysis.stat_tests import run_wilcoxon
+from util.array_backend import CUPY_AVAILABLE, get_cupy_device_name
 from util.nds.non_dominated_sorting import NonDominatedSorting
-from util.ref_dirs import get_reference_directions
-from util.array_backend import CUPY_AVAILABLE, get_cupy_device_count, get_cupy_device_name
-from util.stats_backend import wilcoxon
 
-from algorithms.ssw_rdpa.ssw_rdpa import SSW_RDPA
+# Importações unificadas com PymooLab para garantir consistência
+from PymooLab import build_reference_dirs, instantiate_algorithm_class
 
-ZDT_ALL_FUNCTIONS = ["zdt1", "zdt2", "zdt3", "zdt4", "zdt5", "zdt6"]
-DEFAULT_ZDT_FUNCTIONS = ["zdt1"]
-ALGORITHMS = ("NSGA-III", "SSW-RDPA")
+ZDT_ALL_FUNCTIONS = ["zdt1", "zdt2", "zdt3", "zdt4", "zdt6"]
+DEFAULT_ZDT_FUNCTIONS = ["zdt1", "zdt2", "zdt3", "zdt4", "zdt6"]
+
+ALGS = {
+    "CMOEA_GBSS": CMOEA_GBSS,
+    "CMOEA_CD": CMOEA_CD,
+    "NSGA3Local": NSGA3Local
+}
+ALG_NAMES = list(ALGS.keys())
+
 N_OBJ = 2
-ZDT_N_VAR = {"zdt1": 30, "zdt2": 30, "zdt3": 30, "zdt4": 10, "zdt5": 11, "zdt6": 10}
+ZDT_N_VAR = {"zdt1": 30, "zdt2": 30, "zdt3": 30, "zdt4": 10, "zdt6": 10}
+SEED_MIN_8DIGIT = 10_000_000
+SEED_MAX_8DIGIT = 99_999_999
+
+
+def _get_cupy_device_count_safe() -> int:
+    if not bool(CUPY_AVAILABLE):
+        return 0
+    try:
+        import cupy as cp  # type: ignore
+    except Exception:
+        return 0
+    try:
+        return int(cp.cuda.runtime.getDeviceCount())
+    except Exception:
+        return 0
 
 
 def _parse_zdt_functions(raw: str) -> List[str]:
@@ -50,25 +82,50 @@ def _parse_zdt_functions(raw: str) -> List[str]:
             )
         if name not in selected:
             selected.append(name)
-
     return selected
 
 
-def _random_seed_list(n: int) -> List[int]:
-    rng = random.SystemRandom()
+def _random_seed_list_with_rng(n: int, rng) -> List[int]:
     seen = set()
     seeds = []
     while len(seeds) < n:
-        s = rng.randrange(1, 2_147_483_647)
+        s = int(rng.randrange(SEED_MIN_8DIGIT, SEED_MAX_8DIGIT + 1))
         if s not in seen:
             seen.add(s)
             seeds.append(s)
     return seeds
 
 
-def _random_seed_pairs(n: int) -> List[Tuple[int, int]]:
-    seeds = _random_seed_list(2 * n)
-    return [(seeds[2 * i], seeds[2 * i + 1]) for i in range(n)]
+def _scope_rng(seed_master: Optional[int], scope: str):
+    if seed_master is None:
+        return random.SystemRandom()
+    key = f"{int(seed_master)}::{scope}".encode("utf-8")
+    digest = hashlib.sha256(key).digest()
+    seed = int.from_bytes(digest[:8], byteorder="big", signed=False)
+    return random.Random(seed)
+
+
+def _random_seeds_for_runs(
+    n: int,
+    *,
+    seed_master: Optional[int] = None,
+    scope: str = "",
+) -> List[int]:
+    rng = _scope_rng(seed_master, scope)
+    return _random_seed_list_with_rng(n, rng)
+
+
+def _load_json_file(path: Optional[str]) -> Dict:
+    if not path:
+        return {}
+    p = Path(path).expanduser().resolve()
+    if not p.exists():
+        raise FileNotFoundError(f"JSON config file not found: {p}")
+    with p.open("r", encoding="utf-8-sig") as f:
+        data = json.load(f)
+    if not isinstance(data, dict):
+        raise ValueError(f"JSON config at {p} must be an object.")
+    return data
 
 
 def _safe_F(F: np.ndarray, n_obj: int) -> np.ndarray:
@@ -85,6 +142,7 @@ def _safe_F(F: np.ndarray, n_obj: int) -> np.ndarray:
 
 
 def _build_empirical_reference(F_batches: List[np.ndarray], max_points: int = 4000) -> np.ndarray:
+    """Constrói referência empírica (mantida como fallback)."""
     F = np.vstack(F_batches)
     finite = np.all(np.isfinite(F), axis=1)
     F = F[finite]
@@ -98,22 +156,40 @@ def _build_empirical_reference(F_batches: List[np.ndarray], max_points: int = 40
     return ref
 
 
-def _directed_igd_p(source: np.ndarray, target: np.ndarray, p: float = 1.0) -> float:
-    if len(source) == 0 or len(target) == 0:
-        return float("inf")
-    diff = source[:, None, :] - target[None, :, :]
-    d = np.sqrt(np.sum(diff * diff, axis=2))
-    mins = np.min(d, axis=1)
-    if p == 1.0:
-        return float(np.mean(mins))
-    return float(np.mean(mins**p) ** (1.0 / p))
+def _get_problem_pareto_front(func_name: str, n_var: int, n_obj: int) -> Optional[np.ndarray]:
+    """Obtém fronteira Pareto analítica do problema (igual ao PymooLab)."""
+    try:
+        problem = get_problem(func_name, n_var=n_var)
+        pf = None
+        for method_name in ["pareto_front", "_calc_pareto_front"]:
+            fn = getattr(problem, method_name, None)
+            if not callable(fn):
+                continue
+            for kwargs in [{}, {"n_pareto_points": 500}]:
+                try:
+                    values = fn(**kwargs)
+                except Exception:
+                    continue
+                if values is not None:
+                    arr = np.asarray(values, dtype=float)
+                    if arr.ndim == 1:
+                        arr = arr[None, :]
+                    if arr.size > 0 and arr.shape[1] == n_obj:
+                        pf = arr
+                        break
+            if pf is not None:
+                break
+        return pf
+    except Exception:
+        return None
+
+
+from metrics.community_metrics import _deltap_value as pymoolab_deltap_value
 
 
 def delta_p(approx_set: np.ndarray, reference_set: np.ndarray, p: float = 1.0) -> float:
-    return max(
-        _directed_igd_p(approx_set, reference_set, p=p),
-        _directed_igd_p(reference_set, approx_set, p=p),
-    )
+    _ = p
+    return float(pymoolab_deltap_value(approx_set, reference_set))
 
 
 def _wilcoxon_marker(comp: np.ndarray, base: np.ndarray, alpha: float = 0.05) -> Tuple[str, float]:
@@ -123,17 +199,28 @@ def _wilcoxon_marker(comp: np.ndarray, base: np.ndarray, alpha: float = 0.05) ->
         return "=", 1.0
     if np.allclose(comp, base, atol=1e-15, rtol=0.0):
         return "=", 1.0
+
+    pval = float("nan")
     try:
-        _, pval = wilcoxon(comp, base, zero_method="wilcox", correction=False, alternative="two-sided")
+        result = run_wilcoxon(
+            comp,
+            base,
+            alpha=alpha,
+            higher_better=False,
+            min_samples=2,
+        )
+        decision = str(result.get("decision", "?")).strip()
+        pval = float(result.get("p_value", float("nan")))
+        if decision in {"+", "-", "="} and np.isfinite(pval):
+            return decision, pval
     except Exception:
-        if np.mean(comp) < np.mean(base):
-            return "+", float("nan")
-        if np.mean(comp) > np.mean(base):
-            return "-", float("nan")
-        return "=", float("nan")
-    if pval >= alpha:
-        return "=", float(pval)
-    return ("+" if np.mean(comp) < np.mean(base) else "-"), float(pval)
+        pass
+
+    if np.mean(comp) < np.mean(base):
+        return "+", pval
+    if np.mean(comp) > np.mean(base):
+        return "-", pval
+    return "=", pval
 
 
 def _write_csv(path: Path, rows: List[Dict], headers: List[str]) -> None:
@@ -142,6 +229,52 @@ def _write_csv(path: Path, rows: List[Dict], headers: List[str]) -> None:
         writer.writeheader()
         for row in rows:
             writer.writerow(row)
+
+
+def _fmt_debug_value(value: object) -> str:
+    if isinstance(value, float):
+        if np.isnan(value):
+            return "nan"
+        if np.isinf(value):
+            return "inf" if value > 0 else "-inf"
+        abs_v = abs(value)
+        if abs_v == 0.0:
+            return "0.0"
+        if abs_v >= 1e3 or abs_v < 1e-3:
+            return f"{value:.3e}"
+        return f"{value:.6f}"
+    return str(value)
+
+
+def _print_debug_table(title: str, rows: List[Dict], columns: List[Tuple[str, str]]) -> None:
+    if not rows:
+        print(f"\033[1;33m[DEBUG][TABLE] {title}: no rows\033[0m")
+        return
+
+    table_rows: List[List[str]] = []
+    widths: List[int] = [len(label) for _, label in columns]
+
+    for row in rows:
+        formatted = []
+        for col_idx, (key, _) in enumerate(columns):
+            text = _fmt_debug_value(row.get(key, ""))
+            formatted.append(text)
+            widths[col_idx] = max(widths[col_idx], len(text))
+        table_rows.append(formatted)
+
+    # Caracteres de desenho de caixa (UTF-8)
+    top = "┌─" + "─┬─".join("─" * w for w in widths) + "─┐"
+    mid = "├─" + "─┼─".join("─" * w for w in widths) + "─┤"
+    bot = "└─" + "─┴─".join("─" * w for w in widths) + "─┘"
+    header = "│ " + " │ ".join(label.ljust(widths[i]) for i, (_, label) in enumerate(columns)) + " │"
+
+    print(f"\n\033[1;36m[SUMMARY] {title}\033[0m")
+    print(top)
+    print(header)
+    print(mid)
+    for row in table_rows:
+        print("│ " + " │ ".join(row[i].ljust(widths[i]) for i in range(len(columns))) + " │")
+    print(bot)
 
 
 def _algo_kwargs(
@@ -154,25 +287,17 @@ def _algo_kwargs(
     array_backend: str,
     gpu_dtype: str,
 ) -> Dict:
-    kwargs: Dict = {"ref_dirs": ref_dirs, "pop_size": int(pop_size)}
-    try:
-        sig = inspect.signature(cls.__init__)
-    except Exception:  # noqa: BLE001
-        sig = None
-
-    if sig is None:
-        return kwargs
-
-    if "seed" in sig.parameters:
-        kwargs["seed"] = int(seed)
-    if "use_gpu" in sig.parameters:
-        kwargs["use_gpu"] = bool(use_gpu)
-    if "array_backend" in sig.parameters:
-        kwargs["array_backend"] = str(array_backend)
-    if "gpu_dtype" in sig.parameters:
-        kwargs["gpu_dtype"] = str(gpu_dtype)
-
-    return kwargs
+    """Constrói config dict e usa instantiate_algorithm_class (igual ao PymooLab)."""
+    config: Dict = {
+        "pop_size": int(pop_size),
+        "ref_dirs": ref_dirs,
+        "seed": int(seed),
+        "use_gpu": bool(use_gpu),
+        "array_backend": str(array_backend),
+        "gpu_dtype": str(gpu_dtype),
+        "n_obj": int(ref_dirs.shape[1]) if ref_dirs is not None else 2,
+    }
+    return config
 
 
 def _run_one_seed(
@@ -181,96 +306,69 @@ def _run_one_seed(
     ref_dirs: np.ndarray,
     pop_size: int,
     run_id: int,
-    seed_nsga3: int,
-    seed_ssw_rdpa: int,
+    seed: int,
     use_gpu: bool = True,
     gpu_dtype: str = "float32",
+    config_kwargs: Optional[Dict] = None,
 ) -> Dict:
-    if func_name == "zdt5":
-        problem = get_problem(func_name)
-    else:
-        problem = get_problem(func_name, n_var=ZDT_N_VAR[func_name])
+    problem = get_problem(func_name, n_var=ZDT_N_VAR[func_name])
 
-    gpu_ok = bool(use_gpu and CUPY_AVAILABLE and get_cupy_device_count() > 0)
+    gpu_ok = bool(use_gpu and CUPY_AVAILABLE and _get_cupy_device_count_safe() > 0)
     array_backend = "cupy" if gpu_ok else "numpy"
     gpu_label = get_cupy_device_name(0) or "CUDA GPU"
-    output = {"run_id": int(run_id), "n_var": int(ZDT_N_VAR.get(func_name, 11)), "algo": {}}
-    output["exec"] = {
-        "backend_requested_code": "gpu" if bool(use_gpu) else "cpu",
-        "backend_requested_info": (
-            f"GPU CUDA via CuPy ({gpu_label}, {gpu_dtype})" if bool(use_gpu) else "CPU only"
-        ),
-        "cupy_available": bool(CUPY_AVAILABLE),
-        "cupy_devices": int(get_cupy_device_count()),
+    
+    output = {
+        "run_id": int(run_id), 
+        "n_var": int(ZDT_N_VAR.get(func_name, 30)), 
+        "algo": {},
+        "exec": {
+            "backend_requested_code": "gpu" if bool(use_gpu) else "cpu",
+            "backend_requested_info": f"GPU CUDA via CuPy ({gpu_label}, {gpu_dtype})" if bool(use_gpu) else "CPU only",
+            "cupy_available": bool(CUPY_AVAILABLE),
+            "cupy_devices": int(_get_cupy_device_count_safe()),
+        }
     }
 
-    algo_nsga = NSGA3(
-        **_algo_kwargs(
-            NSGA3,
+    config_kwargs = config_kwargs or {}
+
+    for name, cls in ALGS.items():
+        # Prepara config dict (igual ao PymooLab)
+        config = _algo_kwargs(
+            cls,
             ref_dirs=ref_dirs,
             pop_size=pop_size,
-            seed=int(seed_nsga3),
+            seed=int(seed),
             use_gpu=gpu_ok,
             array_backend=array_backend,
             gpu_dtype=gpu_dtype,
         )
-    )
-    nsga_gpu = bool(getattr(algo_nsga, "use_gpu", False))
+        
+        # Merge de configurações extra se houver para o algoritmo específico
+        if name in config_kwargs:
+            config.update(config_kwargs[name])
 
-    algo_ssw = SSW_RDPA(
-        **_algo_kwargs(
-            SSW_RDPA,
-            ref_dirs=ref_dirs,
-            pop_size=pop_size,
-            seed=int(seed_ssw_rdpa),
-            use_gpu=gpu_ok,
-            array_backend=array_backend,
-            gpu_dtype=gpu_dtype,
+        # Usa instantiate_algorithm_class (igual ao PymooLab)
+        algo_inst = instantiate_algorithm_class(cls, config)
+        
+        t0 = time.time()
+        res = minimize(
+            problem,
+            algo_inst,
+            ("n_eval", n_evals),
+            seed=int(seed),
+            verbose=False,
         )
-    )
-    ssw_gpu = bool(getattr(algo_ssw, "use_gpu", False))
-    output["exec"]["backend_code"] = "gpu" if ssw_gpu else "cpu"
-    output["exec"]["backend_info"] = (
-        f"GPU CUDA via CuPy ({gpu_label}, {gpu_dtype})" if ssw_gpu else "CPU only"
-    )
-
-    t0 = time.time()
-    res_nsga = minimize(
-        problem,
-        algo_nsga,
-        ("n_eval", n_evals),
-        seed=int(seed_nsga3),
-        verbose=False,
-    )
-    output["algo"]["NSGA-III"] = {
-        "seed": int(seed_nsga3),
-        "time_s": float(time.time() - t0),
-        "F": _safe_F(res_nsga.F, N_OBJ),
-        "backend_code": "gpu" if nsga_gpu else "cpu",
-        "backend_info": (
-            f"GPU CUDA via CuPy ({gpu_label}, {gpu_dtype})"
-            if nsga_gpu
-            else "CPU only (no GPU kernels in NSGA-III)"
-        ),
-    }
-
-    t1 = time.time()
-    res_ssw = minimize(
-        problem,
-        algo_ssw,
-        ("n_eval", n_evals),
-        seed=int(seed_ssw_rdpa),
-        verbose=False,
-    )
-    output["algo"]["SSW-RDPA"] = {
-        "seed": int(seed_ssw_rdpa),
-        "time_s": float(time.time() - t1),
-        "F": _safe_F(res_ssw.F, N_OBJ),
-        "backend_code": "gpu" if ssw_gpu else "cpu",
-        "backend_info": (
-            f"GPU CUDA via CuPy ({gpu_label}, {gpu_dtype})" if ssw_gpu else "CPU only"
-        ),
-    }
+        dt = time.time() - t0
+        
+        actual_gpu = bool(getattr(algo_inst, "use_gpu", False))
+        
+        output["algo"][name] = {
+            "seed": int(seed),
+            "time_s": float(dt),
+            "F": _safe_F(res.F, N_OBJ),
+            "backend_code": "gpu" if actual_gpu else "cpu",
+            "backend_info": f"GPU CUDA via CuPy ({gpu_label}, {gpu_dtype})" if actual_gpu else "CPU only",
+        }
 
     return output
 
@@ -283,6 +381,8 @@ def run_experiment(
     delta_p_order: float,
     pop_size: int,
     zdt_functions: List[str],
+    seed_master: Optional[int] = None,
+    candidate_kwargs: Optional[Dict] = None,
     use_gpu: bool = True,
     gpu_dtype: str = "float32",
 ) -> None:
@@ -294,209 +394,178 @@ def run_experiment(
     if pop_size <= 1:
         raise ValueError("pop_size must be greater than 1 for ZDT (m=2).")
 
-    ref_dirs = get_reference_directions("das-dennis", N_OBJ, n_partitions=pop_size - 1)
+    # CAUSA 3: Usa build_reference_dirs (igual ao PymooLab)
+    ref_dirs = build_reference_dirs(n_obj=N_OBJ, target=max(12, pop_size))
     real_pop = len(ref_dirs)
-    gpu_ready = bool(CUPY_AVAILABLE and get_cupy_device_count() > 0)
+    gpu_ready = bool(CUPY_AVAILABLE and _get_cupy_device_count_safe() > 0)
 
     print(
         f"[ZDT][m={N_OBJ}] setup: pop={real_pop}, runs={n_runs}, evals={n_evals}, "
-        f"backend=process, workers={parallel_workers}, "
-        f"gpu_requested={use_gpu}, gpu_ready={gpu_ready}, gpu_dtype={gpu_dtype}, "
-        f"functions={','.join(zdt_functions)}"
+        f"workers={parallel_workers}, gpu_requested={use_gpu}, "
+        f"functions={','.join(zdt_functions)}, seed_master={seed_master}"
     )
 
     for func_name in zdt_functions:
         print(f"[ZDT][m={N_OBJ}] running {func_name} ...")
-        seed_pairs = _random_seed_pairs(n_runs)
+        seeds = _random_seeds_for_runs(
+            n_runs,
+            seed_master=seed_master,
+            scope=f"{func_name}|runs={n_runs}|evals={n_evals}",
+        )
 
-        for rid, (seed_nsga3, seed_ssw_rdpa) in enumerate(seed_pairs, start=1):
-            seed_rows.append(
-                {
-                    "problem": func_name,
-                    "m": int(N_OBJ),
-                    "run_id": int(rid),
-                    "seed_nsga3": int(seed_nsga3),
-                    "seed_ssw_rdpa": int(seed_ssw_rdpa),
-                }
-            )
+        for rid, s in enumerate(seeds, start=1):
+            seed_rows.append({
+                "problem": func_name,
+                "m": int(N_OBJ),
+                "run_id": int(rid),
+                "seed": int(s),
+                "seed_master": int(seed_master) if seed_master is not None else "",
+            })
 
         jobs = [
-            (func_name, n_evals, ref_dirs, real_pop, rid, seed_nsga3, seed_ssw_rdpa, use_gpu, gpu_dtype)
-            for rid, (seed_nsga3, seed_ssw_rdpa) in enumerate(seed_pairs, start=1)
+            (func_name, n_evals, ref_dirs, real_pop, rid, s, use_gpu, gpu_dtype, candidate_kwargs)
+            for rid, s in enumerate(seeds, start=1)
         ]
+        
         results: List[Dict] = []
-
         with ProcessPoolExecutor(max_workers=parallel_workers) as ex:
-            futures = {ex.submit(_run_one_seed, *job): (job[4], job[5], job[6]) for job in jobs}
+            futures = {ex.submit(_run_one_seed, *job): job[4] for job in jobs}
             for fut in as_completed(futures):
-                run_id, seed_nsga3, seed_ssw_rdpa = futures[fut]
+                rid = futures[fut]
                 out = fut.result()
                 results.append(out)
-                print(
-                    f"[ZDT][m={N_OBJ}][{func_name}] run={run_id} done "
-                    f"(seed_nsga={seed_nsga3}, seed_ssw={seed_ssw_rdpa}, "
-                    f"nsga={out['algo']['NSGA-III']['time_s']:.2f}s, "
-                    f"ssw={out['algo']['SSW-RDPA']['time_s']:.2f}s, "
-                    f"exec_nsga={out['algo']['NSGA-III']['backend_code']}, "
-                    f"exec_ssw={out['algo']['SSW-RDPA']['backend_code']})"
-                )
+                t_str = ", ".join(f"{nm}={out['algo'][nm]['time_s']:.2f}s" for nm in ALG_NAMES)
+                print(f"[ZDT][m={N_OBJ}][{func_name}] run={rid} done ({t_str})")
 
         results.sort(key=lambda d: d["run_id"])
 
-        F_batches = [out["algo"][alg]["F"] for out in results for alg in ALGORITHMS]
-        reference_set = _build_empirical_reference(F_batches, max_points=4000)
-        reference_source = "empirical_nd"
+        # CAUSA 1: Usa a fronteira Pareto analítica do problema (igual ao PymooLab)
+        pf_analytic = _get_problem_pareto_front(
+            func_name, 
+            n_var=ZDT_N_VAR.get(func_name, 30), 
+            n_obj=N_OBJ,
+        )
+        
+        if pf_analytic is not None:
+            reference_set = pf_analytic
+        else:
+            # Fallback: referência empírica (se analítica indisponível)
+            F_batches = [out["algo"][alg]["F"] for out in results for alg in ALG_NAMES]
+            reference_set = _build_empirical_reference(F_batches, max_points=4000)
 
-        vals = {alg: [] for alg in ALGORITHMS}
-        times = {alg: [] for alg in ALGORITHMS}
+        vals = {alg: [] for alg in ALG_NAMES}
+        times = {alg: [] for alg in ALG_NAMES}
         for out in results:
             rid = int(out["run_id"])
-            for alg in ALGORITHMS:
+            for alg in ALG_NAMES:
                 dp = delta_p(out["algo"][alg]["F"], reference_set, p=delta_p_order)
                 dt = float(out["algo"][alg]["time_s"])
-                algo_seed = int(out["algo"][alg]["seed"])
                 vals[alg].append(dp)
                 times[alg].append(dt)
-                run_rows.append(
-                    {
-                        "problem": func_name,
-                        "m": int(N_OBJ),
-                        "run_id": int(rid),
-                        "seed": algo_seed,
-                        "n_var": int(out["n_var"]),
-                        "pop_size": int(real_pop),
-                        "n_evals": int(n_evals),
-                        "reference_source": reference_source,
-                        "algorithm": alg,
-                        "delta_p": float(dp),
-                        "time_s": dt,
-                        "backend_code": str(out["algo"][alg].get("backend_code", "cpu")),
-                        "backend_info": str(out["algo"][alg].get("backend_info", "CPU only")),
-                    }
-                )
+                run_rows.append({
+                    "problem": func_name,
+                    "m": int(N_OBJ),
+                    "run_id": int(rid),
+                    "seed": int(out["algo"][alg]["seed"]),
+                    "algorithm": alg,
+                    "delta_p": float(dp),
+                    "time_s": dt,
+                })
 
-        mean_nsga = float(np.mean(vals["NSGA-III"]))
-        mean_ssw = float(np.mean(vals["SSW-RDPA"]))
-        std_nsga = float(np.std(vals["NSGA-III"], ddof=1)) if len(vals["NSGA-III"]) > 1 else 0.0
-        std_ssw = float(np.std(vals["SSW-RDPA"], ddof=1)) if len(vals["SSW-RDPA"]) > 1 else 0.0
-        mark_nsga, p_nsga = _wilcoxon_marker(np.asarray(vals["NSGA-III"]), np.asarray(vals["SSW-RDPA"]))
+        # Calcula o melhor algoritmo por média de Delta_p
+        means = {alg: float(np.mean(vals[alg])) for alg in ALG_NAMES}
+        best_alg = min(means, key=lambda k: means[k])
+        
+        row_sum = {
+            "problem": func_name,
+            "m": int(N_OBJ),
+            "pop_size": int(real_pop),
+            "n_runs": int(n_runs),
+            "n_evals": int(n_evals),
+            "best_algo": best_alg,
+        }
 
-        if mean_ssw < mean_nsga:
-            winner_algo = "SSW-RDPA"
-            loser_algo = "NSGA-III"
-            winner_val = mean_ssw
-            loser_val = mean_nsga
-        else:
-            winner_algo = "NSGA-III"
-            loser_algo = "SSW-RDPA"
-            winner_val = mean_nsga
-            loser_val = mean_ssw
-        winner_margin_pct_over_loser = 100.0 * (loser_val - winner_val) / max(abs(loser_val), 1e-32)
+        for alg in ALG_NAMES:
+            m = means[alg]
+            s = float(np.std(vals[alg], ddof=1))
+            row_sum[f"disp_{alg}"] = f"{m:.2e} ± {s:.1e}"
+            row_sum[f"mean_dp_{alg}"] = m
+            row_sum[f"std_dp_{alg}"] = s
+            row_sum[f"mean_time_{alg}_s"] = float(np.mean(times[alg]))
+            
+            # Wilcoxon contra o melhor
+            if alg == best_alg:
+                row_sum[f"{alg}_vs_best_marker"] = "="
+                row_sum[f"{alg}_vs_best_pvalue"] = 1.0
+            else:
+                marker, pval = _wilcoxon_marker(np.asarray(vals[alg]), np.asarray(vals[best_alg]))
+                row_sum[f"{alg}_vs_best_marker"] = marker
+                row_sum[f"{alg}_vs_best_pvalue"] = pval
 
-        summary_rows.append(
-            {
-                "problem": func_name,
-                "m": int(N_OBJ),
-                "pop_size": int(real_pop),
-                "n_runs": int(n_runs),
-                "n_evals": int(n_evals),
-                "reference_source": reference_source,
-                "mean_delta_p_nsga3": mean_nsga,
-                "std_delta_p_nsga3": std_nsga,
-                "mean_delta_p_ssw": mean_ssw,
-                "std_delta_p_ssw": std_ssw,
-                "nsga3_vs_ssw_marker": mark_nsga,
-                "pvalue_nsga3_vs_ssw": p_nsga,
-                "mean_time_nsga3_s": float(np.mean(times["NSGA-III"])),
-                "mean_time_ssw_s": float(np.mean(times["SSW-RDPA"])),
-                "requested_backend": "gpu" if use_gpu else "cpu",
-                "gpu_dtype": str(gpu_dtype),
-                "best_algo": winner_algo,
-                "winner_algo": winner_algo,
-                "loser_algo": loser_algo,
-                "winner_delta_p": winner_val,
-                "loser_delta_p": loser_val,
-                "winner_margin_pct_over_loser": winner_margin_pct_over_loser,
-            }
-        )
+        summary_rows.append(row_sum)
 
-        print(
-            f"[ZDT][m={N_OBJ}] {func_name} done -> ref={reference_source}, "
-            f"mean_delta_p: NSGA={mean_nsga:.4e}, SSW={mean_ssw:.4e}, "
-            f"winner={winner_algo}, margin={winner_margin_pct_over_loser:.2f}%"
-        )
+        msg = " | ".join(f"{alg}={means[alg]:.4e}" for alg in ALG_NAMES)
+        print(f"[ZDT][m={N_OBJ}] {func_name} done -> {msg} | \033[1;32mbest={best_alg}\033[0m")
+
+    best_cols = []
+    for alg in ALG_NAMES:
+        best_cols.append((f"disp_{alg}", f"{alg} (mean±std)"))
+        best_cols.append((f"{alg}_vs_best_marker", "stat"))
 
     _write_csv(
         out_dir / "seed_plan.csv",
         seed_rows,
-        ["problem", "m", "run_id", "seed_nsga3", "seed_ssw_rdpa"],
+        ["problem", "m", "run_id", "seed", "seed_master"],
     )
     _write_csv(
         out_dir / "all_runs_delta_p.csv",
         run_rows,
-        [
-            "problem",
-            "m",
-            "run_id",
-            "seed",
-            "n_var",
-            "pop_size",
-            "n_evals",
-            "reference_source",
-            "algorithm",
-            "delta_p",
-            "time_s",
-            "backend_code",
-            "backend_info",
-        ],
+        ["problem", "m", "run_id", "seed", "algorithm", "delta_p", "time_s"],
     )
+    
+    summary_headers = ["problem", "m", "pop_size", "n_runs", "n_evals", "best_algo"]
+    for alg in ALG_NAMES:
+        summary_headers.extend([
+            f"mean_dp_{alg}", 
+            f"std_dp_{alg}", 
+            f"disp_{alg}",
+            f"mean_time_{alg}_s", 
+            f"{alg}_vs_best_marker", 
+            f"{alg}_vs_best_pvalue"
+        ])
+    
     _write_csv(
         out_dir / "summary_delta_p.csv",
         summary_rows,
-        [
-            "problem",
-            "m",
-            "pop_size",
-            "n_runs",
-            "n_evals",
-            "reference_source",
-            "mean_delta_p_nsga3",
-            "std_delta_p_nsga3",
-            "mean_delta_p_ssw",
-            "std_delta_p_ssw",
-            "nsga3_vs_ssw_marker",
-            "pvalue_nsga3_vs_ssw",
-            "mean_time_nsga3_s",
-            "mean_time_ssw_s",
-            "requested_backend",
-            "gpu_dtype",
-            "best_algo",
-            "winner_algo",
-            "loser_algo",
-            "winner_delta_p",
-            "loser_delta_p",
-            "winner_margin_pct_over_loser",
-        ],
+        summary_headers,
+    )
+    
+    _print_debug_table(
+        "ZDT Summary (Delta_p Comparison)",
+        summary_rows,
+        [("problem", "problem"), ("best_algo", "best_algo")] + best_cols
     )
     print(f"[DONE] Outputs written to: {out_dir}")
 
 
 def parse_args():
-    parser = argparse.ArgumentParser(description="ZDT-only benchmark: SSW-RDPA vs NSGA-III (Delta_p).")
+    parser = argparse.ArgumentParser(
+        description="ZDT benchmark: CMOEA_GBSS vs CMOEA_CD vs NSGA3Local.",
+    )
     parser.add_argument(
         "--functions",
         type=str,
-        default="zdt1",
-        help="Functions to run (default: zdt1). Use comma-separated values (e.g. zdt1,zdt2) or 'all'.",
+        default="all",
+        help="Functions to run (default: all). Use comma-separated values (e.g. zdt1,zdt2) or 'all'.",
     )
-    parser.add_argument("--n-runs", "--runs", dest="n_runs", type=int, default=5, help="Independent runs per function.")
+    parser.add_argument("--n-runs", "--runs", dest="n_runs", type=int, default=10, help="Independent runs per function.")
     parser.add_argument("--n-evals", "--evals", dest="n_evals", type=int, default=25000, help="Max evaluations per run.")
     parser.add_argument(
         "--parallel-workers",
         "--workers",
         dest="parallel_workers",
         type=int,
-        default=8,
+        default=10,
         help="Number of parallel workers.",
     )
     parser.add_argument("--gpu", action="store_true", dest="gpu", help="Request GPU acceleration (CuPy).")
@@ -519,16 +588,37 @@ def parse_args():
         help="Population size.",
     )
     parser.add_argument(
+        "--paired-seeds",
+        action="store_true",
+        dest="paired_seeds",
+        help="Use paired seeds (same seed for all algorithms in each run).",
+    )
+    parser.add_argument(
+        "--unpaired-seeds",
+        action="store_false",
+        dest="paired_seeds",
+        help="Use independent seeds for each algorithm.",
+    )
+    parser.set_defaults(paired_seeds=False)
+    parser.add_argument(
+        "--seed-master",
+        type=int,
+        default=None,
+        help="Master seed for deterministic 8-digit seed plans.",
+    )
+    parser.add_argument(
+        "--config",
+        type=str,
+        default=None,
+        help="JSON file with algorithm kwargs (e.g. {'CMOEA_GBSS': {...}}).",
+    )
+    parser.add_argument(
         "--out-dir",
         type=str,
-        default=os.path.abspath(
-            os.path.join(
-                os.path.dirname(__file__),
-                "..",
-                "artigo",
-                "results",
-                "zdt_ssw_rdpa_vs_nsga3",
-            )
+        default=os.path.join(
+            os.path.dirname(__file__),
+            "results",
+            "zdt_gbss_cd_nsga3",
         ),
         help="Output directory.",
     )
@@ -538,6 +628,7 @@ def parse_args():
 def main():
     args = parse_args()
     selected_functions = _parse_zdt_functions(args.functions)
+    candidate_kwargs = _load_json_file(args.config)
     run_experiment(
         out_dir=Path(args.out_dir),
         n_runs=int(args.n_runs),
@@ -546,6 +637,8 @@ def main():
         delta_p_order=float(args.delta_p_order),
         pop_size=int(args.pop_size),
         zdt_functions=selected_functions,
+        seed_master=int(args.seed_master) if args.seed_master is not None else None,
+        candidate_kwargs=candidate_kwargs,
         use_gpu=bool(args.gpu),
         gpu_dtype=str(args.gpu_dtype).lower(),
     )
@@ -553,3 +646,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+

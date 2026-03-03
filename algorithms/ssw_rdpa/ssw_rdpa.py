@@ -1,103 +1,77 @@
 # -*- coding: utf-8 -*-
 # Author: Prof. Thiago Santos, 2026
 """
-SSW-RDPA  Schaeffler-SDE-Weighted  Reference Directions  PBI  Adaptive, v3.0, 2026
+SSW-RDPA — Schaeffler-SDE-Weighted · Reference Directions · PBI · Adaptive, 2026
 =====================================================================
 
 Many-objective evolutionary algorithm (m > 3) combining:
   1. Dynamic epsilon adaptation via CSA path (coverage/success/stagnation signals)
   2. Phase-aware SDE/SBX/RVX allocation driven by search-mode state-switch
   3. Diversity-sensitive parent bias (rarity + sparse-niche boost)
-  4. PBI-score niching with adaptive theta (-dominance, Yuan et al. 2015)
-  5. SDR-based front ranking for higher selection pressure at m >= 4
-     [v3] Reescrita tensorial O(n^2*m) sem loop Python (P-A2)
+  4. PBI-score niching with adaptive θ (θ-dominance, Yuan et al. 2015)
+  5. SDR-based front ranking for higher selection pressure at m ≥ 4
   6. Two-archive: nd_archive (diversity) + conv_archive (Tchebycheff per niche)
   7. Tchebycheff blending into SDE drift direction for m > 4
   8. Latin Hypercube Sampling initialisation
-  9. Q-learning for SBX eta selection
+  9. Q-learning for SBX η selection
  10. CMA-style auto-calibration of path/covariance hyperparameters
- 11. [v3] Warm-start quasi-Newton: Jacobiano inicializado por FD forward 1-step
-     nas primeiras gerações, acelerando a fase de exploração inicial (P-A1)
-     Ref: Metodo relaxado quasi-Newton baseado em Broyden (Nocedal & Wright 2006)
- 12. [v3] Gate de ativação SDE baseado em model_conf médio da população (P-A3)
- 13. [v3] Dual-Association Angular para nichos vazios (MOEA-AD, Wang et al. 2025)
-     Preenche nichos sem cobertura com candidatos de melhor ângulo+distância (P-B1)
- 14. [v3] Adaptação dinâmica de ref_dirs para problemas irregulares m>5 (P-B2)
-     Re-amostragem parcial via energia quando coverage < 50% target por 5 gens
- 15. [v3] Refined low_obj_mode: m=2 usa Pareto puro sem two-archive (P-C1)
 """
 
 from __future__ import annotations
 
-import math
-import time
 from typing import Optional, Tuple, Any
 
-import numpy as _np
-
-from util.array_backend import xp as np
+import numpy as np
 from util.array_backend import (
-    CUPY_AVAILABLE as JAX_ACCEL_AVAILABLE,
-    cp as jax_accel,
+    CUPY_AVAILABLE,
+    cp,
     get_array_module as _backend_get_array_module,
     to_device as _backend_to_device,
     to_numpy as _backend_to_numpy,
     resolve_backend_config,
-    get_cupy_device_name as get_jax_accelerator_device_name,
+    get_cupy_device_name,
 )
 
 
-_JAX_ACCEL_RUNTIME_READY: Optional[bool] = None
+_CUPY_RUNTIME_READY: Optional[bool] = None
 
 
-def _clip_safe(a: Any, a_min: Any = None, a_max: Any = None, out: Any = None) -> Any:
-    xp = _backend_get_array_module(a)
-    if out is None:
-        return xp.clip(a, a_min, a_max)
-    return xp.clip(a, a_min, a_max, out=out)
-
-
-np.clip = _clip_safe
-
-
-def _jax_accelerator_runtime_ready() -> bool:
+def _cupy_runtime_ready() -> bool:
     """
-    Return True only when the configured accelerator backend can execute
-    basic kernels on the current host.
+    Return True only when CuPy can execute basic kernels on the current host.
 
-    The local array backend shim may expose legacy CuPy-like symbols for
-    compatibility, but the project-level accelerator policy is JAX-oriented.
-    This probe avoids hard failures and enables clean CPU fallback.
+    `CUPY_AVAILABLE` may be true even if runtime JIT deps (e.g. nvrtc) are
+    missing. This probe avoids hard failures and enables clean CPU fallback.
     """
-    global _JAX_ACCEL_RUNTIME_READY
-    if _JAX_ACCEL_RUNTIME_READY is not None:
-        return _JAX_ACCEL_RUNTIME_READY
+    global _CUPY_RUNTIME_READY
+    if _CUPY_RUNTIME_READY is not None:
+        return _CUPY_RUNTIME_READY
 
-    if not JAX_ACCEL_AVAILABLE or jax_accel is None:
-        _JAX_ACCEL_RUNTIME_READY = False
+    if not CUPY_AVAILABLE or cp is None:
+        _CUPY_RUNTIME_READY = False
         return False
 
     try:
-        count = int(jax_accel.cuda.runtime.getDeviceCount())
+        count = int(cp.cuda.runtime.getDeviceCount())
         if count <= 0:
-            _JAX_ACCEL_RUNTIME_READY = False
+            _CUPY_RUNTIME_READY = False
             return False
-        probe = jax_accel.asarray([0.0], dtype=jax_accel.float64)
+        probe = cp.asarray([0.0], dtype=cp.float64)
         _ = probe * 1.0 + 1.0
-        jax_accel.cuda.Stream.null.synchronize()
-        _JAX_ACCEL_RUNTIME_READY = True
+        cp.cuda.Stream.null.synchronize()
+        _CUPY_RUNTIME_READY = True
         return True
     except Exception:  # noqa: BLE001
-        _JAX_ACCEL_RUNTIME_READY = False
+        _CUPY_RUNTIME_READY = False
         return False
 
 
 def _get_xp(x: Any):
-    """Return the array module (numpy or accelerator backend) for the given input."""
+    """Return the array module (numpy or cupy) for the given input."""
     return _backend_get_array_module(x)
 
 def _to_numpy(x: Any) -> np.ndarray:
-    """Safely convert accelerator/numpy arrays to numpy."""
+    """Safely convert cupy or numpy array to numpy."""
     return _backend_to_numpy(x)
 
 def _to_device(x: Any, use_gpu: bool = False) -> Any:
@@ -115,63 +89,15 @@ from operators.mutation.pm import PolynomialMutation
 from util.nds.non_dominated_sorting import NonDominatedSorting
 from util.dominator import Dominator
 
-try:
-    from pymoo.util.ref_dirs import get_reference_directions as _pymoo_get_reference_directions
-except Exception:  # pragma: no cover
-    _pymoo_get_reference_directions = None
-
 ALGORITHM_FLAGS = {
     "SSW_RDPA": {"multi", "many"},
 }
 
 
-def _auto_reference_directions(n_obj: int, target_n: int, rng_seed: int = 1) -> _np.ndarray:
-    """Build reference directions that match the objective count."""
-    n_obj = int(max(n_obj, 1))
-    target_n = int(max(target_n, 2))
-
-    if n_obj == 1:
-        return _np.ones((1, 1), dtype=float)
-
-    if _pymoo_get_reference_directions is not None:
-        for kwargs in (
-            {"method": "energy", "n_points": target_n, "seed": int(rng_seed)},
-            {"method": "energy-layer", "n_points": target_n, "seed": int(rng_seed)},
-        ):
-            try:
-                ref = _pymoo_get_reference_directions(
-                    kwargs.pop("method"), n_obj, **kwargs
-                )
-                ref = _np.asarray(ref, dtype=float)
-                if ref.ndim == 2 and ref.shape[1] == n_obj and len(ref) > 0:
-                    return ref
-            except Exception:
-                pass
-
-        best_p = 1
-        for p in range(1, 65):
-            count = math.comb(p + n_obj - 1, n_obj - 1)
-            best_p = p
-            if count >= target_n:
-                break
-        try:
-            ref = _pymoo_get_reference_directions("das-dennis", n_obj, n_partitions=best_p)
-            ref = _np.asarray(ref, dtype=float)
-            if ref.ndim == 2 and ref.shape[1] == n_obj and len(ref) > 0:
-                return ref
-        except Exception:
-            pass
-
-    rng = _np.random.default_rng(int(rng_seed))
-    ref = rng.random((target_n, n_obj))
-    ref_sum = _np.clip(_np.sum(ref, axis=1, keepdims=True), 1e-12, None)
-    return _np.asarray(ref / ref_sum, dtype=float)
-
-
 # ---------------------------------------------------------------------------
-# [NOVO] Latin Hypercube Sampling para inicializacao (melhora cobertura
-# inicial do espaco de decisao vs. amostragem uniforme aleatoria pura).
-# Referencia: McKay et al. 1979; amplamente adotado em MaOEA recentes.
+# [NOVO] Latin Hypercube Sampling para inicialização (melhora cobertura
+# inicial do espaço de decisão vs. amostragem uniforme aleatória pura).
+# Referência: McKay et al. 1979; amplamente adotado em MaOEA recentes.
 # ---------------------------------------------------------------------------
 def _latin_hypercube_sample(rng: Any, n: int, d: int, xp: Any = np) -> np.ndarray:
     """
@@ -187,16 +113,16 @@ def _latin_hypercube_sample(rng: Any, n: int, d: int, xp: Any = np) -> np.ndarra
 
 
 # ---------------------------------------------------------------------------
-# [NOVO] -dominancia escalar (Yuan et al. 2015; -NSGA-III / -DEA).
-# Calcula o score PBI(x, w) = d1 +  * d2 para um vetor x normalizado
-# e direcao de referencia w normalizada.
-#   d1 = componente paralela (convergencia)
+# [NOVO] θ-dominância escalar (Yuan et al. 2015; θ-NSGA-III / θ-DEA).
+# Calcula o score PBI(x, w) = d1 + θ * d2 para um vetor x normalizado
+# e direção de referência w normalizada.
+#   d1 = componente paralela (convergência)
 #   d2 = componente perpendicular (diversidade)
-# Scores menores indicam solucoes de maior qualidade para o subproblema w.
+# Scores menores indicam soluções de maior qualidade para o subproblema w.
 # ---------------------------------------------------------------------------
 def _pbi_score(
     f_norm: np.ndarray,   # shape (n_obj,) normalizado [0,1]^m
-    ref_dir: np.ndarray,  # shape (n_obj,) vetor de referencia unitario
+    ref_dir: np.ndarray,  # shape (n_obj,) vetor de referência unitário
     theta: float,
 ) -> float:
     """PBI escalar: d1 + theta * d2. Supports GPU."""
@@ -210,28 +136,28 @@ def _pbi_score(
 
 # ---------------------------------------------------------------------------
 # [NOVO] SDR (Strengthened Dominance Relation) adaptativo.
-# x domina SDR y se x domina y em Pareto OU se x e "suficientemente melhor"
-# em pelo menos k objetivos enquanto nao piora em nenhum alem da tolerancia .
-# Aumenta pressao de selecao para m > 3 sem perder diversidade.
-# Referencia: Tian et al. 2018 (NSGA-II/SDR); 3DEA (Zhang et al. 2024).
+# x domina SDR y se x domina y em Pareto OU se x é "suficientemente melhor"
+# em pelo menos k objetivos enquanto não piora em nenhum além da tolerância σ.
+# Aumenta pressão de seleção para m > 3 sem perder diversidade.
+# Referência: Tian et al. 2018 (NSGA-II/SDR); 3DEA (Zhang et al. 2024).
 # ---------------------------------------------------------------------------
 def _sdr_dominates(f_x: np.ndarray, f_y: np.ndarray, sigma: float) -> bool:
     """
     Retorna True se x SDR-domina y. Supports GPU.
     """
     xp = _get_xp(f_x)
-    diff = f_y - f_x  # positivo = x e melhor
+    diff = f_y - f_x  # positivo = x é melhor
     if xp.all(diff >= 0.0) and xp.any(diff > 0.0):
-        return True  # Pareto-dominancia classica
-    # Relaxacao: x melhora em  1 objetivo de forma significativa
-    # e nao piora em nenhum alem de sigma
+        return True  # Pareto-dominância clássica
+    # Relaxação: x melhora em ≥ 1 objetivo de forma significativa
+    # e não piora em nenhum além de sigma
     if xp.any(diff > sigma) and xp.all(diff >= -sigma):
         return True
     return False
 
 
 # ---------------------------------------------------------------------------
-# Normalization and niche-association  native implementations replacing
+# Normalization and niche-association — native implementations replacing
 # all pymoo.algorithms.moo.nsga3 dependencies.
 # ---------------------------------------------------------------------------
 
@@ -243,12 +169,12 @@ class _IdealNadirTracker:
     the extreme points of the current non-dominated front, which is unstable
     in early generations and for m > 5.  This replacement:
 
-     Maintains a running ideal via element-wise minimum over all seen F
-      (monotonically non-increasing  never forgets a good value).
-     Maintains a running nadir via EMA of the per-generation max on the
+    • Maintains a running ideal via element-wise minimum over all seen F
+      (monotonically non-increasing — never forgets a good value).
+    • Maintains a running nadir via EMA of the per-generation max on the
       non-dominated front, smoothed with decay `nadir_ema` (default 0.2).
       This avoids the hyperplane fit while tracking the true nadir reliably.
-     Falls back to population min/max when the front is degenerate.
+    • Falls back to population min/max when the front is degenerate.
 
     Benefit for diversity: the EMA nadir is less susceptible to outlier
     extreme points that NSGA-III's hyperplane intercept amplifies in high-m
@@ -263,11 +189,11 @@ class _IdealNadirTracker:
         self._nadir_ema: Optional[np.ndarray] = None
 
     def update(self, F: np.ndarray, nds: Optional[np.ndarray] = None, progress: float = 0.0) -> None:
-        """Update ideal and nadir from population F (shape n  m)."""
+        """Update ideal and nadir from population F (shape n × m)."""
         xp = _get_xp(F)
         F = xp.asarray(F, dtype=float)
         # Ideal: running minimum over ALL evaluated solutions
-        self.ideal_point = _to_device(self.ideal_point, xp == jax_accel)
+        self.ideal_point = _to_device(self.ideal_point, xp == cp)
         self.ideal_point = xp.minimum(self.ideal_point, xp.min(F, axis=0))
 
         # Nadir: EMA of per-generation max on non-dominated front (or full pop)
@@ -287,7 +213,7 @@ class _IdealNadirTracker:
         if self._nadir_ema is None:
             self._nadir_ema = gen_nadir.copy()
         else:
-            self._nadir_ema = _to_device(self._nadir_ema, xp == jax_accel)
+            self._nadir_ema = _to_device(self._nadir_ema, xp == cp)
             self._nadir_ema = ((1.0 - ema_rate) * self._nadir_ema
                                + ema_rate * gen_nadir)
         self.nadir_point = self._nadir_ema.copy()
@@ -326,14 +252,14 @@ def _associate_to_niches_angular(
     R_mag = xp.linalg.norm(R, axis=1, keepdims=True)
     R_unit = R / xp.maximum(R_mag, 1e-12)                   # (n_ref, m)
 
-    # Cosine similarity matrix (n  n_ref)
+    # Cosine similarity matrix (n × n_ref)
     cos_mat = F_unit @ R_unit.T
     cos_mat = xp.clip(cos_mat, -1.0, 1.0)
 
     # Best niche = reference direction with maximum cosine (minimum angle)
     niche = xp.argmax(cos_mat, axis=1).astype(int)
 
-    # Perpendicular distance = ||f_norm|| * sin(angle) = ||f_norm|| * sqrt(1 - cos2)
+    # Perpendicular distance = ||f_norm|| * sin(angle) = ||f_norm|| * sqrt(1 - cos²)
     best_cos = cos_mat[xp.arange(len(F)), niche]
     sin2 = xp.maximum(1.0 - best_cos ** 2, 0.0)
     d_perp = F_mag.ravel() * xp.sqrt(sin2)
@@ -342,7 +268,7 @@ def _associate_to_niches_angular(
 
 
 def _calc_niche_count(n_niches: int, niche_of: np.ndarray) -> np.ndarray:
-    """Simple bincount wrapper  replaces calc_niche_count from nsga3. Supports GPU."""
+    """Simple bincount wrapper — replaces calc_niche_count from nsga3. Supports GPU."""
     xp = _get_xp(niche_of)
     return xp.bincount(niche_of, minlength=n_niches).astype(int)
 
@@ -432,15 +358,15 @@ def broyden_update(J: np.ndarray, s: np.ndarray, y: np.ndarray, eps: float = 1e-
 
 class SSW_RDPA(Algorithm):
     """
-    SSW-RDPA: Schaeffler-SDE-Weighted  Reference Directions  PBI  Adaptive.
+    SSW-RDPA: Schaeffler-SDE-Weighted · Reference Directions · PBI · Adaptive.
 
     Many-objective variant (m > 3) with:
     - Schaeffler QP + Tchebycheff blended SDE local search
-    - PBI-score niching with adaptive  (-dominance)
-    - SDR-based non-dominated ranking (higher selection pressure for m  4)
+    - PBI-score niching with adaptive θ (θ-dominance)
+    - SDR-based non-dominated ranking (higher selection pressure for m ≥ 4)
     - Two-archive survival (diversity + convergence)
     - Latin Hypercube Sampling initialisation
-    - Q-learning for SBX , CMA-style path/covariance adaptation
+    - Q-learning for SBX η, CMA-style path/covariance adaptation
     """
     ALGO_FLAGS = {"multi", "many"}
     OBJECTIVE_SCOPE = "many"
@@ -458,18 +384,18 @@ class SSW_RDPA(Algorithm):
     def backend_info(self) -> str:
         if not self.is_using_gpu:
             return "CPU only"
-        gpu_name = get_jax_accelerator_device_name(0) or "JAX GPU device"
-        return f"JAX accelerator ({gpu_name}, {self.gpu_dtype})"
+        gpu_name = get_cupy_device_name(0) or "CUDA GPU"
+        return f"GPU CUDA via CuPy ({gpu_name}, {self.gpu_dtype})"
 
     @property
     def xp(self):
         """
         Dynamic backend module accessor.
 
-        Avoids storing module objects (numpy/accelerator backend) in instance state, which
+        Avoids storing module objects (numpy/cupy) in instance state, which
         breaks deepcopy/pickling used internally by pymoo.minimize().
         """
-        return jax_accel if self.use_gpu else np
+        return cp if self.use_gpu else np
 
     def __init__(
         self,
@@ -511,55 +437,33 @@ class SSW_RDPA(Algorithm):
         stagnation_tol: float = 2e-4,
         telemetry_limit: int = 600,
         # ---------------------------------------------------------------
-        # [NOVO] Parametros adicionados na revisao MaOP 2025
+        # [NOVO] Parâmetros adicionados na revisão MaOP 2025
         # ---------------------------------------------------------------
-        # theta para PBI-score em niching (theta-dominancia); range tipico [2, 10].
-        # Valores maiores reforcam convergencia; menores reforcam diversidade.
-        # Ref: Yuan et al. 2015 (theta-NSGA-III); caps-NSGA-III (Symmetry 2024).
+        # θ para PBI-score em niching (θ-dominância); range típico [2, 10].
+        # Valores maiores reforçam convergência; menores reforçam diversidade.
+        # Ref: Yuan et al. 2015 (θ-NSGA-III); caps-NSGA-III (Symmetry 2024).
         theta_pbi: float = 5.0,
-        # Adaptar theta_pbi ao longo do progresso (True = diminui de theta_pbi p/ 1.5)
+        # Adaptar θ_pbi ao longo do progresso (True = diminui de θ_pbi p/ 1.5)
         theta_adapt: bool = True,
-        # sigma para SDR - fracao do span do objetivo usada como margem de tolerancia.
+        # σ para SDR — fração do span do objetivo usada como margem de tolerância.
         # Ref: NSGA-II/SDR (Tian et al. 2018); 3DEA (Zhang et al. 2024).
         sdr_sigma: float = 0.02,
         # Ativar SDR no lugar de Pareto puro em _hybrid_survival (recomendado m>3)
         use_sdr: bool = True,
-        # Inicializacao por LHS em vez de uniforme aleatoria.
-        # Ref: McKay 1979; melhora cobertura e convergencia inicial.
+        # Inicialização por LHS em vez de uniforme aleatória.
+        # Ref: McKay 1979; melhora cobertura e convergência inicial.
         use_lhs: bool = True,
-        # Dois arquivos separados: convergencia (conv_archive) + diversidade (pop).
-        # A sobrevivencia faz swap explicito quando arquivo de convergencia evolui.
+        # Dois arquivos separados: convergência (conv_archive) + diversidade (pop).
+        # A sobrevivência faz swap explícito quando arquivo de convergência evolui.
         # Ref: Wang et al. 2015 (Two-archive); MaOEA-MS (ScienceDirect 2022).
         use_two_archive: bool = True,
         conv_archive_frac: float = 0.20,
         prob_neighbor_mating: float = 0.70,
         archive_injection_rate: float = 0.12,
-        profile_blocks: bool = False,
         seed: Optional[int] = None,
         array_backend: str = "auto",
         gpu_dtype: str = "float32",
         use_gpu: bool = True,
-        # ---------------------------------------------------------------
-        # [v3] Parametros das melhorias P-A1, P-B2
-        # ---------------------------------------------------------------
-        # P-A1: Warm-start do Jacobiano por FD forward barato.
-        # Gerações iniciais onde o warm-start e aplicado para os primeiros
-        # individuos SDE. Custo: m avaliacoes adicionais por individuo warm-started,
-        # executado apenas uma vez por individuo (gen 0 e gen 1).
-        # Ref: Quasi-Newton relaxado (Nocedal & Wright 2006, cap. 6)
-        warmstart_jacobian_gens: int = 2,
-        # Numero maximo de individuos SDE que recebem warm-start por geracao.
-        warmstart_max_individuals: int = 8,
-        # P-B2: Adaptacao dinamica de ref_dirs para frentes irregulares.
-        # Ativa re-amostragem parcial de ref_dirs por energia quando a cobertura
-        # fica abaixo de adaptive_refdirs_coverage_thr por adaptive_refdirs_patience gens.
-        # Ref: RVEA-2DCES (Cheng et al., Information Sciences 2024)
-        adaptive_refdirs: bool = True,
-        adaptive_refdirs_min_obj: int = 5,
-        adaptive_refdirs_coverage_thr: float = 0.50,
-        adaptive_refdirs_patience: int = 5,
-        adaptive_refdirs_frac_resample: float = 0.20,
-        adaptive_refdirs_cooldown: float = 0.15,
         **kwargs,
     ):
         super().__init__(seed=seed, **kwargs)
@@ -568,98 +472,75 @@ class SSW_RDPA(Algorithm):
         self.array_backend_requested = str(cfg["requested_backend"])
         self.array_backend = str(cfg["effective_backend"])
         self.gpu_dtype = str(cfg["gpu_dtype"])
-        self.use_gpu_requested = bool(cfg["use_gpu"])
-        self.use_gpu = bool(cfg["use_gpu"]) and _jax_accelerator_runtime_ready()
-        self.gpu_disabled_reason = "" if self.use_gpu else (
-            "JAX accelerator requested but runtime backend is not available."
-            if self.use_gpu_requested
-            else ""
-        )
+        self.use_gpu = bool(cfg["use_gpu"]) and _cupy_runtime_ready()
         if not self.use_gpu:
             self.array_backend = "numpy"
-        elif self.array_backend != "jax":
-            self.array_backend = "jax"
+        elif self.array_backend != "cupy":
+            self.array_backend = "cupy"
 
         # Keep CPU copy during construction: pymoo.minimize() deep-copies the
         # algorithm instance before _setup(), and numpy arrays are safe there.
-        self.ref_dirs_np = _np.asarray(_to_numpy(ref_dirs), dtype=float)
+        self.ref_dirs_np = np.asarray(_to_numpy(ref_dirs), dtype=float)
         self.ref_dirs = self.xp.asarray(self.ref_dirs_np, dtype=float)
-        # Backend-synced cache (accelerator/numpy) prepared in _setup().
+        # Backend-synced cache (cupy/numpy) prepared in _setup().
         self.ref_dirs_xp = self.ref_dirs
         self.pop_size = int(pop_size) if pop_size is not None else len(self.ref_dirs)
-        self.profile_blocks = bool(profile_blocks)
-        self._profile_block_stats: dict[str, dict[str, float]] = {}
 
         self.sigma_base = float(sigma)
         self.epsilon_base = float(epsilon)
         self.epsilon_state = float(epsilon)
         self.epsilon_min = max(1e-14, float(epsilon) * float(epsilon_min_factor))
         self.epsilon_max = max(self.epsilon_min, float(epsilon) * float(epsilon_max_factor))
-        self.epsilon_adapt_lr = float(_np.clip(epsilon_adapt_lr, 0.01, 0.80))
+        self.epsilon_adapt_lr = float(np.clip(epsilon_adapt_lr, 0.01, 0.80))
 
-        self.ratio_sde = float(_np.clip(ratio_sde, ratio_bounds[0], ratio_bounds[1]))
+        self.ratio_sde = float(np.clip(ratio_sde, ratio_bounds[0], ratio_bounds[1]))
         self.ratio_bounds = tuple(ratio_bounds)
         self.adaptive_ratio_lr = float(adaptive_ratio_lr)
         self.phase_ratio_targets = tuple(float(x) for x in phase_ratio_targets)
         if len(self.phase_ratio_targets) != 3:
             raise ValueError("phase_ratio_targets must contain exactly 3 values")
-        self.coverage_target = float(_np.clip(coverage_target, 0.10, 1.0))
-        self.diversity_boost = float(_np.clip(diversity_boost, 0.0, 2.0))
+        self.coverage_target = float(np.clip(coverage_target, 0.10, 1.0))
+        self.diversity_boost = float(np.clip(diversity_boost, 0.0, 2.0))
 
         self.c_path = float(c_path)
         self.c_cov = float(c_cov)
         self.c_sigma = float(c_sigma)
         self.target_success = float(target_success)
-        self.jacobian_damping = float(_np.clip(jacobian_damping, 0.05, 0.95))
-        self.ucb_exploration = float(_np.clip(ucb_exploration, 0.0, 1.0))
-        self.drift_scale = float(_np.clip(drift_scale, 0.05, 0.6))
-        self.de_fallback_scale = float(_np.clip(de_fallback_scale, 0.0, 0.8))
-        self.mirror_rate = float(_np.clip(mirror_rate, 0.0, 1.0))
+        self.jacobian_damping = float(np.clip(jacobian_damping, 0.05, 0.95))
+        self.ucb_exploration = float(np.clip(ucb_exploration, 0.0, 1.0))
+        self.drift_scale = float(np.clip(drift_scale, 0.05, 0.6))
+        self.de_fallback_scale = float(np.clip(de_fallback_scale, 0.0, 0.8))
+        self.mirror_rate = float(np.clip(mirror_rate, 0.0, 1.0))
         self.use_cma_auto = bool(use_cma_auto)
-        self.epsilon_csa_gain = float(_np.clip(epsilon_csa_gain, 0.0, 1.0))
-        self.sparse_quantile = float(_np.clip(sparse_quantile, 0.05, 0.90))
-        self.elite_keep_frac = float(_np.clip(elite_keep_frac, 0.0, 0.5))
-        self.angle_adapt_gain = float(_np.clip(angle_adapt_gain, 0.0, 1.0))
-        self.qlearn_alpha = float(_np.clip(qlearn_alpha, 0.01, 1.0))
-        self.qlearn_gamma = float(_np.clip(qlearn_gamma, 0.0, 1.0))
-        self.qlearn_eps = float(_np.clip(qlearn_eps, 0.0, 0.5))
-        self.rvx_share_base = float(_np.clip(rvx_share_base, 0.0, 1.0))
-        self.rvx_mu_f = float(_np.clip(rvx_mu_f, 0.05, 1.0))
-        self.rvx_mu_cr = float(_np.clip(rvx_mu_cr, 0.05, 1.0))
-        self.rvx_adapt_lr = float(_np.clip(rvx_adapt_lr, 0.01, 0.5))
+        self.epsilon_csa_gain = float(np.clip(epsilon_csa_gain, 0.0, 1.0))
+        self.sparse_quantile = float(np.clip(sparse_quantile, 0.05, 0.90))
+        self.elite_keep_frac = float(np.clip(elite_keep_frac, 0.0, 0.5))
+        self.angle_adapt_gain = float(np.clip(angle_adapt_gain, 0.0, 1.0))
+        self.qlearn_alpha = float(np.clip(qlearn_alpha, 0.01, 1.0))
+        self.qlearn_gamma = float(np.clip(qlearn_gamma, 0.0, 1.0))
+        self.qlearn_eps = float(np.clip(qlearn_eps, 0.0, 0.5))
+        self.rvx_share_base = float(np.clip(rvx_share_base, 0.0, 1.0))
+        self.rvx_mu_f = float(np.clip(rvx_mu_f, 0.05, 1.0))
+        self.rvx_mu_cr = float(np.clip(rvx_mu_cr, 0.05, 1.0))
+        self.rvx_adapt_lr = float(np.clip(rvx_adapt_lr, 0.01, 0.5))
         self.stagnation_tol = float(max(stagnation_tol, 0.0))
         self.telemetry_limit = int(max(50, telemetry_limit))
         self.sigma_damp = 1.0
         self.entropy_diversity_threshold = 0.82
         self.niche_cv_diversity_threshold = 1.30
-        # [NOVO] Parametros da revisao
-        self.theta_pbi = float(_np.clip(theta_pbi, 0.5, 20.0))
+        # [NOVO] Parâmetros da revisão
+        self.theta_pbi = float(np.clip(theta_pbi, 0.5, 20.0))
         self.theta_adapt = bool(theta_adapt)
-        self.sdr_sigma = float(_np.clip(sdr_sigma, 0.0, 0.15))
+        self.sdr_sigma = float(np.clip(sdr_sigma, 0.0, 0.15))
         self.use_sdr = bool(use_sdr)
         self.use_lhs = bool(use_lhs)
         self.use_two_archive = bool(use_two_archive)
-        self.conv_archive_frac = float(_np.clip(conv_archive_frac, 0.05, 0.40))
-        self.prob_neighbor_mating = float(_np.clip(prob_neighbor_mating, 0.0, 1.0))
-        self.archive_injection_rate = float(_np.clip(archive_injection_rate, 0.0, 0.50))
+        self.conv_archive_frac = float(np.clip(conv_archive_frac, 0.05, 0.40))
+        self.prob_neighbor_mating = float(np.clip(prob_neighbor_mating, 0.0, 1.0))
+        self.archive_injection_rate = float(np.clip(archive_injection_rate, 0.0, 0.50))
         self.low_obj_mode = False
-        self.conv_archive: Optional[Population] = None  # arquivo de convergencia
+        self.conv_archive: Optional[Population] = None  # arquivo de convergência
         self._theta_current = float(theta_pbi)  # valor corrente adaptativo
-        # [v3] P-A1: Warm-start quasi-Newton
-        self.warmstart_jacobian_gens = int(max(0, warmstart_jacobian_gens))
-        self.warmstart_max_individuals = int(max(1, warmstart_max_individuals))
-        self._warmstart_done: set = set()  # individuos que ja receberam warm-start
-        # [v3] P-B2: Adaptive ref_dirs
-        self.adaptive_refdirs = bool(adaptive_refdirs)
-        self.adaptive_refdirs_min_obj = int(adaptive_refdirs_min_obj)
-        self.adaptive_refdirs_coverage_thr = float(adaptive_refdirs_coverage_thr)
-        self.adaptive_refdirs_patience = int(adaptive_refdirs_patience)
-        self.adaptive_refdirs_frac_resample = float(_np.clip(adaptive_refdirs_frac_resample, 0.05, 0.40))
-        self.adaptive_refdirs_cooldown = float(adaptive_refdirs_cooldown)
-        self._low_coverage_streak: int = 0       # gerações consecutivas com cobertura baixa
-        self._last_refdirs_progress: float = -1.0  # progresso na última re-amostragem
-        # [v3] P-A3: gate de SDE baseado em model_conf médio
-        self._mean_model_conf: float = 0.0
         self._ref_nbr: Optional[np.ndarray] = None   # [P2] grafo angular
 
         # Baselines used by runtime auto-calibration (per problem/instance).
@@ -682,11 +563,10 @@ class SSW_RDPA(Algorithm):
         self._user_prob_neighbor_mating = float(self.prob_neighbor_mating)
         self._user_archive_injection_rate = float(self.archive_injection_rate)
         self._user_theta_pbi = float(self.theta_pbi)
-        self._user_adaptive_refdirs = bool(self.adaptive_refdirs)
 
         self.dup_elim = DefaultDuplicateElimination()
         self.sbx = SBX(prob=prob_crossover, eta=20, vtype=float)
-        self.pm = PolynomialMutation(eta=20)
+        self.pm = PolynomialMutation(prob=0.1, eta=20)
         self.selection = TournamentSelection(func_comp=cv_and_dom_tournament)
         self.mating = Mating(
             self.selection,
@@ -741,16 +621,16 @@ class SSW_RDPA(Algorithm):
         """
         Prepare backend-specific cached arrays and enforce safe fallback.
         """
-        self.ref_dirs_np = _np.asarray(_to_numpy(self.ref_dirs), dtype=float)
+        self.ref_dirs_np = np.asarray(_to_numpy(self.ref_dirs), dtype=float)
         if self.use_gpu:
-            if not _jax_accelerator_runtime_ready():
+            if not _cupy_runtime_ready():
                 self.use_gpu = False
                 self.array_backend = "numpy"
                 self.ref_dirs_xp = self.ref_dirs
                 return
             try:
                 self.ref_dirs_xp = _to_device(self.ref_dirs_np, use_gpu=True)
-                self.array_backend = "jax"
+                self.array_backend = "cupy"
             except Exception:  # noqa: BLE001
                 self.use_gpu = False
                 self.array_backend = "numpy"
@@ -762,29 +642,6 @@ class SSW_RDPA(Algorithm):
 
     def _clear_backend_cache(self) -> None:
         self._backend_cache.clear()
-
-    def _profile_block_begin(self) -> float:
-        if not self.profile_blocks:
-            return time.perf_counter()
-        if self.use_gpu and jax_accel is not None:
-            try:
-                jax_accel.cuda.Stream.null.synchronize()
-            except Exception:  # noqa: BLE001
-                pass
-        return time.perf_counter()
-
-    def _profile_block_end(self, name: str, t0: float) -> None:
-        if not self.profile_blocks:
-            return
-        if self.use_gpu and jax_accel is not None:
-            try:
-                jax_accel.cuda.Stream.null.synchronize()
-            except Exception:  # noqa: BLE001
-                pass
-        dt = time.perf_counter() - float(t0)
-        bucket = self._profile_block_stats.setdefault(name, {"time_s": 0.0, "calls": 0.0})
-        bucket["time_s"] = float(bucket.get("time_s", 0.0)) + dt
-        bucket["calls"] = float(bucket.get("calls", 0.0)) + 1.0
 
     def _as_backend_array(
         self,
@@ -804,7 +661,7 @@ class SSW_RDPA(Algorithm):
             return None
 
         if not use_gpu:
-            arr_np = _np.asarray(_to_numpy(value))
+            arr_np = np.asarray(_to_numpy(value))
             if dtype is not None:
                 arr_np = arr_np.astype(dtype, copy=False)
             return arr_np
@@ -830,7 +687,7 @@ class SSW_RDPA(Algorithm):
         Run non-dominated sorting on CPU (NumPy) to avoid CuPy/Python-loop
         slowdown and keep deterministic behavior across backends.
         """
-        F_np = _np.asarray(_to_numpy(F), dtype=float)
+        F_np = np.asarray(_to_numpy(F), dtype=float)
         return self.nds.do(F_np, **kwargs)
 
     def _setup(self, problem, **kwargs):
@@ -838,16 +695,9 @@ class SSW_RDPA(Algorithm):
         self._clear_backend_cache()
 
         if self.ref_dirs.shape[1] != problem.n_obj:
-            ref_dirs_np = _auto_reference_directions(
-                n_obj=problem.n_obj,
-                target_n=max(self.pop_size, 4),
-                rng_seed=int(getattr(self, "seed", 1) or 1),
+            raise ValueError(
+                f"ref_dirs shape mismatch: expected n_obj={problem.n_obj}, got {self.ref_dirs.shape[1]}"
             )
-            self.ref_dirs_np = _np.asarray(ref_dirs_np, dtype=float)
-            self.ref_dirs = self.xp.asarray(self.ref_dirs_np, dtype=float)
-            self.ref_dirs_xp = self.ref_dirs
-            self._sync_backend_arrays()
-            self._clear_backend_cache()
         self._auto_calibrate_runtime_controls(problem.n_var, problem.n_obj)
         if self.use_cma_auto:
             self._configure_cma_hyperparams(problem.n_var, self.pop_size)
@@ -875,7 +725,7 @@ class SSW_RDPA(Algorithm):
         self.xp.fill_diagonal(_C, -self.xp.inf)
         _ke = min(_k, _C.shape[1] - 1)
         # Keep neighborhood graph on CPU for cheap Python-side set operations.
-        self._ref_nbr = _np.asarray(_to_numpy(self.xp.argsort(_C, axis=1)[:, -_ke:]), dtype=int)  # (n_ref, k)
+        self._ref_nbr = np.asarray(_to_numpy(self.xp.argsort(_C, axis=1)[:, -_ke:]), dtype=int)  # (n_ref, k)
 
     # ------------------------------------------------------------------
     # Initialization
@@ -900,7 +750,7 @@ class SSW_RDPA(Algorithm):
     def _initialize_advance(self, infills=None, **kwargs):
         self.pop = self._hybrid_survival(infills, n_survive=self.pop_size)
         self.nd_archive = self._update_archive(self.pop)
-        # [NOVO] Inicializar arquivo de convergencia (two-archive)
+        # [NOVO] Inicializar arquivo de convergência (two-archive)
         if self.use_two_archive:
             self.conv_archive = self._build_conv_archive(self.pop)
         self.opt = self.nd_archive
@@ -913,19 +763,19 @@ class SSW_RDPA(Algorithm):
         # Keep per-individual state in NumPy. These tensors are updated mostly
         # in Python loops, where host memory is consistently faster and avoids
         # GPU ping-pong during every generation.
-        C = _np.repeat(_np.eye(n_var, dtype=float)[None, :, :], n, axis=0)
-        J = _np.zeros((n, n_obj, n_var), dtype=float)
-        pc = _np.zeros((n, n_var), dtype=float)
-        sigma_i = _np.full(n, self.sigma_base * self.domain_scale, dtype=float)
+        C = np.repeat(np.eye(n_var, dtype=float)[None, :, :], n, axis=0)
+        J = np.zeros((n, n_obj, n_var), dtype=float)
+        pc = np.zeros((n, n_var), dtype=float)
+        sigma_i = np.full(n, self.sigma_base * self.domain_scale, dtype=float)
 
-        X = _np.asarray(_to_numpy(pop.get("X")), dtype=float)
+        X = np.asarray(pop.get("X"), dtype=float)
         parent_X = X.copy()
-        parent_F = _np.full((n, n_obj), _np.nan, dtype=float)
-        parent_idx = _np.full(n, -1, dtype=int)
-        origin = _np.full(n, "init", dtype="<U4")
-        anti = _np.where(_np.asarray(self.random_state.random(n)) < 0.5, -1.0, 1.0).astype(float)
-        rvx_F = _np.full(n, _np.nan, dtype=float)
-        rvx_CR = _np.full(n, _np.nan, dtype=float)
+        parent_F = np.full((n, n_obj), np.nan, dtype=float)
+        parent_idx = np.full(n, -1, dtype=int)
+        origin = np.full(n, "init", dtype="<U4")
+        anti = np.where(np.asarray(self.random_state.random(n)) < 0.5, -1.0, 1.0).astype(float)
+        rvx_F = np.full(n, np.nan, dtype=float)
+        rvx_CR = np.full(n, np.nan, dtype=float)
 
         pop.set(
             "C", C,
@@ -945,30 +795,8 @@ class SSW_RDPA(Algorithm):
     # Main loop
     # ------------------------------------------------------------------
     def _infill(self):
-        t_infill = self._profile_block_begin()
         self._clear_backend_cache()
         progress = self._search_progress()
-
-        # [v3] P-B2: Adaptação dinâmica de ref_dirs para frentes irregulares.
-        # Ativada quando coverage fica abaixo do threshold por patience gerações.
-        # Ref: Cheng et al. 2024 (RVEA-2DCES); adaptação parcial por energia.
-        if (
-            self.adaptive_refdirs
-            and self.problem is not None
-            and self.problem.n_obj >= self.adaptive_refdirs_min_obj
-            and self.last_coverage < self.adaptive_refdirs_coverage_thr * self.coverage_target
-        ):
-            self._low_coverage_streak += 1
-            if (
-                self._low_coverage_streak >= self.adaptive_refdirs_patience
-                and (progress - self._last_refdirs_progress) >= self.adaptive_refdirs_cooldown
-                and _pymoo_get_reference_directions is not None
-            ):
-                self._adapt_reference_dirs_partial(progress)
-                self._low_coverage_streak = 0
-        else:
-            self._low_coverage_streak = max(0, self._low_coverage_streak - 1)
-
         F_pop = self._as_backend_array(self.pop.get("F"), dtype=float, cache_key="pop_F")
         dist_to_niche = None
         if self.pop.has("niche"):
@@ -1000,7 +828,7 @@ class SSW_RDPA(Algorithm):
                   + 0.05 * min(self.stagnation_streak, 4))
         _z     = _beta * ((_H_eff - _H_thr) / _dH)
         lam    = float(1.0 / (1.0 + self.xp.exp(-_z)))
-        lam    = float(_np.clip(
+        lam    = float(np.clip(
             lam + 0.12 * max(0.0, progress - 0.60), 0.0, 1.0))
 
         # search_mode derivado continuamente de lambda
@@ -1073,38 +901,20 @@ class SSW_RDPA(Algorithm):
         # Em lambda=0 (diversidade): fator = 0.45 (forte damping)
         # Em lambda=1 (convergencia): fator = 1.00 (sem damping)
         diversity_damp = (1.0 - lam) * 0.55 + 0.45   # [0.45, 1.00]
-        self.ratio_sde = float(_np.clip(
+        self.ratio_sde = float(np.clip(
             self.ratio_sde * diversity_damp,
             self.ratio_bounds[0], self.ratio_bounds[1]))
 
         if lam > 0.65 and self.stagnation_streak >= 2 \
                 and model_ready > 0.40:
-            self.ratio_sde = float(_np.clip(
+            self.ratio_sde = float(np.clip(
                 self.ratio_sde + 0.03 + 0.03 * (1.0 - entropy),
                 self.ratio_bounds[0], self.ratio_bounds[1]))
 
         if self.low_obj_mode:
             sde_cap = 0.06 + 0.04 * max(0.0, progress - 0.75)
-            sde_cap = float(_np.clip(sde_cap, self.ratio_bounds[0], self.ratio_bounds[1]))
+            sde_cap = float(np.clip(sde_cap, self.ratio_bounds[0], self.ratio_bounds[1]))
             self.ratio_sde = float(min(self.ratio_sde, sde_cap))
-
-        # [v3] P-A3: Gate de ativação SDE baseado em model_conf médio (nova sinalização).
-        # Quando o Jacobiano já está aquecido (mean_model_conf alto), aumentar pressão
-        # local. Quando frio (warm-start ainda em progresso), priorizar RVX/SBX global.
-        # Ref: Ideia derivada de NCE de confiança local (Loshchilov & Hutter 2019)
-        if len(self.pop) > 0 and self.pop.has("J"):
-            J_pop = self._as_backend_array(self.pop.get("J"), dtype=float, cache_key="pop_J_conf")
-            jn = self.xp.linalg.norm(J_pop.reshape(len(self.pop), -1), axis=1)
-            finite_j = jn[self.xp.isfinite(jn)]
-            j_ref = float(self.xp.median(finite_j)) if len(finite_j) > 0 else 0.0
-            if j_ref > 1e-14:
-                self._mean_model_conf = float(
-                    self.xp.mean(self.xp.clip(jn / j_ref, 0.0, 1.0))
-                )
-            else:
-                self._mean_model_conf = 0.0
-        else:
-            self._mean_model_conf = 0.0
 
         # Activation gate for local branch: keep pure global evolution when
         # archive is improving and SBX is healthy.
@@ -1119,8 +929,6 @@ class SSW_RDPA(Algorithm):
             local_pressure += 0.35
         # [P7] Penalidade continua pelo grau de diversidade necessario
         local_pressure -= (1.0 - lam) * 0.55
-        # [v3] P-A3: Bônus proporcional ao aquecimento do Jacobiano
-        local_pressure += 0.40 * self._mean_model_conf
 
         if local_pressure <= 0.0 and progress < 0.65:
             n_sde = 0
@@ -1133,7 +941,7 @@ class SSW_RDPA(Algorithm):
                         int(round(cap_frac * self.pop_size))))
         if self.low_obj_mode and progress < 0.90 and self.last_rate_sde < max(0.08, 0.70 * self.last_rate_sbx):
             n_sde = min(n_sde, max(0, int(round(0.04 * self.pop_size))))
-        n_sde = int(_np.clip(n_sde, 0, self.pop_size - 1))
+        n_sde = int(np.clip(n_sde, 0, self.pop_size - 1))
 
         positive = niche_count[niche_count > 0]
         if len(positive) > 0:
@@ -1141,7 +949,6 @@ class SSW_RDPA(Algorithm):
         else:
             sparse_th = 1
         sparse_mask = niche_count <= sparse_th
-        t_weights = self._profile_block_begin()
         weights_conv, weights_div = self._parent_weights(
             self.pop,
             niche=niche,
@@ -1150,7 +957,6 @@ class SSW_RDPA(Algorithm):
             F_dev=F_pop,
             d_perp_dev=dist_to_niche,
         )
-        self._profile_block_end("weights", t_weights)
 
         n_global = self.pop_size - n_sde
         stall = 0.0 if self.last_archive_improved else 1.0
@@ -1161,81 +967,54 @@ class SSW_RDPA(Algorithm):
         # [P7] rvx_share modulado por lambda em vez de flag binario
         if lam < 0.35:
             rvx_share *= (0.40 + 0.60 * lam)
-        rvx_share = float(_np.clip(rvx_share, 0.05, 0.70))
+        rvx_share = float(np.clip(rvx_share, 0.05, 0.70))
         n_rvx = int(round(n_global * rvx_share))
-        n_rvx = int(_np.clip(n_rvx, 0, n_global))
+        n_rvx = int(np.clip(n_rvx, 0, n_global))
         n_sbx = n_global - n_rvx
 
         offsprings = []
 
         if n_sbx > 0:
-            t_sbx = self._profile_block_begin()
             offsprings.append(self._create_sbx_offspring(n_sbx, [weights_conv, weights_div]))
-            self._profile_block_end("offspring_sbx", t_sbx)
 
         if n_rvx > 0:
-            t_rvx = self._profile_block_begin()
             offsprings.append(self._create_rvx_offspring(n_rvx, [weights_conv, weights_div], niche))
-            self._profile_block_end("offspring_rvx", t_rvx)
 
         if n_sde > 0:
-            t_sde = self._profile_block_begin()
             offsprings.append(self._create_sde_offspring(n_sde, [weights_conv, weights_div], niche, niche_count))
-            self._profile_block_end("offspring_sde", t_sde)
 
         if len(offsprings) == 1:
-            out = offsprings[0]
-            self._profile_block_end("infill_total", t_infill)
-            return out
-        out = Population.merge(*offsprings)
-        self._profile_block_end("infill_total", t_infill)
-        return out
+            return offsprings[0]
+        return Population.merge(*offsprings)
 
     def _advance(self, infills=None, **kwargs):
         if infills is None or len(infills) == 0:
             return
 
-        t_adv = self._profile_block_begin()
-
         self._clear_backend_cache()
 
-        t_state = self._profile_block_begin()
         self._update_offspring_state(infills)
-        self._profile_block_end("advance_update_offspring_state", t_state)
 
-        t_surv = self._profile_block_begin()
-        t_merge = self._profile_block_begin()
         pool = Population.merge(self.pop, infills)
-        self._profile_block_end("advance_survival_merge", t_merge)
-        t_dup = self._profile_block_begin()
         pool = self.dup_elim.do(pool)
-        self._profile_block_end("advance_survival_dup_elim", t_dup)
-        if self.use_gpu:
-            try:
-                pool.set("F", _np.asarray(_to_numpy(pool.get("F")), dtype=float))
-            except Exception:  # noqa: BLE001
-                pass
-        t_hybrid = self._profile_block_begin()
         self.pop = self._hybrid_survival(pool, n_survive=self.pop_size)
-        self._profile_block_end("advance_survival_hybrid", t_hybrid)
-        self._profile_block_end("advance_survival", t_surv)
 
         self.nd_archive = self._update_archive(self.pop)
 
-        # [NOVO] Two-archive: manter arquivo de convergencia explicito.
-        # O arquivo de convergencia preserva os melhores individuos por ASF
+        # [NOVO] Two-archive: manter arquivo de convergência explícito.
+        # O arquivo de convergência preserva os melhores indivíduos por ASF
         # no nicho, complementando o arquivo de diversidade (nd_archive).
         # Ref: Wang et al. 2015 (Two-archive); MaOEA-MS (ScienceDirect 2022).
         if self.use_two_archive:
             pool_full = Population.merge(self.nd_archive, self.conv_archive) \
                 if self.conv_archive is not None else self.nd_archive
             self.conv_archive = self._build_conv_archive(pool_full)
-            # Opt expoe uniao dos dois arquivos sem duplicatas
+            # Opt expõe união dos dois arquivos sem duplicatas
             combined = Population.merge(self.nd_archive, self.conv_archive)
             combined = self.dup_elim.do(combined)
             F_comb = combined.get("F")
             nd_idx = self._nds_do(F_comb, only_non_dominated_front=True)
-            self.opt = combined[_np.asarray(_to_numpy(nd_idx), dtype=int)]
+            self.opt = combined[np.asarray(_to_numpy(nd_idx), dtype=int)]
         else:
             self.opt = self.nd_archive
 
@@ -1248,10 +1027,10 @@ class SSW_RDPA(Algorithm):
         else:
             self.stagnation_streak += 1
 
-        # [AJUSTE] Adaptacao de _pbi com protecao de diversidade.
-        # Em PBI,  muito baixo reduz a penalizacao perpendicular e pode colapsar
-        # multiplos nichos em uma unica direcao. Aqui,  mantem piso mais alto em
-        # modo diversity/escassez e so reduz mais em modo convergence.
+        # [AJUSTE] Adaptação de θ_pbi com proteção de diversidade.
+        # Em PBI, θ muito baixo reduz a penalização perpendicular e pode colapsar
+        # múltiplos nichos em uma única direção. Aqui, θ mantém piso mais alto em
+        # modo diversity/escassez e só reduz mais em modo convergence.
         if self.theta_adapt:
             scarcity_now = max(0.0, self.coverage_target - self.last_coverage)
             if self.low_obj_mode:
@@ -1260,7 +1039,7 @@ class SSW_RDPA(Algorithm):
                 theta_floor = 1.00 if self.problem.n_obj <= 2 else 1.20
                 theta_cap = 2.60 if self.problem.n_obj <= 2 else 3.20
                 theta_scaled = theta_sched + 0.10 * scarcity_now
-                self._theta_current = float(_np.clip(theta_scaled, theta_floor, theta_cap))
+                self._theta_current = float(np.clip(theta_scaled, theta_floor, theta_cap))
             else:
                 weak_diversity = (
                     self.last_coverage < self.coverage_target
@@ -1287,7 +1066,7 @@ class SSW_RDPA(Algorithm):
 
                 theta_scaled = theta_sched * mode_scale + 0.20 * scarcity_now
                 theta_cap = max(self.theta_pbi * theta_cap_scale, theta_floor + 0.25)
-                self._theta_current = float(_np.clip(theta_scaled, theta_floor, theta_cap))
+                self._theta_current = float(np.clip(theta_scaled, theta_floor, theta_cap))
         else:
             self._theta_current = float(self.theta_pbi)
 
@@ -1305,41 +1084,36 @@ class SSW_RDPA(Algorithm):
         self.last_div_metric = float(div_metric)
         self.last_q_state = int(next_state)
         self._record_telemetry(progress)
-        self._profile_block_end("advance_total", t_adv)
-
-        if self.profile_blocks:
-            ranked = sorted(
-                self._profile_block_stats.items(),
-                key=lambda kv: float(kv[1].get("time_s", 0.0)),
-                reverse=True,
-            )
-            self.block_profile_snapshot = [
-                {
-                    "block": name,
-                    "time_s": float(meta.get("time_s", 0.0)),
-                    "calls": int(meta.get("calls", 0.0)),
-                    "avg_ms": (
-                        float(meta.get("time_s", 0.0)) / max(float(meta.get("calls", 0.0)), 1.0) * 1000.0
-                    ),
-                }
-                for name, meta in ranked[:8]
-            ]
 
     # ------------------------------------------------------------------
     # Offspring creation
     # ------------------------------------------------------------------
     def _create_sbx_offspring(self, n_sbx: int, weights: Tuple[np.ndarray, np.ndarray]) -> Population:
-        np = _np
-        if n_sbx <= 0:
-            return Population()
+        off = self.mating.do(
+            self.problem,
+            self.pop,
+            n_sbx,
+            algorithm=self,
+            random_state=self.random_state,
+        )
+        if len(off) == 0:
+            off = Population.new("X", self.pop.get("X")[:n_sbx].copy())
+
+        if len(off) > n_sbx:
+            off = off[:n_sbx]
 
         # [Dr. Evolve] POCEA Selection + TPCMaO Injection
+        # Use dual weights for Convergence (p1) and Diversity (p2)
         n_pop = len(self.pop)
+        replace = n_pop < len(off)
         
-        # Calculate how many matings we need (SBX produces 2 offspring per mating)
-        n_matings = int(np.ceil(n_sbx / 2.0))
-        n_needed_parents = n_matings * 2
-
+        # Generate twice as many indices because we might discard some or need mating pairs
+        # But here we just need donors for differential components (C, J, etc)
+        # Ideally we want the "Convergence" parents to donate the state (J, C, sigma)
+        # to drive the search towards the front.
+        
+        # Helper to select standard parents using POCEA logic
+        # Note: _select_parents_pocea returns a flat array [p1, p2, p1, p2...]
         use_archive_injection = bool(
             self.use_two_archive
             and (not self.low_obj_mode)
@@ -1347,59 +1121,37 @@ class SSW_RDPA(Algorithm):
             and (self.search_mode == "convergence" or self.stagnation_streak >= 2)
         )
 
-        parents_flat = self._select_parents_pocea(
-            n_needed_parents,
+        parents_indices = self._select_parents_pocea(
+            len(off),
             weights[0],
             weights[1],
             self.pop.get("niche"),
             archive_injection=use_archive_injection,
         )
         
-        # Mating pairs: (Convergence parent, Diversity parent)
-        primary_parents = _np.asarray(parents_flat[0::2], dtype=int)
-        secondary_parents = _np.asarray(parents_flat[1::2], dtype=int)
+        # We use the convergence parents (even indices) as the "primary" donors for state
+        # to ensure good properties are inherited.
+        primary_parents = np.asarray(parents_indices[0::2], dtype=int)
+        if len(primary_parents) < len(off): # Should not happen if math is right
+             extra = np.asarray(
+                 self.random_state.choice(n_pop, size=len(off)-len(primary_parents), p=weights[0]),
+                 dtype=int,
+             )
+             primary_parents = np.concatenate((primary_parents, extra))
         
-        # Pad if short
-        if len(primary_parents) < n_matings:
-            extra = _np.asarray(self.random_state.choice(n_pop, size=n_matings - len(primary_parents), p=weights[0]), dtype=int)
-            primary_parents = _np.concatenate((primary_parents, extra))
-        if len(secondary_parents) < n_matings:
-            extra = _np.asarray(self.random_state.choice(n_pop, size=n_matings - len(secondary_parents), p=weights[1]), dtype=int)
-            secondary_parents = _np.concatenate((secondary_parents, extra))
+        p1_rep = primary_parents[:len(off)]
+        
+        # Second parent for crossover can be the diversity partner
+        secondary_parents = np.asarray(parents_indices[1::2], dtype=int)
+        if len(secondary_parents) < len(off):
+             extra = np.asarray(
+                 self.random_state.choice(n_pop, size=len(off)-len(secondary_parents), p=weights[1]),
+                 dtype=int,
+             )
+             secondary_parents = np.concatenate((secondary_parents, extra))
+             
+        p2_rep = secondary_parents[:len(off)]
 
-        p1_rep = primary_parents[:n_matings]
-        p2_rep = secondary_parents[:n_matings]
-        parents_array = _np.column_stack([p1_rep, p2_rep])
-
-        # Generate genetic offspring using the carefully selected parents
-        # Bypass self.mating.do to avoid interference from PyMoo's TournamentSelection wrapper
-        off = self.mating.crossover.do(
-            self.problem,
-            self.pop,
-            parents_array,
-            algorithm=self,
-            random_state=self.random_state,
-        )
-        off = self.mating.mutation.do(
-            self.problem,
-            off,
-            algorithm=self,
-            random_state=self.random_state,
-        )
-
-        # eliminate duplicates maybe?
-        if self.mating.eliminate_duplicates is not None:
-            off = self.mating.eliminate_duplicates.do(off, self.pop)
-
-        if len(off) == 0:
-            off = Population.new("X", self.pop.get("X")[:n_sbx].copy())
-        if len(off) > n_sbx:
-            off = off[:n_sbx]
-
-        # To inherit meta-state (C, J, etc.), we map offspring back to their primary producing parents.
-        # Since each mating pair (p1, p2) produces up to 2 offspring, we duplicate the parent arrays.
-        p1_off = _np.repeat(p1_rep, 2)[:len(off)]
-        p2_off = _np.repeat(p2_rep, 2)[:len(off)]
 
         C = self.pop.get("C", to_numpy=True)
         J = self.pop.get("J", to_numpy=True)
@@ -1409,17 +1161,17 @@ class SSW_RDPA(Algorithm):
         X = self.pop.get("X", to_numpy=True)
         F = self.pop.get("F", to_numpy=True)
 
-        C_child = 0.5 * (C[p1_off] + C[p2_off])
-        J_child = 0.5 * (J[p1_off] + J[p2_off])
-        pc_child = 0.5 * (pc[p1_off] + pc[p2_off])
-        sigma_child = 0.5 * (sigma_i[p1_off] + sigma_i[p2_off])
-        anti_child = anti[p1_off].copy()
-        parent_X = 0.5 * (X[p1_off] + X[p2_off])
-        parent_F = 0.5 * (F[p1_off] + F[p2_off])
-        parent_idx = p1_off.copy()
-        origin = _np.full(len(off), "sbx", dtype="<U4")
-        rvx_F = _np.full(len(off), _np.nan, dtype=float)
-        rvx_CR = _np.full(len(off), _np.nan, dtype=float)
+        C_child = 0.5 * (C[p1_rep] + C[p2_rep])
+        J_child = 0.5 * (J[p1_rep] + J[p2_rep])
+        pc_child = 0.5 * (pc[p1_rep] + pc[p2_rep])
+        sigma_child = 0.5 * (sigma_i[p1_rep] + sigma_i[p2_rep])
+        anti_child = anti[p1_rep].copy()
+        parent_X = 0.5 * (X[p1_rep] + X[p2_rep])
+        parent_F = 0.5 * (F[p1_rep] + F[p2_rep])
+        parent_idx = p1_rep.copy()
+        origin = np.full(len(off), "sbx", dtype="<U4")
+        rvx_F = np.full(len(off), np.nan, dtype=float)
+        rvx_CR = np.full(len(off), np.nan, dtype=float)
 
         off.set(
             "C",
@@ -1447,44 +1199,6 @@ class SSW_RDPA(Algorithm):
         )
         return off
 
-    def _warmstart_jacobian_fd(
-        self,
-        X: _np.ndarray,
-        F_parent: _np.ndarray,
-        n_obj: int,
-    ) -> _np.ndarray:
-        """
-        [v3] P-A1: Warm-start do Jacobiano por diferenças finitas forward de 1-step.
-
-        Calcula uma aproximação barata do Jacobiano J[i] para indivíduos SDE
-        cujo Jacobiano ainda é zero (não inicializado).
-
-        Custo: 1 avaliação adicional por indivíduo (forward FD com h adaptativo).
-        Este método 'quasi-Newton relaxado' substitui o Broyden de rank-1 nas
-        primeiras gerações, onde sigma_i ainda é grande e a perturbação é robusta.
-
-        Referência:
-          Nocedal, J.; Wright, S.J. (2006). Numerical Optimization, 2nd ed.
-          Springer. Cap. 6 (Quasi-Newton Methods), pp. 135-163.
-          DOI: 10.1007/978-0-387-40065-5
-        """
-        n = X.shape[1]
-        J_warm = _np.zeros((len(X), n_obj, n), dtype=float)
-        for i in range(len(X)):
-            h = max(float(1e-5), 1e-4 * float(_np.linalg.norm(X[i])))
-            for j in range(n):
-                e_j = _np.zeros(n, dtype=float)
-                e_j[j] = h
-                x_plus = _np.clip(X[i] + e_j, self.problem.xl, self.problem.xu)
-                
-                # IMPORTANT: Count evaluations formally via PyMoo's evaluator
-                pop_plus = Population.new("X", x_plus[None, :])
-                self.evaluator.eval(self.problem, pop_plus, algorithm=self)
-                f_plus = _np.asarray(pop_plus.get("F"), dtype=float).ravel()
-                
-                J_warm[i, :, j] = (f_plus - F_parent[i]) / h
-        return J_warm
-
     def _create_sde_offspring(
         self,
         n_sde: int,
@@ -1492,12 +1206,11 @@ class SSW_RDPA(Algorithm):
         niche: np.ndarray,
         niche_count: np.ndarray,
     ) -> Population:
-        np = _np
         n_pop = len(self.pop)
         replace = n_pop < n_sde
-        weights_div = _np.asarray(_to_numpy(weights[1]), dtype=float)
-        niche = _np.asarray(_to_numpy(niche), dtype=int)
-        niche_count = _np.asarray(_to_numpy(niche_count), dtype=int)
+        weights_div = np.asarray(_to_numpy(weights[1]), dtype=float)
+        niche = np.asarray(_to_numpy(niche), dtype=int)
+        niche_count = np.asarray(_to_numpy(niche_count), dtype=int)
 
         # NSGA-III niche rarity biases the local branch.
         rarity = 1.0 / (1.0 + niche_count[niche])
@@ -1508,7 +1221,7 @@ class SSW_RDPA(Algorithm):
         local_w = np.clip(local_w, 1e-16, None)
         local_w = local_w / max(float(local_w.sum()), 1e-16)
 
-        parent_idx = self.random_state.choice(_np.arange(n_pop), size=n_sde, replace=replace, p=local_w)
+        parent_idx = self.random_state.choice(np.arange(n_pop), size=n_sde, replace=replace, p=local_w)
 
         parents = self.pop[parent_idx]
 
@@ -1523,44 +1236,6 @@ class SSW_RDPA(Algorithm):
         xl, xu = self.problem.xl, self.problem.xu
         n_var = self.problem.n_var
         n_obj = self.problem.n_obj
-
-        # [v3] P-A1: Warm-start quasi-Newton para indivíduos com Jacobiano frio.
-        # Aplica FD forward de 1-step nas primeiras warmstart_jacobian_gens gerações.
-        # Limita ao warmstart_max_individuals mais promissores (menor norm F) por geração.
-        # Custo amortizado: ~m avaliações extras por indivíduo, executado 1 única vez.
-        # Ref: Nocedal & Wright (2006), Cap. 6; quasi-Newton relaxado (rank-1 FD).
-        gen_now = int(getattr(self, "n_gen", 0))
-        if (gen_now < self.warmstart_jacobian_gens
-                and self.warmstart_max_individuals > 0
-                and _np.all(_np.isfinite(F))):
-            # Identifica indivíduos com Jacobiano essencialmente zero (frio)
-            jac_norms = _np.linalg.norm(
-                J.reshape(n_sde, -1), axis=1
-            )
-            cold_mask = jac_norms < 1e-8
-            cold_indices = _np.where(cold_mask)[0]
-            # Prioriza os de menor convergência (candidatos mais promissores)
-            if len(cold_indices) > 0:
-                conv_sort = _np.argsort(_np.mean(F[cold_indices], axis=1))
-                top_cold = cold_indices[conv_sort[:self.warmstart_max_individuals]]
-                # Filtra os que ainda não receberam warm-start (por ID de parent)
-                to_warm = [
-                    k for k in top_cold
-                    if int(parent_idx[k]) not in self._warmstart_done
-                ]
-                if len(to_warm) > 0:
-                    X_warm = X[to_warm]
-                    F_warm = F[to_warm]
-                    try:
-                        J_warm = self._warmstart_jacobian_fd(X_warm, F_warm, n_obj)
-                        for ii, k in enumerate(to_warm):
-                            J[k] = (
-                                (1.0 - self.jacobian_damping) * J[k]
-                                + self.jacobian_damping * J_warm[ii]
-                            )
-                            self._warmstart_done.add(int(parent_idx[k]))
-                    except Exception:  # noqa: BLE001
-                        pass  # fallback silencioso: continua sem warm-start
 
         X_new = np.empty_like(X)
 
@@ -1580,20 +1255,20 @@ class SSW_RDPA(Algorithm):
         for i in range(n_sde):
             lam[i] = solve_schaeffler_qp(J[i], max_iter=8)
 
-        # [NOVO] Blending Schaeffler + Tchebycheff para direcao de descida.
-        # Para m > 5, a direcao Schaeffler pode ser ruidosa; a direcao de
-        # Tchebycheff (gradiente do maximo ponderado) e mais estavel.
+        # [NOVO] Blending Schaeffler + Tchebycheff para direção de descida.
+        # Para m > 5, a direção Schaeffler pode ser ruidosa; a direção de
+        # Tchebycheff (gradiente do máximo ponderado) é mais estável.
         # Blend adaptativo: alpha = progresso (mais Tchebycheff no final).
-        # Ref: MaOEA-DISC (ScienceDirect 2024); -DEA (Yuan et al. 2015).
+        # Ref: MaOEA-DISC (ScienceDirect 2024); θ-DEA (Yuan et al. 2015).
         if n_obj > 4:
-            alpha_blend = float(_np.clip(progress * 0.60 + 0.10, 0.10, 0.65))
+            alpha_blend = float(np.clip(progress * 0.60 + 0.10, 0.10, 0.65))
             niche_local = niche[parent_idx] if len(parent_idx) > 0 else niche[:n_sde]
             ref_dirs_np = self.ref_dirs_np
             for i in range(n_sde):
-                ni = int(_np.clip(niche_local[i], 0, len(self.ref_dirs) - 1))
+                ni = int(np.clip(niche_local[i], 0, len(self.ref_dirs) - 1))
                 w_ref = np.maximum(ref_dirs_np[ni], 1e-8)
-                # Gradiente de Tchebycheff: unitario na direcao do objetivo
-                # com maior residuo normalizado
+                # Gradiente de Tchebycheff: unitário na direção do objetivo
+                # com maior resíduo normalizado
                 f_norm_i = (F[i] - np.min(F, axis=0)) / np.maximum(
                     np.max(F, axis=0) - np.min(F, axis=0), 1e-12
                 )
@@ -1606,7 +1281,7 @@ class SSW_RDPA(Algorithm):
                 _r_shift = tch_grad - tch_grad.max()   # estabilidade numerica
                 _exp_r   = np.exp(_tau * _r_shift)
                 tch_dir  = _exp_r / max(float(_exp_r.sum()), 1e-14)
-                # Blend suave com a solucao Schaeffler
+                # Blend suave com a solução Schaeffler
                 lam[i] = (1.0 - alpha_blend) * lam[i] + alpha_blend * _project_to_simplex(tch_dir)
                 lam[i] = np.maximum(lam[i], 1e-12)
                 lam[i] /= np.sum(lam[i])
@@ -1641,8 +1316,8 @@ class SSW_RDPA(Algorithm):
         # Differential fallback when Jacobian-induced q is weak/noisy.
         # Preserves global exploration capacity on difficult many-objective landscapes.
         X_pop = self.pop.get("X", to_numpy=True)
-        de_i = self.random_state.choice(_np.arange(n_pop), size=n_sde, replace=True, p=weights_div)
-        de_j = self.random_state.choice(_np.arange(n_pop), size=n_sde, replace=True, p=weights_div)
+        de_i = self.random_state.choice(np.arange(n_pop), size=n_sde, replace=True, p=weights_div)
+        de_j = self.random_state.choice(np.arange(n_pop), size=n_sde, replace=True, p=weights_div)
         de_dir = X_pop[de_i] - X_pop[de_j]
         de_norm = np.linalg.norm(de_dir, axis=1, keepdims=True)
         de_dir[de_norm.ravel() > 1e-14] /= de_norm[de_norm.ravel() > 1e-14]
@@ -1667,7 +1342,7 @@ class SSW_RDPA(Algorithm):
 
         off = Population.new("X", X_new)
 
-        origin = _np.full(n_sde, "sde", dtype="<U4")
+        origin = np.full(n_sde, "sde", dtype="<U4")
         rvx_F = np.full(n_sde, np.nan, dtype=float)
         rvx_CR = np.full(n_sde, np.nan, dtype=float)
         off.set(
@@ -1702,16 +1377,15 @@ class SSW_RDPA(Algorithm):
         weights: Tuple[np.ndarray, np.ndarray],
         niche: np.ndarray,
     ) -> Population:
-        np = _np
         n_pop = len(self.pop)
         replace = n_pop < n_rvx
-        weights_conv = _np.asarray(_to_numpy(weights[0]), dtype=float)
-        weights_div = _np.asarray(_to_numpy(weights[1]), dtype=float)
-        niche = _np.asarray(_to_numpy(niche), dtype=int)
+        weights_conv = np.asarray(_to_numpy(weights[0]), dtype=float)
+        weights_div = np.asarray(_to_numpy(weights[1]), dtype=float)
+        niche = np.asarray(_to_numpy(niche), dtype=int)
 
         # [Dr. Evolve] POCEA Selection for RVX
         # Select target vectors using Convergence weights to drive towards front
-        target_idx = self.random_state.choice(_np.arange(n_pop), size=n_rvx, replace=replace, p=weights_conv)
+        target_idx = self.random_state.choice(np.arange(n_pop), size=n_rvx, replace=replace, p=weights_conv)
         parents = self.pop[target_idx]
 
         X_pop = self.pop.get("X", to_numpy=True)
@@ -1766,7 +1440,7 @@ class SSW_RDPA(Algorithm):
                 # 3 tries to find a "neighbor" (same niche or dot product > 0.8).
                 r1_cand = -1
                 for _ in range(3):
-                    c = int(self.random_state.choice(_np.arange(n_pop), p=weights_div))
+                    c = int(self.random_state.choice(np.arange(n_pop), p=weights_div))
                     if c == xi_idx or c == bi: continue
                     if niche[c] == ni: # Same niche = perfect neighbor
                         r1_cand = c
@@ -1778,14 +1452,14 @@ class SSW_RDPA(Algorithm):
                         r1_cand = c
                         break
                 if r1_cand == -1:
-                    r1_cand = int(self.random_state.choice(_np.arange(n_pop), p=weights_div))
+                    r1_cand = int(self.random_state.choice(np.arange(n_pop), p=weights_div))
                 r1 = r1_cand
                 
-                r2 = int(self.random_state.choice(_np.arange(n_pop), p=weights_div))
+                r2 = int(self.random_state.choice(np.arange(n_pop), p=weights_div))
                 if r1 == r2: r2 = (r2 + 1) % n_pop
             else:
                 # Global mating
-                r = self.random_state.choice(_np.arange(n_pop), size=2, replace=(n_pop < 2), p=weights_div)
+                r = self.random_state.choice(np.arange(n_pop), size=2, replace=(n_pop < 2), p=weights_div)
                 r1, r2 = int(r[0]), int(r[1])
                 if r1 == r2:
                     r2 = (r2 + 1) % n_pop
@@ -1799,7 +1473,7 @@ class SSW_RDPA(Algorithm):
                     break
             if not np.isfinite(fj):
                 fj = self.rvx_mu_f
-            crj = float(_np.clip(self.random_state.normal(self.rvx_mu_cr, 0.1), 0.0, 1.0))
+            crj = float(np.clip(self.random_state.normal(self.rvx_mu_cr, 0.1), 0.0, 1.0))
 
             mutant = xi + fj * (X_pop[bi] - xi) + fj * (X_pop[r1] - X_pop[r2])
 
@@ -1813,7 +1487,7 @@ class SSW_RDPA(Algorithm):
             used_cr[i] = crj
 
         off = Population.new("X", X_new)
-        origin = _np.full(n_rvx, "rvx", dtype="<U4")
+        origin = np.full(n_rvx, "rvx", dtype="<U4")
         off.set(
             "C",
             C.copy(),
@@ -1844,7 +1518,6 @@ class SSW_RDPA(Algorithm):
     # State updates
     # ------------------------------------------------------------------
     def _update_offspring_state(self, off: Population):
-        np = _np
         n = len(off)
         if n == 0:
             return
@@ -1859,9 +1532,9 @@ class SSW_RDPA(Algorithm):
         J = np.asarray(off.get("J", to_numpy=True), dtype=float)
         pc = np.asarray(off.get("pc", to_numpy=True), dtype=float)
         sigma_i = np.asarray(off.get("sigma_i", to_numpy=True), dtype=float)
-        origin = np.asarray(_to_numpy(off.get("origin")), dtype=str)
+        origin = np.asarray(off.get("origin"), dtype=str)
         anti = np.asarray(off.get("anti", to_numpy=True), dtype=float)
-        parent_idx = np.asarray(_to_numpy(off.get("parent_idx")), dtype=int)
+        parent_idx = np.asarray(off.get("parent_idx"), dtype=int)
         rvx_F = np.asarray(off.get("rvx_F", to_numpy=True), dtype=float)
         rvx_CR = np.asarray(off.get("rvx_CR", to_numpy=True), dtype=float)
         ref_dirs_np = self.ref_dirs_np
@@ -1878,7 +1551,7 @@ class SSW_RDPA(Algorithm):
 
         parent_niche = None
         if self.pop.has("niche"):
-            p_niche = _np.asarray(_to_numpy(self.pop.get("niche")), dtype=int)
+            p_niche = np.asarray(_to_numpy(self.pop.get("niche")), dtype=int)
             if p_niche is not None and len(p_niche) == len(self.pop):
                 safe_idx = np.clip(parent_idx.astype(int), 0, max(len(self.pop) - 1, 0))
                 parent_niche = p_niche[safe_idx]
@@ -1923,7 +1596,7 @@ class SSW_RDPA(Algorithm):
                     )
                 )
                 if (not success) and rel == 0 and parent_niche is not None:
-                    niche_i = int(_np.clip(parent_niche[i], 0, len(ref_dirs_np) - 1))
+                    niche_i = int(np.clip(parent_niche[i], 0, len(ref_dirs_np) - 1))
                     w = np.maximum(ref_dirs_np[niche_i], 1e-8)
                     asf_child = float(np.max(F_norm[i] / w))
                     asf_parent = float(np.max(parent_norm[i] / w))
@@ -2067,7 +1740,7 @@ class SSW_RDPA(Algorithm):
         """Calculate p1 (convergence) and p2 (diversity) selection weights. Supports GPU."""
         xp = self.xp
         F = F_dev if F_dev is not None else self._as_backend_array(pop.get("F"), dtype=float, cache_key="pw_F")
-        F_np = _np.asarray(_to_numpy(F), dtype=float)
+        F_np = np.asarray(_to_numpy(F), dtype=float)
         ref_dirs = self.ref_dirs_xp
         if rank_dev is not None:
             rank = xp.asarray(rank_dev, dtype=int)
@@ -2135,27 +1808,6 @@ class SSW_RDPA(Algorithm):
         if sparse_mask is not None and scarcity > 0.0:
             w_div *= sparse_boost
 
-        if getattr(self, 'low_obj_mode', False) and getattr(self.problem, 'n_obj', 2) <= 2:
-            F_sel = F_np
-            n_c   = len(F_sel)
-            cd    = _np.zeros(n_c, dtype=float)
-            for obj_k in range(F_sel.shape[1]):
-                order   = _np.argsort(F_sel[:, obj_k])
-                cd[order[0]]  = _np.inf
-                cd[order[-1]] = _np.inf
-                f_range = max(float(F_sel[order[-1], obj_k] - F_sel[order[0], obj_k]), 1e-12)
-                for ii in range(1, n_c - 1):
-                    cd[order[ii]] += (F_sel[order[ii+1], obj_k] - F_sel[order[ii-1], obj_k]) / f_range
-            finite_cd = cd[cd < _np.inf]
-            max_cd = _np.max(finite_cd) if len(finite_cd) > 0 else 1.0
-            cd[cd == _np.inf] = max_cd + 2.0
-            
-            w_div_cd = cd / max(1e-12, _np.max(cd))
-            w_conv_cd = rank_gain * (0.80 + 0.20 * w_div_cd)
-            
-            w_conv = xp.asarray(w_conv_cd, dtype=float)
-            w_div = xp.asarray(w_div_cd, dtype=float)
-
         w_conv = xp.clip(w_conv, 1e-16, None)
         w_conv /= w_conv.sum()
         w_div = xp.clip(w_div, 1e-16, None)
@@ -2218,16 +1870,16 @@ class SSW_RDPA(Algorithm):
           - With prob ~10%, p1 is replaced by a high-quality solution from conv_archive.
         """
         n_pop = len(self.pop)
-        w_conv = _np.asarray(_to_numpy(w_conv), dtype=float)
-        w_div = _np.asarray(_to_numpy(w_div), dtype=float)
-        niche = _np.asarray(_to_numpy(niche), dtype=int)
+        w_conv = np.asarray(_to_numpy(w_conv), dtype=float)
+        w_div = np.asarray(_to_numpy(w_div), dtype=float)
+        niche = np.asarray(_to_numpy(niche), dtype=int)
         
         # Ensure we generate pairs (even number), then trim if needed
         n_gen = n_parents
         if n_gen % 2 != 0:
             n_gen += 1
             
-        parents_gen = _np.empty(n_gen, dtype=int)
+        parents_gen = np.empty(n_gen, dtype=int)
         
         # Half of parents are p1 (convergence), half are p2 (diversity/neighbor)
         n_couples = n_gen // 2
@@ -2252,7 +1904,7 @@ class SSW_RDPA(Algorithm):
         #   a) A random diversity parent (Global Exploration)
         #   b) A neighbor in the same niche (Local Exploitation/Mating Restriction)
         
-        p2_idx = _np.empty(n_couples, dtype=int)
+        p2_idx = np.empty(n_couples, dtype=int)
         
         _has_nbr = hasattr(self, "_ref_nbr") and self._ref_nbr is not None
         for i in range(n_couples):
@@ -2265,11 +1917,11 @@ class SSW_RDPA(Algorithm):
                 # geracoes; o pool ampliado garante mating restriction
                 # funcional em qualquer dimensionalidade.
                 if _has_nbr:
-                    nbr_row = _np.asarray(self._ref_nbr[my_niche], dtype=int).tolist()
+                    nbr_row = np.asarray(self._ref_nbr[my_niche], dtype=int).tolist()
                     nbr_niches = set(nbr_row) | {my_niche}
                 else:
                     nbr_niches = {my_niche}
-                cand_pool = _np.array(
+                cand_pool = np.array(
                     [j for j in range(n_pop)
                      if j != lead and niche[j] in nbr_niches],
                     dtype=int,
@@ -2300,46 +1952,10 @@ class SSW_RDPA(Algorithm):
     def _hybrid_survival(
         self, pop: Population, n_survive: int, ideal: Optional[np.ndarray] = None, nadir: Optional[np.ndarray] = None
     ) -> Population:
-        np = _np
-        if self.use_gpu:
-            F_fast = _np.asarray(_to_numpy(pop.get("F")), dtype=float)
-            all_fronts, rank = self._nds_do(F_fast, return_rank=True, n_stop_if_ranked=n_survive)
-
-            picked: list[int] = []
-            for front in all_fronts:
-                front_np = _np.asarray(_to_numpy(front), dtype=int)
-                if len(front_np) == 0:
-                    continue
-                remaining = int(n_survive - len(picked))
-                if remaining <= 0:
-                    break
-                if len(front_np) <= remaining:
-                    picked.extend(front_np.tolist())
-                    continue
-
-                niche_tmp, dist_tmp = self._associate_niches(F_fast, nd=front_np, force_cpu=True)
-                dist_np = _np.asarray(_to_numpy(dist_tmp), dtype=float).reshape(-1)
-                dist_front = dist_np[front_np]
-                order = _np.argsort(dist_front)[:remaining]
-                picked.extend(front_np[order].tolist())
-                break
-
-            if len(picked) == 0:
-                return pop[:0]
-
-            picked_np = _np.asarray(picked, dtype=int)
-            pop = pop[picked_np]
-            rank_np = _np.asarray(_to_numpy(rank), dtype=int)[picked_np]
-            nd_local = _np.where(rank_np == 0)[0]
-            nd_local = nd_local if len(nd_local) > 0 else _np.arange(len(pop), dtype=int)
-            niche_of, dist_to_niche = self._associate_niches(pop.get("F", to_numpy=True), nd=nd_local, force_cpu=True)
-            pop.set("rank", rank_np, "niche", niche_of, "dist_to_niche", dist_to_niche)
-            return pop
-
         F = pop.get("F")
 
         # [AJUSTE] SDR com gate adaptativo para evitar colapso de diversidade.
-        # Em cenarios de escassez/diversity-mode, SDR pode gerar fronts muito
+        # Em cenários de escassez/diversity-mode, SDR pode gerar fronts muito
         # granulares (muitos singletons) e reduzir cobertura de nichos.
         progress = self._search_progress()
         scarcity = max(0.0, self.coverage_target - self.last_coverage)
@@ -2364,10 +1980,10 @@ class SSW_RDPA(Algorithm):
             # Com H baixo -> sigma_eff cai -> SDR ~ Pareto classico
             # Com H alto  -> sigma_eff = sigma_base -> SDR completo
             _H          = float(self.last_entropy)
-            _ent_factor = float(_np.clip((_H - 0.40) / 0.60, 0.0, 1.0))
+            _ent_factor = float(np.clip((_H - 0.40) / 0.60, 0.0, 1.0))
             sigma_eff   = float(
                 self.sdr_sigma * (0.20 + 0.80 * _ent_factor))
-            sigma_eff   = float(_np.clip(
+            sigma_eff   = float(np.clip(
                 sigma_eff * (1.0 - 0.40 * scarcity),
                 0.0, self.sdr_sigma))
             all_fronts, rank = self._sdr_fronts(F, sigma=sigma_eff)
@@ -2380,7 +1996,7 @@ class SSW_RDPA(Algorithm):
         fronts = []
         ranked = 0
         for front in all_fronts:
-            fronts.append(_np.asarray(_to_numpy(front), dtype=int))
+            fronts.append(np.asarray(_to_numpy(front), dtype=int))
             ranked += len(front)
             if ranked >= n_survive:
                 break
@@ -2388,20 +2004,20 @@ class SSW_RDPA(Algorithm):
         if len(fronts) == 0:
             return pop[:0]
 
-        picked = _np.concatenate(fronts).astype(int)
+        picked = np.concatenate(fronts).astype(int)
         pop = pop[picked]
         F = pop.get("F")
-        rank = _np.asarray(_to_numpy(rank), dtype=int)[picked]
+        rank = np.asarray(rank, dtype=int)[picked]
 
         mapped_fronts = []
         cursor = 0
         for front in fronts:
             size = len(front)
-            mapped_fronts.append(_np.arange(cursor, cursor + size, dtype=int))
+            mapped_fronts.append(np.arange(cursor, cursor + size, dtype=int))
             cursor += size
 
         nd_for_norm = mapped_fronts[0] if len(mapped_fronts) > 0 else None
-        niche_of, dist_to_niche = self._associate_niches(F, nd=nd_for_norm, force_cpu=self.use_gpu)
+        niche_of, dist_to_niche = self._associate_niches(F, nd=nd_for_norm)
         pop.set("rank", rank, "niche", niche_of, "dist_to_niche", dist_to_niche)
 
         if len(pop) <= n_survive:
@@ -2425,103 +2041,55 @@ class SSW_RDPA(Algorithm):
             niche_count=niche_count,
             F=F,
         )
-        selected_np = _np.asarray(_to_numpy(selected), dtype=int)
-        survivors = _np.concatenate((until_last_front, selected_np)).astype(int)
-        # [v3] P-B1: Dual-Association Angular — preenche nichos vazios
-        # com candidatos de menor score angular+perpendicular antes do elite_refinement.
-        # Ref: Wang et al. (2025) MOEA-AD. DOI: 10.3390/math13111757
-        survivors = self._dual_association_fill_empty_niches(
-            survivors, split_front, niche_of, _np.asarray(_to_numpy(F), dtype=float), n_survive
-        )
+        selected_np = np.asarray(_to_numpy(selected), dtype=int)
+        survivors = np.concatenate((until_last_front, selected_np)).astype(int)
         survivors = self._elite_refinement(survivors, pop, niche_of, F)
         return pop[survivors]
 
     def _sdr_fronts(self, F: np.ndarray, sigma: Optional[float] = None):
         """
-        [v3 P-A2] Classificacao em frontes via SDR (Strengthened Dominance Relation).
-
-        Reescrita TOTALMENTE TENSORIAL — elimina o loop Python da fase de
-        construção de frontes. A dominância SDR (Tian et al. 2018) é computada
-        com operações de matriz puras (broadcast n×n×m) e o ranking é derivado
-        em O(F) passes sobre vetores CPU, sem loop de nivel Python por front.
-
-        Melhoria v3 (P-A2):
-          - Loop 'while' de construção de frontes substituido por propagação
-            tensorial de dom_count via scatter-add vetorizado.
-          - Elimina ``dominated_by_rows_np`` (lista de arrays por individuo).
-          - Usa cumsum de máscara para identificar fronteiras de frente.
-          - Speedup esperado: 3-8x para pop_size >= 150, m >= 5.
-
-        Complexidade: O(n^2 * m) operações matriciais + O(n * num_fronts) CPU.
-        Ref: Tian, Y.; Cheng, R.; Zhang, X.; Su, Y.; Jin, Y. (2018).
-             DOI: 10.1109/TEVC.2017.2749619
+        [NOVO] Classificação em frontes usando SDR (Strengthened Dominance Relation).
+        Normaliza F e computa σ proporcional ao span médio.
+        Complexidade O(n^2 * m) — igual ao NDS padrão.
+        Ref: Tian et al. 2018; 3DEA (Zhang et al. 2024).
         """
-        xp = self.xp
         n = len(F)
-        if n == 0:
-            return [], _np.array([], dtype=int)
-
-        f_min = xp.min(F, axis=0)
-        f_max = xp.max(F, axis=0)
-        span = xp.maximum(f_max - f_min, 1e-12)
+        f_min = self.xp.min(F, axis=0)
+        f_max = self.xp.max(F, axis=0)
+        span = self.xp.maximum(f_max - f_min, 1e-12)
         F_norm = (F - f_min) / span
-        sigma = self.sdr_sigma if sigma is None else float(_np.clip(sigma, 0.0, 0.20))
+        sigma = self.sdr_sigma if sigma is None else float(np.clip(sigma, 0.0, 0.20))
 
-        if n <= 1:
-            return [_np.arange(n, dtype=int)], _np.zeros(n, dtype=int)
+        dom_count = self.xp.zeros(n, dtype=int)
+        dominated_by: list = [[] for _ in range(n)]
 
-        # --- Matriz de dominância SDR totalmente tensorial ---
-        # diff[i, j, k] = F_norm[j, k] - F_norm[i, k]
-        # Positivo => i é melhor que j no objetivo k
-        diff = F_norm[None, :, :] - F_norm[:, None, :]
+        for i in range(n):
+            for j in range(i + 1, n):
+                if _sdr_dominates(F_norm[i], F_norm[j], sigma):
+                    dom_count[j] += 1
+                    dominated_by[i].append(j)
+                elif _sdr_dominates(F_norm[j], F_norm[i], sigma):
+                    dom_count[i] += 1
+                    dominated_by[j].append(i)
 
-        pareto_dom  = xp.all(diff >= 0.0,    axis=2) & xp.any(diff > 0.0,    axis=2)
-        sdr_relaxed = xp.any(diff > sigma,   axis=2) & xp.all(diff >= -sigma, axis=2)
-        dominates   = pareto_dom | sdr_relaxed          # dominates[i, j] = i dom j
-        xp.fill_diagonal(dominates, False)
-
-        # dom_count[j] = número de soluções que dominam j
-        dom_count = xp.sum(dominates, axis=0).astype(int)   # (n,)
-        dom_count_np = _np.asarray(_to_numpy(dom_count), dtype=int)
-
-        # --- [v3] Construção de frontes sem loop Python por frente ---
-        # Estratégia: pre-computa matriz de adjacência transposta (CSR-like)
-        # e aplica scatter-subtract vetorizado em cada passe.
-        # dominates_T[j, i] = i domina j  →  usado para propagar decrementos.
-        dominates_np = _np.asarray(_to_numpy(dominates), dtype=bool)  # (n, n)
-        # dom_by[j] = lista de soluções que dominam j  = dominates_np[:, j].nonzero()
-        # Pré-computamos como matriz densa; para n > 400 considerar sparse.
-        # Para n moderado (50-300), esta representação é mais rápida que listas.
-
-        rank_np  = _np.full(n, -1, dtype=int)
-        fronts   = []
-        in_front = _np.zeros(n, dtype=bool)      # já foi atribuído a um front
+        rank = np.empty(n, dtype=int)
+        fronts = []
+        current_front = list(self.xp.where(dom_count == 0)[0])
         r = 0
-        dom_work = dom_count_np.copy()            # cópia de trabalho do contador
-
-        while True:
-            # Frente atual: soluções não dominadas e ainda não classificadas
-            current_mask = (dom_work == 0) & ~in_front
-            if not _np.any(current_mask):
-                break
-            current_np = _np.where(current_mask)[0]
-            fronts.append(current_np.copy())
-            rank_np[current_np] = r
-            in_front[current_np] = True
-
-            # Decrementar contadores de dominância para soluções dominadas
-            # pelos membros do frente atual (operação vetorizada por coluna)
-            # dom_decrement[j] = número de membros de current que dominam j
-            dom_decrement = _np.sum(dominates_np[current_np, :], axis=0)  # (n,)
-            dom_work -= dom_decrement
-            dom_work[in_front] = 0   # garante que atribuídos não re-entrem
+        while current_front:
+            fronts.append(self.xp.array(current_front, dtype=int))
+            for i in current_front:
+                rank[i] = r
+            next_front = []
+            for i in current_front:
+                for j in dominated_by[i]:
+                    dom_count[j] -= 1
+                    if dom_count[j] == 0:
+                        next_front.append(j)
+            current_front = next_front
             r += 1
 
-        unranked = rank_np == -1
-        if _np.any(unranked):
-            rank_np[unranked] = r
-
-        return fronts, rank_np
+        return fronts, rank
 
     def _niching(
         self,
@@ -2532,12 +2100,11 @@ class SSW_RDPA(Algorithm):
         niche_count: np.ndarray,
         F: np.ndarray,
     ) -> np.ndarray:
-        np = _np
-        candidates = _np.asarray(_to_numpy(candidates), dtype=int)
-        niche_of = _np.asarray(_to_numpy(niche_of), dtype=int)
-        dist_to_niche = _np.asarray(_to_numpy(dist_to_niche), dtype=float)
-        niche_count = _np.asarray(_to_numpy(niche_count), dtype=int)
-        F = _np.asarray(_to_numpy(F), dtype=float)
+        candidates = np.asarray(_to_numpy(candidates), dtype=int)
+        niche_of = np.asarray(_to_numpy(niche_of), dtype=int)
+        dist_to_niche = np.asarray(_to_numpy(dist_to_niche), dtype=float)
+        niche_count = np.asarray(_to_numpy(niche_count), dtype=int)
+        F = np.asarray(_to_numpy(F), dtype=float)
 
         if len(candidates) <= n_pick:
             return candidates
@@ -2545,11 +2112,11 @@ class SSW_RDPA(Algorithm):
         progress = self._search_progress()
         scarcity = max(0.0, self.coverage_target - self.last_coverage)
         if self.search_mode == "diversity":
-            rarity_w = float(_np.clip(0.68 + 0.22 * scarcity, 0.55, 0.92))
+            rarity_w = float(np.clip(0.68 + 0.22 * scarcity, 0.55, 0.92))
         elif self.search_mode == "convergence":
-            rarity_w = float(_np.clip(0.42 + 0.20 * scarcity, 0.32, 0.78))
+            rarity_w = float(np.clip(0.42 + 0.20 * scarcity, 0.32, 0.78))
         else:
-            rarity_w = float(_np.clip(0.55 + 0.35 * scarcity, 0.40, 0.90))
+            rarity_w = float(np.clip(0.55 + 0.35 * scarcity, 0.40, 0.90))
         conv_w = 1.0 - rarity_w
         dist_penalty = (0.16 - 0.06 * progress) * (1.0 - 0.30 * scarcity)
         if self.search_mode == "convergence":
@@ -2567,11 +2134,11 @@ class SSW_RDPA(Algorithm):
         # [FIX] Use Euclidean norm instead of Sum for local niching convergence
         conv = 1.0 - self._normalize01(np.linalg.norm(F_norm, axis=1))
 
-        # [NOVO] PBI-score (-dominancia)  substitui distancia angular pura.
-        # Para cada candidato, calcula PBI em relacao ao vetor de referencia
-        # do seu nicho usando  corrente (adaptativo ao progresso).
+        # [NOVO] PBI-score (θ-dominância) — substitui distância angular pura.
+        # Para cada candidato, calcula PBI em relação ao vetor de referência
+        # do seu nicho usando θ corrente (adaptativo ao progresso).
         # Scores menores = melhor qualidade no subproblema. Normaliza para [0,1].
-        # Ref: Yuan et al. 2015 (-NSGA-III); caps-NSGA-III (Symmetry 2024).
+        # Ref: Yuan et al. 2015 (θ-NSGA-III); caps-NSGA-III (Symmetry 2024).
         cand_niches = niche_of[candidates]
         ref = self.ref_dirs_np[cand_niches]
         ref = ref / np.maximum(np.linalg.norm(ref, axis=1, keepdims=True), 1e-12)
@@ -2588,24 +2155,7 @@ class SSW_RDPA(Algorithm):
         cosv = np.clip(cosv, -1.0, 1.0)
         angle = np.arccos(cosv) / np.pi
         angle_score = 1.0 - self._normalize01(angle)
-        angle_w = float(_np.clip(0.10 + self.angle_adapt_gain * (0.60 + 0.40 * scarcity), 0.05, 0.45))
-
-        # [P-C1] m=2: crowding distance clássico (NSGA-II) em vez de PBI-score
-        # PBI com 2 ref_dirs colapsa toda a população em 2 nichos.
-        # Ref: Deb et al. 2002 NSGA-II — DOI: 10.1109/4235.996017
-        if getattr(self, 'low_obj_mode', False) and self.problem is not None and self.problem.n_obj <= 2:
-            F_sel = F[candidates]
-            n_c   = len(candidates)
-            cd    = _np.zeros(n_c, dtype=float)
-            for obj_k in range(F_sel.shape[1]):
-                order   = _np.argsort(F_sel[:, obj_k])
-                cd[order[0]]  = _np.inf
-                cd[order[-1]] = _np.inf
-                f_range = max(float(F_sel[order[-1], obj_k] - F_sel[order[0], obj_k]), 1e-12)
-                for ii in range(1, n_c - 1):
-                    cd[order[ii]] += (F_sel[order[ii+1], obj_k] - F_sel[order[ii-1], obj_k]) / f_range
-            chosen_cd = _np.argsort(-cd)[:n_pick]
-            return candidates[chosen_cd]
+        angle_w = float(np.clip(0.10 + self.angle_adapt_gain * (0.60 + 0.40 * scarcity), 0.05, 0.45))
 
         available = np.ones(len(candidates), dtype=bool)
         chosen_local = []
@@ -2621,17 +2171,17 @@ class SSW_RDPA(Algorithm):
             sparse_rarity = 1.0 / (1.0 + niche_count[sparse_niches])
 
             # [ADJUST] Integrar PBI-score domina o score de niching.
-            # O peso 'pbi_w' agora e alto (>0.85) para garantir que em DTLZ2/4 (concavas)
-            # a selecao nao favoreca cantos (vies de sum(f)) mas sim o vetor de referencia.
+            # O peso 'pbi_w' agora é alto (>0.85) para garantir que em DTLZ2/4 (côncavas)
+            # a seleção não favoreça cantos (viés de sum(f)) mas sim o vetor de referência.
             if self.problem.n_obj <= 2:
-                pbi_w = float(_np.clip(0.30 + 0.20 * progress + 0.10 * scarcity, 0.25, 0.60))
+                pbi_w = float(np.clip(0.30 + 0.20 * progress + 0.10 * scarcity, 0.25, 0.60))
             elif self.problem.n_obj == 3:
-                pbi_w = float(_np.clip(0.55 + 0.25 * progress, 0.45, 0.85))
+                pbi_w = float(np.clip(0.55 + 0.25 * progress, 0.45, 0.85))
             else:
                 pbi_w = 0.92 + 0.08 * progress
-                pbi_w = float(_np.clip(pbi_w, 0.85, 1.0))
+                pbi_w = float(np.clip(pbi_w, 0.85, 1.0))
             
-            # Usar PBI quase puro para convergencia local
+            # Usar PBI quase puro para convergência local
             conv_component = (1.0 - pbi_w) * conv[sparse] + pbi_w * pbi_quality[sparse]
 
             score = (
@@ -2648,114 +2198,6 @@ class SSW_RDPA(Algorithm):
 
         return candidates[np.asarray(chosen_local, dtype=int)]
 
-    def _dual_association_fill_empty_niches(
-        self,
-        survivors: _np.ndarray,
-        candidates: _np.ndarray,
-        niche_of: _np.ndarray,
-        F: _np.ndarray,
-        pop_size: int,
-    ) -> _np.ndarray:
-        """
-        [v3] P-B1: Dual-Association Angular para nichos vazios (MOEA-AD, 2025).
-
-        Para cada nicho sem cobertura entre os sobreviventes, seleciona o
-        MELHOR candidato disponível usando o critério angular composto:
-
-            p(x, lambda_j) = cos(angle(f_norm(x), lambda_j)) × d_perp(x, lambda_j)
-
-        A métrica p penaliza candidatos angularmente distantes do nicho vazio
-        e com grande distância perpendicular — favorecendo soluções que melhor
-        representam a direção da referência.
-
-        Diferença vs MOEA-AD original: aqui combinamos ângulo E convergência
-        (ASF de Tchebycheff) para que o preenchimento priorize nichos vazios
-        com soluções geometricamente adequadas E bem convergidas — evitando
-        que soluções aleatórias de cantos preenham regiões erradas.
-
-        Referência:
-          Wang, X.; Wang, H.; Tian, Z.; Wang, W.; Chen, J. (2025).
-          Angle-Based Dual-Association Evolutionary Algorithm for Many-Objective
-          Optimization (MOEA-AD). Mathematics, 13(11), 1757.
-          DOI: 10.3390/math13111757
-        """
-        if len(survivors) == 0:
-            return survivors
-        n_ref   = len(self.ref_dirs_np)
-        surv_set = set(survivors.tolist())
-        n_total  = F.shape[0]
-
-        survivor_niches = niche_of[survivors]
-        occupied = set(survivor_niches.tolist())
-        all_niches_set  = set(range(n_ref))
-        empty_niches = sorted(all_niches_set - occupied)
-        if len(empty_niches) == 0:
-            return survivors
-
-        # Normalização local
-        f_min  = _np.min(F, axis=0)
-        f_max  = _np.max(F, axis=0)
-        f_span = _np.maximum(f_max - f_min, 1e-12)
-        F_norm = (F - f_min) / f_span
-
-        # Candidatos = apenas os passados na lista de permitidos (split_front) que não estão nos sobreviventes
-        cand_idx = _np.array([i for i in candidates if i not in surv_set], dtype=int)
-        if len(cand_idx) == 0:
-            return survivors
-
-        F_cand  = F_norm[cand_idx]                   # (n_cand, m)
-        f_mag   = _np.linalg.norm(F_cand, axis=1, keepdims=True)  # (n_cand, 1)
-        F_unit  = F_cand / _np.maximum(f_mag, 1e-12)  # (n_cand, m)
-
-        chosen = survivors.tolist()
-        for niche_j in empty_niches:
-            w_j   = self.ref_dirs_np[niche_j]           # (m,)
-            w_mag = float(_np.linalg.norm(w_j))
-            if w_mag < 1e-12:
-                continue
-            w_unit = w_j / w_mag
-
-            # Distância perpendicular d2 = ||F_cand - d1 * w_unit||  onde d1 = dot
-            d1     = F_cand @ w_unit                     # (n_cand,)
-            d2     = _np.linalg.norm(
-                F_cand - d1[:, None] * w_unit[None, :], axis=1
-            )
-            # Ângulo entre F_unit e w_unit
-            cosv   = _np.clip(F_unit @ w_unit, -1.0, 1.0)  # (n_cand,)
-            # p(x, lambda) = cos * d2  — menor é melhor (mais próximo angularmente e perpendicularmente)
-            p_score = cosv * _np.maximum(d2, 1e-14)
-
-            # ASF convergência por nicho vazio
-            w_ref   = _np.maximum(w_j, 1e-8)
-            asf     = _np.max(F_cand / w_ref[None, :], axis=1)  # (n_cand,)
-
-            # Score composto: prioriza p_score (ângulo) mas desempata por ASF
-            composite = p_score + 0.05 * asf
-            best_local = int(_np.argmin(composite))
-            best_global = int(cand_idx[best_local])
-
-            if best_global not in surv_set:
-                chosen.append(best_global)
-                surv_set.add(best_global)
-                occupied.add(niche_j)
-
-        # [BUG FIX] Limitar survivors a pop_size para evitar crescimento ilimitado da população
-        chosen_arr = _np.asarray(chosen, dtype=int)
-        if len(chosen_arr) > pop_size:
-            # Mantém os sobreviventes originais + apenas os melhores preenchimentos
-            orig_count = len(survivors)
-            extra = chosen_arr[orig_count:]
-            # Prioriza extras com menor norma F (convergência) para não exceder pop_size
-            if len(extra) > 0 and len(survivors) < pop_size:
-                n_extra = min(len(extra), pop_size - len(survivors))
-                F_extra = F[extra]
-                extra_conv = _np.linalg.norm(F_extra, axis=1)
-                best_extra = extra[_np.argsort(extra_conv)[:n_extra]]
-                chosen_arr = _np.concatenate([survivors, best_extra])
-            else:
-                chosen_arr = survivors
-        return chosen_arr
-
     def _elite_refinement(
         self,
         survivors: np.ndarray,
@@ -2763,10 +2205,9 @@ class SSW_RDPA(Algorithm):
         niche_of: np.ndarray,
         F: np.ndarray,
     ) -> np.ndarray:
-        np = _np
-        survivors = _np.asarray(_to_numpy(survivors), dtype=int)
-        niche_of = _np.asarray(_to_numpy(niche_of), dtype=int)
-        F = _np.asarray(_to_numpy(F), dtype=float)
+        survivors = np.asarray(_to_numpy(survivors), dtype=int)
+        niche_of = np.asarray(_to_numpy(niche_of), dtype=int)
+        F = np.asarray(_to_numpy(F), dtype=float)
 
         if self.elite_keep_frac <= 0.0 or len(survivors) == 0:
             return survivors
@@ -2841,23 +2282,23 @@ class SSW_RDPA(Algorithm):
         return np.asarray(chosen, dtype=int)
 
     # ------------------------------------------------------------------
-    # [NOVO] Two-archive: arquivo de convergencia por ASF por nicho
+    # [NOVO] Two-archive: arquivo de convergência por ASF por nicho
     # ------------------------------------------------------------------
     def _build_conv_archive(self, pop: Population) -> Population:
         """
-        Arquivo de convergencia: mantem conv_archive_frac * pop_size individuos
+        Arquivo de convergência: mantém conv_archive_frac * pop_size indivíduos
         com menor ASF (Achievement Scalarizing Function) de Tchebycheff em
-        relacao ao vetor de referencia mais proximo.
-        Complementa o nd_archive com pressao explicita de convergencia.
+        relação ao vetor de referência mais próximo.
+        Complementa o nd_archive com pressão explícita de convergência.
         Ref: Two-archive (Wang et al. 2015); MaOEA-MS (Liu et al. 2022).
         """
         progress = self._search_progress()
         scarcity = max(0.0, self.coverage_target - self.last_coverage)
         mode_scale = 0.55 if self.search_mode == "diversity" else (0.75 if self.search_mode == "balanced" else 1.0)
         keep_scale = (0.55 + 0.45 * progress) * (1.0 - 0.45 * scarcity) * mode_scale
-        keep_scale = float(_np.clip(keep_scale, 0.30, 1.00))
+        keep_scale = float(np.clip(keep_scale, 0.30, 1.00))
         n_keep = max(1, int(round(self.conv_archive_frac * self.pop_size * keep_scale)))
-        F = _np.asarray(_to_numpy(pop.get("F", to_numpy=True)), dtype=float)
+        F = np.asarray(_to_numpy(pop.get("F", to_numpy=True)), dtype=float)
         n = len(F)
         if n == 0:
             return pop
@@ -2867,10 +2308,10 @@ class SSW_RDPA(Algorithm):
         span = np.maximum(f_max - f_min, 1e-12)
         F_norm = (F - f_min) / span
 
-        niche, _ = self._associate_niches(F, force_cpu=self.use_gpu)
-        niche = _np.asarray(_to_numpy(niche), dtype=int)
+        niche, _ = self._associate_niches(F)
+        niche = np.asarray(_to_numpy(niche), dtype=int)
         ref_dirs_np = self.ref_dirs_np
-        # Para cada nicho, manter o individuo com menor ASF de Tchebycheff
+        # Para cada nicho, manter o indivíduo com menor ASF de Tchebycheff
         best_per_niche: dict = {}
         for i in range(n):
             ni = int(niche[i])
@@ -2909,7 +2350,7 @@ class SSW_RDPA(Algorithm):
 
         return pop[np.asarray(chosen, dtype=int)]
 
-    def _associate_niches(self, F: np.ndarray, nd: Optional[np.ndarray] = None, *, force_cpu: bool = False) -> Tuple[np.ndarray, np.ndarray]:
+    def _associate_niches(self, F: np.ndarray, nd: Optional[np.ndarray] = None) -> Tuple[np.ndarray, np.ndarray]:
         """
         Associate each solution to its closest reference direction.
 
@@ -2917,17 +2358,17 @@ class SSW_RDPA(Algorithm):
         and _associate_to_niches_angular (angle-based) for association.
         Both replace the pymoo NSGA-III hyperplane machinery entirely.
         """
-        if (not force_cpu) and self.use_gpu and jax_accel is not None and isinstance(F, jax_accel.ndarray):
+        if self.use_gpu and cp is not None and isinstance(F, cp.ndarray):
             F_dev = F
             F_np = None
         else:
-            F_np = _np.asarray(_to_numpy(F), dtype=float)
-            F_dev = F_np if force_cpu else _to_device(F_np, self.use_gpu)
+            F_np = np.asarray(_to_numpy(F), dtype=float)
+            F_dev = _to_device(F_np, self.use_gpu)
 
         if nd is None:
             nd_src = F_np if F_np is not None else F_dev
             nd = self._nds_do(nd_src, only_non_dominated_front=True)
-        nd = _np.asarray(_to_numpy(nd), dtype=int)
+        nd = np.asarray(_to_numpy(nd), dtype=int)
         _prog = self._search_progress() if hasattr(
             self, "_search_progress") else 0.0
         self.hyp_norm.update(F_dev, nds=nd, progress=_prog)
@@ -2935,28 +2376,25 @@ class SSW_RDPA(Algorithm):
         ideal = self.hyp_norm.ideal_point.copy()
         nadir = self.hyp_norm.nadir_point.copy()
 
-        xp_check = _np if force_cpu else self.xp
-
         # Safety guards
-        if not xp_check.all(xp_check.isfinite(ideal)):
-            ideal = xp_check.min(F_dev, axis=0)
-        if not xp_check.all(xp_check.isfinite(nadir)):
-            nadir = xp_check.max(F_dev, axis=0)
+        if not self.xp.all(self.xp.isfinite(ideal)):
+            ideal = self.xp.min(F_dev, axis=0)
+        if not self.xp.all(self.xp.isfinite(nadir)):
+            nadir = self.xp.max(F_dev, axis=0)
         bad = (nadir - ideal) <= 1e-12
-        if xp_check.any(bad):
+        if self.xp.any(bad):
             nadir[bad] = ideal[bad] + 1.0
 
-        ref_dirs = self.ref_dirs_np if force_cpu else self.ref_dirs_xp
-        niche, d_perp = _associate_to_niches_angular(F_dev, ref_dirs, ideal, nadir)
+        niche, d_perp = _associate_to_niches_angular(F_dev, self.ref_dirs_xp, ideal, nadir)
         return niche.astype(int), d_perp.astype(float)
 
     def _search_progress(self) -> float:
         n_eval = float(getattr(self.evaluator, "n_eval", 0))
         max_eval = self._get_max_evals()
         if max_eval is not None and max_eval > 0:
-            return float(_np.clip(n_eval / max_eval, 0.0, 1.0))
+            return float(np.clip(n_eval / max_eval, 0.0, 1.0))
         n_gen = float(max(getattr(self, "n_gen", 1) - 1, 0))
-        return float(_np.clip(n_gen / 120.0, 0.0, 1.0))
+        return float(np.clip(n_gen / 120.0, 0.0, 1.0))
 
     def _get_max_evals(self) -> Optional[float]:
         term = getattr(self, "termination", None)
@@ -2983,7 +2421,7 @@ class SSW_RDPA(Algorithm):
         return None
 
     def _phase_target_ratio(self, progress: float) -> float:
-        p = float(_np.clip(progress, 0.0, 1.0))
+        p = float(np.clip(progress, 0.0, 1.0))
         r0, r1, r2 = self.phase_ratio_targets
         if p < 0.33:
             t = p / 0.33
@@ -3067,7 +2505,7 @@ class SSW_RDPA(Algorithm):
             eps_min_dyn * 1.05,
             self.epsilon_base * ((2.8 - 1.2 * progress) * (1.0 + 0.5 * scarcity)),
         )
-        self.epsilon_state = float(_np.clip(eps_new, eps_min_dyn, eps_max_dyn))
+        self.epsilon_state = float(np.clip(eps_new, eps_min_dyn, eps_max_dyn))
 
     def _record_telemetry(self, progress: float):
         sigma_mean = float(np.mean(self.pop.get("sigma_i"))) if len(self.pop) > 0 else 0.0
@@ -3094,7 +2532,7 @@ class SSW_RDPA(Algorithm):
             "q_state": int(self.last_q_state),
             "rvx_mu_f": float(self.rvx_mu_f),
             "rvx_mu_cr": float(self.rvx_mu_cr),
-            # [NOVO] campos adicionais da revisao
+            # [NOVO] campos adicionais da revisão
             "theta_pbi_current": float(self._theta_current),
             "conv_archive_size": int(len(self.conv_archive)) if self.conv_archive is not None else 0,
             "low_obj_mode": bool(self.low_obj_mode),
@@ -3122,7 +2560,7 @@ class SSW_RDPA(Algorithm):
         conv = float(self.xp.mean(self.xp.linalg.norm(F_norm, axis=1)))
 
         if niche is None:
-            niche, _ = self._associate_niches(F, force_cpu=self.use_gpu)
+            niche, _ = self._associate_niches(F)
         else:
             niche = self.xp.asarray(niche, dtype=int)
         niche_count = self.xp.bincount(niche, minlength=len(self.ref_dirs))
@@ -3166,7 +2604,7 @@ class SSW_RDPA(Algorithm):
         self.q_table[s, a] = (1.0 - self.qlearn_alpha) * self.q_table[s, a] + self.qlearn_alpha * td_target
 
     def _apply_policy_action(self, action: int):
-        mode = int(_np.clip(action, 0, len(self.sbx_eta_candidates) - 1))
+        mode = int(np.clip(action, 0, len(self.sbx_eta_candidates) - 1))
         if self.search_mode == "diversity":
             mode = min(mode, 1)
         elif self.search_mode == "convergence":
@@ -3238,12 +2676,12 @@ class SSW_RDPA(Algorithm):
 
     def _update_archive(self, pool: Population) -> Population:
         if pool.has("rank"):
-            rank = _np.asarray(_to_numpy(pool.get("rank")), dtype=int)
-            nd = _np.where(rank == 0)[0]
+            rank = np.asarray(_to_numpy(pool.get("rank")), dtype=int)
+            nd = np.where(rank == 0)[0]
         else:
             nd = self._nds_do(pool.get("F"), only_non_dominated_front=True)
-            nd = _np.asarray(_to_numpy(nd), dtype=int)
-        return pool[_np.asarray(nd, dtype=int)]
+            nd = np.asarray(_to_numpy(nd), dtype=int)
+        return pool[np.asarray(nd, dtype=int)]
 
     def _set_optimum(self):
         self.opt = self.nd_archive if self.nd_archive is not None else self.pop
@@ -3253,7 +2691,7 @@ class SSW_RDPA(Algorithm):
         lam = int(max(pop_size, 4))
         mu = max(2, lam // 2)
         idx = np.arange(1, mu + 1, dtype=float)
-        w = np.log(mu + 0.5) - np.log(idx)
+        w = np.log(mu + 0.5) - np.log(_to_numpy(idx))
         w = np.maximum(w, 0.0)
         if np.sum(w) <= 0.0:
             w = self.xp.full(mu, 1.0 / mu, dtype=float)
@@ -3268,10 +2706,10 @@ class SSW_RDPA(Algorithm):
         c_cov = c1 + cmu
         d_sigma = 1.0 + 2.0 * max(0.0, np.sqrt((mu_eff - 1.0) / (n + 1.0)) - 1.0) + c_sigma
 
-        self.c_path = float(_np.clip(c_path, 0.08, 0.55))
-        self.c_sigma = float(_np.clip(c_sigma, 0.05, 0.40))
-        self.c_cov = float(_np.clip(c_cov, 0.03, 0.35))
-        self.sigma_damp = float(_np.clip(d_sigma, 1.0, 6.0))
+        self.c_path = float(np.clip(c_path, 0.08, 0.55))
+        self.c_sigma = float(np.clip(c_sigma, 0.05, 0.40))
+        self.c_cov = float(np.clip(c_cov, 0.03, 0.35))
+        self.sigma_damp = float(np.clip(d_sigma, 1.0, 6.0))
 
     def _auto_calibrate_runtime_controls(self, n_var: int, n_obj: int):
         """Automatic per-run calibration of control parameters for MaOP regimes."""
@@ -3281,55 +2719,19 @@ class SSW_RDPA(Algorithm):
         dim_log = float(np.log1p(dim))
         pop_term = float(np.log1p(max(self.pop_size, 4)) - np.log(20.0))
 
-        self.low_obj_mode = bool(n_obj <= 2)   # [P-C1] m=2 usa Pareto puro
-
-        if n_obj == 3:
-            # [P-C1-m3] m=3: many-obj moderado, NOT low_obj_mode.
-            # README: use_two_archive=True, use_sdr=False, theta_pbi=2.4
-            self.low_obj_mode = False
-            low  = float(_np.clip(self._user_ratio_bounds[0] + 0.003, 0.0, 0.10))
-            high = float(_np.clip(self._user_ratio_bounds[1] * 0.75, 0.08, 0.25))
-            self.ratio_bounds        = (low, high)
-            self.ratio_sde           = float(_np.clip(self._user_ratio_sde * 0.70, low, high))
-            t0, t1, t2               = self._user_phase_ratio_targets
-            self.phase_ratio_targets = (t0, min(t1, high), min(t2, high))
-            cov = max(self._user_coverage_target, 0.85)
-            self.coverage_target        = float(_np.clip(cov, 0.82, 0.95))
-            self.sparse_quantile         = float(_np.clip(self._user_sparse_quantile, 0.20, 0.40))
-            self.target_success          = float(_np.clip(self._user_target_success - 0.01, 0.14, 0.26))
-            self.ucb_exploration         = float(_np.clip(self._user_ucb_exploration * 0.80, 0.03, 0.15))
-            self.qlearn_eps              = float(_np.clip(self._user_qlearn_eps * 0.60, 0.01, 0.12))
-            self.mirror_rate             = float(_np.clip(self._user_mirror_rate + 0.05, 0.50, 0.90))
-            self.rvx_share_base          = float(_np.clip(self._user_rvx_share_base * 0.70, 0.10, 0.45))
-            self.drift_scale             = float(_np.clip(self._user_drift_scale * 0.80, 0.08, 0.20))
-            self.de_fallback_scale       = float(_np.clip(self._user_de_fallback_scale * 0.80, 0.05, 0.22))
-            self.epsilon_adapt_lr        = float(_np.clip(self._user_epsilon_adapt_lr * 0.75, 0.04, 0.24))
-            self.epsilon_csa_gain        = float(_np.clip(self._user_epsilon_csa_gain * 0.70, 0.0, 0.40))
-            self.entropy_diversity_threshold = 0.82
-            self.niche_cv_diversity_threshold = 1.20
-            self.use_sdr                 = False
-            self.use_two_archive         = bool(self._user_use_two_archive)
-            self.prob_neighbor_mating    = float(_np.clip(self._user_prob_neighbor_mating * 0.70, 0.30, 0.75))
-            self.archive_injection_rate  = float(_np.clip(0.60 * self._user_archive_injection_rate, 0.0, 0.10))
-            if self.theta_adapt:
-                self.theta_pbi = 2.4
-            else:
-                self.theta_pbi = float(_np.clip(self._user_theta_pbi, 1.5, 5.0))
-            self._theta_current = float(self.theta_pbi)
-            self.adaptive_refdirs = False
-            return
+        self.low_obj_mode = bool(n_obj <= 3)
 
         if self.low_obj_mode:
-            # [P-C1] m=2: Pareto puro + crowding distance, sem two-archive
-            # Ref: Deb et al. (2002) NSGA-II. DOI: 10.1109/4235.996017
+            # Dedicated low-objective regime (m <= 3): prioritize global evolution
+            # and keep local Jacobian branch as a sparse helper.
             low = 0.0
-            high = float(_np.clip(0.06 + 0.01 * pop_term, 0.03, 0.10))
+            high = float(np.clip(0.06 + 0.01 * pop_term, 0.03, 0.10))
             if high <= low + 1e-3:
                 high = low + 1e-3
             self.ratio_bounds = (low, high)
 
             ratio0 = min(self._user_ratio_sde, 0.02 + 0.01 * float(dim > 20))
-            self.ratio_sde = float(_np.clip(ratio0, self.ratio_bounds[0], self.ratio_bounds[1]))
+            self.ratio_sde = float(np.clip(ratio0, self.ratio_bounds[0], self.ratio_bounds[1]))
 
             t0 = self.ratio_bounds[0]
             t1 = min(self.ratio_bounds[1], max(t0, 0.01))
@@ -3339,45 +2741,44 @@ class SSW_RDPA(Algorithm):
             cov = max(self._user_coverage_target, 0.90)
             if self.pop_size <= 120:
                 cov += 0.02
-            self.coverage_target = float(_np.clip(cov, 0.88, 0.98))
-            self.sparse_quantile = float(_np.clip(0.85 * self._user_sparse_quantile, 0.15, 0.35))
+            self.coverage_target = float(np.clip(cov, 0.88, 0.98))
+            self.sparse_quantile = float(np.clip(0.85 * self._user_sparse_quantile, 0.15, 0.35))
 
-            self.target_success = float(_np.clip(self._user_target_success - 0.03, 0.10, 0.24))
-            self.ucb_exploration = float(_np.clip(0.65 * self._user_ucb_exploration, 0.01, 0.12))
-            self.qlearn_eps = float(_np.clip(0.35 * self._user_qlearn_eps, 0.0, 0.08))
-            self.mirror_rate = float(_np.clip(self._user_mirror_rate + 0.12, 0.55, 0.95))
+            self.target_success = float(np.clip(self._user_target_success - 0.03, 0.10, 0.24))
+            self.ucb_exploration = float(np.clip(0.65 * self._user_ucb_exploration, 0.01, 0.12))
+            self.qlearn_eps = float(np.clip(0.35 * self._user_qlearn_eps, 0.0, 0.08))
+            self.mirror_rate = float(np.clip(self._user_mirror_rate + 0.12, 0.55, 0.95))
 
-            self.rvx_share_base = float(_np.clip(0.45 * self._user_rvx_share_base, 0.05, 0.30))
-            self.drift_scale = float(_np.clip(0.60 * self._user_drift_scale, 0.05, 0.16))
-            self.de_fallback_scale = float(_np.clip(0.65 * self._user_de_fallback_scale, 0.03, 0.20))
+            self.rvx_share_base = float(np.clip(0.45 * self._user_rvx_share_base, 0.05, 0.30))
+            self.drift_scale = float(np.clip(0.60 * self._user_drift_scale, 0.05, 0.16))
+            self.de_fallback_scale = float(np.clip(0.65 * self._user_de_fallback_scale, 0.03, 0.20))
 
-            self.epsilon_adapt_lr = float(_np.clip(0.60 * self._user_epsilon_adapt_lr, 0.02, 0.18))
-            self.epsilon_csa_gain = float(_np.clip(0.55 * self._user_epsilon_csa_gain, 0.0, 0.35))
+            self.epsilon_adapt_lr = float(np.clip(0.60 * self._user_epsilon_adapt_lr, 0.02, 0.18))
+            self.epsilon_csa_gain = float(np.clip(0.55 * self._user_epsilon_csa_gain, 0.0, 0.35))
 
-            self.entropy_diversity_threshold = float(_np.clip(0.78 + 0.02 * float(self.pop_size < 100), 0.72, 0.86))
-            self.niche_cv_diversity_threshold = float(_np.clip(1.05 + 0.08 * float(self.pop_size < 100), 0.95, 1.30))
+            self.entropy_diversity_threshold = float(np.clip(0.78 + 0.02 * float(self.pop_size < 100), 0.72, 0.86))
+            self.niche_cv_diversity_threshold = float(np.clip(1.05 + 0.08 * float(self.pop_size < 100), 0.95, 1.30))
 
-            # [v3] P-C1: m=2 — desativa two-archive e SDR
             self.use_sdr = False
-            self.use_two_archive = False
+            self.use_two_archive = bool(self._user_use_two_archive and n_obj >= 3)
+            if n_obj <= 2:
+                self.use_two_archive = False
 
-            self.prob_neighbor_mating = float(_np.clip(0.45 * self._user_prob_neighbor_mating, 0.15, 0.60))
-            self.archive_injection_rate = float(_np.clip(0.50 * self._user_archive_injection_rate, 0.0, 0.12))
+            self.prob_neighbor_mating = float(np.clip(0.45 * self._user_prob_neighbor_mating, 0.15, 0.60))
+            self.archive_injection_rate = float(np.clip(0.50 * self._user_archive_injection_rate, 0.0, 0.12))
 
             if self.theta_adapt:
-                self.theta_pbi = 1.8
+                theta_auto = 1.8 if n_obj <= 2 else 2.4
+                self.theta_pbi = float(np.clip(theta_auto, 1.0, 4.0))
             else:
-                self.theta_pbi = float(_np.clip(self._user_theta_pbi, 1.0, 4.0))
+                self.theta_pbi = float(np.clip(self._user_theta_pbi, 1.0, 4.0))
             self._theta_current = float(self.theta_pbi)
-
-            # [v3] P-B2: Adaptive ref_dirs desativado para m<=2
-            self.adaptive_refdirs = False
             return
 
         self.low_obj_mode = False
 
         # Local-search bounds: reduce aggressiveness as objective count grows.
-        low = float(_np.clip(self._user_ratio_bounds[0] + 0.002 * many_level, 0.0, 0.20))
+        low = float(np.clip(self._user_ratio_bounds[0] + 0.002 * many_level, 0.0, 0.20))
         high = float(
             np.clip(
                 self._user_ratio_bounds[1] - 0.015 * many_level + 0.008 * pop_term,
@@ -3390,15 +2791,15 @@ class SSW_RDPA(Algorithm):
         self.ratio_bounds = (low, high)
 
         ratio0 = self._user_ratio_sde * (1.0 - 0.08 * many_level) + 0.01 * pop_term
-        self.ratio_sde = float(_np.clip(ratio0, self.ratio_bounds[0], self.ratio_bounds[1]))
+        self.ratio_sde = float(np.clip(ratio0, self.ratio_bounds[0], self.ratio_bounds[1]))
 
         # Phase targets consistent with calibrated bounds.
         r0, r1, r2 = self._user_phase_ratio_targets
-        shrink = float(_np.clip(1.0 - 0.06 * many_level, 0.70, 1.00))
-        boost = float(_np.clip(1.0 + 0.05 * many_level, 1.00, 1.25))
-        t0 = float(_np.clip(r0 * shrink, self.ratio_bounds[0], self.ratio_bounds[1]))
-        t1 = float(_np.clip(r1 * shrink, self.ratio_bounds[0], self.ratio_bounds[1]))
-        t2 = float(_np.clip(r2 * boost, self.ratio_bounds[0], self.ratio_bounds[1]))
+        shrink = float(np.clip(1.0 - 0.06 * many_level, 0.70, 1.00))
+        boost = float(np.clip(1.0 + 0.05 * many_level, 1.00, 1.25))
+        t0 = float(np.clip(r0 * shrink, self.ratio_bounds[0], self.ratio_bounds[1]))
+        t1 = float(np.clip(r1 * shrink, self.ratio_bounds[0], self.ratio_bounds[1]))
+        t2 = float(np.clip(r2 * boost, self.ratio_bounds[0], self.ratio_bounds[1]))
         t1 = max(t0, t1)
         t2 = max(t1, t2)
         self.phase_ratio_targets = (t0, t1, t2)
@@ -3407,8 +2808,8 @@ class SSW_RDPA(Algorithm):
         cov = self._user_coverage_target + 0.03 * min(many_level, 4.0)
         if self.pop_size <= 120:
             cov -= 0.05
-        self.coverage_target = float(_np.clip(cov, 0.50, 0.78))
-        self.sparse_quantile = float(_np.clip(self._user_sparse_quantile + 0.02 * min(many_level, 4.0), 0.20, 0.45))
+        self.coverage_target = float(np.clip(cov, 0.50, 0.78))
+        self.sparse_quantile = float(np.clip(self._user_sparse_quantile + 0.02 * min(many_level, 4.0), 0.20, 0.45))
 
         # Operator and exploration calibration.
         self.target_success = float(
@@ -3418,9 +2819,9 @@ class SSW_RDPA(Algorithm):
                 0.28,
             )
         )
-        self.ucb_exploration = float(_np.clip(self._user_ucb_exploration + 0.01 * many_level, 0.04, 0.20))
-        self.qlearn_eps = float(_np.clip(self._user_qlearn_eps + 0.02 * float(many_level > 2.0), 0.01, 0.25))
-        self.mirror_rate = float(_np.clip(self._user_mirror_rate - 0.08 * many_level, 0.45, 0.90))
+        self.ucb_exploration = float(np.clip(self._user_ucb_exploration + 0.01 * many_level, 0.04, 0.20))
+        self.qlearn_eps = float(np.clip(self._user_qlearn_eps + 0.02 * float(many_level > 2.0), 0.01, 0.25))
+        self.mirror_rate = float(np.clip(self._user_mirror_rate - 0.08 * many_level, 0.45, 0.90))
 
         # Drift/global branch balance.
         self.rvx_share_base = float(
@@ -3437,13 +2838,13 @@ class SSW_RDPA(Algorithm):
                 0.26,
             )
         )
-        self.de_fallback_scale = float(_np.clip(self._user_de_fallback_scale + 0.02 * many_level, 0.06, 0.30))
+        self.de_fallback_scale = float(np.clip(self._user_de_fallback_scale + 0.02 * many_level, 0.06, 0.30))
 
         # Epsilon controller calibration.
         self.epsilon_adapt_lr = float(
             np.clip(self._user_epsilon_adapt_lr * (0.90 + 0.04 * many_level), 0.05, 0.35)
         )
-        self.epsilon_csa_gain = float(_np.clip(self._user_epsilon_csa_gain + 0.04 * many_level, 0.0, 0.60))
+        self.epsilon_csa_gain = float(np.clip(self._user_epsilon_csa_gain + 0.04 * many_level, 0.0, 0.60))
 
         # Mode thresholds.
         self.entropy_diversity_threshold = float(
@@ -3455,7 +2856,7 @@ class SSW_RDPA(Algorithm):
 
         self.use_sdr = bool(self._user_use_sdr)
         self.use_two_archive = bool(self._user_use_two_archive)
-        self.prob_neighbor_mating = float(_np.clip(self._user_prob_neighbor_mating, 0.55, 0.90))
+        self.prob_neighbor_mating = float(np.clip(self._user_prob_neighbor_mating, 0.55, 0.90))
         self.archive_injection_rate = float(
             np.clip(0.35 * self._user_archive_injection_rate + 0.005 * many_level, 0.02, 0.08)
         )
@@ -3466,84 +2867,5 @@ class SSW_RDPA(Algorithm):
         # Base 5.0 + 1.2 per extra objective > 3.
         if self.theta_adapt:
             theta_auto = 5.0 + 1.2 * many_level
-            self.theta_pbi = float(_np.clip(theta_auto, 5.0, 20.0))
+            self.theta_pbi = float(np.clip(theta_auto, 5.0, 20.0))
             self._theta_current = float(self.theta_pbi)
-
-        # [v3] P-B2: Adaptive ref_dirs ativado conforme configuração do usuário
-        self.adaptive_refdirs = bool(self._user_adaptive_refdirs)
-
-    def _adapt_reference_dirs_partial(self, progress: float) -> None:
-        """
-        [v3] P-B2: Re-amostragem parcial de vetores de referência por energia.
-
-        Quando a cobertura de nichos fica persistentemente abaixo do threshold
-        (adaptive_refdirs_patience gerações), re-amostra adaptive_refdirs_frac_resample
-        dos ref_dirs com menor ocupação usando o método 'energy' do pymoo.
-        Mantém 1-frac dos ref_dirs originais (Das-Dennis), garantindo estabilidade.
-
-        Motivação: Em problemas com Pareto fronts irregulares (DTLZ3, DTLZ6),
-        os ref_dirs Das-Dennis fixos cobrem regiões da frente que nunca são
-        atingidas, gerando nichos permanentemente vazios. A re-amostragem focada
-        concentra recursos nas regiões acessíveis da frente.
-
-        Referência:
-          Cheng, R.; Jin, Y.; Olhofer, M.; Sendhoff, B. (2016).
-          A Reference Vector Guided Evolutionary Algorithm for Many-Objective
-          Optimization (RVEA). IEEE TEVC, 20(5):773-791.
-          DOI: 10.1109/TEVC.2016.2519378
-          — adaptação da estratégia de adaptação de vetores de referência.
-        """
-        if _pymoo_get_reference_directions is None:
-            return
-        n_ref    = len(self.ref_dirs_np)
-        n_obj    = int(self.ref_dirs_np.shape[1])
-        n_resamp = max(1, int(round(self.adaptive_refdirs_frac_resample * n_ref)))
-        n_keep   = n_ref - n_resamp
-
-        # Identifica os nichos com menor ocupação na população atual
-        if self.pop is not None and len(self.pop) > 0 and self.pop.has("niche"):
-            xp = self.xp
-            niche_arr = _np.asarray(
-                _to_numpy(self.pop.get("niche")), dtype=int
-            )
-            occ = _np.bincount(niche_arr, minlength=n_ref).astype(float)
-        else:
-            occ = _np.ones(n_ref, dtype=float)
-
-        # Mantém os n_keep nichos mais ocupados (mais representativos)
-        keep_idx = _np.argsort(occ)[-n_keep:]  # maior ocupação = mais relevante
-        kept_dirs = self.ref_dirs_np[keep_idx]
-
-        # Re-amostra n_resamp vetores por energia em torno do ideal atual
-        try:
-            new_dirs = _pymoo_get_reference_directions(
-                "energy",
-                n_obj,
-                n_points=n_resamp,
-                seed=int(getattr(self, "n_gen", 1) or 1),
-            )
-            new_dirs = _np.asarray(new_dirs, dtype=float)
-        except Exception:  # noqa: BLE001
-            return
-
-        # Concatena e normaliza
-        combined = _np.vstack([kept_dirs, new_dirs])
-        combined = _np.clip(combined, 1e-10, None)
-        combined /= combined.sum(axis=1, keepdims=True)
-
-        # Atualiza ref_dirs no algoritmo
-        self.ref_dirs_np = combined.astype(float)
-        self.ref_dirs = self.xp.asarray(self.ref_dirs_np, dtype=float)
-        self.ref_dirs_xp = self.ref_dirs
-
-        # Atualiza grafo de vizinhos angulares
-        _k  = max(4, min(12, n_obj + 2))
-        _R  = combined
-        _Ru = _R / _np.maximum(_np.linalg.norm(_R, axis=1, keepdims=True), 1e-12)
-        _C  = _Ru @ _Ru.T
-        _np.fill_diagonal(_C, -_np.inf)
-        _ke = min(_k, _C.shape[1] - 1)
-        self._ref_nbr = _np.asarray(
-            _np.argsort(_C, axis=1)[:, -_ke:], dtype=int
-        )
-        self._last_refdirs_progress = float(progress)

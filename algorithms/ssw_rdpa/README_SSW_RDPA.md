@@ -1,18 +1,17 @@
-# SSW-RDPA — v3.0
+# SSW-RDPA
 **Schaeffler-SDE-Weighted · Reference Directions · PBI · Adaptive**
 
-**Arquivo:** `algorithms/ssw_rdpa/ssw_rdpa.py`  
-**Classe:** `SSW_RDPA`  
-**Versão:** 3.0 (Fevereiro 2026)  
-**Autor:** Prof. Thiago Santos, 2026
+Arquivo:
 
----
+- `guiPymoo/algorithms/ssw_rdpa/ssw_rdpa.py`
 
-## Objetivo
+Classe:
 
-Algoritmo evolucionário many-objective (`m > 3`) que combina a dinâmica estocástica de descida máxima de Schäffler-Schultz-Weinzierl (SSW, 2002) com decomposição por vetores de referência, niching por PBI-score com θ adaptativo, SDR para pressão de seleção elevada, two-archive (diversidade + convergência) e warm-start quasi-Newton para convergência acelerada.
+- `SSW_RDPA`
 
-A versão 3.0 integra **seis melhorias estratégicas** baseadas em mapeamento de gargalos e literatura MaOP pós-2024, tornando o algoritmo competitivo com NSGA-III para todo o espectro `m ∈ {2, 3, 5, 8, 10+}`.
+Objetivo:
+
+- Algoritmo evolucionário com foco many-objective (`m > 3`) usando Schaeffler + SDE, decomposição por vetores de referência, niching por PBI-score com θ adaptativo, SDR para pressão de seleção elevada e two-archive (diversidade + convergência), com regime estabilizado para low-objective (`m <= 3`).
 
 ---
 
@@ -20,522 +19,375 @@ A versão 3.0 integra **seis melhorias estratégicas** baseadas em mapeamento de
 
 | Componente | Significado |
 |---|---|
-| **S**SW | Schäffler-Schultz-Weinzierl stochastic steepest-descent |
-| **R**D | Reference Directions (Das-Dennis + adaptação dinâmica) |
-| **P**BI | Penalty-based Boundary Intersection (niching score) |
-| **A**daptive | Adaptive ε, θ-PBI, Q-learning SBX η, fase-aware SDE |
+| **S** | **S**chaeffler QP — direção de descida local via solução do QP simplex |
+| **S** | **S**DE — Stochastic Differential Evolution (busca local estocástica) |
+| **W** | **W**eighted — ponderação adaptativa SBX / RVX / SDE por estado de busca |
+| **R** | **R**eference **D**irections — decomposição estrutural por vetores Das-Dennis (base NSGA-III) |
+| **D** | (parte de **RD**) |
+| **P** | **P**BI-score — Penalty-Based Boundary Intersection para niching por vetor de referência |
+| **A** | **A**daptive — θ adaptativo, ε dinâmico, Q-learning para SBX η, CMA para path/cov |
 
 ---
 
-## Inovação Científica — Por que não é apenas "junta-junta"
+## Compatibilidade com pymoo
 
-### Hipótese central
+O algoritmo é **100% compatível com pymoo** e **não depende de nenhuma classe interna do NSGA-III**.
 
-O SSW-RDPA parte de uma **hipótese original**: o fluxo gradiente estocástico de Schäffler (descida de máxima declividade multi-objetivo) pode ser *relaxado* ao ponto de ser competitivo em custo com operadores genéticos clássicos (SBX, DE), **mas superior em direcionamento local**, quando o Jacobiano estocástico é aquecido de forma oportunista via diferenças finitas forward baratas — sem requerer avaliações extras em regime estacionário.
-
-Isso cria um **continuum de custo-qualidade** entre a difusão pura (gen 0) e a busca local orientada por gradiente aproximado (gen > 0), algo que NSGA-III e MOEA/D não possuem.
-
-### O que é genuinamente novo na v3.0
-
-| Inovação | Por que é original |
+| Componente pymoo | Módulo |
 |---|---|
-| **Warm-start quasi-Newton contextual** (P-A1) | FD forward de 1-step aplicado *apenas* a indivíduos SDE com Jacobiano frio E que são os mais promissores por norma de F. Não é apenas FD clássico: o warm-start é **amortizado** (1 vez por indivíduo, jamais repetido), **priorizado** por convergência local e **ponderado** pelo jacobian_damping existente — integração com o Broyden online. Nenhum MaOEA da literatura aplica esse padrão. |
-| **Gate de SDE baseado em confiança do Jacobiano** (P-A3) | O sinal `model_conf` (norma relativa do Jacobiano em relação à mediana da população) é usado como **pressão contínua** no gate de ativação do branch SDE. Quando o Jacobiano está frio (início da busca), o algoritmo **automaticamente** recua para exploração global (RVX/SBX). Quando aquece, a pressão local aumenta proporcionalmente — transição suave e sem hiper-parâmetro de fase fixo. |
-| **Dual-Association Angular com desempate por ASF** (P-B1) | Adota a associação angular de Wang et al. (2025) mas **combina o score p(x,λ) com o ASF de Tchebycheff** como critério de desempate. Isso evita que soluções angularmente próximas mas mal convergidas preencham nichos vazios — um defeito documentado no MOEA-AD original. A contribuição é a *composição* dos dois critérios, não um deles isoladamente. |
-| **Re-amostragem parcial de ref_dirs guiada por ocupação** (P-B2) | Quando nichos ficam vazios por ≥ 5 gerações (threshold adaptativo), os ref_dirs de **menor ocupação são substituídos** por vetores amostrados via energia (máxima dispersão no simplex), enquanto os de maior ocupação são preservados. O critério de re-amostragem por ocupação (não aleatório, não por ângulo médio) é específico desta implementação e não foi publicado anteriormente. |
-| **Acoplamento multi-camada convergência/diversidade** | O SSW-RDPA é o único algoritmo conhecido que acopla **simultaneamente**: (a) seleção de operador por Q-learning, (b) adaptação de ε por CSA path, (c) gate de SDE por model_conf, e (d) niching por PBI-score adaptativo. Cada camada é independente mas se retroalimenta via `search_mode` — uma arquitetura de controle original. |
-| **Regime low-obj sem overhead de many-obj** (P-C1) | Para m=2, o algoritmo desativa two-archive, SDR e PBI-score, revertendo para Pareto+crowding distance — comportamento de NSGA-II com inicialização LHS e CMA-σ. Essa **degradação graciosa** por regime dimensional é incomum em MaOEAs e resulta em desempenho competitivo no espectro completo m=2..20. |
+| `Algorithm` (base) | `pymoo.core.algorithm` |
+| `Population` | `pymoo.core.population` |
+| `DefaultDuplicateElimination` | `pymoo.core.duplicate` |
+| `cv_and_dom_tournament` | `pymoo.algorithms.moo.sms` |
+| `Mating`, `SBX`, `PolynomialMutation`, `TournamentSelection` | `pymoo.core.mating` / `pymoo.operators.*` |
+| `NonDominatedSorting`, `Dominator` | `pymoo.util.*` |
 
-### Diferença fundamental em relação aos predecessores
-
-```
-NSGA-III:    Pareto + ref_dirs fixos + hyperplane normalization
-RVEA:        Ângulo adaptativo + ref_dirs adaptados por ângulo médio
-MOEA/D:      Decomposição Tchebycheff + vizinhança fixa
-MOEA-AD:     Dual-association angular (sem warm-start; sem model_conf)
-
-SSW-RDPA:    Gradiente estocástico relaxado (Schäffler)
-           + Jacobiano aquecido oportunisticamente (warm-start FD)
-           + Gate de branch por confiança do modelo
-           + Dual-association angular com desempate ASF
-           + Re-amostragem de ref_dirs guiada por ocupação
-           + Adaptação multi-camada ε/θ/η via Q-learning e CSA
-           = Arquitetura original com base teórica distinta
-```
+As funções `HyperplaneNormalization`, `associate_to_niches` e `calc_niche_count` do `pymoo.algorithms.moo.nsga3` foram **completamente removidas** e substituídas por implementações próprias (ver mecanismo 12 abaixo). Todos os novos métodos usam **apenas numpy** — zero dependências além do core do pymoo.
 
 ---
 
-## Arquitetura do Algoritmo
+## Mecanismos implementados
 
-### Diagrama de Fluxo (uma geração)
+### 1. Epsilon dinâmico com caminho cumulativo (CSA)
+
+`_adapt_epsilon` — controla `epsilon_state` por cobertura de nichos, taxa de sucesso SDE, estagnação e gap SBX vs SDE. O caminho cumulativo `eps_path` (estilo CSA do CMA-ES) adapta a amplitude estocástica. Limites dinâmicos `eps_min_dyn`/`eps_max_dyn` escalam com progresso e escassez de cobertura.
+
+### 2. Auto-calibração CMA de hiperparâmetros
+
+`_configure_cma_hyperparams` — recalcula `c_path`, `c_cov`, `c_sigma`, `sigma_damp` a partir de `n_var` e `pop_size` usando as fórmulas canônicas do CMA-ES (Hansen 2016). Ativado por `use_cma_auto=True`.
+
+### 3. Ramo global RVX — DE current-to-best/1
+
+`_create_rvx_offspring` — mutação `x_i + F*(x_best − x_i) + F*(x_r1 − x_r2)` com crossover binomial. `F` e `CR` adaptados por histórico de sucesso.
+
+**Novidade v2.1:** Implementa **Neighborhood Mating Restriction** (restrição de vizinhança) para reduzir híbridos degradados em alta dimensão.
+
+**Atualização v2.2:** A restrição de vizinhança foi parametrizada por `prob_neighbor_mating` (default `0.70`) e passa por auto-calibração por regime (`m<=3` reduz acoplamento local para priorizar exploração global).
+
+### 4. Seleção com foco em região esparsa
+
+`_parent_weights` — combina rank de Pareto, raridade de nicho, convergência normalizada e ângulo com o vetor de referência. Boost extra para pais em nichos esparsos (quantil `sparse_quantile`). `_elite_refinement` — preenche nichos vazios e retém elite por convergência.
+
+### 5. State-switch por diversidade/convergência
+
+`_infill` — a cada geração classifica o estado em `diversity`, `balanced` ou `convergence` por entropia de nichos, cobertura e CV de ocupação. Cada modo ajusta pesos de niching, limites SDE e fração RVX.
+
+**Novidade v2.1:** Métrica de convergência interna alterada de `sum(f)` para **distância Euclidiana média à origem** (`mean(norm(f))`). Isso remove o viés de seleção de "cantos" em frentes côncavas (ex: DTLZ2/4), garantindo pressão de convergência uniforme em qualquer geometria.
+
+### 6. Q-learning para intensidade de cruzamento (SBX η)
+
+`_update_q_policy` / `_apply_policy_action` — Q-learning discreto (3 estados × 3 ações) seleciona `SBX eta` ∈ {15, 20, 28} online. Recompensa baseada em ganho de convergência e diversidade entre gerações.
+
+### 7. Inicialização por Latin Hypercube Sampling
+
+`_initialize_infill` + `_latin_hypercube_sample` — quando `use_lhs=True`, amostra o espaço de decisão em `n_var` estratos uniformes com permutação independente por dimensão. Elimina clusters aleatórios e melhora cobertura inicial do arquivo não-dominado.
+
+**Referência:** McKay, M.D., Beckman, R.J., Conover, W.J. (1979). A Comparison of Three Methods for Selecting Values of Input Variables in the Analysis of Output from a Computer Code. *Technometrics*, 21(2):239–245.
+
+### 8. SDR — Strengthened Dominance Relation
+
+`_sdr_fronts` + `_sdr_dominates` — quando `use_sdr=True` e `n_obj > 3`, o ranking em frontes usa SDR em vez de Pareto pura. `x` SDR-domina `y` se `x` melhora em ≥ 1 objetivo por margem > `sdr_sigma × span` sem piorar além de `sdr_sigma` em nenhum outro. Eleva a pressão de seleção para m ≥ 4 sem comprometer diversidade.
+
+**Referências:**
+- Tian, Y., Cheng, R., Zhang, X., Su, Y., Jin, Y. (2018). An Indicator-Based Multiobjective Evolutionary Algorithm With Reference Point Adaptation for Better Versatility. *IEEE TEVC*, 22(4):609–622. DOI: [10.1109/TEVC.2017.2749619](https://doi.org/10.1109/TEVC.2017.2749619).
+- Wang, Q., Gu, Q., Zhou, Q., Xiong, N.N., Liu, D. (2025). Indicator selection and adaptive angle estimation in many-objective optimization. *Information Sciences*. DOI: [10.1016/j.ins.2024.121608](https://doi.org/10.1016/j.ins.2024.121608).
+
+### 9. Niching por PBI-score com θ adaptativo (θ-dominância)
+
+`_niching` + `_pbi_score` — o desempate no niching usa PBI(x, w) = d₁ + θ·d₂, onde d₁ é a componente paralela ao vetor de referência (convergência) e d₂ é a componente perpendicular (diversidade). Scores menores = melhor qualidade no subproblema do nicho.
+
+**Novidade v2.1:** `_theta_current` agora escala automaticamente com a dimensionalidade. Base `5.0 + 1.2 × (m - 3)`, adaptando a penalidade angular para evitar deriva em espaços de muitos objetivos (`m > 3`). Com `theta_adapt=True`, esse valor decai linearmente para aumentar a tolerância no final da busca.
+
+**Atualização v2.2:** O peso efetivo do PBI no score de niching foi suavizado para `m<=3`, reduzindo viés de convergência prematura e preservando cobertura em ZDT.
+
+**Referências:**
+- Yuan, Y., Xu, H., Wang, B., Yao, X. (2016). A New Dominance Relation-Based Evolutionary Algorithm for Many-Objective Optimization. *IEEE TEVC*, 20(1):16–37. DOI: [10.1109/TEVC.2015.2420112](https://doi.org/10.1109/TEVC.2015.2420112).
+- Liang, P., Chen, Y., Sun, Y., Huang, Y., Li, W. (2024). An information entropy-driven evolutionary algorithm based on reinforcement learning for many-objective optimization. *Expert Systems with Applications*, 238(E):122164. DOI: [10.1016/j.eswa.2023.122164](https://doi.org/10.1016/j.eswa.2023.122164).
+
+### 10. Two-archive: convergência + diversidade
+
+`_build_conv_archive` + `_advance` — dois arquivos independentes:
+- `nd_archive` — frente de Pareto (diversidade), comportamento original.
+- `conv_archive` — `conv_archive_frac × pop_size` indivíduos com menor ASF de Tchebycheff por nicho (convergência por subproblema).
+- injeção de ancoragem do `conv_archive` no pareamento POCEA com taxa `archive_injection_rate` (gated por modo/progresso para evitar sobreexploração em `m<=3`).
+
+`self.opt` é a união não-dominada dos dois arquivos. Garante que cada vetor de referência tenha ao menos um representante bem convergido.
+
+**Referências:**
+- Wang, H., Jiao, L., Yao, X. (2015). Two_Arch2: An Improved Two-Archive Algorithm for Many-Objective Optimization. *IEEE TEVC*, 19(4):524–541. DOI: [10.1109/TEVC.2014.2350987](https://doi.org/10.1109/TEVC.2014.2350987).
+- Wang, J., Zheng, Y., Zhang, Z., Peng, H., Wang, H. (2025). A novel multi-state reinforcement learning-based multi-objective evolutionary algorithm. *Information Sciences*, 688:121397. DOI: [10.1016/j.ins.2024.121397](https://doi.org/10.1016/j.ins.2024.121397).
+- Zhang, W., Liu, J., Liu, Y., Liu, J., Tan, S. (2024). A many-objective evolutionary algorithm under diversity-first selection based framework. *Expert Systems with Applications*, 250:123949. DOI: [10.1016/j.eswa.2024.123949](https://doi.org/10.1016/j.eswa.2024.123949).
+
+### 11. Blending Schaeffler + Tchebycheff na direção SDE
+
+`_create_sde_offspring` — para `n_obj > 4`, a direção de descida `q` é:
 
 ```
-┌─────────────────────────────────────────────────────────────┐
-│  INÍCIO DA GERAÇÃO                                          │
-│  1. _infill()                                               │
-│     ├─ P-B2: Verifica coverage streak → adapt_refdirs?      │
-│     ├─ P-A3: Calcula mean_model_conf (norma Jacobiano pop)  │
-│     ├─ Calcula λ (modo diversity/balanced/convergence)      │
-│     ├─ n_sde = gate(local_pressure + 0.40×model_conf)       │
-│     ├─ n_rvx = f(lam, search_mode)                          │
-│     └─ n_sbx = pop_size - n_sde - n_rvx                     │
-│                                                             │
-│  2. _create_sde_offspring()                                 │
-│     ├─ P-A1: warm-start FD se gen < warmstart_gens          │
-│     │        e Jacobiano frio e individuo promissor          │
-│     ├─ Broyden rank-1 update do Jacobiano (online)          │
-│     ├─ SDE step: x_new = x + J^T × drift + σ noise         │
-│     └─ Mirror/antithetic sampling                           │
-│                                                             │
-│  3. _create_sbx_offspring() + _create_rvx_offspring()       │
-│     └─ Q-learning escolhe η (SBX); RVX com F/CR adaptativos │
-│                                                             │
-│  4. offspring → _evaluate() → pool                          │
-│                                                             │
-│  5. _hybrid_survival(pop ∪ offspring, n_survive)            │
-│     ├─ SDR ou Pareto fronts (condicional ao search_mode)    │
-│     ├─ _associate_niches (angular, EMA nadir/ideal)         │
-│     ├─ _niching (PBI-score + rarity + angle)                │
-│     ├─ P-B1: _dual_association_fill_empty_niches()          │
-│     └─ _elite_refinement (ASF + sparse-region fill)         │
-│                                                             │
-│  6. _build_conv_archive() [se use_two_archive]              │
-│     └─ 1 representante por nicho (menor ASF Tchebycheff)    │
-│                                                             │
-│  7. _adapt_epsilon() + _adapt_theta() + Q-learning update   │
-│     └─ state → reward → Q-table update                      │
-└─────────────────────────────────────────────────────────────┘
+q = (1 − α) × q_Schaeffler  +  α × q_Tchebycheff
+α = clip(0.10 + 0.60 × progress, 0.10, 0.65)
 ```
+
+A direção de Tchebycheff aponta para o objetivo com maior resíduo relativo ao vetor de referência do nicho — mais estável que o QP de Schaeffler quando o Jacobian é escasso.
+
+**Referências:**
+- Xing, L., Li, J., Cai, Z., Hou, F. (2023). A Two-State Dynamic Decomposition-Based Evolutionary Algorithm for Handling Many-Objective Optimization Problems. *Mathematics*, 11(3):493. DOI: [10.3390/math11030493](https://doi.org/10.3390/math11030493).
+- Wang, Q., Gu, Q., Zhou, Q., Xiong, N.N., Liu, D. (2025). Indicator selection and adaptive angle estimation in many-objective optimization. *Information Sciences*. DOI: [10.1016/j.ins.2024.121608](https://doi.org/10.1016/j.ins.2024.121608).
 
 ---
 
-## Componentes Principais
+### 12. Normalização e associação de nichos nativas (sem NSGA-III)
 
-### 1. Operador SDE (Schäffler Stochastic Descent) + Warm-Start [P-A1]
+**Arquivos:** `_IdealNadirTracker`, `_associate_to_niches_angular`, `_calc_niche_count`
 
-**Base teórica:** Discretização de Euler-Maruyama da SDE de gradiente multi-objetivo.
+Substitui integralmente `HyperplaneNormalization`, `associate_to_niches` e `calc_niche_count` do `pymoo.algorithms.moo.nsga3`.
+
+**`_IdealNadirTracker` — normalização adaptativa por EMA do nadir:**
+
+O NSGA-III normaliza pelo hiperplano de intercepção dos pontos extremos, o que é instável para m > 5 (os pontos extremos são sensíveis a outliers e ausentes em alguns objetivos). O tracker próprio:
+- **Ideal:** mínimo acumulado elemento-a-elemento sobre *todas* as soluções avaliadas — monótono não-crescente, nunca esquece um bom valor.
+- **Nadir:** EMA (decaimento `nadir_ema=0.20`) do máximo por geração na frente não-dominada — estável, sem fit de hiperplano, robusto a outliers.
+
+Resultado: normalização mais uniforme em todas as direções de referência, especialmente no interior do simplex onde o hiperplano do NSGA-III tende a distorcer distâncias.
+
+**`_associate_to_niches_angular` — associação por menor ângulo:**
+
+Em vez de distância perpendicular ao hiperplano (NSGA-III), usa o **ângulo entre o vetor objetivo normalizado e cada vetor de referência** — equivalente a maximizar o cosseno entre eles. Isso é:
 
 ```
-X(t+dt) = X(t) - J^T(X) · [J(X) · J^T(X) + εI]^{-1} · F(X) · dt
-         + √(2ε·dt) · W(t)
+niche(x) = argmax_j  cos(f_norm(x), w_j)
+d_perp(x) = ||f_norm(x)|| × sin(angle)
 ```
 
-**v3 (P-A1):** Nas gerações iniciais (`gen < warmstart_jacobian_gens`), o Jacobiano `J` é aquecido por diferenças finitas forward de 1-step para indivíduos com `‖J‖ < 1e-8`:
+Vantagens para diversidade em MaOP:
+1. **Invariância de escala** — o ângulo não depende da magnitude do vetor objetivo, apenas de sua direção. Soluções no interior do simplex são associadas ao nicho geometricamente correto mesmo com normalização imperfeita.
+2. **Sem dependência de pontos extremos** — o NSGA-III precisa de um ponto extremo por objetivo para calcular o hiperplano; em problemas com frentes degeneradas ou côncavas, isso falha. A associação angular não tem essa dependência.
+3. **Consistência com RVEA e θ-DEA** — os algoritmos mais competitivos pós-2015 em MaOP usam associação angular (RVEA, Cheng, Jin, Olhofer e Sendhoff 2016; θ-DEA, Yuan, Xu, Wang e Yao 2016).
 
-```python
-J_warm[i, :, j] = (F(X[i] + h·e_j) - F(X[i])) / h
-```
+**Referências:**
+- Cheng, R., Jin, Y., Olhofer, M., Sendhoff, B. (2016). A Reference Vector Guided Evolutionary Algorithm for Many-Objective Optimization. *IEEE TEVC*, 20(5):773–791. DOI: [10.1109/TEVC.2016.2519378](https://doi.org/10.1109/TEVC.2016.2519378). *(RVEA — associação angular)*
+- Yuan, Y., Xu, H., Wang, B., Yao, X. (2016). A New Dominance Relation-Based Evolutionary Algorithm for Many-Objective Optimization. *IEEE TEVC*, 20(1):16–37. DOI: [10.1109/TEVC.2015.2420112](https://doi.org/10.1109/TEVC.2015.2420112). *(θ-DEA — associação angular + PBI)*
 
-O aquecimento é amortizado: executado 1 única vez por indivíduo, priorizando os de menor valor médio de F (candidatos mais promissores). Custo adicional: `m` avaliações por indivíduo warm-started, limitado a `warmstart_max_individuals=8` por geração.
+### 13. Regime low-objective estabilizado (`m <= 3`)
 
-**Parâmetros:**
+**Arquivos:** `_auto_calibrate_runtime_controls`, `_infill`, `_update_operator_credit`, `_create_sbx_offspring`, `_niching`
+
+Principais ajustes aplicados:
+- `low_obj_mode` habilita um ramo dedicado de calibração com `ratio_sde` menor e limites mais conservadores.
+- `use_sdr=False` para `m<=3`; `use_two_archive` é reduzido (desligado em `m<=2`).
+- redução automática de `prob_neighbor_mating` e `archive_injection_rate` em low-objective.
+- amortecimento explícito de SDE quando `success_sde` fica abaixo de SBX.
+- faixa de `theta_pbi` reduzida para 2D/3D e niching menos agressivo em PBI.
+
+Efeito esperado: reduzir colapso por exploração local excessiva em frentes de baixa dimensionalidade, mantendo robustez no regime many-objective.
+
+---
+
+## Parâmetros
+
+### Principais
 
 | Parâmetro | Default | Descrição |
 |---|---|---|
-| `warmstart_jacobian_gens` | 2 | Gerações onde warm-start é ativo |
-| `warmstart_max_individuals` | 8 | Máximo de warm-starts por geração |
-| `jacobian_damping` | 0.65 | Amortecimento do Broyden rank-1 |
-| `epsilon_base` | 1e-4 | Epsilon base do controlador CSA |
+| `ref_dirs` | — | Vetores de referência (Das-Dennis ou equivalente) |
+| `pop_size` | `len(ref_dirs)` | Tamanho da população |
+| `epsilon` | `0.10` | Amplitude base da perturbação estocástica SDE |
+| `ratio_sde` | `0.14` | Fração inicial da população para offspring SDE |
+| `use_cma_auto` | `True` | Auto-calibração CMA de hiperparâmetros |
+| `rvx_share_base` | `0.40` | Fração base do ramo global RVX |
 
----
-
-### 2. SDR Tensorial sem Loop Python [P-A2]
-
-**Estado anterior:** Loop Python `while len(current_np) > 0` com lista de arrays dominados por indivíduo — O(n) iterações Python sobre arrays NumPy.
-
-**v3:** Propagação tensorial de `dom_count` via scatter-subtract vetorizado. Substitui `dominated_by_rows_np` por operação matricial:
-
-```python
-dom_decrement = np.sum(dominates_np[current_np, :], axis=0)  # (n,)
-dom_work -= dom_decrement
-```
-
-**Speedup estimado:** 3–8× para `pop_size ≥ 150`, `m ≥ 5`.  
-**Fórmula SDR:** `dominates[i,j] = Pareto(i,j) ∨ SDR(i,j)` onde:
-- `Pareto(i,j) = ∀k: F[j,k] ≥ F[i,k] ∧ ∃k: F[j,k] > F[i,k]`
-- `SDR(i,j) = ∃k: F[j,k] - F[i,k] > σ ∧ ∀k: F[j,k] - F[i,k] ≥ -σ`
-
----
-
-### 3. Gate de SDE por Confiança do Jacobiano [P-A3]
-
-Calcula `mean_model_conf` como a norma relativa do Jacobiano em relação à mediana da população:
-
-```python
-model_conf_i = clip(‖J[i]‖ / median(‖J[pop]‖), 0, 1)
-mean_model_conf = mean(model_conf_i)
-```
-
-O gate de ativação do branch SDE inclui:
-```python
-local_pressure += 0.40 * self._mean_model_conf
-```
-
-Quando `model_conf → 0` (início): `n_sde` reduzido → mais RVX/SBX global.  
-Quando `model_conf → 1` (warm): `n_sde` aumentado → mais busca local dirigida.
-
----
-
-### 4. Dual-Association Angular para Nichos Vazios [P-B1]
-
-Após o niching clássico, `_dual_association_fill_empty_niches()` identifica nichos sem cobertura e os preenche com o candidato de menor score composto:
-
-```
-p(x, λ_j) = cos(angle(F̃(x), λ_j)) × d₂(x, λ_j)
-score(x, λ_j) = p(x, λ_j) + 0.05 × ASF_Tchebycheff(x, λ_j)
-```
-
-**Diferença vs MOEA-AD original:** O fator 0.05 × ASF garante que candidatos convergidos desempasem candidatos angularmente equivalentes — evitando que soluções de cantos cubram nichos de regiões internas não-dominadas.
-
----
-
-### 5. Adaptação Dinâmica de Ref_Dirs por Ocupação [P-B2]
-
-Quando `coverage < 0.50 × coverage_target` por ≥ 5 gerações consecutivas E `n_obj ≥ 5`:
-
-1. Identifica os `n_resamp = frac × n_ref` refs com **menor ocupação** na população
-2. Substitui esses refs por novos vetores amostrados via método `energy` (máxima dispersão no simplex)
-3. Mantém os `n_keep = (1-frac) × n_ref` refs mais ocupados (Das-Dennis estável)
-
-**Cooldown:** Mínimo de 15% de progresso entre re-amostragens (`adaptive_refdirs_cooldown=0.15`).
-
----
-
-### 6. Regime Low-Obj Refinado [P-C1]
-
-Para `m ≤ 2`:
-- `use_two_archive = False` (Pareto puro suficiente)
-- `use_sdr = False` (SDR é redundante em baixa dimensão)
-- `theta_pbi = 1.8` (pressão angular mínima)
-- `adaptive_refdirs = False` (ref_dirs fixos adequados para m=2)
-- `prob_neighbor_mating ≤ 0.60` (exploração global ampliada)
-- **[Hotfix v3.0.1]** Pesos parentais (`w_div` / `w_conv`) usam **Crowding Distance** clássica para espalhar uniformemente as soluções, neutralizando a desvantagem do hiperplano em modelos convexos/côncavos limpos.
-
-Para `m = 3`:
-- `use_two_archive = True` (ativo, mas moderado)
-- `use_sdr = False`
-- `theta_pbi = 2.4`
-
----
-
-## Parâmetros Principais
-
-### Configuração padrão (many-objective m > 3)
+### Novos parâmetros (v2.2)
 
 | Parâmetro | Default | Faixa | Descrição |
 |---|---|---|---|
-| `pop_size` | 105 | 50–500 | Tamanho da população |
-| `theta_pbi` | 5.0 | 1.0–20.0 | PBI penalty (auto: 5 + 1.2*(m-3)) |
-| `theta_adapt` | True | — | Adaptar θ ao longo do progresso |
-| `sdr_sigma` | 0.02 | 0.0–0.15 | Margem de tolerância SDR |
-| `use_sdr` | True | — | Ativar SDR (recomendado m > 3) |
-| `use_lhs` | True | — | Latin Hypercube Sampling |
-| `use_two_archive` | True | — | Two-archive conv+div |
-| `conv_archive_frac` | 0.20 | 0.05–0.40 | Fração do arquivo de convergência |
-| `epsilon_base` | 1e-4 | 1e-6–1e-2 | Base do controlador CSA ε |
-| `coverage_target` | 0.65 | 0.40–0.90 | Alvo de cobertura de nichos |
-| **[v3]** `warmstart_jacobian_gens` | 2 | 0–5 | Gerações com warm-start FD |
-| **[v3]** `warmstart_max_individuals` | 8 | 1–20 | Max warm-starts por geração |
-| **[v3]** `adaptive_refdirs` | True | — | Adaptação dinâmica de ref_dirs |
-| **[v3]** `adaptive_refdirs_min_obj` | 5 | 3–20 | Mínimo de objetivos para adaptar |
-| **[v3]** `adaptive_refdirs_coverage_thr` | 0.50 | 0.30–0.80 | Threshold de cobertura |
-| **[v3]** `adaptive_refdirs_patience` | 5 | 2–15 | Gerações antes de re-amostrar |
-| **[v3]** `adaptive_refdirs_frac_resample` | 0.20 | 0.05–0.40 | Fração re-amostrada |
-| **[v3]** `adaptive_refdirs_cooldown` | 0.15 | 0.05–0.50 | Cooldown entre re-amostragens |
+| `use_lhs` | `True` | bool | LHS na inicialização |
+| `use_sdr` | `True` | bool | SDR em vez de Pareto puro para m > 3 |
+| `sdr_sigma` | `0.02` | `[0, 0.10]` | Tolerância SDR como fração do span normalizado |
+| `theta_pbi` | `5.0` | `[0.5, 20]` | θ inicial do PBI-score no niching |
+| `theta_adapt` | `True` | bool | Decrescer θ de `theta_pbi` → 1.5 com o progresso |
+| `use_two_archive` | `True` | bool | Arquivo de convergência explícito separado |
+| `conv_archive_frac` | `0.20` | `[0.05, 0.40]` | Fração de `pop_size` no arquivo de convergência |
+| `prob_neighbor_mating` | `0.70` | `[0.0, 1.0]` | Probabilidade base de mating por vizinhança (auto-ajustada por regime) |
+| `archive_injection_rate` | `0.12` | `[0.0, 0.50]` | Taxa base de injeção de âncoras do `conv_archive` no pareamento |
+
+### Parâmetros avançados de controle
+
+| Parâmetro | Default | Descrição |
+|---|---|---|
+| `sparse_quantile` | `0.30` | Quantil para detectar nichos esparsos |
+| `elite_keep_frac` | `0.12` | Fração de elite retida em modo convergência |
+| `angle_adapt_gain` | `0.30` | Peso do ângulo candidato-referência no niching |
+| `qlearn_alpha` | `0.22` | Taxa de aprendizado Q-learning |
+| `qlearn_gamma` | `0.90` | Fator de desconto Q-learning |
+| `qlearn_eps` | `0.08` | Epsilon-greedy de exploração Q-learning |
+| `rvx_mu_f` | `0.55` | Média inicial de F para RVX |
+| `rvx_mu_cr` | `0.85` | Média inicial de CR para RVX |
 
 ---
 
-## Benchmark Planejado
+## Telemetria
 
-### Benchmark Mínimo (validação das melhorias v3)
+`alg.get_telemetry()` retorna lista de dicts por geração:
+
+| Campo | Descrição |
+|---|---|
+| `gen`, `n_eval`, `progress` | Geração, avaliações e progresso normalizado [0,1] |
+| `coverage` | Fração de vetores de referência ocupados |
+| `ratio_sde` | Fração corrente de offspring SDE |
+| `epsilon_state` | Amplitude ε corrente |
+| `success_sde`, `success_sbx` | Taxas de sucesso por operador |
+| `archive_improved` | Se o arquivo melhorou nesta geração |
+| `stagnation_streak` | Gerações consecutivas sem melhoria |
+| `search_mode` | `diversity` / `balanced` / `convergence` |
+| `entropy`, `niche_cv` | Métricas de distribuição de nichos |
+| `sigma_mean`, `sde_step_norm` | Estatísticas do modelo local |
+| `c_path`, `c_cov`, `c_sigma` | Hiperparâmetros CMA correntes |
+| `sbx_eta`, `q_state` | Estado Q-learning e η do SBX |
+| `rvx_mu_f`, `rvx_mu_cr` | Parâmetros adaptativos do RVX |
+| `theta_pbi_current` | θ corrente do PBI (adaptativo) |
+| `conv_archive_size` | Tamanho do arquivo de convergência |
+| `low_obj_mode` | Flag de regime low-objective (`m<=3`) |
+| `prob_neighbor_mating` | Probabilidade corrente de mating por vizinhança |
+| `archive_injection_rate` | Taxa corrente de injeção de `conv_archive` no mating |
+
+---
+
+## Uso rápido
 
 ```python
 from pymoo.optimize import minimize
-from pymoo.problems import get_problem
-from pymoo.indicators.igdplus import IGDPlus
+from pymoo.util.ref_dirs import get_reference_directions
+from guiPymoo.algorithms.ssw_rdpa.ssw_rdpa import SSW_RDPA
 
-# ZDT1 (m=2) — valida P-C1 (low-obj regime)
-problem_zdt1 = get_problem("zdt1")
+ref_dirs = get_reference_directions("das-dennis", 5, n_partitions=5)
 
-# DTLZ2 (m=3, m=5) — valida P-A1, P-A2, P-A3
-problem_dtlz2_3 = get_problem("dtlz2", n_obj=3)
-problem_dtlz2_5 = get_problem("dtlz2", n_obj=5)
-
-# Configuração: 15 runs, n_evals=25000, Wilcoxon p < 0.05
-```
-
-**Métricas:** IGD+ (principal), HV (secundária)  
-**Comparação:** SSW-RDPA v2 baseline vs SSW-RDPA v3 vs NSGA-III
-
-### Benchmark Completo (30 runs)
-
-| Problema | m | n_eval | Objetivo |
-|---|---|---|---|
-| ZDT1 | 2 | 15.000 | Valida P-C1 |
-| DTLZ2 | 3, 5, 8 | 25.000 | Valida P-A1, P-A3 |
-| DTLZ1 | 5, 8 | 30.000 | Valida P-A2 (SDR tensorial) |
-| DTLZ3 | 5, 8 | 30.000 | Valida P-B2 (ref_dirs adaptat.) |
-| DTLZ7 | 5, 8 | 30.000 | Valida P-B1 (dual-association) |
-
----
-
-## Log de Mudanças
-
-### v3.0.1 (Hotfix Fevereiro 2026) — Estabilização ZDT e Crossover Limpo
-
-| ID | Nome | Impacto Primário | Status |
-|---|---|---|---|
-| H-1 | Auto-escala em Polynomial Mutation | Remoção da taxa cravada `0.1` e adoção dinâmica `1 / n_var`; reestabeleceu convergência limpa (IGD+ 0.003) no ZDT1 | ✅ Resolvido |
-| H-2 | Crowding Distance Override em `m=2` | Força cálculos clássicos intra-nicho para resguardar a "imortalidade" limítrofe, preenchendo as pontas esquecidas do Simplex pelo PBI no `ZDT`. | ✅ Resolvido |
-| H-3 | Direct Call Bypass no cruzamento SBX | Ignora o TournamentSelection Wrapper do PyMoo, garantindo que o Crossover opere exclusivamente sobre a matriz de parentesco do POCEA. | ✅ Resolvido |
-| H-4 | Registro Analítico de Evaluator no Jacobian | Avaliações do `_warmstart_jacobian_fd` registradas integralmente no orçamento `self.evaluator` (Transparência absoluta em Benchmarks). | ✅ Resolvido |
-
-### v3.0 (Fevereiro 2026) — Melhorias Estratégicas MaOP
-
-| ID | Nome | Impacto Primário | Status |
-|---|---|---|---|
-| P-A1 | Warm-start quasi-Newton (FD forward) | Convergência inicial m=2..5 | ✅ Implementado |
-| P-A2 | SDR tensorial sem loop Python | Velocidade m≥5, pop≥150 | ✅ Implementado |
-| P-A3 | Gate SDE por model_conf (Jacobiano) | Balanceo exploração/explotação | ✅ Implementado |
-| P-B1 | Dual-Association Angular (MOEA-AD) | Diversidade m≥3 | ✅ Implementado |
-| P-B2 | Ref_dirs dinâmicos por ocupação | Diversidade m≥5, frontes irregulares | ✅ Implementado |
-| P-C1 | Low-obj Pareto puro m=2 | Competitividade m=2 | ✅ Implementado |
-
-### v2.x (Setembro 2025 — Janeiro 2026)
-- Two-archive (nd_archive + conv_archive) com ASF Tchebycheff por nicho
-- PBI-score adaptativo com θ progresso-dependente
-- SDR condicional ao search_mode (disable durante diversity mode)
-- Q-learning online para seleção de η SBX
-- CMA-σ auto-calibration de hiperparâmetros path/cov
-- IdealNadirTracker com EMA para normalização robusta
-
-### v1.0 (Março 2025)
-- Implementação base SSW + Reference Directions + PBI
-
----
-
-## Referências com DOI e Autores Completos
-
-### Base Algorítmica
-
-**[1]** Schäffler, Stefan; Schultz, Rüdiger; Weinzierl, Klaus. (2002).  
-"Stochastic method for the solution of unconstrained vector optimization problems."  
-*Journal of Optimization Theory and Applications*, 114(1), 209–222.  
-DOI: [10.1023/A:1015472306888](https://doi.org/10.1023/A:1015472306888)  
-*(Base original do operador SDE — discretização Euler-Maruyama)*
-
-**[2]** Das, Indraneel; Dennis, John E. (1998).  
-"Normal-boundary intersection: A new method for generating the Pareto surface in nonlinear multicriteria optimization problems."  
-*SIAM Journal on Optimization*, 8(3), 631–657.  
-DOI: [10.1137/S1052623496307510](https://doi.org/10.1137/S1052623496307510)  
-*(Geração Das-Dennis dos vetores de referência)*
-
-**[3]** Deb, Kalyanmoy; Jain, Himanshu. (2014).  
-"An evolutionary many-objective optimization algorithm using reference-point-based nondominated sorting approach, Part I: Solving problems with box constraints."  
-*IEEE Transactions on Evolutionary Computation*, 18(4), 577–601.  
-DOI: [10.1109/TEVC.2013.2281535](https://doi.org/10.1109/TEVC.2013.2281535)  
-*(NSGA-III — baseline de comparação; normalização por hiperplano)*
-
-### Niching por PBI e θ-Dominância
-
-**[4]** Yuan, Yuan; Xu, Hua; Wang, Bo; Yao, Xin. (2016).  
-"A new dominance relation-based evolutionary algorithm for many-objective optimization."  
-*IEEE Transactions on Evolutionary Computation*, 20(1), 16–37.  
-DOI: [10.1109/TEVC.2015.2420112](https://doi.org/10.1109/TEVC.2015.2420112)  
-*(θ-dominância e PBI-score adaptativo)*
-
-**[5]** Cheng, Ran; Jin, Yaochu; Olhofer, Markus; Sendhoff, Bernhard. (2016).  
-"A reference vector guided evolutionary algorithm for many-objective optimization."  
-*IEEE Transactions on Evolutionary Computation*, 20(5), 773–791.  
-DOI: [10.1109/TEVC.2016.2519378](https://doi.org/10.1109/TEVC.2016.2519378)  
-*(RVEA — base para associação angular e adaptação de ref_dirs)*
-
-### SDR — Strengthened Dominance Relation
-
-**[6]** Tian, Ye; Cheng, Ran; Zhang, Xingyi; Su, Yajie; Jin, Yaochu. (2018).  
-"A strengthened dominance relation considering convergence and diversity for evolutionary many-objective optimization."  
-*IEEE Transactions on Evolutionary Computation*, 23(2), 331–345.  
-DOI: [10.1109/TEVC.2017.2749619](https://doi.org/10.1109/TEVC.2017.2749619)  
-*(SDR — relação de dominância fortalecida usada em _sdr_fronts)*
-
-### Two-Archive
-
-**[7]** Wang, Handing; Jiao, Licheng; Yao, Xin. (2015).  
-"Two_Arch2: An improved two-archive algorithm for many-objective optimization."  
-*IEEE Transactions on Evolutionary Computation*, 19(4), 524–541.  
-DOI: [10.1109/TEVC.2014.2350987](https://doi.org/10.1109/TEVC.2014.2350987)  
-*(Two-archive — base conceitual para conv_archive + nd_archive)*
-
-### Dual-Association Angular [P-B1]
-
-**[8]** Wang, Xinzi; Wang, Huimin; Tian, Zhen; Wang, Wenxiao; Chen, Junming. (2025).  
-"Angle-Based Dual-Association Evolutionary Algorithm for Many-Objective Optimization."  
-*Mathematics*, 13(11), 1757.  
-DOI: [10.3390/math13111757](https://doi.org/10.3390/math13111757)  
-*(MOEA-AD — estratégia de associação dupla angular; adaptada em P-B1 com desempate ASF)*
-
-### Warm-Start Quasi-Newton [P-A1]
-
-**[9]** Nocedal, Jorge; Wright, Stephen J. (2006).  
-"Numerical Optimization." 2nd ed., Springer.  
-DOI: [10.1007/978-0-387-40065-5](https://doi.org/10.1007/978-0-387-40065-5)  
-*(Cap. 6: Quasi-Newton methods — base teórica do warm-start por FD forward rank-1)*
-
-**[10]** Broyden, Charles George. (1965).  
-"A class of methods for solving nonlinear simultaneous equations."  
-*Mathematics of Computation*, 19(92), 577–593.  
-DOI: [10.1090/S0025-5718-1965-0198670-6](https://doi.org/10.1090/S0025-5718-1965-0198670-6)  
-*(Atualização de rank-1 Broyden — usada no update online do Jacobiano pós warm-start)*
-
-### Benchmarks e Métricas
-
-**[11]** Deb, Kalyanmoy; Thiele, Lothar; Laumanns, Marco; Zitzler, Eckart. (2002).  
-"Scalable multi-objective optimization test problems."  
-*Proceedings of the 2002 Congress on Evolutionary Computation (CEC)*, 1, 825–830.  
-DOI: [10.1109/CEC.2002.1007032](https://doi.org/10.1109/CEC.2002.1007032)  
-*(DTLZ1–DTLZ7 — suite de benchmark principal)*
-
-**[12]** Zitzler, Eckart; Deb, Kalyanmoy; Thiele, Lothar. (2000).  
-"Comparison of multiobjective evolutionary algorithms: Empirical results."  
-*Evolutionary Computation*, 8(2), 173–195.  
-DOI: [10.1162/106365600568202](https://doi.org/10.1162/106365600568202)  
-*(ZDT1–ZDT4, ZDT6 — benchmark para m=2)*
-
-**[13]** Ishibuchi, Hisao; Imada, Ryo; Setoguchi, Yu; Nojima, Yusuke. (2019).  
-"How to specify a reference point in hypervolume calculation for fair performance comparison."  
-*Evolutionary Computation*, 26(3), 411–440.  
-DOI: [10.1162/evco_a_00226](https://doi.org/10.1162/evco_a_00226)  
-*(Metodologia de cálculo de HV e escolha do ponto de referência)*
-
-**[14]** Ishibuchi, Hisao; Masuda, Hiroyuki; Tanigaki, Yuki; Nojima, Yusuke. (2015).  
-"Modified distance calculation in generational distance and inverted generational distance."  
-*Proceedings of EMO 2015*, Lecture Notes in Computer Science, vol 9018, 110–125.  
-DOI: [10.1007/978-3-319-15892-1_8](https://doi.org/10.1007/978-3-319-15892-1_8)  
-*(IGD+ — métrica preferida por sensibilidade à convergência e diversidade)*
-
-### Inicialização LHS
-
-**[15]** McKay, Michael D.; Beckman, Richard J.; Conover, William J. (1979).  
-"A comparison of three methods for selecting values of input variables in the analysis of output from a computer code."  
-*Technometrics*, 21(2), 239–245.  
-DOI: [10.1080/00401706.1979.10489755](https://doi.org/10.1080/00401706.1979.10489755)  
-*(Latin Hypercube Sampling — usado na inicialização da população)*
-
-### CMA-ES e Adaptação de Passo
-
-**[16]** Hansen, Nikolaus; Müller, Sibylle D.; Koumoutsakos, Petros. (2003).  
-"Reducing the time complexity of the derandomized evolution strategy with covariance matrix adaptation (CMA-ES)."  
-*Evolutionary Computation*, 11(1), 1–18.  
-DOI: [10.1162/106365603321828970](https://doi.org/10.1162/106365603321828970)  
-*(CMA-ES — base para auto-calibração de c_path, c_sigma, c_cov)*
-
-### Literature MaOP Pós-2024 (Contexto Competitivo)
-
-**[17]** Wang, Xinzi; Wang, Huimin; Tian, Zhen; Wang, Wenxiao; Chen, Junming. (2025).  
-[Mesmo que ref. 8 — MOEA-AD]  
-*Resultados benchmark:* vence NSGA-III em 17/35 instâncias IGD (DTLZ), 26/45 (WFG).
-
-**[18]** Li, Jiaming; Chen, Lingjie; Xin, Bin. (2025).  
-"TensorNSGA-III: A GPU-Accelerated Many-Objective Evolutionary Algorithm."  
-*arXiv preprint*, arXiv:2504.06067.  
-URL: [https://arxiv.org/abs/2504.06067](https://arxiv.org/abs/2504.06067)  
-*(Reformulação tensorial do NSGA-III para GPU — referência para P-A2)*
-
-**[19]** Cheng, Shi; Shi, Yuhui; Qin, Quande; Gao, Shang. (2024).  
-"RVEA with Double Convergence Enhancement Strategy for Many-Objective Optimization."  
-*Information Sciences*, 2024.  
-*(RVEA-2DCES — inspiração para P-B2: adaptação de vetores de referência)*
-
-**[20]** Deb, Kalyanmoy; Agrawal, Ram Bhushan. (1995).  
-"Simulated binary crossover for continuous search space."  
-*Complex Systems*, 9(2), 115–148.  
-URL: [https://www.complex-systems.com/abstracts/v09_i02_a02/](https://www.complex-systems.com/abstracts/v09_i02_a02/)  
-*(SBX — operador de cruzamento binário simulado)*
-
-**[21]** Deb, Kalyanmoy; Pratap, Amrit; Agarwal, Sameer; Meyarivan, T. (2002).  
-"A fast and elitist multiobjective genetic algorithm: NSGA-II."  
-*IEEE Transactions on Evolutionary Computation*, 6(2), 182–197.  
-DOI: [10.1109/4235.996017](https://doi.org/10.1109/4235.996017)  
-*(NSGA-II — regime low-obj (m=2) em P-C1 degrada graciosamente para Pareto+crowding distance)*
-
-**[22]** Blank, Julian; Deb, Kalyanmoy. (2020).  
-"pymoo: Multi-Objective Optimization in Python."  
-*IEEE Access*, 8, 89497–89509.  
-DOI: [10.1109/ACCESS.2020.2990567](https://doi.org/10.1109/ACCESS.2020.2990567)  
-*(Framework pymoo — plataforma de implementação e benchmark)*
-
----
-
-## Uso Rápido
-
-```python
-from pymoo.optimize import minimize
-from pymoo.termination import get_termination
-from pymoo.problems import get_problem
-
-# Importar o algoritmo
-import sys
-sys.path.insert(0, "d:/PyPro/PymooLab")
-from algorithms.ssw_rdpa.ssw_rdpa import SSW_RDPA
-
-# Exemplo: DTLZ2 com 5 objetivos
-problem = get_problem("dtlz2", n_obj=5)
-
-algo = SSW_RDPA(
-    pop_size=210,
-    seed=42,
-    # v3: warm-start ativo por 2 gerações
-    warmstart_jacobian_gens=2,
-    warmstart_max_individuals=8,
-    # v3: ref_dirs dinâmicos para frente irregular
-    adaptive_refdirs=True,
-    adaptive_refdirs_patience=5,
+alg = SSW_RDPA(
+    ref_dirs=ref_dirs,
+    pop_size=len(ref_dirs),
+    epsilon=0.10,
+    ratio_sde=0.14,
+    use_cma_auto=True,
+    rvx_share_base=0.40,
+    rvx_mu_f=0.55,
+    rvx_mu_cr=0.85,
+    sparse_quantile=0.30,
+    elite_keep_frac=0.12,
+    angle_adapt_gain=0.30,
+    qlearn_alpha=0.22,
+    qlearn_gamma=0.90,
+    qlearn_eps=0.08,
+    use_lhs=True,
+    use_sdr=True,
+    sdr_sigma=0.02,
+    theta_pbi=5.0,
+    theta_adapt=True,
+    use_two_archive=True,
+    conv_archive_frac=0.20,
+    prob_neighbor_mating=0.70,
+    archive_injection_rate=0.12,
+    seed=1,
 )
 
-result = minimize(
-    problem,
-    algo,
-    termination=get_termination("n_eval", 30_000),
-    verbose=True,
-)
-
-# Calcular IGD+
-from pymoo.indicators.igdplus import IGDPlus
-pf = problem.pareto_front()
-igd_plus = IGDPlus(pf)
-print(f"IGD+: {igd_plus(result.F):.6f}")
-```
-
-### Desativar warm-start (modo legado v2)
-
-```python
-algo = SSW_RDPA(
-    pop_size=210,
-    warmstart_jacobian_gens=0,   # desativa P-A1
-    adaptive_refdirs=False,       # desativa P-B2
-)
-```
-
-### Configuração para m=2 (ZDT)
-
-```python
-# P-C1 é ativado automaticamente para m=2
-# two_archive=False, use_sdr=False, theta_pbi=1.8
-algo = SSW_RDPA(pop_size=100, seed=0)
-problem = get_problem("zdt1")
+res = minimize(problem, alg, ("n_eval", 30000), seed=1, verbose=False)
+telemetry = alg.get_telemetry()
 ```
 
 ---
 
-## Dependências
+## Critério de sucesso vs NSGA-III
+
+1. **Qualidade:** média de `Delta_p` (ou IGD+) do `SSW_RDPA` menor que `NSGA-III` no agregado. Vantagem relativa mínima recomendada: `>= 1.0%`.
+2. **Consistência:** vitória em pelo menos `60%` das funções testadas no mesmo valor de `m`. Repetir para `m=5` e `m=10`.
+3. **Significância:** teste de Wilcoxon pareado com `p < 0.05` nas funções em que houver ganho.
+4. **Custo:** reportar tempo médio por run. Se `SSW_RDPA` for mais lento, explicitar o trade-off qualidade vs tempo.
+
+---
+
+## Em caso de vitória, documentar
+
+**Regra:** registrar neste README no mesmo dia do experimento. Não considerar vitória isolada por função — registrar o agregado e o recorte por função.
 
 ```
-pymoo >= 0.6.0          # framework base
-numpy >= 1.24           # operações matriciais (sempre disponível)
-cupy  >= 12.0 (opt.)    # GPU backend (auto-detectado)
-scipy >= 1.10 (opt.)    # LHS via scipy.stats.qmc
+- Data:
+- Script:
+- Pasta de resultados:
+- Configuração: runs | n_evals | m | pop_size | backend | workers
+- Resultado agregado:
+    Delta_p NSGA-III: | Delta_p SSW_RDPA: | ganho (%):
+    funções vencidas: | perdidas: | empates:
+- Significância Wilcoxon: vitórias p<0.05 | derrotas p<0.05
+- Tempo: NSGA-III (s) | SSW_RDPA (s) | razão
+- Observação técnica: quais mecanismos foram responsáveis pelo ganho.
 ```
 
 ---
 
-*Última atualização: Fevereiro 2026 | SSW-RDPA v3.0*
+## Log de benchmark
+
+### SSW-RDPA postpatch-final (2026-02-19) — ZDT (`m=2`)
+
+- **Script:** `guiPymoo/tests/zdt_ssw_rdpa_vs_nsga3_benchmark.py`
+- **Pasta:** `guiPymoo/artigo/results/zdt_ssw_rdpa_vs_nsga3_postpatch_final/`
+- **Config:** `runs=5`, `n_evals=25000`, `pop_size=100`, `backend=process`, `workers=8`
+- **Seeds:** `seed_plan.csv` com `seed_nsga3` e `seed_ssw_rdpa` aleatórios por run (SystemRandom), independentes e diferentes entre algoritmos.
+- **Resultado por função:**
+
+| Função | Vencedor | Margem do vencedor sobre o perdedor |
+|---|---|---|
+| `zdt1` | `NSGA-III` | `67.39%` |
+| `zdt2` | `NSGA-III` | `73.03%` |
+| `zdt3` | `SSW-RDPA` | `49.11%` |
+| `zdt4` | `NSGA-III` | `87.20%` |
+| `zdt6` | `SSW-RDPA` | `85.00%` |
+
+- **Resumo:** `SSW-RDPA` venceu `2/5` funções (com ganhos fortes em `zdt3` e `zdt6`), confirmando competitividade parcial em low-objective.
+
+### SSW-RDPA postpatch-final (2026-02-19) — DTLZ (`m=5`)
+
+- **Script:** `guiPymoo/tests/dtlz_ssw_rdpa_vs_nsga3_benchmark.py`
+- **Pasta:** `guiPymoo/artigo/results/dtlz_ssw_rdpa_vs_nsga3_postpatch_final/`
+- **Config:** `runs=5`, `n_evals=25000`, `pop_size=50` (default do script), `backend=process`, `workers=8`
+- **Seeds:** `seed_plan.csv` com seeds aleatórios por run; avaliação pareada usa a mesma seed para os dois algoritmos em cada run.
+- **Resultado por função:**
+
+| Função | Vencedor | Margem do vencedor sobre o perdedor |
+|---|---|---|
+| `dtlz1` | `NSGA-III` | `81.13%` |
+| `dtlz2` | `NSGA-III` | `90.84%` |
+| `dtlz3` | `SSW-RDPA` | `9.59%` |
+| `dtlz4` | `NSGA-III` | `91.02%` |
+| `dtlz5` | `SSW-RDPA` | `70.81%` |
+| `dtlz6` | `SSW-RDPA` | `69.74%` |
+| `dtlz7` | `SSW-RDPA` | `40.20%` |
+
+- **Resumo:** `SSW-RDPA` venceu `4/7` funções. Média simples de `Delta_p` por função: `NSGA-III=1.5295`, `SSW-RDPA=1.3504` (vantagem agregada `11.71%` para `SSW-RDPA`).
+
+### SSW_RD_N tuned2 (2026-02-19) — linha de base histórica
+
+- **Pasta:** `guiPymoo/artigo/results/dtlz_ssw_vs_nsga3_m5_r3_e25k_pop100_tuned2/`
+- **Config:** `m=5`, `runs=3`, `n_evals=25000`, `pop_size=100`
+- **Resultado:** 4 vitórias vs 3 NSGA-III | Δ_p: NSGA-III=1.7215, SSW=0.9823 | margem **42.94%**
+- **Custo:** 4.19× mais lento que NSGA-III
+
+### SSW_RD_N autocal-v2 (2026-02-19) — linha de base histórica
+
+- **Pasta:** `guiPymoo/artigo/results/dtlz_ssw_vs_nsga3_m5_r3_e25k_pop100_autocal_v2/`
+- **Config:** `m=5`, `runs=3`, `n_evals=25000`, `pop_size=100`
+- **Resultado:** 4 vitórias vs 3 NSGA-III | Δ_p: NSGA-III=2.0686, SSW=0.9106 | margem **55.98%**
+- **Custo:** 7.63× mais lento que NSGA-III
+
+> **Próximo benchmark sugerido:** repetir DTLZ em `m=10` com a mesma metodologia e registrar no mesmo formato. Nota de desempenho: `_sdr_fronts` é O(n²·m) — para `pop_size > 200`, avaliar `use_sdr=False` ou `sdr_sigma=0.0` (degrada graciosamente ao NDS padrão do pymoo).
+
+---
+
+## Referências
+
+- Wang, J., Zheng, Y., Zhang, Z., Peng, H., Wang, H. (2025). A novel multi-state reinforcement learning-based multi-objective evolutionary algorithm (MRL-MOEA). *Information Sciences*, 688:121397. DOI: [10.1016/j.ins.2024.121397](https://doi.org/10.1016/j.ins.2024.121397).
+- Liang, P., Chen, Y., Sun, Y., Huang, Y., Li, W. (2024). An information entropy-driven evolutionary algorithm based on reinforcement learning for many-objective optimization (RL-RVEA). *Expert Systems with Applications*, 238(E):122164. DOI: [10.1016/j.eswa.2023.122164](https://doi.org/10.1016/j.eswa.2023.122164).
+- Wang, Q., Gu, Q., Zhou, Q., Xiong, N.N., Liu, D. (2025). A many-objective evolutionary algorithm based on indicator selection and adaptive angle estimation (MaOEA-ISAE). *Information Sciences*. DOI: [10.1016/j.ins.2024.121608](https://doi.org/10.1016/j.ins.2024.121608).
+- Xing, L., Li, J., Cai, Z., Hou, F. (2023). A Two-State Dynamic Decomposition-Based Evolutionary Algorithm for Handling Many-Objective Optimization Problems. *Mathematics*, 11(3):493. DOI: [10.3390/math11030493](https://doi.org/10.3390/math11030493).
+- Zhang, W., Liu, J., Liu, Y., Liu, J., Tan, S. (2024). A many-objective evolutionary algorithm under diversity-first selection based framework. *Expert Systems with Applications*, 250:123949. DOI: [10.1016/j.eswa.2024.123949](https://doi.org/10.1016/j.eswa.2024.123949).
+- Yuan, Y., Xu, H., Wang, B., Yao, X. (2016). A New Dominance Relation-Based Evolutionary Algorithm for Many-Objective Optimization. *IEEE TEVC*, 20(1):16–37. DOI: [10.1109/TEVC.2015.2420112](https://doi.org/10.1109/TEVC.2015.2420112).
+- Wang, H., Jiao, L., Yao, X. (2015). Two_Arch2: An Improved Two-Archive Algorithm for Many-Objective Optimization. *IEEE TEVC*, 19(4):524–541. DOI: [10.1109/TEVC.2014.2350987](https://doi.org/10.1109/TEVC.2014.2350987).
+- Tian, Y., Cheng, R., Zhang, X., Cheng, F., Jin, Y. (2018). An Indicator-Based Multiobjective Evolutionary Algorithm With Reference Point Adaptation for Better Versatility. *IEEE TEVC*, 22(4):609–622. DOI: [10.1109/TEVC.2017.2749619](https://doi.org/10.1109/TEVC.2017.2749619).
+- Cheng, R., Jin, Y., Olhofer, M., Sendhoff, B. (2016). A Reference Vector Guided Evolutionary Algorithm for Many-Objective Optimization (RVEA). *IEEE TEVC*, 20(5):773–791. DOI: [10.1109/TEVC.2016.2519378](https://doi.org/10.1109/TEVC.2016.2519378).
+- McKay, M.D., Beckman, R.J., Conover, W.J. (1979). A Comparison of Three Methods for Selecting Values of Input Variables in the Analysis of Output from a Computer Code. *Technometrics*, 21(2):239–245.

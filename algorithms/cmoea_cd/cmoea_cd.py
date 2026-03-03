@@ -19,19 +19,16 @@ This implementation follows the original three-archive structure:
 
 from __future__ import annotations
 
-import math
-from functools import lru_cache
-from typing import Optional, Tuple
+from typing import Optional
 
 from util.array_backend import xp as np
 
 from core.algorithm import Algorithm
 from core.population import Population
-from operators.crossover.dex import DEX
-from operators.crossover.sbx import SBX
-from operators.mutation.pm import PolynomialMutation
+from operators.utility_functions.OperatorDE import OperatorDE
+from operators.utility_functions.OperatorGA import OperatorGA
+from operators.utility_functions.UniformPoint import UniformPoint
 from util.nds.non_dominated_sorting import NonDominatedSorting
-from util.ref_dirs import get_reference_directions
 from util.array_backend import (
     get_array_module as _backend_get_array_module,
     to_device as _backend_to_device,
@@ -54,39 +51,14 @@ def _to_device(x, *, use_gpu: bool = False, dtype=None):
     return _backend_to_device(x, use_gpu=use_gpu, dtype=dtype)
 
 
-def _das_dennis_points(n_obj: int, n_partitions: int) -> int:
-    return math.comb(n_obj + n_partitions - 1, n_partitions)
-
-
-def _choose_partitions(n_obj: int, target_points: int, max_partitions: int = 60) -> int:
-    best_p = 1
-    best_diff = abs(_das_dennis_points(n_obj, 1) - target_points)
-    for p in range(1, max_partitions + 1):
-        pts = _das_dennis_points(n_obj, p)
-        diff = abs(pts - target_points)
-        if diff < best_diff:
-            best_diff = diff
-            best_p = p
-        if pts > target_points and p > 1:
-            break
-    return best_p
-
-
 def _uniform_points(target: int, n_obj: int) -> np.ndarray:
-    return _uniform_points_cached(int(max(target, 2)), int(n_obj))
-
-
-@lru_cache(maxsize=64)
-def _uniform_points_cached(target: int, n_obj: int) -> np.ndarray:
-    p = _choose_partitions(n_obj=n_obj, target_points=target)
-    w = np.asarray(get_reference_directions("das-dennis", n_obj, n_partitions=p), dtype=float)
-    w.setflags(write=False)
+    w, _n_eff = UniformPoint(int(max(target, 1)), int(n_obj))
+    w = np.asarray(w, dtype=float)
     return w
 
 
-@lru_cache(maxsize=64)
 def _uniform_points_h(target: int, n_obj: int) -> float:
-    w = _uniform_points_cached(target, n_obj)
+    w = _uniform_points(target, n_obj)
     cos_ww = _cosine_similarity(w, w)
     angle_ww = np.arccos(cos_ww)
     np.fill_diagonal(angle_ww, np.inf)
@@ -122,13 +94,6 @@ def _cosine_similarity(A: np.ndarray, B: np.ndarray) -> np.ndarray:
 
 
 def _constraint_violation(pop: Population) -> np.ndarray:
-    cv = pop.get("CV")
-    if cv is not None:
-        xp = _backend_get_array_module(cv)
-        cv = xp.asarray(cv, dtype=float).reshape(-1)
-        if len(cv) == len(pop):
-            return xp.maximum(cv, 0.0)
-
     g = pop.get("G")
     if g is not None:
         xp = _backend_get_array_module(g)
@@ -136,6 +101,13 @@ def _constraint_violation(pop: Population) -> np.ndarray:
         if g.ndim == 1:
             g = g[:, None]
         return xp.sum(xp.maximum(g, 0.0), axis=1)
+
+    cv = pop.get("CV")
+    if cv is not None:
+        xp = _backend_get_array_module(cv)
+        cv = xp.asarray(cv, dtype=float).reshape(-1)
+        if len(cv) == len(pop):
+            return xp.maximum(cv, 0.0)
 
     return np.zeros(len(pop), dtype=float)
 
@@ -300,25 +272,14 @@ class CMOEA_CD(Algorithm):
         )
 
         self.ref_dirs = None if ref_dirs is None else np.asarray(ref_dirs, dtype=float)
-        self.pop_size = int(max(pop_size, 12))
+        self.pop_size = int(max(pop_size, 2))
         self.e1 = int(np.clip(e1, 1, 3))
         self.e2 = int(np.clip(e2, 1, 3))
         self.de_cr = float(np.clip(de_cr, 0.0, 1.0))
         self.de_f = float(max(0.0, de_f))
 
-        self.ns = int(max(2, self.pop_size // 3))
+        self.ns = int(max(1, self.pop_size // 3))
         self.nds = NonDominatedSorting()
-
-        self.dex = DEX(
-            CR=self.de_cr,
-            F=self.de_f,
-            variant="bin",
-            n_diffs=1,
-            at_least_once=True,
-        )
-        self.sbx = SBX(prob=1.0, eta=20, n_offsprings=1, vtype=float)
-        self.pm_de = PolynomialMutation(prob=1.0, eta=1.0)
-        self.pm_ga = PolynomialMutation(prob=1.0, eta=1.0)
 
         self.fa: Population = Population.empty()
         self.da: Population = Population.empty()
@@ -326,10 +287,7 @@ class CMOEA_CD(Algorithm):
         self.zmin: Optional[np.ndarray] = None
 
     def _setup(self, problem, **kwargs):
-        self.ns = int(max(2, self.pop_size // 3))
-        mut_prob = min(1.0, 1.0 / max(problem.n_var, 1))
-        self.pm_de = PolynomialMutation(prob=1.0, prob_var=mut_prob, eta=1.0)
-        self.pm_ga = PolynomialMutation(prob=1.0, prob_var=mut_prob, eta=1.0)
+        self.ns = int(max(1, self.pop_size // 3))
 
     def _initialize_infill(self):
         X = self._sample_random(self.pop_size)
@@ -360,19 +318,26 @@ class CMOEA_CD(Algorithm):
         pop1 = self.fa if len(self.fa) > 0 else self.fea
         pop2 = self.da if len(self.da) > 0 else self.fea
 
-        n3 = int(max(2, self.pop_size // 3))
+        n3 = int(max(1, self.pop_size // 3))
         idx3 = self.random_state.integers(0, len(self.fea), size=n3)
         pop3 = self.fea[np.asarray(idx3, dtype=int)]
 
+        mp11 = self.random_state.permutation(len(pop1))
+        mp12 = self.random_state.permutation(len(pop1))
+        mp21 = self.random_state.permutation(len(pop2))
+        mp22 = self.random_state.permutation(len(pop2))
+        mp31 = self.random_state.permutation(len(pop3))
+        mp32 = self.random_state.permutation(len(pop3))
+
         use_de = bool(self.random_state.random() < 0.5)
         if use_de:
-            off1 = self._operator_de(pop1)
-            off2 = self._operator_de(pop2)
-            off3 = self._operator_de(pop3)
+            off1 = self._operator_de(pop1, mp11, mp12)
+            off2 = self._operator_de(pop2, mp21, mp22)
+            off3 = self._operator_de(pop3, mp31, mp32)
         else:
-            off1 = self._operator_ga(pop1)
-            off2 = self._operator_ga(pop2)
-            off3 = self._operator_ga(pop3)
+            off1 = self._operator_ga(pop1, mp11)
+            off2 = self._operator_ga(pop2, mp21)
+            off3 = self._operator_ga(pop3, mp31)
 
         off = Population.merge(off1, off2, off3)
         if len(off) == 0:
@@ -532,61 +497,40 @@ class CMOEA_CD(Algorithm):
             chosen[i] = idx
         return pool[chosen]
 
-    def _operator_de(self, pop: Population) -> Population:
+    def _operator_de(self, pop: Population, idx1: np.ndarray, idx2: np.ndarray) -> Population:
         n = len(pop)
         if n == 0:
             return Population.empty()
 
-        perm1 = self.random_state.permutation(n)
-        perm2 = self.random_state.permutation(n)
-        parents = np.column_stack([np.arange(n, dtype=int), perm1, perm2])
-
-        off = self.dex.do(
+        X = np.asarray(pop.get("X"), dtype=float)
+        off = OperatorDE(
             self.problem,
-            pop,
-            parents=parents,
-            random_state=self.random_state,
+            X,
+            X[np.asarray(idx1, dtype=int)],
+            X[np.asarray(idx2, dtype=int)],
+            Parameter=[self.de_cr, self.de_f, 1, 1],
+            rng=self.random_state,
         )
-        off = self.pm_de.do(
-            self.problem,
-            off,
-            random_state=self.random_state,
-        )
-
-        X = _to_device(off.get("X"), use_gpu=bool(self.use_gpu), dtype=float)
+        X = _to_device(off, use_gpu=bool(self.use_gpu), dtype=float)
         xp = _backend_get_array_module(X)
         xl = _to_device(self.problem.xl, use_gpu=bool(self.use_gpu), dtype=float)
         xu = _to_device(self.problem.xu, use_gpu=bool(self.use_gpu), dtype=float)
         X = xp.clip(X, xl, xu)
         return Population.new("X", X)
 
-    def _operator_ga(self, pop: Population) -> Population:
+    def _operator_ga(self, pop: Population, idx: np.ndarray) -> Population:
         n = len(pop)
         if n == 0:
             return Population.empty()
 
-        p1 = self.random_state.permutation(n)
-        p2 = self.random_state.permutation(n)
-        parents = np.column_stack([p1, p2])
-
-        off = self.sbx.do(
+        X = np.asarray(pop.get("X"), dtype=float)
+        off = OperatorGA(
             self.problem,
-            pop,
-            parents=parents,
-            random_state=self.random_state,
+            X[np.asarray(idx, dtype=int)],
+            Parameter=[1, 20, 1, 1],
+            rng=self.random_state,
         )
-        if len(off) > n:
-            off = off[:n]
-        elif len(off) < n:
-            extra = Population.new("X", self._sample_random(n - len(off)))
-            off = Population.merge(off, extra)
-
-        off = self.pm_ga.do(
-            self.problem,
-            off,
-            random_state=self.random_state,
-        )
-        X = _to_device(off.get("X"), use_gpu=bool(self.use_gpu), dtype=float)
+        X = _to_device(off, use_gpu=bool(self.use_gpu), dtype=float)
         xp = _backend_get_array_module(X)
         xl = _to_device(self.problem.xl, use_gpu=bool(self.use_gpu), dtype=float)
         xu = _to_device(self.problem.xu, use_gpu=bool(self.use_gpu), dtype=float)
@@ -597,10 +541,10 @@ class CMOEA_CD(Algorithm):
         n = int(max(0, n))
         if n == 0:
             return np.empty((0, self.problem.n_var), dtype=float)
-        xp = self.get_array_module()
         xl = _to_device(self.problem.xl, use_gpu=bool(self.use_gpu), dtype=float)
         xu = _to_device(self.problem.xu, use_gpu=bool(self.use_gpu), dtype=float)
-        X = xl + xp.random.random((n, self.problem.n_var)) * (xu - xl)
+        X = xl + self.random_state.random((n, self.problem.n_var)) * (xu - xl)
+        xp = _backend_get_array_module(xl)
         return xp.asarray(X, dtype=float)
 
     def _set_optimum(self):
