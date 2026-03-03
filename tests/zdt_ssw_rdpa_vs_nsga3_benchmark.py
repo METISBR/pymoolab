@@ -36,7 +36,7 @@ from util.nds.non_dominated_sorting import NonDominatedSorting
 from PymooLab import build_reference_dirs, instantiate_algorithm_class
 
 ZDT_ALL_FUNCTIONS = ["zdt1", "zdt2", "zdt3", "zdt4", "zdt6"]
-DEFAULT_ZDT_FUNCTIONS = ["zdt1", "zdt2", "zdt3", "zdt4", "zdt6"]
+DEFAULT_ZDT_FUNCTIONS = ["zdt1", "zdt2", "zdt3"]
 
 ALGS = {
     "CMOEA_GBSS": CMOEA_GBSS,

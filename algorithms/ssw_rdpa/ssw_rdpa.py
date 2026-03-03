@@ -15,6 +15,10 @@ Many-objective evolutionary algorithm (m > 3) combining:
   8. Latin Hypercube Sampling initialisation
   9. Q-learning for SBX η selection
  10. CMA-style auto-calibration of path/covariance hyperparameters
+ 11. EEJ (Evolutionary Ensemble Jacobian): Jacobiano multi-objetivo global
+     estimado sobre a fronteira não-dominada via mínimos quadrados
+     regularizados (Tikhonov), sem custo adicional de avaliação.
+     Ref: Nesterov & Spokoiny, Found. Comput. Math. 2017
 """
 
 from __future__ import annotations
@@ -344,16 +348,107 @@ def solve_schaeffler_qp(
     return x
 
 
-def broyden_update(J: np.ndarray, s: np.ndarray, y: np.ndarray, eps: float = 1e-10) -> np.ndarray:
-    """Safe rank-1 Broyden update. Supports GPU."""
-    xp = _get_xp(J)
-    ss = float(xp.dot(s, s))
-    if ss <= eps:
-        return J
-    delta = y - J @ s
-    if not xp.all(xp.isfinite(delta)) or float(xp.linalg.norm(delta)) > 1e8:
-        return J
-    return J + xp.outer(delta, s) / ss
+# =========================================================================
+# EEJ — EVOLUTIONARY ENSEMBLE JACOBIAN (substitui Broyden individual)
+# =========================================================================
+
+def _compute_eej(
+    X_archive: np.ndarray,
+    F_archive: np.ndarray,
+    reg: float = 1e-6,
+) -> np.ndarray:
+    """
+    Estima o Jacobiano multi-objetivo coletivamente sobre um arquivo de
+    soluções não-dominadas.
+
+    O EEJ (Evolutionary Ensemble Jacobian) usa TODOS os indivíduos do
+    arquivo como amostras coletivas para estimar o Jacobiano local da
+    fronteira Pareto estimada, via mínimos quadrados regularizados:
+
+        dX = X - mean(X)          (n_pop, n_var)
+        dF = F - mean(F)          (n_pop, n_obj)
+        G  = dX^T @ dX + reg·I   (n_var, n_var)
+        J_hat = (dF^T @ dX) @ G^{-1}   (n_obj, n_var)
+
+    Propriedade: E[J_hat] → J_f(μ) quando |archive| → ∞
+    Ref: Nesterov & Spokoiny, Found. Comput. Math. 2017
+         Evensen, 1994 (Ensemble Kalman Filter)
+
+    Custo: O(n_var² · |archive|) operações — zero avaliações extras.
+
+    Args:
+        X_archive: matriz de decisão do arquivo (n_pop, n_var)
+        F_archive: matriz de objetivos (n_pop, n_obj)
+        reg:       regularização Tikhonov
+
+    Returns:
+        J_hat: Jacobiano ensemble, forma (n_obj, n_var)
+    """
+    n_pop, n_var = X_archive.shape
+    n_obj = F_archive.shape[1]
+
+    if n_pop < 2:
+        return np.zeros((n_obj, n_var))
+
+    dX = X_archive - X_archive.mean(axis=0)
+    dF = F_archive - F_archive.mean(axis=0)
+
+    G = dX.T @ dX + reg * np.eye(n_var)
+
+    try:
+        Jt, _, _, _ = np.linalg.lstsq(G, dX.T @ dF, rcond=None)
+        J_hat = Jt.T
+    except np.linalg.LinAlgError:
+        J_hat = np.zeros((n_obj, n_var))
+
+    return J_hat
+
+
+def _compute_eej_descent(J: np.ndarray, reg: float = 1e-8) -> np.ndarray:
+    """
+    Calcula a direção de descida comum via QP no simplex.
+
+    Resolve:  min_{α ∈ Δ}  α^T (J J^T + reg·I) α
+    onde      Δ = {α ≥ 0 : Σα_i = 1}
+
+    A direção resultante é:  q = J^T α* / ||J^T α*||
+
+    Args:
+        J:   Jacobiano EEJ, forma (n_obj, n_var)
+        reg: Regularização
+
+    Returns:
+        Vetor normalizado q de forma (n_var,)
+    """
+    m, n = J.shape
+
+    if m == 1:
+        q = J[0]
+        norm = float(np.linalg.norm(q))
+        return q / norm if norm > 1e-12 else np.zeros(n)
+
+    H = J @ J.T + reg * np.eye(m)
+    L = float(np.linalg.norm(H, ord=np.inf))
+    step = 1.0 / (L + 1e-12)
+
+    alpha = np.full(m, 1.0 / m)
+    for _ in range(300):
+        g = H @ alpha
+        alpha_new = alpha - step * g
+        alpha_new = np.maximum(alpha_new, 0.0)
+        s = float(np.sum(alpha_new))
+        if s < 1e-12:
+            alpha_new = np.full(m, 1.0 / m)
+        else:
+            alpha_new /= s
+        if float(np.linalg.norm(alpha_new - alpha)) < 1e-10:
+            alpha = alpha_new
+            break
+        alpha = alpha_new
+
+    q = J.T @ alpha
+    norm = float(np.linalg.norm(q))
+    return q / norm if norm > 1e-12 else np.zeros(n)
 
 
 class SSW_RDPA(Algorithm):
@@ -417,7 +512,7 @@ class SSW_RDPA(Algorithm):
         c_cov: float = 0.12,
         c_sigma: float = 0.14,
         target_success: float = 0.22,
-        jacobian_damping: float = 0.35,
+        eej_reg: float = 1e-6,
         ucb_exploration: float = 0.08,
         drift_scale: float = 0.20,
         de_fallback_scale: float = 0.14,
@@ -506,7 +601,7 @@ class SSW_RDPA(Algorithm):
         self.c_cov = float(c_cov)
         self.c_sigma = float(c_sigma)
         self.target_success = float(target_success)
-        self.jacobian_damping = float(np.clip(jacobian_damping, 0.05, 0.95))
+        self.eej_reg = float(max(eej_reg, 1e-12))
         self.ucb_exploration = float(np.clip(ucb_exploration, 0.0, 1.0))
         self.drift_scale = float(np.clip(drift_scale, 0.05, 0.6))
         self.de_fallback_scale = float(np.clip(de_fallback_scale, 0.0, 0.8))
@@ -580,6 +675,10 @@ class SSW_RDPA(Algorithm):
         self.dominator = Dominator()
 
         self.hyp_norm = None
+
+        # EEJ — Jacobiano Ensemble Evolutivo global (atualizado 1x/geração)
+        self._eej: Optional[np.ndarray] = None
+        self._eej_q: Optional[np.ndarray] = None  # direção de descida comum
         self.nd_archive = None
 
         self.sigma_min = None
@@ -764,7 +863,6 @@ class SSW_RDPA(Algorithm):
         # in Python loops, where host memory is consistently faster and avoids
         # GPU ping-pong during every generation.
         C = np.repeat(np.eye(n_var, dtype=float)[None, :, :], n, axis=0)
-        J = np.zeros((n, n_obj, n_var), dtype=float)
         pc = np.zeros((n, n_var), dtype=float)
         sigma_i = np.full(n, self.sigma_base * self.domain_scale, dtype=float)
 
@@ -779,7 +877,6 @@ class SSW_RDPA(Algorithm):
 
         pop.set(
             "C", C,
-            "J", J,
             "pc", pc,
             "sigma_i", sigma_i,
             "parent_X", parent_X,

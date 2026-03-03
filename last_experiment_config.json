@@ -69,8 +69,8 @@
   "seed_step": 1,
   "algorithm_ids": [
     "local::algorithms.cmoea_gbss.cmoea_gbss.CMOEA_GBSS",
-    "local::algorithms.c_moead.c_moead.CMOEAD",
-    "local::algorithms.nsga3_local.nsga3_local.NSGA3Local"
+    "local::algorithms.nsga3_local.nsga3_local.NSGA3Local",
+    "local::algorithms.ssw_rdpa.ssw_rdpa.SSW_RDPA"
   ],
   "metric_ids": [
     "local::metrics.community_metrics.DeltaP"
@@ -83,7 +83,7 @@
   "joblib_n_jobs": -1,
   "profile_compare": false,
   "stat_test_method": "none",
-  "stat_test_reference": "NSGA3Local [local]",
+  "stat_test_reference": "AGE-MOEA-II [pymoo]",
   "stat_test_alpha": 0.05,
   "crossover": "default",
   "mutation": "default",
@@ -94,7 +94,7 @@
   "mutation_eta": 20.0,
   "mutation_prob": null,
   "selection_pressure": 2,
-  "parallel_workers": 10,
+  "parallel_workers": 12,
   "__exp_raw_first_metrics__": true,
   "__emit_partial_results__": false,
   "experiment_results_path": "D:\\devsuport\\pymoolab\\latest_results.json",
