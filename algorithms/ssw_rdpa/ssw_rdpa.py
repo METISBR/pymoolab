@@ -852,6 +852,8 @@ class SSW_RDPA(Algorithm):
         # [NOVO] Inicializar arquivo de convergência (two-archive)
         if self.use_two_archive:
             self.conv_archive = self._build_conv_archive(self.pop)
+        # EEJ inicial sobre a população
+        self._update_eej(self.pop)
         self.opt = self.nd_archive
 
     def _attach_initial_state(self, pop: Population):
@@ -887,6 +889,42 @@ class SSW_RDPA(Algorithm):
             "rvx_F", rvx_F,
             "rvx_CR", rvx_CR,
         )
+
+    # ------------------------------------------------------------------
+    # EEJ — Atualização do Jacobiano Ensemble Evolutivo
+    # ------------------------------------------------------------------
+    def _update_eej(self, pop: Population) -> None:
+        """
+        Atualiza o EEJ global sobre a fronteira não-dominada da população.
+
+        Calcula J_hat = lstsq(dX^T dX + reg·I, dX^T dF)^T sobre os
+        indivíduos não-dominados. Chamado uma vez por geração em _advance().
+
+        O EEJ e a direção q são armazenados em self._eej e self._eej_q,
+        compartilhados por todos os SDE offspring na próxima geração.
+        """
+        if pop is None or len(pop) < 2:
+            return
+
+        X = np.asarray(pop.get("X", to_numpy=True), dtype=float)
+        F = np.asarray(pop.get("F", to_numpy=True), dtype=float)
+
+        # Usa fronteira não-dominada para estimar o Jacobiano
+        try:
+            nd_idx = self._nds_do(F, only_non_dominated_front=True)
+            nd_idx = np.asarray(_to_numpy(nd_idx), dtype=int)
+            if len(nd_idx) >= 2:
+                X_nd = X[nd_idx]
+                F_nd = F[nd_idx]
+            else:
+                X_nd = X
+                F_nd = F
+        except Exception:  # noqa: BLE001
+            X_nd = X
+            F_nd = F
+
+        self._eej = _compute_eej(X_nd, F_nd, reg=self.eej_reg)
+        self._eej_q = _compute_eej_descent(self._eej)
 
     # ------------------------------------------------------------------
     # Main loop
@@ -959,12 +997,11 @@ class SSW_RDPA(Algorithm):
                 np.clip(0.70 * self.ratio_sde, self.ratio_bounds[0], self.ratio_bounds[1])
             )
 
-        # Local model readiness gate: when Jacobian memory is still weak,
+        # Local model readiness gate: when EEJ is still weak (near-zero),
         # keep a larger share of global variation.
         if len(self.pop) > 0:
-            J_pop = self._as_backend_array(self.pop.get("J"), dtype=float, cache_key="pop_J")
-            jn = self.xp.linalg.norm(J_pop.reshape(len(self.pop), -1), axis=1)
-            model_ready = float(self.xp.mean(jn > 1e-6))
+            eej_norm = float(np.linalg.norm(self._eej)) if self._eej is not None else 0.0
+            model_ready = 1.0 if eej_norm > 1e-6 else 0.0
             if model_ready < 0.35:
                 shrink = 0.55 + model_ready
                 self.ratio_sde = float(
@@ -1095,6 +1132,9 @@ class SSW_RDPA(Algorithm):
         pool = Population.merge(self.pop, infills)
         pool = self.dup_elim.do(pool)
         self.pop = self._hybrid_survival(pool, n_survive=self.pop_size)
+
+        # EEJ: atualiza Jacobiano global sobre a população sobrevivente
+        self._update_eej(self.pop)
 
         self.nd_archive = self._update_archive(self.pop)
 
@@ -1251,7 +1291,6 @@ class SSW_RDPA(Algorithm):
 
 
         C = self.pop.get("C", to_numpy=True)
-        J = self.pop.get("J", to_numpy=True)
         pc = self.pop.get("pc", to_numpy=True)
         sigma_i = self.pop.get("sigma_i", to_numpy=True)
         anti = self.pop.get("anti", to_numpy=True)
@@ -1259,7 +1298,6 @@ class SSW_RDPA(Algorithm):
         F = self.pop.get("F", to_numpy=True)
 
         C_child = 0.5 * (C[p1_rep] + C[p2_rep])
-        J_child = 0.5 * (J[p1_rep] + J[p2_rep])
         pc_child = 0.5 * (pc[p1_rep] + pc[p2_rep])
         sigma_child = 0.5 * (sigma_i[p1_rep] + sigma_i[p2_rep])
         anti_child = anti[p1_rep].copy()
@@ -1273,8 +1311,6 @@ class SSW_RDPA(Algorithm):
         off.set(
             "C",
             C_child,
-            "J",
-            J_child,
             "pc",
             pc_child,
             "sigma_i",
@@ -1325,7 +1361,6 @@ class SSW_RDPA(Algorithm):
         X = parents.get("X", to_numpy=True)
         F = parents.get("F", to_numpy=True)
         C = parents.get("C", to_numpy=True)
-        J = parents.get("J", to_numpy=True)
         pc = parents.get("pc", to_numpy=True)
         sigma_i = parents.get("sigma_i", to_numpy=True)
         anti = parents.get("anti", to_numpy=True)
@@ -1348,14 +1383,24 @@ class SSW_RDPA(Algorithm):
         z[mirror_mask] *= anti[mirror_mask, None]
         anti[mirror_mask] *= -1.0
 
-        lam = np.empty((n_sde, n_obj), dtype=float)
-        for i in range(n_sde):
-            lam[i] = solve_schaeffler_qp(J[i], max_iter=8)
+        # EEJ global: direção de descida q compartilhada por todos os offspring
+        J_eej = self._eej if self._eej is not None else np.zeros((n_obj, n_var))
+        q_global = self._eej_q if self._eej_q is not None else _compute_eej_descent(J_eej)
+
+        # Usa Schaeffler QP sobre o EEJ global (mesma lambda para todos)
+        lam = solve_schaeffler_qp(J_eej, max_iter=8)
+
+        # Direção de descida via EEJ global — inicializa q com q_global
+        q = np.empty((n_sde, n_var), dtype=float)
+        q_norm = np.linalg.norm(q_global)
+        if q_norm < 1e-14:
+            q[:] = 0.0
+        else:
+            q[:] = q_global
 
         # [NOVO] Blending Schaeffler + Tchebycheff para direção de descida.
-        # Para m > 5, a direção Schaeffler pode ser ruidosa; a direção de
-        # Tchebycheff (gradiente do máximo ponderado) é mais estável.
-        # Blend adaptativo: alpha = progresso (mais Tchebycheff no final).
+        # Para m > 4, aplica blending Tchebycheff por indivíduo sobre a
+        # direção EEJ global para especializar por nicho.
         # Ref: MaOEA-DISC (ScienceDirect 2024); θ-DEA (Yuan et al. 2015).
         if n_obj > 4:
             alpha_blend = float(np.clip(progress * 0.60 + 0.10, 0.10, 0.65))
@@ -1364,51 +1409,26 @@ class SSW_RDPA(Algorithm):
             for i in range(n_sde):
                 ni = int(np.clip(niche_local[i], 0, len(self.ref_dirs) - 1))
                 w_ref = np.maximum(ref_dirs_np[ni], 1e-8)
-                # Gradiente de Tchebycheff: unitário na direção do objetivo
-                # com maior resíduo normalizado
                 f_norm_i = (F[i] - np.min(F, axis=0)) / np.maximum(
                     np.max(F, axis=0) - np.min(F, axis=0), 1e-12
                 )
                 tch_grad = f_norm_i / w_ref
-                # [P4] Softmax Tchebycheff: distribui ~75% do peso nos 2-3
-                # piores objetivos (tau=3), evitando oscilacao inter-geracao.
-                # tau->inf recupera one-hot; tau=0 e uniforme.
-                # Ref: smooth TCH descent (derivado MOEA/D-M2M, Liu 2014).
                 _tau     = 3.0
-                _r_shift = tch_grad - tch_grad.max()   # estabilidade numerica
+                _r_shift = tch_grad - tch_grad.max()
                 _exp_r   = np.exp(_tau * _r_shift)
                 tch_dir  = _exp_r / max(float(_exp_r.sum()), 1e-14)
-                # Blend suave com a solução Schaeffler
-                lam[i] = (1.0 - alpha_blend) * lam[i] + alpha_blend * _project_to_simplex(tch_dir)
-                lam[i] = np.maximum(lam[i], 1e-12)
-                lam[i] /= np.sum(lam[i])
+                lam_i = (1.0 - alpha_blend) * lam + alpha_blend * _project_to_simplex(tch_dir)
+                lam_i = np.maximum(lam_i, 1e-12)
+                lam_i /= np.sum(lam_i)
+                q_i = J_eej.T @ lam_i
+                q_n = float(np.linalg.norm(q_i))
+                q[i] = q_i / q_n if q_n > 1e-12 else q_global
 
-        q = np.einsum("imn,im->in", J, lam)
-        q_norm = np.linalg.norm(q, axis=1, keepdims=True)
-        bad_q = (~np.isfinite(q_norm)) | (q_norm < 1e-14)
-        q[bad_q.ravel()] = 0.0
-        need_clip = q_norm.ravel() > 1.0
-        if np.any(need_clip):
-            q[need_clip] = q[need_clip] / q_norm[need_clip]
-
-        finite_q = q_norm[np.isfinite(q_norm)]
-        q_ref = float(np.median(finite_q)) if finite_q.size > 0 else 0.0
-        if q_ref <= 1e-14:
-            q_conf = np.zeros(n_sde, dtype=float)
-        else:
-            q_conf = np.clip((q_norm.ravel() / q_ref), 0.0, 1.0)
-            q_conf[~np.isfinite(q_conf)] = 0.0
-
-        jac_norm = np.linalg.norm(J.reshape(n_sde, -1), axis=1)
-        finite_j = jac_norm[np.isfinite(jac_norm)]
-        j_ref = float(np.median(finite_j)) if finite_j.size > 0 else 0.0
-        if j_ref <= 1e-14:
-            jac_conf = np.zeros(n_sde, dtype=float)
-        else:
-            jac_conf = np.clip(jac_norm / j_ref, 0.0, 1.0)
-            jac_conf[~np.isfinite(jac_conf)] = 0.0
-
-        model_conf = np.minimum(q_conf, jac_conf)
+        # Confiança do EEJ: baseada na norma do Jacobiano
+        jac_norm = float(np.linalg.norm(J_eej))
+        jac_ref = max(jac_norm, 1e-14)
+        model_conf_scalar = float(np.clip(jac_norm / jac_ref, 0.0, 1.0))
+        model_conf = np.full(n_sde, model_conf_scalar, dtype=float)
 
         # Differential fallback when Jacobian-induced q is weak/noisy.
         # Preserves global exploration capacity on difficult many-objective landscapes.
@@ -1445,8 +1465,6 @@ class SSW_RDPA(Algorithm):
         off.set(
             "C",
             C.copy(),
-            "J",
-            J.copy(),
             "pc",
             pc.copy(),
             "sigma_i",
@@ -1488,7 +1506,6 @@ class SSW_RDPA(Algorithm):
         X_pop = self.pop.get("X", to_numpy=True)
         F_pop = self.pop.get("F", to_numpy=True)
         C = parents.get("C", to_numpy=True)
-        J = parents.get("J", to_numpy=True)
         pc = parents.get("pc", to_numpy=True)
         sigma_i = parents.get("sigma_i", to_numpy=True)
         anti = parents.get("anti", to_numpy=True)
@@ -1588,8 +1605,6 @@ class SSW_RDPA(Algorithm):
         off.set(
             "C",
             C.copy(),
-            "J",
-            J.copy(),
             "pc",
             pc.copy(),
             "sigma_i",
@@ -1626,7 +1641,6 @@ class SSW_RDPA(Algorithm):
         parent_X = np.asarray(off.get("parent_X", to_numpy=True), dtype=float)
         parent_F = np.asarray(off.get("parent_F", to_numpy=True), dtype=float)
         C = np.asarray(off.get("C", to_numpy=True), dtype=float)
-        J = np.asarray(off.get("J", to_numpy=True), dtype=float)
         pc = np.asarray(off.get("pc", to_numpy=True), dtype=float)
         sigma_i = np.asarray(off.get("sigma_i", to_numpy=True), dtype=float)
         origin = np.asarray(off.get("origin"), dtype=str)
@@ -1723,8 +1737,7 @@ class SSW_RDPA(Algorithm):
                 sde_z_success.append(z.copy())
 
             if all_finite_parent[i]:
-                J_new = broyden_update(J[i], s, F[i] - f_parent)
-                J[i] = (1.0 - self.jacobian_damping) * J[i] + self.jacobian_damping * J_new
+                pass  # EEJ é atualizado globalmente em _advance(), não por indivíduo
 
             if success:
                 pc[i] = (
@@ -1752,8 +1765,6 @@ class SSW_RDPA(Algorithm):
         off.set(
             "C",
             C,
-            "J",
-            J,
             "pc",
             pc,
             "sigma_i",

@@ -8591,7 +8591,7 @@ class PymooExperimentWindow(QMainWindow):
         # UI/UX simplification: keep only one GPU dtype internally (float32/speed)
         # and hide status/profiling controls from the Test Module UI.
         self.gpu_dtype_combo = QComboBox()
-        self.gpu_dtype_combo.addItem("float32 (speed)", "float32")
+        self.gpu_dtype_combo.addItem("float64 (speed)", "float64")
         self.gpu_dtype_combo.setCurrentIndex(0)
         self.gpu_dtype_combo.setVisible(False)
 
