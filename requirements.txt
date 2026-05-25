@@ -1,0 +1,35 @@
+# ==============================================================================
+# PymooLab Dependency Manifest
+# ==============================================================================
+# Base runtime requirements for PymooLab framework, GUI and core operations.
+# Best supported on Python 3.11.x.
+# ==============================================================================
+
+# Core Libraries
+numpy>=2.3,<3
+pymoo>=0.6.1,<0.7
+scipy>=1.16,<2
+matplotlib>=3.10,<4
+psutil>=7.2,<8
+
+# GUI & Theming (Qt)
+PySide6>=6.10,<7
+qt-material>=2.17,<3
+qt-material-icons>=0.4,<1
+
+# ==============================================================================
+# Optional Profiles (Uncomment as needed)
+# ==============================================================================
+
+# GPU / JAX Acceleration:
+# jax>=0.9,<1
+# jaxlib>=0.9,<1
+
+# LLM Generation / Artifact Formulation:
+# anthropic>=0.76,<1
+
+# Machine Learning dependent algorithms:
+# scikit-learn>=1.8,<2
+
+# Development & Testing:
+# pytest>=9,<10
