@@ -1,4 +1,4 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 import numpy as np
 from pymoo.core.problem import Problem
@@ -36,8 +36,11 @@ class _BaseZDT(Problem):
 class ZDT1(_BaseZDT):
     """Ref: Zitzler, Deb, and Thiele, 2000."""
 
-    def __init__(self, n_var: int = 30, **kwargs):
-        super().__init__(n_var=int(n_var), n_obj=2, xl=0.0, xu=1.0, vtype=float, **kwargs)
+    def __init__(self, n_var: int | None = None, n_obj: int | None = None, **kwargs):
+        n_obj = 2
+        n_var = int(n_var) if n_var is not None else 30
+        kwargs.pop("n_obj", None)
+        super().__init__(n_var=n_var, n_obj=n_obj, xl=0.0, xu=1.0, vtype=float, **kwargs)
 
     def _evaluate(self, x, out, *args, **kwargs):
         xp = self._xp()
@@ -55,8 +58,11 @@ class ZDT1(_BaseZDT):
 class ZDT2(_BaseZDT):
     """Ref: Zitzler, Deb, and Thiele, 2000."""
 
-    def __init__(self, n_var: int = 30, **kwargs):
-        super().__init__(n_var=int(n_var), n_obj=2, xl=0.0, xu=1.0, vtype=float, **kwargs)
+    def __init__(self, n_var: int | None = None, n_obj: int | None = None, **kwargs):
+        n_obj = 2
+        n_var = int(n_var) if n_var is not None else 30
+        kwargs.pop("n_obj", None)
+        super().__init__(n_var=n_var, n_obj=n_obj, xl=0.0, xu=1.0, vtype=float, **kwargs)
 
     def _evaluate(self, x, out, *args, **kwargs):
         xp = self._xp()
@@ -74,8 +80,11 @@ class ZDT2(_BaseZDT):
 class ZDT3(_BaseZDT):
     """Ref: Zitzler, Deb, and Thiele, 2000."""
 
-    def __init__(self, n_var: int = 30, **kwargs):
-        super().__init__(n_var=int(n_var), n_obj=2, xl=0.0, xu=1.0, vtype=float, **kwargs)
+    def __init__(self, n_var: int | None = None, n_obj: int | None = None, **kwargs):
+        n_obj = 2
+        n_var = int(n_var) if n_var is not None else 30
+        kwargs.pop("n_obj", None)
+        super().__init__(n_var=n_var, n_obj=n_obj, xl=0.0, xu=1.0, vtype=float, **kwargs)
 
     def _evaluate(self, x, out, *args, **kwargs):
         xp = self._xp()
@@ -105,13 +114,15 @@ class ZDT3(_BaseZDT):
 class ZDT4(_BaseZDT):
     """Ref: Zitzler, Deb, and Thiele, 2000."""
 
-    def __init__(self, n_var: int = 10, **kwargs):
-        n_var = int(n_var)
+    def __init__(self, n_var: int | None = None, n_obj: int | None = None, **kwargs):
+        n_obj = 2
+        n_var = int(n_var) if n_var is not None else 10
+        kwargs.pop("n_obj", None)
         xl = np.full(n_var, -5.0, dtype=float)
         xu = np.full(n_var, 5.0, dtype=float)
         xl[0] = 0.0
         xu[0] = 1.0
-        super().__init__(n_var=n_var, n_obj=2, xl=xl, xu=xu, vtype=float, **kwargs)
+        super().__init__(n_var=n_var, n_obj=n_obj, xl=xl, xu=xu, vtype=float, **kwargs)
 
     def _evaluate(self, x, out, *args, **kwargs):
         xp = self._xp()
@@ -129,10 +140,12 @@ class ZDT4(_BaseZDT):
 class ZDT5(_BaseZDT):
     """Ref: Zitzler, Deb, and Thiele, 2000. Binary."""
 
-    def __init__(self, n_var: int = 80, **kwargs):
-        n_var = int(n_var)
+    def __init__(self, n_var: int | None = None, n_obj: int | None = None, **kwargs):
+        n_obj = 2
+        n_var = int(n_var) if n_var is not None else 80
+        kwargs.pop("n_obj", None)
         n_var = int(np.ceil(max(n_var - 30, 1) / 5.0) * 5 + 30)
-        super().__init__(n_var=n_var, n_obj=2, xl=0.0, xu=1.0, vtype=int, **kwargs)
+        super().__init__(n_var=n_var, n_obj=n_obj, xl=0.0, xu=1.0, vtype=int, **kwargs)
 
     def _evaluate(self, x, out, *args, **kwargs):
         xp = self._xp()
@@ -177,8 +190,11 @@ class ZDT5(_BaseZDT):
 class ZDT6(_BaseZDT):
     """Ref: Zitzler, Deb, and Thiele, 2000."""
 
-    def __init__(self, n_var: int = 10, **kwargs):
-        super().__init__(n_var=int(n_var), n_obj=2, xl=0.0, xu=1.0, vtype=float, **kwargs)
+    def __init__(self, n_var: int | None = None, n_obj: int | None = None, **kwargs):
+        n_obj = 2
+        n_var = int(n_var) if n_var is not None else 10
+        kwargs.pop("n_obj", None)
+        super().__init__(n_var=n_var, n_obj=n_obj, xl=0.0, xu=1.0, vtype=float, **kwargs)
 
     def _evaluate(self, x, out, *args, **kwargs):
         xp = self._xp()

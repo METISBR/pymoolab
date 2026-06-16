@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import ast
+import builtins
 import json
 import math
 import os
@@ -58,6 +59,36 @@ class LLMFormulationService:
         ("subprocess", "check_output"),
         ("requests", "get"),
         ("requests", "post"),
+    }
+    _SAFE_BUILTIN_NAMES = {
+        "abs",
+        "all",
+        "any",
+        "bool",
+        "dict",
+        "enumerate",
+        "Exception",
+        "float",
+        "hasattr",
+        "int",
+        "isinstance",
+        "len",
+        "list",
+        "max",
+        "min",
+        "object",
+        "pow",
+        "range",
+        "round",
+        "set",
+        "sorted",
+        "staticmethod",
+        "str",
+        "sum",
+        "super",
+        "tuple",
+        "ValueError",
+        "zip",
     }
 
     @staticmethod
@@ -2665,6 +2696,36 @@ class LLMFormulationService:
         return len(issues) == 0, issues
 
     @classmethod
+    def _safe_generated_import(
+        cls,
+        name: str,
+        globals: dict[str, Any] | None = None,
+        locals: dict[str, Any] | None = None,
+        fromlist: tuple[str, ...] = (),
+        level: int = 0,
+    ) -> Any:
+        if level != 0:
+            raise ImportError("Relative imports are not allowed in generated artifacts.")
+        root = str(name or "").split(".", 1)[0]
+        if root not in cls._ALLOWED_IMPORT_ROOTS:
+            raise ImportError(f"Unsupported import: {name}")
+        return builtins.__import__(name, globals, locals, fromlist, level)
+
+    @classmethod
+    def _restricted_exec_namespace(cls) -> dict[str, Any]:
+        safe_builtins = {
+            name: getattr(builtins, name)
+            for name in cls._SAFE_BUILTIN_NAMES
+            if hasattr(builtins, name)
+        }
+        safe_builtins["__build_class__"] = builtins.__build_class__
+        safe_builtins["__import__"] = cls._safe_generated_import
+        return {
+            "__builtins__": safe_builtins,
+            "__name__": "__pymoolab_llm_artifact__",
+        }
+
+    @classmethod
     def validate_problem_code(cls, code: str) -> tuple[bool, list[str]]:
         ok, issues = cls._validate_common_python_code(code, require_class=True, require_create_metric=False)
         vectorization_hints = ("axis=1", "column_stack", "np.asarray", "out['F']", 'out["F"]')
@@ -2733,8 +2794,14 @@ class LLMFormulationService:
 
     @classmethod
     def _exec_metric_factory(cls, code: str) -> tuple[Any, list[str]]:
-        issues: list[str] = []
-        ns: dict[str, Any] = {"__builtins__": __builtins__}
+        ok, issues = cls._validate_common_python_code(
+            str(code),
+            require_class=False,
+            require_create_metric=True,
+        )
+        if not ok:
+            return None, issues
+        ns = cls._restricted_exec_namespace()
         try:
             exec(compile(str(code), "<llm_metric>", "exec"), ns, ns)
         except Exception as exc:  # noqa: BLE001
@@ -2747,8 +2814,14 @@ class LLMFormulationService:
 
     @classmethod
     def _exec_problem_class(cls, code: str) -> tuple[type[Any] | None, list[str]]:
-        issues: list[str] = []
-        ns: dict[str, Any] = {"__builtins__": __builtins__}
+        ok, issues = cls._validate_common_python_code(
+            str(code),
+            require_class=True,
+            require_create_metric=False,
+        )
+        if not ok:
+            return None, issues
+        ns = cls._restricted_exec_namespace()
         try:
             exec(compile(str(code), "<llm_problem>", "exec"), ns, ns)
         except Exception as exc:  # noqa: BLE001
@@ -3294,12 +3367,31 @@ class LLMFormulationService:
         bucket = "single" if n == 1 else ("multi" if n <= 3 else "many")
         return Path(base_dir) / "problems" / bucket
 
+    @staticmethod
+    def _safe_python_artifact_filename(value: Any, *, field_name: str) -> str:
+        text = str(value or "").strip()
+        path = Path(text)
+        if not text or path.is_absolute() or path.name != text or path.suffix.lower() != ".py":
+            raise ValueError(f"Unsafe {field_name}: {text!r}. Expected a simple .py file name.")
+        if path.stem in {"", ".", ".."}:
+            raise ValueError(f"Unsafe {field_name}: {text!r}. Expected a simple .py file name.")
+        return text
+
     @classmethod
     def save_artifact_bundle(cls, *, base_dir: Path, bundle: dict[str, Any]) -> tuple[Path, Path]:
+        for field_name in ("cpu_file", "jax_file"):
+            if field_name in bundle:
+                cls._safe_python_artifact_filename(bundle.get(field_name), field_name=field_name)
         cls._normalize_bundle_metadata(bundle)
         artifact = str(bundle.get("artifact_type", "problem")).strip().lower()
-        cpu_file = str(bundle.get("cpu_file", "generated.py"))
-        jax_file = str(bundle.get("jax_file", "generated_JAX.py"))
+        cpu_file = cls._safe_python_artifact_filename(
+            bundle.get("cpu_file", "generated.py"),
+            field_name="cpu_file",
+        )
+        jax_file = cls._safe_python_artifact_filename(
+            bundle.get("jax_file", "generated_JAX.py"),
+            field_name="jax_file",
+        )
         cpu_code = str(bundle.get("cpu_code", ""))
         jax_code = str(bundle.get("jax_code", ""))
 

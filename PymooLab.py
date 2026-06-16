@@ -44,7 +44,7 @@ except ImportError:
     _HAS_MPL_3D = False
 from PySide6.QtCharts import QChart, QChartView, QLineSeries, QScatterSeries, QValueAxis
 from PySide6.QtCore import QObject, Qt, QThread, Signal, Slot, QPropertyAnimation, QEasingCurve, QParallelAnimationGroup, QTimer, QUrl
-from PySide6.QtGui import QAction, QBrush, QColor, QFont, QIcon, QPainter, QPen, QPixmap, QDesktopServices
+from PySide6.QtGui import QAction, QBrush, QColor, QFont, QIcon, QPainter, QPen, QDesktopServices
 from PySide6.QtWidgets import (
     QApplication,
     QAbstractItemView,
@@ -198,6 +198,9 @@ EXPERIMENT_MANIFEST_VERSION = 1
 SEED_MODE_RANDOM = "random"
 SEED_MODE_FIXED = "fixed"
 SEED_MODE_SEQUENCE = "sequence"
+DEFAULT_LOCAL_LMSTUDIO_MODEL = "loaded-model"
+DEFAULT_LOCAL_LMSTUDIO_CHAT_URL = "http://127.0.0.1:1234/v1/chat/completions"
+LLM_LOCAL_MAX_PARALLEL_WORKERS = 3
 
 OBJECTIVE_FILTER_VALUES = ("single", "multi", "many")
 ENCODING_FILTER_VALUES = ("real", "integer", "mixed", "binary", "permutation")
@@ -270,7 +273,7 @@ class AppStyles:
     """
     Wrapper for compatibility with styles.py.
     Maps old attributes to new centralized system.
-    
+
     Skill: Use styles.py as single source of truth for colors.
     """
     # Mapping for compatibility with existing code
@@ -568,6 +571,119 @@ def resolve_parallel_worker_limits() -> tuple[int, int]:
     if recommended > max_supported:
         recommended = max_supported
     return recommended, max_supported
+
+
+def _algorithm_uses_local_llm(spec: AlgorithmSpec) -> bool:
+    if not isinstance(spec, AlgorithmSpec):
+        return False
+    fields = (
+        str(getattr(spec, "name", "")),
+        str(getattr(spec, "module", "")),
+        str(getattr(spec, "id", "")),
+    )
+    joined = " ".join(fields).lower()
+    if "larc" in joined or "ollama" in joined:
+        return True
+
+    try:
+        flags = {str(flag).strip().lower() for flag in (spec.flags or set())}
+    except Exception:  # noqa: BLE001
+        flags = set()
+    return any(flag in {"llm", "local_llm", "ollama", "larc"} for flag in flags)
+
+
+def _resolve_parallel_workers_for_algorithms(
+    requested_workers: int,
+    max_supported_workers: int,
+    selected_algorithms: list[AlgorithmSpec],
+) -> tuple[int, list[str]]:
+    requested = max(1, int(requested_workers))
+    max_supported = max(1, int(max_supported_workers))
+    effective = min(requested, max_supported)
+    warnings: list[str] = []
+
+    if requested > max_supported:
+        warnings.append(
+            f"parallel_workers={requested} exceeds machine max ({max_supported}). Using {effective}."
+        )
+
+    llm_selected = any(_algorithm_uses_local_llm(spec) for spec in selected_algorithms)
+    if llm_selected and effective > LLM_LOCAL_MAX_PARALLEL_WORKERS:
+        warnings.append(
+            "Local LLM algorithm selected (LARC). "
+            f"Limiting parallel_workers to {LLM_LOCAL_MAX_PARALLEL_WORKERS} to reduce memory pressure."
+        )
+        effective = LLM_LOCAL_MAX_PARALLEL_WORKERS
+
+    return effective, warnings
+
+
+def _build_lmstudio_models_url(chat_url: str) -> str:
+    raw = str(chat_url or DEFAULT_LOCAL_LMSTUDIO_CHAT_URL).strip()
+    if "/chat/completions" in raw:
+        return raw.rsplit("/chat/completions", 1)[0] + "/models"
+    parsed = urllib.parse.urlsplit(raw)
+    if not parsed.netloc:
+        parsed = urllib.parse.urlsplit(f"http://{raw.lstrip('/')}")
+    if not parsed.netloc:
+        return "http://127.0.0.1:1234/v1/models"
+    return urllib.parse.urlunsplit((parsed.scheme or "http", parsed.netloc, "/v1/models", "", ""))
+
+
+def _assert_local_lmstudio_model_available(
+    *,
+    model: str,
+    chat_url: str,
+    timeout_s: float = 5.0,
+) -> None:
+    models_url = _build_lmstudio_models_url(chat_url)
+    request = urllib.request.Request(
+        models_url,
+        headers={"Accept": "application/json"},
+        method="GET",
+    )
+    try:
+        with urllib.request.urlopen(request, timeout=float(timeout_s)) as response:
+            payload = response.read().decode("utf-8")
+    except Exception as exc:
+        raise RuntimeError(
+            "LM Studio local is unavailable for LARC_NSGA3. "
+            f"URL={chat_url!r}, expected model={model!r}."
+        ) from exc
+
+    try:
+        data = json.loads(payload)
+    except json.JSONDecodeError as exc:
+        raise RuntimeError(f"LM Studio local returned invalid JSON from /v1/models: {models_url!r}.") from exc
+
+    available_models: set[str] = set()
+    if isinstance(data, dict):
+        raw_models = data.get("data", [])
+        if isinstance(raw_models, list):
+            for item in raw_models:
+                if isinstance(item, dict):
+                    name = item.get("id")
+                    if isinstance(name, str) and name.strip():
+                        available_models.add(name.strip())
+
+    if not available_models:
+        raise RuntimeError("LM Studio local is active, but no models are loaded in memory.")
+
+    if model in {None, "", "loaded-model"}:
+        return
+
+    matched = False
+    for av_m in available_models:
+        if model.lower() in av_m.lower() or av_m.lower() in model.lower():
+            matched = True
+            break
+
+    if not matched:
+        available_str = ", ".join(sorted(available_models))
+        raise RuntimeError(
+            "LM Studio model required by LARC_NSGA3 is not available in memory. "
+            f"expected={model!r}; loaded={available_str}."
+        )
 
 
 def _random_seed() -> int:
@@ -1651,26 +1767,26 @@ def create_pymoo_operator(
 def instantiate_algorithm_class(cls: Any, config: dict[str, Any]) -> Any:
     """
     Instantiate a pymoo algorithm class with configuration from config dict.
-    
+
     Parameters are read from config in priority order:
     1. Explicitly provided in config (e.g., crossover, mutation, selection)
     2. Computed from other config values (pop_size, n_obj, ref_dirs)
     3. pymoo default values (for operators like crossover, mutation, selection)
-    
+
     Args:
         cls: The algorithm class to instantiate
         config: Configuration dictionary with algorithm parameters
-        
+
     Returns:
         Instance of the algorithm class
     """
     pop_size = int(config.get("pop_size", 100))
     n_obj = int(config.get("n_obj", 2))
     n_inds = int(config.get("n_inds", pop_size))  # For some algorithms
-    
+
     sig = inspect.signature(cls.__init__)
     kwargs: dict[str, Any] = {}
-    
+
     # Build default prepared values - these are computed from config
     prepared = {
         "pop_size": pop_size,
@@ -1683,7 +1799,7 @@ def instantiate_algorithm_class(cls: Any, config: dict[str, Any]) -> Any:
             [np.full(max(1, n_obj), 0.2, dtype=float), np.full(max(1, n_obj), 0.8, dtype=float)]
         ),
     }
-    
+
     # List of operator parameter names - these should NOT be passed as strings
     operator_params = ["crossover", "mutation", "selection", "repair", "sampling"]
 
@@ -1717,20 +1833,20 @@ def instantiate_algorithm_class(cls: Any, config: dict[str, Any]) -> Any:
             elif op_value is not None:
                 # It's already an operator instance (or None for "none" option)
                 kwargs[op_param] = op_value
-    
+
     for name, param in list(sig.parameters.items())[1:]:
         if param.kind in (inspect.Parameter.VAR_POSITIONAL, inspect.Parameter.VAR_KEYWORD):
             continue
-        
+
         # If already set by operator_params, skip
         if name in kwargs:
             continue
-        
+
         # Skill: CRITICAL FIX - Skip operator params in second loop to avoid passing strings
         # Operator params were already processed above and should not be passed as strings
         if name in operator_params:
             continue
-        
+
         # Check if value exists in config first (user-specified)
         if name in config:
             kwargs[name] = config[name]
@@ -2376,7 +2492,7 @@ def _register_builtin_hypervolume_specs(specs: dict[str, MetricSpec], warnings: 
 
 def discover_algorithm_specs(base_dir: Path, warnings: list[str]) -> dict[str, AlgorithmSpec]:
     specs: dict[str, AlgorithmSpec] = {}
-    
+
     # Map class name -> display name from metadata for better UI
     algo_display_names = {item["class_name"]: item["name"] for item in pymoo_metadata.PYMOO_ALGORITHMS}
     algo_display_names_norm = {
@@ -2435,7 +2551,7 @@ def discover_algorithm_specs(base_dir: Path, warnings: list[str]) -> dict[str, A
                     spec_id = f"pymoo::{module_name}.{class_name}"
                     if spec_id in specs:
                         continue
-                    
+
                     display_name = algo_display_names.get(
                         class_name,
                         algo_display_names_norm.get(_normalize_type_name_key(class_name), class_name),
@@ -3399,7 +3515,7 @@ class ExperimentBridge(QObject):
     """
     Bridge Class to manage experiment execution and UI communication.
     Follows the Bridge pattern to decouple execution logic from interface.
-    
+
     Signals:
         progress (int, str): Emits execution progress (0-100) and status message.
         run_ready (object): Emits result payload from individual run.
@@ -3641,7 +3757,167 @@ class ExperimentBridge(QObject):
             return problem, None, f"Could not configure JoblibParallelization: {exc}"
 
     @staticmethod
-    def _resolve_pareto_front(problem: Any, problem_name: str, ref_dirs: np.ndarray) -> np.ndarray | None:
+    def _coerce_front_matrix(
+        value: Any,
+        *,
+        n_obj_hint: int | None = None,
+    ) -> np.ndarray | None:
+        if value is None:
+            return None
+
+        if isinstance(value, dict):
+            for key in ("F", "pf", "pareto_front", "front", "values", "y"):
+                if key in value:
+                    resolved = ExperimentBridge._coerce_front_matrix(
+                        value.get(key),
+                        n_obj_hint=n_obj_hint,
+                    )
+                    if resolved is not None:
+                        return resolved
+            return None
+
+        # First try direct numeric coercion (covers lists/tuples that are already matrix-like).
+        try:
+            front = np.asarray(to_numpy(value), dtype=float)
+        except Exception:  # noqa: BLE001
+            front = None
+
+        if front is not None:
+            if front.ndim == 0 or front.size == 0:
+                return None
+            if front.ndim == 1:
+                if n_obj_hint is not None and n_obj_hint > 1 and front.size % int(n_obj_hint) == 0:
+                    front = front.reshape(-1, int(n_obj_hint))
+                else:
+                    front = front.reshape(-1, 1)
+            elif front.ndim > 2:
+                # Some backends return tuples like (X, F). When coerced as ndarray this becomes
+                # a 3D tensor; prefer structural extraction before flattening.
+                if isinstance(value, tuple):
+                    if len(value) >= 2:
+                        preferred = [value[1], value[0], *value[2:]]
+                    else:
+                        preferred = list(value)
+                    for entry in preferred:
+                        resolved = ExperimentBridge._coerce_front_matrix(
+                            entry,
+                            n_obj_hint=n_obj_hint,
+                        )
+                        if resolved is not None:
+                            return resolved
+                if front.shape[-1] <= 0:
+                    return None
+                front = front.reshape(-1, front.shape[-1])
+
+            if front.ndim != 2 or front.size == 0:
+                return None
+
+            finite_mask = np.isfinite(front).all(axis=1)
+            if finite_mask.ndim == 1:
+                front = front[finite_mask]
+            if front.size == 0:
+                return None
+
+            if n_obj_hint is not None and n_obj_hint > 0 and front.shape[1] > int(n_obj_hint):
+                front = front[:, : int(n_obj_hint)]
+
+            return front
+
+        # Fallback for container-style outputs such as (X, F), dict/list wrappers, etc.
+        if isinstance(value, (tuple, list)):
+            if len(value) >= 2:
+                preferred = [value[1], value[0], *value[2:]]
+            else:
+                preferred = list(value)
+            for entry in preferred:
+                resolved = ExperimentBridge._coerce_front_matrix(
+                    entry,
+                    n_obj_hint=n_obj_hint,
+                )
+                if resolved is not None:
+                    return resolved
+            return None
+
+        return None
+
+    @staticmethod
+    def _coerce_front_image(
+        value: Any,
+        *,
+        n_obj_hint: int | None = None,
+    ) -> np.ndarray | None:
+        # PlatEMO-style PF image often comes as {X, Y, Z} grids for visualization.
+        # Convert coordinate grids to point cloud only when dimensionality matches n_obj.
+        if value is None:
+            return None
+
+        grids: list[Any] | None = None
+        if isinstance(value, dict):
+            xyz_keys = [key for key in ("x", "y", "z", "X", "Y", "Z") if key in value]
+            if xyz_keys:
+                # Preserve x,y,z order when possible.
+                ordered: list[str] = [key for key in ("x", "y", "z", "X", "Y", "Z") if key in value]
+                grids = [value[key] for key in ordered]
+            elif "PF" in value:
+                return ExperimentBridge._coerce_front_image(value["PF"], n_obj_hint=n_obj_hint)
+        elif isinstance(value, (tuple, list)):
+            grids = list(value)
+
+        if not grids or len(grids) < 2:
+            return None
+
+        arrays: list[np.ndarray] = []
+        for entry in grids:
+            try:
+                arr = np.asarray(to_numpy(entry), dtype=float)
+            except Exception:  # noqa: BLE001
+                return None
+            if arr.ndim != 2 or arr.size == 0:
+                return None
+            arrays.append(arr)
+
+        base_shape = arrays[0].shape
+        if any(arr.shape != base_shape for arr in arrays[1:]):
+            return None
+
+        n_dims = len(arrays)
+        if n_obj_hint is not None and n_obj_hint > 0 and n_dims != int(n_obj_hint):
+            # For true PF we avoid mapping a 3-grid feasible region to a 2D front.
+            return None
+
+        stacked = np.column_stack([arr.reshape(-1) for arr in arrays])
+        if stacked.ndim != 2 or stacked.size == 0:
+            return None
+        finite_mask = np.isfinite(stacked).all(axis=1)
+        if finite_mask.ndim == 1:
+            stacked = stacked[finite_mask]
+        if stacked.size == 0:
+            return None
+        return stacked
+
+    @staticmethod
+    def _is_default_optimum_placeholder(
+        front: np.ndarray,
+        *,
+        n_obj_hint: int | None = None,
+    ) -> bool:
+        # PlatEMO base PROBLEM uses ones(1, M) when true PF is unknown.
+        if not isinstance(front, np.ndarray) or front.ndim != 2 or front.size == 0:
+            return True
+        if front.shape[0] != 1:
+            return False
+        if n_obj_hint is not None and n_obj_hint > 0 and front.shape[1] != int(n_obj_hint):
+            return False
+        return bool(np.allclose(front, 1.0, atol=1e-12, rtol=0.0))
+
+    @staticmethod
+    def _resolve_pareto_front(
+        problem: Any,
+        problem_name: str,
+        ref_dirs: np.ndarray,
+        *,
+        n_obj_hint: int | None = None,
+    ) -> np.ndarray | None:
         call_kwargs: list[dict[str, Any]] = []
         if problem_name.startswith(("dtlz", "wfg")):
             # Prefer ref_dirs first for many-objective families to avoid expensive/default PF generators.
@@ -3664,23 +3940,80 @@ class ExperimentBridge(QObject):
                     "n_pareto_points": max(80, min(100, int(ref_dirs.shape[0]))),
                 }
             )
-        call_kwargs.append({"n_pareto_points": max(200, int(ref_dirs.shape[0]))})
+        pf_target = max(200, int(ref_dirs.shape[0]))
+        call_kwargs.append({"n_pareto_points": pf_target})
+        call_kwargs.append({"n_points": pf_target})
+        call_kwargs.append({"n_samples": pf_target})
         call_kwargs.append({})
 
-        for method_name in ("pareto_front", "_calc_pareto_front"):
+        true_method_calls: dict[str, list[dict[str, Any]]] = {
+            "pareto_front": list(call_kwargs),
+            "_calc_pareto_front": list(call_kwargs),
+            "pf": list(call_kwargs),
+            "GetOptimum": [{"N": pf_target}, {"n": pf_target}, {}],
+            "get_optimum": [{"N": pf_target}, {"n": pf_target}, {}],
+        }
+        image_method_calls: dict[str, list[dict[str, Any]]] = {
+            "GetPF": [{}],
+            "get_pf": [{}],
+        }
+
+        for method_name in ("pareto_front", "_calc_pareto_front", "pf", "GetOptimum", "get_optimum"):
             fn = getattr(problem, method_name, None)
             if not callable(fn):
                 continue
-            for kwargs in call_kwargs:
+            for kwargs in true_method_calls.get(method_name, call_kwargs):
                 try:
                     pf = fn(**kwargs)
                     if pf is None:
                         continue
-                    pf = np.asarray(to_numpy(pf), dtype=float)
-                    if pf.ndim == 2 and pf.size:
-                        return pf
+                    matrix = ExperimentBridge._coerce_front_matrix(pf, n_obj_hint=n_obj_hint)
+                    if matrix is not None and method_name in {"GetOptimum", "get_optimum"}:
+                        if ExperimentBridge._is_default_optimum_placeholder(
+                            matrix,
+                            n_obj_hint=n_obj_hint,
+                        ):
+                            continue
+                    if matrix is not None:
+                        return matrix
                 except Exception:  # noqa: BLE001
                     continue
+
+        for method_name in ("GetPF", "get_pf"):
+            fn = getattr(problem, method_name, None)
+            if not callable(fn):
+                continue
+            for kwargs in image_method_calls.get(method_name, [{}]):
+                try:
+                    pf = fn(**kwargs)
+                    if pf is None:
+                        continue
+                    matrix = ExperimentBridge._coerce_front_image(pf, n_obj_hint=n_obj_hint)
+                    if matrix is not None:
+                        return matrix
+                except Exception:  # noqa: BLE001
+                    continue
+
+        for attr_name in ("pf", "pareto_front", "optimum", "true_pareto_front", "reference_front"):
+            attr_value = getattr(problem, attr_name, None)
+            if attr_value is None or callable(attr_value):
+                continue
+            matrix = ExperimentBridge._coerce_front_matrix(attr_value, n_obj_hint=n_obj_hint)
+            if matrix is not None:
+                if attr_name == "optimum" and ExperimentBridge._is_default_optimum_placeholder(
+                    matrix,
+                    n_obj_hint=n_obj_hint,
+                ):
+                    continue
+                return matrix
+
+        for attr_name in ("PF", "pf_image"):
+            attr_value = getattr(problem, attr_name, None)
+            if attr_value is None or callable(attr_value):
+                continue
+            matrix = ExperimentBridge._coerce_front_image(attr_value, n_obj_hint=n_obj_hint)
+            if matrix is not None:
+                return matrix
 
         return None
 
@@ -3704,9 +4037,9 @@ class ExperimentBridge(QObject):
                     ps = fn(**kwargs)
                     if ps is None:
                         continue
-                    ps = np.asarray(to_numpy(ps), dtype=float)
-                    if ps.ndim == 2 and ps.size:
-                        return ps
+                    matrix = ExperimentBridge._coerce_front_matrix(ps)
+                    if matrix is not None:
+                        return matrix
                 except Exception:  # noqa: BLE001
                     continue
 
@@ -4166,7 +4499,12 @@ class ExperimentBridge(QObject):
         pareto_front = None
         pareto_set = None
         if use_pf:
-            pareto_front = self._resolve_pareto_front(probe_problem, problem_name, ref_dirs)
+            pareto_front = self._resolve_pareto_front(
+                probe_problem,
+                problem_name,
+                ref_dirs,
+                n_obj_hint=effective_n_obj,
+            )
             if pareto_front is None or pareto_front.size == 0:
                 pareto_front = None
                 problem_warn_label = problem_label_override or problem_spec.label
@@ -4402,6 +4740,11 @@ class ExperimentBridge(QObject):
                     "metrics": dict(metric_snapshot),
                     "front": front.tolist(),
                     "final_front": front.tolist(),
+                    "reference_front": (
+                        None
+                        if pareto_front is None
+                        else np.asarray(pareto_front, dtype=float).tolist()
+                    ),
                     "history": {name: list(values) for name, values in self.history.items()},
                     "x_history": list(self.fe_history),
                     "generations": list(self.fe_history),
@@ -4567,18 +4910,34 @@ class ExperimentBridge(QObject):
 
         import concurrent.futures
         import threading
-        
+
         lock = threading.Lock()
         recommended_workers, max_supported_workers = resolve_parallel_worker_limits()
         requested_workers = _positive_int(
             self.config.get("parallel_workers", recommended_workers),
             recommended_workers,
         )
-        parallel_workers = min(max_supported_workers, requested_workers)
-        if requested_workers > max_supported_workers:
-            self.warning.emit(
-                f"parallel_workers={requested_workers} exceeds machine max ({max_supported_workers}). "
-                f"Using {parallel_workers}."
+        parallel_workers, worker_warnings = _resolve_parallel_workers_for_algorithms(
+            requested_workers=requested_workers,
+            max_supported_workers=max_supported_workers,
+            selected_algorithms=valid_algorithms,
+        )
+        for worker_warning in worker_warnings:
+            self.warning.emit(worker_warning)
+
+        llm_algorithms = [spec.label for spec in valid_algorithms if _algorithm_uses_local_llm(spec)]
+        if llm_algorithms:
+            lmstudio_model = str(
+                os.environ.get("PYMOOLAB_LARC_MODEL", DEFAULT_LOCAL_LMSTUDIO_MODEL)
+            ).strip() or DEFAULT_LOCAL_LMSTUDIO_MODEL
+            lmstudio_url = str(
+                os.environ.get("PYMOOLAB_LMSTUDIO_URL") or os.environ.get("PYMOOLAB_OLLAMA_URL") or DEFAULT_LOCAL_LMSTUDIO_CHAT_URL
+            ).strip()
+            emit_progress(0, f"Validating local LLM ({lmstudio_model}) for {', '.join(llm_algorithms)} ...")
+            _assert_local_lmstudio_model_available(
+                model=lmstudio_model,
+                chat_url=lmstudio_url,
+                timeout_s=6.0,
             )
 
         def run_single_trial(algo_spec: AlgorithmSpec, run_index: int) -> None:
@@ -4643,6 +5002,11 @@ class ExperimentBridge(QObject):
                     "history": dict(primary_trial.get("history", {})),
                     "generations": list(primary_trial.get("generations", [])),
                     "final_front": np.asarray(primary_trial.get("final_front", []), dtype=float).tolist(),
+                    "reference_front": (
+                        None
+                        if pareto_front is None
+                        else np.asarray(pareto_front, dtype=float).tolist()
+                    ),
                     "final_population": dict(primary_trial.get("final_population", {})),
                     "block_profile": primary_trial.get("block_profile"),
                     "profile_cpu_time_s": cpu_time,
@@ -4681,7 +5045,7 @@ class ExperimentBridge(QObject):
         for idx, task in enumerate(tasks):
             algo_spec, run_idx = task
             seed_lookup[(algo_spec.id, int(run_idx))] = int(seed_plan["seeds"][idx])
-        
+
         # -----------------------------------------------------------
         # Determina se pode usar ProcessPoolExecutor (subprocessos)
         # ou precisa do ThreadPoolExecutor (closure com Qt signals).
@@ -4891,6 +5255,11 @@ class ExperimentBridge(QObject):
                         "history": {},
                         "generations": [],
                         "final_front": final_front.tolist() if final_front.size > 0 else [],
+                        "reference_front": (
+                            None
+                            if pareto_front is None
+                            else np.asarray(pareto_front, dtype=float).tolist()
+                        ),
                         "final_population": final_pop_data,
                         "block_profile": None,
                         "profile_cpu_time_s": None,
@@ -4919,7 +5288,7 @@ class ExperimentBridge(QObject):
                     if self._cancelled:
                         executor.shutdown(wait=False, cancel_futures=True)
                         break
-        
+
         if len(valid_algorithms) > 0 and len(results[valid_algorithms[0].label]) > 0:
             first_run = results[valid_algorithms[0].label][0]
             execution_backend_code = str(first_run.get("backend_code", execution_backend_code))
@@ -4955,11 +5324,7 @@ class ExperimentBridge(QObject):
 class PymooExperimentWindow(QMainWindow):
     def __init__(self) -> None:
         super().__init__()
-        self.setWindowFlags(
-            Qt.WindowType.FramelessWindowHint | Qt.WindowType.Window
-        )
         self.setWindowTitle("PymooLab - A Graphical Framework for pymoo")
-        self._drag_pos = None  # Para arrastar a janela pela title bar
         # self.resize(1500, 940)
 
         self.base_dir = Path(__file__).resolve().parent
@@ -5049,7 +5414,7 @@ class PymooExperimentWindow(QMainWindow):
         ] = {}
         self._rebuild_trait_maps()
 
-        self.menuBar().setVisible(False)
+        self._setup_menu()
         self._setup_ui()
         self._refresh_exp_results_storage_info()
         self._on_backend_mode_changed()
@@ -5062,6 +5427,15 @@ class PymooExperimentWindow(QMainWindow):
         self._load_experiment_config_auto()
         # Auto-load persisted analysis history when available.
         self._auto_load_results_history_if_available()
+
+    def _restore_maximized_window_mode(self) -> None:
+        """Keep the main window maximized after module completion UI updates."""
+        if not self.isVisible():
+            return
+        if self.isFullScreen() or self.isMaximized() or self.isMinimized():
+            return
+        self.showMaximized()
+        QTimer.singleShot(0, self.showMaximized)
 
     def _rebuild_trait_maps(self) -> None:
         self.algorithm_traits = {}
@@ -5574,43 +5948,6 @@ class PymooExperimentWindow(QMainWindow):
                 default_label=_default_combo_label("sampling", exp_default_labels),
             )
 
-    # -- Mouse events for dragging the window by the title bar --
-    def mousePressEvent(self, event) -> None:
-        """Start dragging if the click happens on the title bar."""
-        if (
-            event.button() == Qt.MouseButton.LeftButton
-            and hasattr(self, "_title_bar")
-            and self._title_bar.geometry().contains(event.position().toPoint())
-        ):
-            self._drag_pos = event.globalPosition().toPoint() - self.frameGeometry().topLeft()
-            event.accept()
-        else:
-            super().mousePressEvent(event)
-
-    def mouseMoveEvent(self, event) -> None:
-        """Move the window while dragging."""
-        if self._drag_pos is not None and event.buttons() & Qt.MouseButton.LeftButton:
-            self.move(event.globalPosition().toPoint() - self._drag_pos)
-            event.accept()
-        else:
-            super().mouseMoveEvent(event)
-
-    def mouseReleaseEvent(self, event) -> None:
-        """Encerra arraste."""
-        self._drag_pos = None
-        super().mouseReleaseEvent(event)
-
-    def _toggle_maximize(self) -> None:
-        """Alterna entre maximizado e normal."""
-        if self.isMaximized():
-            self.showNormal()
-            self._btn_maximize.setIcon(MaterialIcon("crop_square"))
-            self._btn_maximize.setToolTip("Maximize")
-        else:
-            self.showMaximized()
-            self._btn_maximize.setIcon(MaterialIcon("filter_none"))
-            self._btn_maximize.setToolTip("Restore")
-
     def _setup_menu(self) -> None:
         file_menu = self.menuBar().addMenu("File")
 
@@ -5649,84 +5986,6 @@ class PymooExperimentWindow(QMainWindow):
         root = QVBoxLayout(central)
         root.setContentsMargins(14, 14, 14, 14)
         root.setSpacing(10)
-        # -- Header bar premium --
-        header = QWidget()
-        header.setMinimumHeight(84)
-        header.setStyleSheet(
-            f"background: qlineargradient(x1:0, y1:0, x2:1, y2:0, "
-            f"stop:0 #FFFFFF, "
-            f"stop:0.22 #F5FBFF, "
-            f"stop:0.50 {AppStyles.PRIMARY}, "
-            f"stop:1 {AppStyles.PRIMARY_DARK});"
-            f"border-radius: 8px; padding: 8px 16px;"
-        )
-        header_layout = QHBoxLayout(header)
-        header_layout.setContentsMargins(16, 8, 16, 8)
-        header_layout.setSpacing(10)
-
-        header_brand = QLabel()
-        header_brand.setStyleSheet("background: transparent;")
-        header_brand.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Preferred)
-        brand_pixmap = QPixmap(str(self.base_dir / "app.png"))
-        if not brand_pixmap.isNull():
-            brand_target_h = 64
-            header_brand.setPixmap(
-                brand_pixmap.scaledToHeight(
-                    brand_target_h,
-                    Qt.TransformationMode.SmoothTransformation,
-                )
-            )
-            header_brand.setAlignment(Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter)
-        else:
-            header_brand.setText("PymooLab")
-            header_brand.setStyleSheet(
-                f"color: {AppStyles.TEXT_ON_PRIMARY}; background: transparent; "
-                "font-family: 'Segoe UI'; font-size: 26px; font-weight: bold;"
-            )
-        header_layout.addWidget(header_brand, 1)
-
-        # -- Window controls (minimize / close) --
-        _wbtn_style = (
-            "QPushButton {"
-            "  background: transparent; border: none; border-radius: 4px;"
-            "  padding: 4px; min-width: 32px; min-height: 32px;"
-            "}"
-        )
-        btn_minimize = QPushButton()
-        btn_minimize.setIcon(MaterialIcon("remove"))
-        btn_minimize.setToolTip("Minimize")
-        btn_minimize.setStyleSheet(
-            _wbtn_style
-            + f"QPushButton:hover {{ background: {AppStyles.rgba(AppStyles.TEXT_ON_PRIMARY, 0.25)}; }}"
-        )
-        btn_minimize.setFixedSize(36, 36)
-        btn_minimize.clicked.connect(self.showMinimized)
-        header_layout.addWidget(btn_minimize)
-
-        self._btn_maximize = QPushButton()
-        self._btn_maximize.setIcon(MaterialIcon("crop_square"))
-        self._btn_maximize.setToolTip("Maximize")
-        self._btn_maximize.setStyleSheet(
-            _wbtn_style
-            + f"QPushButton:hover {{ background: {AppStyles.rgba(AppStyles.TEXT_ON_PRIMARY, 0.25)}; }}"
-        )
-        self._btn_maximize.setFixedSize(36, 36)
-        self._btn_maximize.clicked.connect(self._toggle_maximize)
-        header_layout.addWidget(self._btn_maximize)
-
-        btn_close = QPushButton()
-        btn_close.setIcon(MaterialIcon("close"))
-        btn_close.setToolTip("Close")
-        btn_close.setStyleSheet(
-            _wbtn_style
-            + f"QPushButton:hover {{ background: {AppStyles.ERROR}; }}"
-        )
-        btn_close.setFixedSize(36, 36)
-        btn_close.clicked.connect(self.close)
-        header_layout.addWidget(btn_close)
-
-        self._title_bar = header
-        root.addWidget(header)
 
         self.tabs = QTabWidget()
         root.addWidget(self.tabs, 1)
@@ -5744,7 +6003,7 @@ class PymooExperimentWindow(QMainWindow):
         self.tabs.addTab(self.extensibility_tab, MaterialIcon("code"), "Extensibility")
 
         self.setCentralWidget(central)
-        
+
         # Skill: Entrance animations
         self.fade_anim = QPropertyAnimation(self, b"windowOpacity")
         self.fade_anim.setDuration(500)
@@ -5790,7 +6049,8 @@ class PymooExperimentWindow(QMainWindow):
         self.llm_provider_combo.setVisible(False)
 
         self.llm_api_key_edit = QLineEdit()
-        self.llm_api_key_edit.setPlaceholderText("Anthropic API key (visible)")
+        self.llm_api_key_edit.setEchoMode(QLineEdit.EchoMode.Password)
+        self.llm_api_key_edit.setPlaceholderText("Anthropic API key")
         form.addRow("Anthropic API key:", self.llm_api_key_edit)
 
         self.llm_n_var_spin = QSpinBox()
@@ -8574,7 +8834,7 @@ class PymooExperimentWindow(QMainWindow):
         backend_form = QFormLayout()
 
         default_workers, max_workers = resolve_parallel_worker_limits()
-        
+
         # Test Module sempre usa 1 worker (1 algo, 1 problema, 1 run)
         self.parallel_workers_spin = QSpinBox()
         self.parallel_workers_spin.setRange(1, 1)
@@ -9204,13 +9464,14 @@ class PymooExperimentWindow(QMainWindow):
         backend_form.setSpacing(6)
 
         default_workers, max_workers = resolve_parallel_worker_limits()
-        
+
         self.exp_parallel_workers_spin = QSpinBox()
         self.exp_parallel_workers_spin.setRange(1, max_workers)
         self.exp_parallel_workers_spin.setValue(default_workers)
         self.exp_parallel_workers_spin.setToolTip(
-            "Number of parallel threads for multi-run executions. "
-            f"Recommended: {default_workers}. Max on this machine: {max_workers}."
+            "Parallel workers for multi-run executions (processes when supported). "
+            f"Recommended: {default_workers}. Max on this machine: {max_workers}. "
+            f"When LARC_NSGA3 is selected, workers are capped at {LLM_LOCAL_MAX_PARALLEL_WORKERS} for memory safety."
         )
         backend_form.addRow("Parallel workers:", self.exp_parallel_workers_spin)
 
@@ -9427,14 +9688,20 @@ class PymooExperimentWindow(QMainWindow):
         exp_export_row.addStretch(1)
         progress_table_layout.addLayout(exp_export_row)
 
-        # Hidden internal log buffer kept only for compatibility with existing logging code paths.
+        # Experiment execution log
         self.exp_log_box = QPlainTextEdit()
         self.exp_log_box.setReadOnly(True)
         self.exp_log_box.setMaximumBlockCount(2000)
         self.exp_log_box.setFont(QFont("Consolas", 9))
-        self.exp_log_box.setVisible(False)
+        self.exp_log_box.setPlaceholderText("Execution logs will appear here...")
+        self.exp_log_box.setMinimumHeight(140)
 
         right_layout.addWidget(progress_table_box, 1)
+        exp_log_group = QGroupBox("Execution log")
+        exp_log_layout = QVBoxLayout(exp_log_group)
+        exp_log_layout.setContentsMargins(6, 6, 6, 6)
+        exp_log_layout.addWidget(self.exp_log_box)
+        right_layout.addWidget(exp_log_group, 1)
 
         split.addWidget(right_panel)
         split.setSizes([320, 300, 380])
@@ -9853,12 +10120,20 @@ class PymooExperimentWindow(QMainWindow):
             probe_problem = None
 
         ref_dirs = build_reference_dirs(n_obj=n_obj, target=max(12, pop_size_guess))
-        pareto_front = None
+        pareto_front = ExperimentBridge._coerce_front_matrix(
+            run_payload.get("reference_front"),
+            n_obj_hint=n_obj,
+        )
         pareto_set = None
         problem_name = str(run_payload.get("problem_name", problem_spec.name)).lower()
-        if probe_problem is not None:
+        if pareto_front is None and probe_problem is not None:
             try:
-                pareto_front = ExperimentBridge._resolve_pareto_front(probe_problem, problem_name, ref_dirs)
+                pareto_front = ExperimentBridge._resolve_pareto_front(
+                    probe_problem,
+                    problem_name,
+                    ref_dirs,
+                    n_obj_hint=n_obj,
+                )
                 if pareto_front is not None and pareto_front.size == 0:
                     pareto_front = None
             except Exception:  # noqa: BLE001
@@ -10001,67 +10276,68 @@ class PymooExperimentWindow(QMainWindow):
         table = self.exp_run_progress_table
         if table.rowCount() <= 0 or table.columnCount() <= 0:
             return
-        for meta in self.exp_run_progress_row_meta:
-            row = int(meta.get("row", -1))
-            if row < 0:
-                continue
-            problem_id = str(meta.get("instance_id", ""))
-            run_item = table.item(row, 3)
-            if run_item is None:
-                run_item = self._make_table_item(
-                    self._exp_problem_runs_cell_text(problem_id),
-                    align=Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter,
-                )
-                table.setItem(row, 3, run_item)
-            run_item.setText(self._exp_problem_runs_cell_text(problem_id))
-            run_item.setTextAlignment(Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter)
-            run_item.setToolTip(self._exp_problem_runs_cell_tooltip(problem_id))
-            try:
-                active_algo = self.exp_run_progress_active_algo_by_problem.get(problem_id)
-                if not active_algo and self.exp_run_progress_algorithm_order:
-                    active_algo = self.exp_run_progress_algorithm_order[0]
-                active_count = int(
-                    self.exp_run_progress_counts.get((problem_id, str(active_algo or "")), 0)
-                )
-                row_ratio = max(0.0, min(1.0, active_count / max(1, int(self.exp_run_progress_n_runs))))
-                gray_base = QColor(getattr(AppStyles, "PANEL_ALT", "#E5E7EB"))
-                alpha_row = 30 + int(60 * row_ratio)
-                run_item.setBackground(QBrush(QColor(gray_base.red(), gray_base.green(), gray_base.blue(), alpha_row)))
-            except Exception:  # noqa: BLE001
-                pass
-            for algorithm_id in self.exp_run_progress_algorithm_order:
-                col = self.exp_run_progress_col_by_algorithm.get(algorithm_id)
-                if col is None:
+        updates_enabled = table.updatesEnabled()
+        table.setUpdatesEnabled(False)
+        try:
+            for meta in self.exp_run_progress_row_meta:
+                row = int(meta.get("row", -1))
+                if row < 0:
                     continue
-                item = table.item(row, col)
-                if item is None:
-                    item = self._make_table_item(
-                        self._exp_progress_cell_text(problem_id, algorithm_id),
-                        align=Qt.AlignmentFlag.AlignCenter,
+                problem_id = str(meta.get("instance_id", ""))
+                run_item = table.item(row, 3)
+                if run_item is None:
+                    run_item = self._make_table_item(
+                        self._exp_problem_runs_cell_text(problem_id),
+                        align=Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter,
                     )
-                    table.setItem(row, col, item)
-                key = (problem_id, algorithm_id)
-                count = int(self.exp_run_progress_counts.get(key, 0))
-                cell_text = self._exp_progress_cell_text(problem_id, algorithm_id)
-                item.setText(cell_text)
-                item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
-                active_metric_label = self._exp_progress_active_metric_label()
-                metric_brief = self._metric_label_brief(active_metric_label) if active_metric_label else "Metric"
-                item.setToolTip(
-                    f"{metric_brief}: {cell_text}\n{count} / {max(1, self.exp_run_progress_n_runs)} completed"
-                )
+                    table.setItem(row, 3, run_item)
+                run_item.setText(self._exp_problem_runs_cell_text(problem_id))
+                run_item.setTextAlignment(Qt.AlignmentFlag.AlignLeft | Qt.AlignmentFlag.AlignVCenter)
+                run_item.setToolTip(self._exp_problem_runs_cell_tooltip(problem_id))
                 try:
-                    ratio = max(0.0, min(1.0, count / max(1, self.exp_run_progress_n_runs)))
+                    active_algo = self.exp_run_progress_active_algo_by_problem.get(problem_id)
+                    if not active_algo and self.exp_run_progress_algorithm_order:
+                        active_algo = self.exp_run_progress_algorithm_order[0]
+                    active_count = int(
+                        self.exp_run_progress_counts.get((problem_id, str(active_algo or "")), 0)
+                    )
+                    row_ratio = max(0.0, min(1.0, active_count / max(1, int(self.exp_run_progress_n_runs))))
                     gray_base = QColor(getattr(AppStyles, "PANEL_ALT", "#E5E7EB"))
-                    alpha = 35 + int(70 * ratio)
-                    item.setBackground(QBrush(QColor(gray_base.red(), gray_base.green(), gray_base.blue(), alpha)))
+                    alpha_row = 30 + int(60 * row_ratio)
+                    run_item.setBackground(QBrush(QColor(gray_base.red(), gray_base.green(), gray_base.blue(), alpha_row)))
                 except Exception:  # noqa: BLE001
                     pass
-            self._apply_exp_row_winner_bold(row, problem_id)
-            try:
-                table.resizeRowToContents(row)
-            except Exception:  # noqa: BLE001
-                pass
+                for algorithm_id in self.exp_run_progress_algorithm_order:
+                    col = self.exp_run_progress_col_by_algorithm.get(algorithm_id)
+                    if col is None:
+                        continue
+                    item = table.item(row, col)
+                    if item is None:
+                        item = self._make_table_item(
+                            self._exp_progress_cell_text(problem_id, algorithm_id),
+                            align=Qt.AlignmentFlag.AlignCenter,
+                        )
+                        table.setItem(row, col, item)
+                    key = (problem_id, algorithm_id)
+                    count = int(self.exp_run_progress_counts.get(key, 0))
+                    cell_text = self._exp_progress_cell_text(problem_id, algorithm_id)
+                    item.setText(cell_text)
+                    item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
+                    active_metric_label = self._exp_progress_active_metric_label()
+                    metric_brief = self._metric_label_brief(active_metric_label) if active_metric_label else "Metric"
+                    item.setToolTip(
+                        f"{metric_brief}: {cell_text}\n{count} / {max(1, self.exp_run_progress_n_runs)} completed"
+                    )
+                    try:
+                        ratio = max(0.0, min(1.0, count / max(1, self.exp_run_progress_n_runs)))
+                        gray_base = QColor(getattr(AppStyles, "PANEL_ALT", "#E5E7EB"))
+                        alpha = 35 + int(70 * ratio)
+                        item.setBackground(QBrush(QColor(gray_base.red(), gray_base.green(), gray_base.blue(), alpha)))
+                    except Exception:  # noqa: BLE001
+                        pass
+                self._apply_exp_row_winner_bold(row, problem_id)
+        finally:
+            table.setUpdatesEnabled(updates_enabled)
 
     @Slot()
     def _on_exp_algo_selection_changed(self) -> None:
@@ -10169,8 +10445,23 @@ class PymooExperimentWindow(QMainWindow):
         self.exp_problem_pop_size_spin.setValue(values["pop_size"])
         self.exp_problem_n_obj_spin.setValue(values["n_obj"])
         self.exp_problem_n_var_spin.setValue(values["n_var"])
-        self.exp_problem_n_var_spin.setEnabled(True)
-        self.exp_problem_n_var_spin.setToolTip("")
+
+        is_fixed_obj = False
+        base_id = self._exp_problem_target_base_id(problem_id)
+        if isinstance(base_id, str) and base_id in self.problem_specs:
+            spec = self.problem_specs[base_id]
+            name_lower = spec.name.lower()
+            is_fixed_obj = name_lower.startswith("zdt") or name_lower.startswith("imop")
+
+        self.exp_problem_n_obj_spin.setEnabled(not is_fixed_obj)
+        self.exp_problem_n_var_spin.setEnabled(not is_fixed_obj)
+        if is_fixed_obj:
+            self.exp_problem_n_obj_spin.setToolTip("The number of objectives is fixed and cannot be edited for this problem.")
+            self.exp_problem_n_var_spin.setToolTip("The number of variables is fixed and cannot be edited for this problem.")
+        else:
+            self.exp_problem_n_obj_spin.setToolTip("Number of objectives (M).")
+            self.exp_problem_n_var_spin.setToolTip("Number of variables (D).")
+
         self._exp_problem_override_loading = False
         if hasattr(self, "exp_problem_cfg_remove_variant_btn"):
             self.exp_problem_cfg_remove_variant_btn.setEnabled(problem_id in self.exp_problem_variants)
@@ -10532,7 +10823,7 @@ class PymooExperimentWindow(QMainWindow):
 
     def _exp_append_log(self, text: str) -> None:
         """Append timestamped message to the experiment log."""
-        if not getattr(self, "exp_log_box", None) or not self.exp_log_box.isVisible():
+        if not getattr(self, "exp_log_box", None):
             return
         timestamp = format_timestamp_en_us()
         self.exp_log_box.appendPlainText(f"[{timestamp}] {text}")
@@ -11781,7 +12072,7 @@ class PymooExperimentWindow(QMainWindow):
         self._sync_payload_to_analysis_workspace(payload)
 
         # Accumulate new results for the Analysis tab state
-        
+
         # Keep compatibility with local states (optional; keep latest for module-specific views)
         # Keep experiment-local results only (no automatic Analysis tab sync).
 
@@ -11813,6 +12104,7 @@ class PymooExperimentWindow(QMainWindow):
 
         # Refresh Analysis tab
         # Experiment Module no longer auto-populates nor switches to the Analysis tab.
+        self._restore_maximized_window_mode()
 
     @Slot()
     def _on_exp_thread_finished(self) -> None:
@@ -11826,6 +12118,7 @@ class PymooExperimentWindow(QMainWindow):
         self._set_experiment_ui_controls_enabled(True)
         self.exp_btn_start.setEnabled(True)
         self.exp_btn_stop.setEnabled(False)
+        self._restore_maximized_window_mode()
 
     def _populate_analysis_combos(self) -> None:
         """Refresh the Analysis tab combos from current results."""
@@ -12304,7 +12597,7 @@ class PymooExperimentWindow(QMainWindow):
         self.btn_load_history.setToolTip("Load saved runs from results.json")
         self.btn_load_history.clicked.connect(self._load_results_history)
         row.addWidget(self.btn_load_history)
-        
+
         self.btn_clear_history = QPushButton("Clear")
         self.btn_clear_history.setIcon(MaterialIcon("delete"))
         self.btn_clear_history.setToolTip("Clear saved runs from results.json")
@@ -13138,9 +13431,19 @@ class PymooExperimentWindow(QMainWindow):
         self.n_obj_spin.setValue(max(1, n_obj))
         self.n_var_spin.setValue(max(1, n_var))
 
-        is_zdt_builtin = spec.source == "pymoo" and spec.name.lower().startswith("zdt")
-        self.n_obj_spin.setEnabled(not is_zdt_builtin)
+        name_lower = spec.name.lower()
+        is_fixed_obj = name_lower.startswith("zdt") or name_lower.startswith("imop")
+
         self._on_test_n_obj_changed()
+
+        self.n_obj_spin.setEnabled(not is_fixed_obj)
+        self.n_var_spin.setEnabled(not is_fixed_obj)
+        if is_fixed_obj:
+            self.n_obj_spin.setToolTip("The number of objectives is fixed and cannot be edited for this problem.")
+            self.n_var_spin.setToolTip("The number of variables is fixed and cannot be edited for this problem.")
+        else:
+            self.n_obj_spin.setToolTip("Number of objectives (M).")
+            self.n_var_spin.setToolTip("Number of variables (D).")
 
         self._sync_ref_point_hint()
         self._update_profile_compare_availability()
@@ -13621,6 +13924,14 @@ class PymooExperimentWindow(QMainWindow):
         *,
         use_test_context: bool = False,
     ) -> np.ndarray | None:
+        n_obj_hint = _positive_int(run_payload.get("n_obj"), 0, minimum=0)
+        inline_pf = ExperimentBridge._coerce_front_matrix(
+            run_payload.get("reference_front"),
+            n_obj_hint=(n_obj_hint if n_obj_hint > 0 else None),
+        )
+        if inline_pf is not None:
+            return inline_pf
+
         run_problem_id = str(run_payload.get("problem_id", ""))
         if use_test_context:
             pf_map = self.test_pareto_fronts if isinstance(self.test_pareto_fronts, dict) else {}
@@ -13631,18 +13942,36 @@ class PymooExperimentWindow(QMainWindow):
 
         if run_problem_id:
             if run_problem_id in pf_map:
-                return pf_map[run_problem_id]
+                mapped_pf = ExperimentBridge._coerce_front_matrix(
+                    pf_map[run_problem_id],
+                    n_obj_hint=(n_obj_hint if n_obj_hint > 0 else None),
+                )
+                if mapped_pf is not None:
+                    return mapped_pf
+                return None
             # Only use the single cached PF fallback when there is no keyed PF map.
             if pf_main is not None and not pf_map:
-                return pf_main
+                fallback_pf = ExperimentBridge._coerce_front_matrix(
+                    pf_main,
+                    n_obj_hint=(n_obj_hint if n_obj_hint > 0 else None),
+                )
+                return fallback_pf
             # Avoid plotting a PF from another problem.
             return None
 
         if len(pf_map) == 1:
-            return next(iter(pf_map.values()))
+            single_pf = ExperimentBridge._coerce_front_matrix(
+                next(iter(pf_map.values())),
+                n_obj_hint=(n_obj_hint if n_obj_hint > 0 else None),
+            )
+            return single_pf
 
         if not pf_map:
-            return pf_main
+            fallback_pf = ExperimentBridge._coerce_front_matrix(
+                pf_main,
+                n_obj_hint=(n_obj_hint if n_obj_hint > 0 else None),
+            )
+            return fallback_pf
 
         return None
 
@@ -14594,6 +14923,7 @@ class PymooExperimentWindow(QMainWindow):
             self._refresh_test_result_chart()
         # Switch to Experiment Module to show results
         self.tabs.setCurrentWidget(self.results_tab)
+        self._restore_maximized_window_mode()
 
     @Slot()
     def _on_test_thread_finished(self) -> None:
@@ -14607,6 +14937,7 @@ class PymooExperimentWindow(QMainWindow):
         self.test_worker_thread = None
         self.btn_start.setEnabled(True)
         self.btn_stop.setEnabled(False)
+        self._restore_maximized_window_mode()
 
     def _refresh_results_table(self) -> None:
         self._update_stat_controls_state()
@@ -14630,6 +14961,9 @@ class PymooExperimentWindow(QMainWindow):
             self.stats_header_label.setText("PymooLab | Statistical view: Detailed trials")
         if hasattr(self, "stats_warning_label") and core_scipy_stats_available:
             self.stats_warning_label.setText("")
+
+        updates_enabled = self.results_table.updatesEnabled()
+        self.results_table.setUpdatesEnabled(False)
 
         has_profile_columns = self.profile_compare_enabled or any(
             run.get("profile_cpu_time_s") is not None
@@ -14812,6 +15146,7 @@ class PymooExperimentWindow(QMainWindow):
                 self._highlight_results_row(summary_row, note="Latest execution is inside this collapsed group.")
 
         self.results_table.resizeRowsToContents()
+        self.results_table.setUpdatesEnabled(updates_enabled)
 
     def _set_table_item(self, row: int, col: int, text: str) -> None:
         item = QTableWidgetItem(text)
@@ -15670,7 +16005,7 @@ class PymooExperimentWindow(QMainWindow):
         new_metrics = payload.get("metrics", [])
         backend_label = str(payload.get("execution_backend_label", "CPU"))
         profile_enabled = bool(payload.get("profile_compare_enabled", False))
-        
+
         if not hasattr(self, "results") or self.results is None:
             self.results = {}
         if not hasattr(self, "analysis_run_keys") or self.analysis_run_keys is None:
@@ -15679,28 +16014,28 @@ class PymooExperimentWindow(QMainWindow):
             self._rebuild_analysis_run_index()
         if not hasattr(self, "metric_names") or self.metric_names is None:
             self.metric_names = []
-            
+
         # 1. Merge results
         for algo, runs in new_results.items():
             algo_name = str(algo)
             for r in runs:
                 if isinstance(r, dict):
                     self._append_analysis_run(dict(r), algo_hint=algo_name)
-                
+
         # 2. Merge metrics
         curr_metrics = set(self.metric_names)
         for m in new_metrics:
             if str(m) not in curr_metrics:
                 self.metric_names.append(str(m))
-        
+
         # 3. Update global flags
         self.execution_backend_label = backend_label
         self.profile_compare_enabled = getattr(self, "profile_compare_enabled", False) or profile_enabled
-        
+
         # 4. Merge Pareto fronts
         if not hasattr(self, "pareto_fronts") or self.pareto_fronts is None:
             self.pareto_fronts = {}
-        
+
         pf_map_raw = payload.get("pareto_fronts")
         if isinstance(pf_map_raw, dict):
             for prob_id, pf_raw in pf_map_raw.items():
@@ -15709,7 +16044,7 @@ class PymooExperimentWindow(QMainWindow):
                     self.pareto_fronts[key] = None
                 else:
                     self.pareto_fronts[key] = np.asarray(pf_raw, dtype=float)
-        
+
         pf_main = payload.get("pareto_front")
         if pf_main is not None:
             self.pareto_front = np.asarray(pf_main, dtype=float)
@@ -15869,20 +16204,20 @@ class PymooExperimentWindow(QMainWindow):
         if not results_file.exists():
             QMessageBox.information(self, "Clear History", "No history file found.")
             return
-            
+
         ans = QMessageBox.question(
-            self, 
-            "Clear History", 
+            self,
+            "Clear History",
             "Are you sure you want to permanently delete the results history file-",
             QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No
         )
-        
+
         if ans == QMessageBox.StandardButton.Yes:
             try:
                 # 1. Delete the file on disk
                 if results_file.exists():
                     results_file.unlink()
-                
+
                 # 2. Reset in-memory state (current Analysis tab state)
                 self.results = {}
                 self.analysis_run_keys = set()
@@ -15893,13 +16228,13 @@ class PymooExperimentWindow(QMainWindow):
                 self.pareto_front = None
                 self.pareto_fronts = {}
                 self._last_stat_result = None
-                
+
                 # 3. Refresh the UI to reflect the cleared state
                 self._populate_analysis_combos()
                 self._refresh_results_table()
                 self._refresh_convergence_chart()
                 self._refresh_pareto_chart()
-                
+
                 QMessageBox.information(self, "Clear History", "History and active analysis results cleared successfully.")
             except Exception as e:
                 QMessageBox.critical(self, "Clear History", f"Failed to clear history:\n{e}")
@@ -16422,7 +16757,7 @@ class PymooExperimentWindow(QMainWindow):
 def main() -> int:
     """
     Main function for PymooLab application.
-    
+
     Follows pyside6-pro-master skill guidelines:
     - Always maximized mode (showMaximized)
     - Always light mode (light_blue.xml)
@@ -16431,21 +16766,20 @@ def main() -> int:
     - UTF-8 without BOM
     """
     app = QApplication(sys.argv)
-    
+
     # Skill: UI/UX Premium - qt_material + styles.py
-    # Set default font
-    app.setFont(QFont("Segoe UI", 10))
-    
+
+
     # Skill: Apply qt_material LIGHT theme (light_blue.xml)
     # invert_secondary=True fixes icon colors in light themes
     # Always use light theme as per requirements
     apply_stylesheet(
-        app, 
+        app,
         theme='light_blue.xml',  # Always LIGHT theme
         invert_secondary=True,
         extra=StylesAppStyles.get_qt_material_theme()
     )
-    
+
     # Apply complementary stylesheet from styles.py
     app.setStyleSheet(StylesAppStyles.get_stylesheet())
 

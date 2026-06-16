@@ -1,0 +1,20 @@
+# Local OS and interpreter artifacts
+.DS_Store
+__pycache__/
+*.py[cod]
+
+# Local virtual environments
+.venv/
+venv/
+
+# Local logs, profiles, and generated run outputs
+logs/
+*.prof
+latest_results.json
+experiment_module_results/
+test_module_results/
+reports/validation/
+mcdm_results/
+
+# Local benchmark/test workspace. Release pushes intentionally exclude tests/.
+tests/

@@ -178,6 +178,7 @@ class SSW(Algorithm):
                  n_points: int = 100,
                  step_size: float = 0.01,
                  epsilon: float = 0.15,
+                 delta: float = 0.1,
                  jac=None,
                  output=MultiObjectiveOutput(),
                  array_backend: str = "auto",
@@ -198,7 +199,10 @@ class SSW(Algorithm):
         self.n_points = n_points
         self.step_size = step_size
         self.epsilon = epsilon
+        self.delta = delta
         self.jac = jac
+
+        self.sigma = np.full(n_points, step_size, dtype=float)
 
         # VariAvel interna para a funAAo objetivo vetorial
         self._func = None
@@ -233,70 +237,129 @@ class SSW(Algorithm):
 
     # ----- IteraAAo (EuleraMaruyama) --------------------------------------
 
-    def _infill(self):
-        """Aplica um passo de EuleraMaruyama em cada trajetA3ria."""
-        X = self.pop.get("X")                           # (n_points, n_var)
+    def _compute_jacobian(self, X):
+        """Calcula o Jacobiano para um batch de pontos X (N, n).
+
+        As avaliações de diferenças finitas passam pelo evaluator e são
+        contabilizadas em ``evaluator.n_eval``, entrando no orçamento
+        total de avaliações do algoritmo.
+        """
+        # Strict abort para previnir overshoot de avaliações
+        if hasattr(self, "termination") and hasattr(self.termination, "n_max_evals"):
+            if self.evaluator.n_eval >= self.termination.n_max_evals:
+                return np.zeros((X.shape[0], self.problem.n_obj, X.shape[1]))
+
         N_pop, n = X.shape
         m = self.problem.n_obj
-        sigma = self.step_size
-        eps = self.epsilon
-        h = 1e-7  # Passo de diferenciaAAo finita
+        h = 1e-7
 
-        # --- CAlculo dos Jacobianos ---
         if self.jac is not None:
-             # Jacobiano analAtico (assumimos vetorizado ou loop python)
              try:
-                 J_batch = self.jac(X) # Tenta chamada vetorizada (N, m, n)
+                 J_batch = self.jac(X)
              except TypeError:
                  J_batch = np.array([self.jac(x) for x in X])
-        else:
-             # DiferenAas finitas vetorizadas
-             # Queremos J_i = [af_k / ax_j] de tamanho (m, n)
-             # Expandimos X para adicionar perturbaAAes em cada dimensAo j
-             # X_base: (N, n, n) -> repetimos X em dim 1
-             X_rep = np.tile(X[:, np.newaxis, :], (1, n, 1))
+             return J_batch
 
-             # Matriz identidade escalada: (n, n)
-             Eye = np.eye(n) * h
+        X_rep = np.tile(X[:, np.newaxis, :], (1, n, 1))
+        Eye = np.eye(n) * h
+        X_plus = X_rep + Eye[np.newaxis, :, :]
+        X_minus = X_rep - Eye[np.newaxis, :, :]
 
-             # X_plus e X_minus: (N, n, n)
-             # Para cada indivAduo i, e cada dimensAo j (eixo 1), somamos h*e_j
-             X_plus = X_rep + Eye[np.newaxis, :, :]
-             X_minus = X_rep - Eye[np.newaxis, :, :]
+        X_plus_flat = X_plus.reshape(-1, n)
+        X_minus_flat = X_minus.reshape(-1, n)
 
-             # Achatar para avaliaAAo em lote: (N*n, n)
-             X_plus_flat = X_plus.reshape(-1, n)
-             X_minus_flat = X_minus.reshape(-1, n)
+        pop_plus = Population.new("X", X_plus_flat)
+        pop_minus = Population.new("X", X_minus_flat)
 
-             # Avaliar f(X + h) e f(X - h)
-             # Nota: pymoo espera retorno em dicionArio
-             out_plus, out_minus = {}, {}
-             self.problem._evaluate(X_plus_flat, out_plus)
-             self.problem._evaluate(X_minus_flat, out_minus)
+        self.evaluator.eval(self.problem, pop_plus)
+        self.evaluator.eval(self.problem, pop_minus)
 
-             # Reshape F: (N, n, m) -> F_plus[i, j, :] = f(x_i + h*e_j)
-             F_plus = out_plus["F"].reshape(N_pop, n, m)
-             F_minus = out_minus["F"].reshape(N_pop, n, m)
+        F_plus = pop_plus.get("F").reshape(N_pop, n, m)
+        F_minus = pop_minus.get("F").reshape(N_pop, n, m)
 
-             # DiferenAa centrada
-             # J_{k, j} = (f_k^+ - f_k^-) / 2h
-             # Atualmente F_diff[i, j, k] -> derivada de f_k referente a x_j
-             J_raw = (F_plus - F_minus) / (2 * h)
+        J_raw = (F_plus - F_minus) / (2 * h)
+        J_batch = J_raw.transpose(0, 2, 1)
+        return J_batch
 
-             # Transpor para (N, m, n): J[i, k, j]
-             J_batch = J_raw.transpose(0, 2, 1)
+    def _infill(self):
+        """Aplica um passo de Euler–Maruyama com controle de erro (stochbas).
 
-        # --- AtualizaAAo (Euler-Maruyama) ---
+        O loop de halving é limitado a ``max_halvings=3`` para conter o
+        custo de Jacobianos adicionais por diferenças finitas.
+        """
+        X = self.pop.get("X")                           # (n_points, n_var)
+        N_pop, n = X.shape
+        eps = self.epsilon
+
+        mask_done = np.zeros(N_pop, dtype=bool)
         X_new = np.empty_like(X)
-        
-        # O QP A resolvido individualmente (SLSQP A sequencial)
-        # Mas A rApido pois m A pequeno.
-        for i in range(N_pop):
-            q = _compute_q(J_batch[i])
-            eta = self.random_state.standard_normal(n)
-            X_new[i] = X[i] - sigma * q + eps * np.sqrt(sigma) * eta
 
-        # ProjeAAo nos limites (clipping)
+        # q(x) inicial
+        J_batch = self._compute_jacobian(X)
+        Q_x = np.empty((N_pop, n))
+        for i in range(N_pop):
+            Q_x[i] = _compute_q(J_batch[i])
+
+        halvings = np.zeros(N_pop, dtype=int)
+        max_halvings = 3
+
+        while not np.all(mask_done):
+            # Strict abort para evitar excesso de avaliações nas subdivisões de passo
+            if hasattr(self, "termination") and hasattr(self.termination, "n_max_evals"):
+                if self.evaluator.n_eval >= self.termination.n_max_evals:
+                    X_new[~mask_done] = X[~mask_done]
+                    break
+
+            idx = np.where(~mask_done)[0]
+            n_act = len(idx)
+
+            X_act = X[idx]
+            Q_act = Q_x[idx]
+            sigma_act = self.sigma[idx, np.newaxis]
+            sqsig_act = np.sqrt(sigma_act / 2.0)
+
+            n1 = self.random_state.standard_normal((n_act, n))
+            n2 = self.random_state.standard_normal((n_act, n))
+            n3 = n1 + n2
+
+            # Passo 1 (Inteiro) e Meio Passo (1)
+            x1_act = X_act - sigma_act * Q_act - eps * n3 * sqsig_act
+            xi_act = X_act - 0.5 * sigma_act * Q_act - eps * n1 * sqsig_act
+
+            # Jacobiano e q(x) no meio passo
+            J_xi = self._compute_jacobian(xi_act)
+            Q_xi = np.empty_like(xi_act)
+            for i in range(n_act):
+                Q_xi[i] = _compute_q(J_xi[i])
+
+            # Meio Passo (2)
+            x2_act = xi_act - 0.5 * sigma_act * Q_xi - eps * n2 * sqsig_act
+
+            # Critério de aceite
+            diff = x1_act - x2_act
+            dist = np.sqrt(np.sum(diff**2, axis=1))
+            accept = dist < self.delta
+
+            # Atualiza trajetórias aceitas
+            acc_idx = idx[accept]
+            if len(acc_idx) > 0:
+                X_new[acc_idx] = x2_act[accept]
+                mask_done[acc_idx] = True
+
+            # Reduz sigma para trajetórias rejeitadas
+            rej_idx = idx[~accept]
+            if len(rej_idx) > 0:
+                self.sigma[rej_idx] /= 2.0
+                halvings[rej_idx] += 1
+
+                # Desiste após max_halvings para evitar loop infinito
+                stuck = rej_idx[halvings[rej_idx] >= max_halvings]
+                if len(stuck) > 0:
+                    stuck_mask = halvings[rej_idx] >= max_halvings
+                    X_new[stuck] = x2_act[~accept][stuck_mask]
+                    mask_done[stuck] = True
+
+        # Projeção nos limites (clipping)
         if self.problem.has_bounds():
             X_new = np.clip(X_new, self.problem.xl, self.problem.xu)
 

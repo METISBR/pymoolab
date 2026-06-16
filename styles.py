@@ -56,7 +56,7 @@ class ColorPalette:
     accent_orange: str = "#5F6E7A"   # gray replacement for prior warm/red emphasis
     selection_blue: str = "#0B7DB8"
     selection_orange: str = "#475569"  # gray selection (slate)
-    
+
     def to_dict(self) -> Dict[str, str]:
         """Return palette as dictionary for use with qt_material."""
         return {
@@ -72,7 +72,6 @@ class ColorPalette:
             'text_primary': self.text_primary,
             'text_secondary': self.text_secondary,
         }
-
 
 @dataclass
 class Typography:
@@ -274,7 +273,7 @@ class AppStyles:
             background-color: {colors.surface_variant};
         }}
         """
-    
+
     @staticmethod
     def get_qt_material_theme() -> Dict[str, str]:
         """

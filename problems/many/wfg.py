@@ -92,7 +92,28 @@ class WFG(Problem):
         pf = self.evaluate(self._calc_pareto_set_extremes(), return_values_of=["F"])
 
         if ref_dirs is None:
-            ref_dirs = get_ref_dirs(self.n_obj)
+            try:
+                from pymoo.util.ref_dirs import get_reference_directions
+                if self.n_obj == 2:
+                    ref_dirs = get_reference_directions("das-dennis", 2, n_partitions=100)
+                elif self.n_obj == 3:
+                    ref_dirs = get_reference_directions("das-dennis", 3, n_partitions=15)
+                else:
+                    try:
+                        from operators.utility_functions.UniformPoint import UniformPoint
+                        ref_dirs, _ = UniformPoint(500, self.n_obj)
+                    except Exception:
+                        ref_dirs = get_reference_directions("das-dennis", self.n_obj, n_partitions=5)
+            except Exception:
+                pass
+            if ref_dirs is None:
+                # Fallback
+                try:
+                    ref_dirs = get_ref_dirs(self.n_obj)
+                except Exception:
+                    # Very crude fallback if all else fails
+                    ref_dirs = np.random.random((500, self.n_obj))
+                    ref_dirs /= np.linalg.norm(ref_dirs, axis=1, keepdims=True)
 
         for k in range(n_iterations):
             _pf = self.evaluate(self._calc_pareto_set_interior(points_each_iteration), return_values_of=["F"])

@@ -1,4 +1,4 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 """
 IMOP benchmark family.
@@ -30,10 +30,13 @@ class _BaseIMOP(Problem):
 
 
 class IMOP1(_BaseIMOP):
-    def __init__(self, n_var: int = 10, a1: float = 0.05, K: int = 5, **kwargs):
+    def __init__(self, n_var: int | None = None, n_obj: int | None = None, a1: float = 0.05, K: int = 5, **kwargs):
+        n_obj = 2
+        n_var = int(n_var) if n_var is not None else 10
+        kwargs.pop("n_obj", None)
         self.a1 = float(a1)
         self.K = int(K)
-        super().__init__(n_var=int(n_var), n_obj=2, xl=0.0, xu=1.0, vtype=float, **kwargs)
+        super().__init__(n_var=n_var, n_obj=n_obj, xl=0.0, xu=1.0, vtype=float, **kwargs)
 
     def _calc_pareto_front(self, n_pareto_points=100):
         n = max(2, int(n_pareto_points) // 2)
@@ -55,10 +58,13 @@ class IMOP1(_BaseIMOP):
 
 
 class IMOP2(_BaseIMOP):
-    def __init__(self, n_var: int = 10, a1: float = 0.05, K: int = 5, **kwargs):
+    def __init__(self, n_var: int | None = None, n_obj: int | None = None, a1: float = 0.05, K: int = 5, **kwargs):
+        n_obj = 2
+        n_var = int(n_var) if n_var is not None else 10
+        kwargs.pop("n_obj", None)
         self.a1 = float(a1)
         self.K = int(K)
-        super().__init__(n_var=int(n_var), n_obj=2, xl=0.0, xu=1.0, vtype=float, **kwargs)
+        super().__init__(n_var=n_var, n_obj=n_obj, xl=0.0, xu=1.0, vtype=float, **kwargs)
 
     def _calc_pareto_front(self, n_pareto_points=100):
         n = max(2, int(n_pareto_points) // 2)
@@ -80,10 +86,13 @@ class IMOP2(_BaseIMOP):
 
 
 class IMOP3(_BaseIMOP):
-    def __init__(self, n_var: int = 10, a1: float = 0.05, K: int = 5, **kwargs):
+    def __init__(self, n_var: int | None = None, n_obj: int | None = None, a1: float = 0.05, K: int = 5, **kwargs):
+        n_obj = 2
+        n_var = int(n_var) if n_var is not None else 10
+        kwargs.pop("n_obj", None)
         self.a1 = float(a1)
         self.K = int(K)
-        super().__init__(n_var=int(n_var), n_obj=2, xl=0.0, xu=1.0, vtype=float, **kwargs)
+        super().__init__(n_var=n_var, n_obj=n_obj, xl=0.0, xu=1.0, vtype=float, **kwargs)
 
     def _calc_pareto_front(self, n_pareto_points=200):
         x = np.linspace(0.0, 1.0, int(n_pareto_points))
@@ -102,10 +111,13 @@ class IMOP3(_BaseIMOP):
 
 
 class IMOP4(_BaseIMOP):
-    def __init__(self, n_var: int = 10, a1: float = 0.05, K: int = 5, **kwargs):
+    def __init__(self, n_var: int | None = None, n_obj: int | None = None, a1: float = 0.05, K: int = 5, **kwargs):
+        n_obj = 3
+        n_var = int(n_var) if n_var is not None else 10
+        kwargs.pop("n_obj", None)
         self.a1 = float(a1)
         self.K = int(K)
-        super().__init__(n_var=int(n_var), n_obj=3, xl=0.0, xu=1.0, vtype=float, **kwargs)
+        super().__init__(n_var=n_var, n_obj=n_obj, xl=0.0, xu=1.0, vtype=float, **kwargs)
 
     def _calc_pareto_front(self, n_pareto_points=100):
         x = np.linspace(0.0, 1.0, int(n_pareto_points))
@@ -125,11 +137,14 @@ class IMOP4(_BaseIMOP):
 
 
 class IMOP5(_BaseIMOP):
-    def __init__(self, n_var: int = 10, a1: float = 0.05, a2: float = 10.0, K: int = 5, **kwargs):
+    def __init__(self, n_var: int | None = None, n_obj: int | None = None, a1: float = 0.05, a2: float = 10.0, K: int = 5, **kwargs):
+        n_obj = 3
+        n_var = int(n_var) if n_var is not None else 10
+        kwargs.pop("n_obj", None)
         self.a1 = float(a1)
         self.a2 = float(a2)
         self.K = int(K)
-        super().__init__(n_var=int(n_var), n_obj=3, xl=0.0, xu=1.0, vtype=float, **kwargs)
+        super().__init__(n_var=n_var, n_obj=n_obj, xl=0.0, xu=1.0, vtype=float, **kwargs)
 
     def _calc_pareto_front(self, n_pareto_points=400):
         m = int(np.ceil(np.sqrt(max(8.0, n_pareto_points / 8.0 * 1.3))))
@@ -159,11 +174,14 @@ class IMOP5(_BaseIMOP):
 
 
 class IMOP6(_BaseIMOP):
-    def __init__(self, n_var: int = 10, a1: float = 0.05, a2: float = 10.0, K: int = 5, **kwargs):
+    def __init__(self, n_var: int | None = None, n_obj: int | None = None, a1: float = 0.05, a2: float = 10.0, K: int = 5, **kwargs):
+        n_obj = 3
+        n_var = int(n_var) if n_var is not None else 10
+        kwargs.pop("n_obj", None)
         self.a1 = float(a1)
         self.a2 = float(a2)
         self.K = int(K)
-        super().__init__(n_var=int(n_var), n_obj=3, xl=0.0, xu=1.0, vtype=float, **kwargs)
+        super().__init__(n_var=n_var, n_obj=n_obj, xl=0.0, xu=1.0, vtype=float, **kwargs)
 
     def _calc_pareto_front(self, n_pareto_points=400):
         m = int(np.ceil(np.sqrt(max(4.0, n_pareto_points))))
@@ -194,11 +212,14 @@ class IMOP6(_BaseIMOP):
 
 
 class IMOP7(_BaseIMOP):
-    def __init__(self, n_var: int = 10, a1: float = 0.05, a2: float = 10.0, K: int = 5, **kwargs):
+    def __init__(self, n_var: int | None = None, n_obj: int | None = None, a1: float = 0.05, a2: float = 10.0, K: int = 5, **kwargs):
+        n_obj = 3
+        n_var = int(n_var) if n_var is not None else 10
+        kwargs.pop("n_obj", None)
         self.a1 = float(a1)
         self.a2 = float(a2)
         self.K = int(K)
-        super().__init__(n_var=int(n_var), n_obj=3, xl=0.0, xu=1.0, vtype=float, **kwargs)
+        super().__init__(n_var=n_var, n_obj=n_obj, xl=0.0, xu=1.0, vtype=float, **kwargs)
 
     def _calc_pareto_front(self, n_pareto_points=400):
         rng = np.random.default_rng(1)
@@ -228,11 +249,14 @@ class IMOP7(_BaseIMOP):
 
 
 class IMOP8(_BaseIMOP):
-    def __init__(self, n_var: int = 10, a1: float = 0.05, a2: float = 10.0, K: int = 5, **kwargs):
+    def __init__(self, n_var: int | None = None, n_obj: int | None = None, a1: float = 0.05, a2: float = 10.0, K: int = 5, **kwargs):
+        n_obj = 3
+        n_var = int(n_var) if n_var is not None else 10
+        kwargs.pop("n_obj", None)
         self.a1 = float(a1)
         self.a2 = float(a2)
         self.K = int(K)
-        super().__init__(n_var=int(n_var), n_obj=3, xl=0.0, xu=1.0, vtype=float, **kwargs)
+        super().__init__(n_var=n_var, n_obj=n_obj, xl=0.0, xu=1.0, vtype=float, **kwargs)
 
     def _calc_pareto_front(self, n_pareto_points=1000):
         m = int(np.ceil(np.sqrt(max(4.0, n_pareto_points))))

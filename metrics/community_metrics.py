@@ -122,8 +122,12 @@ def _pairwise_euclidean(a: Any, b: Any) -> np.ndarray:
     bb = _as_2d(b)
     if aa.size == 0 or bb.size == 0:
         return np.empty((aa.shape[0], bb.shape[0]), dtype=float)
-    diff = aa[:, None, :] - bb[None, :, :]
-    return np.linalg.norm(diff, axis=2)
+    try:
+        from scipy.spatial.distance import cdist
+        return np.asarray(cdist(aa, bb, metric='euclidean'), dtype=float)
+    except ImportError:
+        diff = aa[:, None, :] - bb[None, :, :]
+        return np.linalg.norm(diff, axis=2)
 
 
 def _pairwise_cityblock(a: Any, b: Any) -> np.ndarray:
@@ -392,12 +396,18 @@ def _community_hv(pop_obj: np.ndarray, optimum: np.ndarray, context: dict[str, A
     if np.any(max_value < min_value):
         return 0.0
 
+    chunk_size = max(1, int(context.get("hv_mc_chunk_size", min(sample_num, 100_000))))
     rng = np.random.default_rng(1)
-    samples = rng.uniform(low=min_value, high=max_value, size=(sample_num, m))
-    dominated = np.zeros(sample_num, dtype=bool)
-    for i in range(norm_pop.shape[0]):
-        dominated |= np.all(norm_pop[i] <= samples, axis=1)
-    return float(np.prod(max_value - min_value) * np.mean(dominated))
+    dominated_count = 0
+    remaining = sample_num
+    while remaining > 0:
+        current_size = min(chunk_size, remaining)
+        samples = rng.uniform(low=min_value, high=max_value, size=(current_size, m))
+        # Vectorized per chunk to avoid allocating pop x sample_num x objectives at once.
+        dominated = np.any(np.all(norm_pop[:, None, :] <= samples[None, :, :], axis=2), axis=0)
+        dominated_count += int(np.count_nonzero(dominated))
+        remaining -= current_size
+    return float(np.prod(max_value - min_value) * (dominated_count / sample_num))
 
 
 def _subset_task_population(context: dict[str, Any], task_id: int) -> np.ndarray:
@@ -754,6 +764,16 @@ def _metric_PD(front: np.ndarray, context: dict[str, Any]) -> float:
     n = pop_all.shape[0]
     if n <= 1:
         return 0.0
+
+    # For large fronts, use scipy MST instead of O(n³) custom Prim's
+    if n > 500:
+        try:
+            from scipy.sparse.csgraph import minimum_spanning_tree
+            D_full = _pairwise_minkowski(pop_all, pop_all, p=0.1)
+            mst = minimum_spanning_tree(D_full)
+            return float(mst.sum())
+        except ImportError:
+            pass  # Fall through to original algorithm
 
     C = np.eye(n, dtype=bool)
     D = _pairwise_minkowski(pop_all, pop_all, p=0.1)

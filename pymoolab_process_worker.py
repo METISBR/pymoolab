@@ -19,9 +19,20 @@ from typing import Any
 import numpy as np
 
 
+_ALLOWED_ALGO_PREFIXES = ("algorithms.", "pymoo.")
+_ALLOWED_PROBLEM_PREFIXES = ("problems.", "pymoo.", "pymoolab_core.")
+
+
 # ---------------------------------------------------------------------------
 # Utilitários de instanciação (replicados de PymooLab.py sem dependência Qt)
 # ---------------------------------------------------------------------------
+
+def _is_allowed_worker_module(module_name: str, allowed_prefixes: tuple[str, ...]) -> bool:
+    module = str(module_name or "").strip()
+    if not module or module.startswith(".") or "/" in module or "\\" in module:
+        return False
+    return any(module.startswith(prefix) for prefix in allowed_prefixes)
+
 
 def _positive_int(value: Any, default: int = 1, minimum: int = 0) -> int:
     try:
@@ -181,9 +192,15 @@ def run_trial_in_process(
     Retorna dict serializável com resultados brutos.
     Métricas são calculadas no processo principal (QThread).
     """
-    # Garante que o projeto está no sys.path
-    if project_root not in sys.path:
-        sys.path.insert(0, project_root)
+    # Validate project_root before inserting into sys.path
+    _project_path = Path(project_root).resolve()
+    if not _project_path.is_dir():
+        raise RuntimeError(
+            f"project_root is not a valid directory: {project_root}"
+        )
+    _root_str = str(_project_path)
+    if _root_str not in sys.path:
+        sys.path.insert(0, _root_str)
 
     import warnings
     warnings.filterwarnings("ignore", category=RuntimeWarning)
@@ -195,6 +212,17 @@ def run_trial_in_process(
     except ImportError:
         from pymoo.optimize import minimize
         from pymoo.termination import get_termination
+
+    if problem_module and not _is_allowed_worker_module(problem_module, _ALLOWED_PROBLEM_PREFIXES):
+        raise RuntimeError(
+            f"Módulo de problema não permitido: '{problem_module}'. "
+            f"Prefixos aceitos: {_ALLOWED_PROBLEM_PREFIXES}"
+        )
+    if not _is_allowed_worker_module(algo_module, _ALLOWED_ALGO_PREFIXES):
+        raise RuntimeError(
+            f"Módulo de algoritmo não permitido: '{algo_module}'. "
+            f"Prefixos aceitos: {_ALLOWED_ALGO_PREFIXES}"
+        )
 
     # ---- Criar problema ----
     problem = None
