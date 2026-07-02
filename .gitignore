@@ -1,0 +1,36 @@
+# Local OS and interpreter artifacts
+.DS_Store
+__pycache__/
+*.py[cod]
+
+# Local virtual environments
+.venv/
+venv/
+
+# Local logs, profiles, and generated run outputs
+logs/
+*.prof
+latest_results.json
+experiment_module_results/
+test_module_results/
+reports/validation/
+mcdm_results/
+
+# Local credentials — never version. The GUI saves the Anthropic API key in
+# this dotfile at the project root when the user opts to persist it.
+.pymoolab_anthropic_api_key
+
+# Local runtime state (autosaved GUI configurations). These carry absolute
+# machine paths (usernames) and belong to the local session, not the release.
+last_experiment_config.json
+pymoo_experiment_config.json
+pymoo_config.json
+
+# Local benchmark/test workspace. Release pushes intentionally exclude tests/.
+tests/
+
+# Local-only developer tooling and agent instructions (kept out of releases).
+build_manual.py
+AGENTS.md
+clean_pycache.py
+push_without_tests.sh

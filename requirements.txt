@@ -1,0 +1,43 @@
+# ==============================================================================
+# PymooLab Dependency Manifest
+# ==============================================================================
+# Base runtime requirements for the PymooLab framework (entrypoint: PymooLab.py).
+# Recommended Python: 3.11.x
+# ==============================================================================
+
+# Core numerical and optimization stack
+numpy>=2.3,<3
+pymoo>=0.6.1,<0.7
+scipy>=1.16,<2
+matplotlib>=3.10,<4
+psutil>=7.2,<8
+
+# GUI and visual theming
+PySide6>=6.10,<7
+qt-material>=2.17,<3
+qt-material-icons>=0.4,<1
+
+# ==============================================================================
+# Optional profiles (uncomment as needed)
+# ==============================================================================
+
+# GPU/JAX acceleration profile
+# jax>=0.9,<1
+# jaxlib>=0.9,<1
+
+# Apple Silicon native MLX acceleration profile
+mlx>=0.21.0
+
+# Optional CuPy profile (legacy benchmark helpers / GPU experiments)
+# Choose the package matching your CUDA runtime (example below for CUDA 12.x):
+# cupy-cuda12x>=13,<14
+
+# LLM-assisted artifact formulation
+# anthropic>=0.76,<1
+
+# ML-dependent algorithms/problems (e.g., DISK_2025, SAMOEA_TL2M, Sparse_IS)
+# scikit-learn>=1.8,<2
+
+# Development and validation
+# pytest>=9,<10
+
